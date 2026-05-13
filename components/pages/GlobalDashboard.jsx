@@ -109,7 +109,7 @@ function DatacenterDetailPanel({ dc, onClose, onAskAI }) {
           {[
             { label: 'Capacity', value: `${dc.capacity_mw} MW`, color: '#0077C8' },
             { label: 'Tier Rating', value: dc.tier_rating, color: '#D4A017' },
-            { label: 'PUE', value: dc.pue.toFixed(2), color: getPUEColor(dc.pue) },
+            { label: 'PUE', value: (dc.pue ?? 0).toFixed(2), color: getPUEColor(dc.pue ?? 0) },
             { label: 'Renewable', value: `${dc.renewable_energy_pct}%`, color: '#00A36C' },
           ].map((m, i) => (
             <div key={i} className="bg-white/5 rounded-xl p-3 border border-white/5">
