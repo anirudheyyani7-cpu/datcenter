@@ -220,110 +220,165 @@ function SectionCard({ title, icon: Icon, color = '#00338D', children, defaultOp
 }
 
 // ── PDF export ─────────────────────────────────────────────────────────────
+//
+// Approach: measure → group → render each page separately.
+//
+// Why window.devicePixelRatio * 2:
+//   devicePixelRatio is 1 on standard screens, 2 on Retina/HiDPI.
+//   Doubling it ensures html2canvas captures at ≥2× CSS pixels so text
+//   stays crisp when the PDF viewer renders at print resolution (150–300 DPI).
+//   On a 1× screen → scale 2. On a 2× Retina → scale 4 (4× pixels, still
+//   well within memory budget for a single A4 page at 794×1123px).
+//
 async function exportPDF(stageNum, stageName, analysis) {
   const { default: jsPDF } = await import('jspdf');
   const { default: html2canvas } = await import('html2canvas');
 
-  const date = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+  // A4 at 96 dpi: 794 × 1123 px
+  const PAGE_W   = 794;
+  const PAGE_H   = 1123;
+  const PAD      = 48;
+  // Usable vertical space per content page (top + bottom padding + page-number row)
+  const USABLE_H = PAGE_H - PAD * 2 - 48;
+  const scale    = window.devicePixelRatio * 2;
+  const date     = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
 
-  const bodyHtml = analysis.split('\n\n').map(para => {
-    if (!para.trim()) return '';
+  // Shared CSS injected into every page container
+  const CONTENT_CSS = `
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:Arial,Helvetica,sans-serif;}
+    .section{break-inside:avoid;margin-bottom:28px;}
+    .section-title{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:2px;
+      color:#00338D;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid #E2E8F0;}
+    .section-body{font-size:13px;line-height:1.8;color:#374151;white-space:pre-wrap;}
+    .badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;
+      background:#E8F0FB;color:#00338D;display:inline-block;margin-bottom:16px;}
+    .footer-row{padding-top:12px;border-top:1px solid #E2E8F0;display:flex;
+      justify-content:space-between;font-size:10px;color:#9CA3AF;}
+    .disclaimer{font-size:9px;color:#9CA3AF;margin-top:12px;line-height:1.6;}
+    .page-num{position:absolute;bottom:24px;right:${PAD}px;font-size:10px;color:#CBD5E1;}
+  `;
+
+  // ── Build section HTML strings ──────────────────────────────────────────
+  const badgeHtml = `<div class="section"><div class="badge">STAGE ${stageNum} · ${stageName.toUpperCase()}</div></div>`;
+
+  const bodyHtmls = analysis.split('\n\n').filter(p => p.trim()).map(para => {
     const isHeader = para.length < 60 && !para.includes('.') && para === para.trimEnd();
-    return isHeader
-      ? `<div class="section"><div class="section-title">${para}</div></div>`
-      : `<div class="section"><div class="section-body">${para}</div></div>`;
-  }).join('');
+    return `<div class="section">${isHeader
+      ? `<div class="section-title">${para}</div>`
+      : `<div class="section-body">${para}</div>`
+    }</div>`;
+  });
 
-  const html = `<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8"/>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: Arial, Helvetica, sans-serif; color: #1A1F36; background: white; width: 794px; }
-  .cover { background: linear-gradient(135deg, #00338D 0%, #0077C8 100%); color: white; padding: 60px 48px; min-height: 280px; position: relative; }
-  .cover-logo { font-size: 32px; font-weight: 900; letter-spacing: 4px; margin-bottom: 8px; }
-  .cover-sub { font-size: 11px; letter-spacing: 3px; opacity: 0.6; text-transform: uppercase; margin-bottom: 48px; }
-  .cover-title { font-size: 36px; font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
-  .cover-desc { font-size: 14px; opacity: 0.75; }
-  .cover-meta { margin-top: 32px; display: flex; justify-content: space-between; font-size: 11px; opacity: 0.55; }
-  .cover-stripe { margin-top: 32px; height: 4px; background: rgba(255,255,255,0.3); }
-  .content { padding: 40px 48px; }
-  .section { margin-bottom: 28px; }
-  .section-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #00338D; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 2px solid #E2E8F0; }
-  .section-body { font-size: 13px; line-height: 1.8; color: #374151; white-space: pre-wrap; }
-  .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: #E8F0FB; color: #00338D; margin-bottom: 16px; }
-  .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #E2E8F0; display: flex; justify-content: space-between; font-size: 10px; color: #9CA3AF; }
-  .disclaimer { font-size: 9px; color: #9CA3AF; margin-top: 24px; line-height: 1.6; }
-</style>
-</head>
-<body>
-<div class="cover">
-  <div class="cover-logo">K-Nexus.AI</div>
-  <div class="cover-sub">Datacenter Lifecycle Intelligence</div>
-  <div class="cover-title">Stage ${stageNum}: ${stageName}<br/>Analysis Report</div>
-  <div class="cover-desc">AI-generated intelligence briefing · Strictly Confidential</div>
-  <div class="cover-meta">
-    <span>Generated: ${date}</span>
-    <span>Confidential</span>
-  </div>
-  <div class="cover-stripe"></div>
-</div>
-<div class="content">
-  <div class="badge">STAGE ${stageNum} · ${stageName.toUpperCase()}</div>
-  ${bodyHtml}
-  <div class="footer">
-    <span>K-Nexus Intelligence Platform</span>
-    <span>Stage ${stageNum}: ${stageName}</span>
-    <span>${date}</span>
-  </div>
-  <div class="disclaimer">
-    This report has been generated by the K-Nexus AI Intelligence Engine for internal advisory purposes only.
-    The analysis is based on available market data and AI-generated insights. This document is strictly confidential
-    and intended solely for the recipient. All rights reserved.
-  </div>
-</div>
-</body>
-</html>`;
+  const footerHtml = `
+    <div class="section footer-row">
+      <span>K-Nexus Intelligence Platform</span>
+      <span>Stage ${stageNum}: ${stageName}</span>
+      <span>${date}</span>
+    </div>
+    <div class="section disclaimer">
+      This report has been generated by the K-Nexus AI Intelligence Engine for internal
+      advisory purposes only. The analysis is based on available market data and
+      AI-generated insights. This document is strictly confidential and intended solely
+      for the recipient. All rights reserved.
+    </div>`;
 
-  // Render HTML off-screen, capture with html2canvas, assemble PDF pages
-  const container = document.createElement('div');
-  container.style.cssText = 'position:fixed;left:-9999px;top:0;width:794px;background:white;z-index:-1;';
-  container.innerHTML = html;
-  document.body.appendChild(container);
+  const allSections = [badgeHtml, ...bodyHtmls, footerHtml];
 
-  try {
-    const canvas = await html2canvas(container, {
-      scale: 2,
+  // ── STEP 1: Measure each section's rendered height ──────────────────────
+  // Two rAF calls let the browser complete layout before we read getBoundingClientRect.
+  const waitFrame = () => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+  const measureEl = document.createElement('div');
+  measureEl.style.cssText = `position:fixed;left:-9999px;top:0;width:${PAGE_W}px;
+    background:white;z-index:-1;padding:${PAD}px;`;
+  measureEl.innerHTML = `<style>${CONTENT_CSS}</style>${allSections.join('')}`;
+  document.body.appendChild(measureEl);
+  await waitFrame();
+
+  const sectionEls = measureEl.querySelectorAll('.section');
+  const heights = Array.from(sectionEls).map(el => el.getBoundingClientRect().height + 28);
+  document.body.removeChild(measureEl);
+
+  // ── STEP 2: Group sections into fixed-height pages ──────────────────────
+  const pages = [];
+  let currentPage = { htmls: [], height: 0 };
+
+  allSections.forEach((html, i) => {
+    const h = heights[i] ?? 0;
+    if (currentPage.height + h > USABLE_H && currentPage.htmls.length > 0) {
+      pages.push(currentPage);
+      currentPage = { htmls: [], height: 0 };
+    }
+    currentPage.htmls.push(html);
+    currentPage.height += h;
+  });
+  if (currentPage.htmls.length > 0) pages.push(currentPage);
+
+  // ── STEP 3: Capture each .pdf-page container separately ────────────────
+  const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const pdfW = pdf.internal.pageSize.getWidth();
+  const pdfH = pdf.internal.pageSize.getHeight();
+
+  const capture = async (innerHTML, bg = '#ffffff') => {
+    const el = document.createElement('div');
+    el.style.cssText = `position:fixed;left:-9999px;top:0;
+      width:${PAGE_W}px;height:${PAGE_H}px;overflow:hidden;
+      background:${bg};z-index:-1;`;
+    el.innerHTML = innerHTML;
+    document.body.appendChild(el);
+    await waitFrame();
+    const canvas = await html2canvas(el, {
+      scale,
       useCORS: true,
       allowTaint: true,
-      backgroundColor: '#ffffff',
-      width: 794,
-      windowWidth: 794,
+      backgroundColor: bg,
+      width: PAGE_W,
+      height: PAGE_H,
+      windowWidth: PAGE_W,
     });
+    document.body.removeChild(el);
+    return canvas;
+  };
 
-    const imgData = canvas.toDataURL('image/jpeg', 0.92);
-    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  // Cover page
+  const coverInner = `
+    <style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:Arial,Helvetica,sans-serif;}</style>
+    <div style="background:linear-gradient(135deg,#00338D 0%,#0077C8 100%);color:white;
+      width:${PAGE_W}px;height:${PAGE_H}px;padding:60px ${PAD}px;position:relative;">
+      <div style="font-size:32px;font-weight:900;letter-spacing:4px;margin-bottom:8px;">K-Nexus.AI</div>
+      <div style="font-size:11px;letter-spacing:3px;opacity:0.6;text-transform:uppercase;margin-bottom:48px;">
+        Datacenter Lifecycle Intelligence
+      </div>
+      <div style="font-size:36px;font-weight:800;line-height:1.2;margin-bottom:16px;">
+        Stage ${stageNum}: ${stageName}<br/>Analysis Report
+      </div>
+      <div style="font-size:14px;opacity:0.75;">AI-generated intelligence briefing · Strictly Confidential</div>
+      <div style="position:absolute;bottom:60px;left:${PAD}px;right:${PAD}px;
+        display:flex;justify-content:space-between;font-size:11px;opacity:0.55;">
+        <span>Generated: ${date}</span><span>Confidential</span>
+      </div>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:4px;background:rgba(255,255,255,0.3);"></div>
+    </div>`;
 
-    const pdfW = pdf.internal.pageSize.getWidth();
-    const pdfH = pdf.internal.pageSize.getHeight();
-    const imgW = canvas.width;
-    const imgH = canvas.height;
-    const ratio = pdfW / (imgW / 2); // account for scale:2
-    const totalH = (imgH / 2) * ratio;
-    const pageH = pdfH;
+  const coverCanvas = await capture(coverInner, '#00338D');
+  pdf.addImage(coverCanvas.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, pdfW, pdfH);
 
-    let yOffset = 0;
-    while (yOffset < totalH) {
-      if (yOffset > 0) pdf.addPage();
-      pdf.addImage(imgData, 'JPEG', 0, -yOffset, pdfW, totalH);
-      yOffset += pageH;
-    }
-
-    pdf.save(`KNexus_Stage${stageNum}_${stageName.replace(/\s+/g, '_')}_Report.pdf`);
-  } finally {
-    document.body.removeChild(container);
+  // Content pages — each rendered as its own fixed-height container
+  for (let i = 0; i < pages.length; i++) {
+    pdf.addPage();
+    const pageInner = `
+      <style>${CONTENT_CSS}</style>
+      <div style="position:relative;width:${PAGE_W}px;height:${PAGE_H}px;
+        background:white;padding:${PAD}px;padding-bottom:80px;overflow:hidden;">
+        ${pages[i].htmls.join('')}
+        <div class="page-num">${i + 2}</div>
+      </div>`;
+    const canvas = await capture(pageInner);
+    pdf.addImage(canvas.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, pdfW, pdfH);
   }
+
+  pdf.save(`KNexus_Stage${stageNum}_${stageName.replace(/\s+/g, '_')}_Report.pdf`);
 }
 
 // ── Parse AI output into structured sections ───────────────────────────────
@@ -674,7 +729,7 @@ Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
         </SectionCard>
 
         <div className="text-center pb-4">
-          <p className="text-[#CBD5E1] text-xs">© KPMG 2025 · K-Nexus Intelligence Platform · Strictly Confidential</p>
+          <p className="text-[#CBD5E1] text-xs">© KPMG 2026 · K-Nexus Intelligence Platform · Strictly Confidential</p>
         </div>
       </div>
     </div>

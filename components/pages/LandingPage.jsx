@@ -281,7 +281,7 @@ export default function LandingPage() {
 
           {/* Footer */}
           <motion.div className="mt-16 text-center" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}>
-            <p className="text-[#CBD5E1] text-xs">© KPMG 2025 · K-Nexus Datacenter Intelligence · Strictly Confidential</p>
+            <p className="text-[#CBD5E1] text-xs">© KPMG 2026 · K-Nexus Datacenter Intelligence · Strictly Confidential</p>
           </motion.div>
         </div>
       </motion.div>
