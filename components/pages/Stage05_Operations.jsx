@@ -1,6 +1,5 @@
 'use client';
 import { Activity, LayoutDashboard, ArrowRight, Settings2 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import StageLayout from '@/components/stage-pages/StageLayout';
 import { FormField, Select, TextInput, SliderField } from '@/components/stage-pages/FormComponents';
 import { callClaude, buildStagePrompt, buildRagQuery } from '@/lib/claude-api';
@@ -29,8 +28,6 @@ async function generateInsights(formData) {
 
 // ── 2 Operation cards ──────────────────────────────────────────────────────
 function OperationCards() {
-  const router = useRouter();
-
   const cards = [
     {
       id: 'dc-optimization',
@@ -39,18 +36,20 @@ function OperationCards() {
       tag: 'Assessment',
       label: 'DC Optimization',
       description: 'Comprehensive datacenter efficiency assessment — PUE benchmarking, capacity analysis, and full optimization roadmap.',
-      action: () => router.push('/stage/01'),
-      actionLabel: 'Run Assessment',
+      action: null,
+      actionLabel: 'Configure below',
+      href: null,
     },
     {
-      id: 'dc-operations',
+      id: 'ai-operations',
       icon: Settings2,
       color: '#003580',
       tag: 'Analysis',
-      label: 'DC Operations',
+      label: 'AI Operations',
       description: 'Day-to-day operations analysis — staffing models, DCIM tooling, SLA management, and predictive maintenance strategies.',
       action: null,
-      actionLabel: 'Configure below',
+      actionLabel: 'View AI in Operations',
+      href: 'https://www.knexus.space/agents/aiops-sentry/login',
     },
   ];
 
@@ -72,13 +71,15 @@ function OperationCards() {
               </div>
               <h3 className="font-bold text-[#1A1F36] text-sm mb-2" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{card.label}</h3>
               <p className="text-[#6B7280] text-xs leading-relaxed mb-4">{card.description}</p>
-              {card.action ? (
-                <button
-                  onClick={card.action}
+              {card.href ? (
+                <a
+                  href={card.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-xs font-bold text-[#00338D] hover:text-[#0044b8] transition-colors"
                 >
                   {card.actionLabel} <ArrowRight size={12} />
-                </button>
+                </a>
               ) : (
                 <span className="text-xs text-[#9CA3AF] font-medium">{card.actionLabel}</span>
               )}
