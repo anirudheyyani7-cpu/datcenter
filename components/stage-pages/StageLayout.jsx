@@ -227,7 +227,7 @@ export default function StageLayout({
                 )}
               </div>
 
-              <div className="p-6 min-h-[300px]">
+              <div className="p-6 overflow-y-auto min-h-[300px] max-h-[560px]">
                 {loading && <AIThinkingLoader />}
                 {error && !loading && (
                   <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-red-600 text-sm">

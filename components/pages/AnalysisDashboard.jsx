@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import {
   ArrowLeft, Download, CheckCircle2, AlertTriangle, XCircle,
@@ -114,7 +114,7 @@ function InteractiveTimeline({ steps }) {
             return (
               <div
                 key={i}
-                className="flex flex-col items-center cursor-pointer group"
+                className="relative flex flex-col items-center cursor-pointer group"
                 style={{ width: `${100 / steps.length}%` }}
                 onMouseEnter={() => setHoveredStep(i)}
                 onMouseLeave={() => setHoveredStep(null)}
@@ -140,26 +140,25 @@ function InteractiveTimeline({ steps }) {
                 </motion.div>
 
                 {/* Timeframe label */}
-                <div className="mt-2 text-center">
+                <div className="mt-2 text-center h-8">
                   <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: isActive || isHovered ? color : '#9CA3AF' }}>
                     {timeframes[i] || `Step ${i + 1}`}
                   </p>
                 </div>
 
-                {/* Tooltip on hover */}
-                {(isHovered || isActive) && (
+                {/* Tooltip — anchored to this column via parent's position:relative */}
+                {isHovered && !isActive && (
                   <motion.div
-                    initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                    initial={{ opacity: 0, y: 4, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    className="absolute top-20 z-20 bg-[#1A1F36] text-white rounded-xl p-3 shadow-2xl text-center"
-                    style={{ width: 180, left: '50%', transform: 'translateX(-50%)' }}
+                    className="absolute z-30 bg-[#1A1F36] text-white rounded-xl p-3 shadow-2xl text-center pointer-events-none"
+                    style={{ width: 180, top: '100%', marginTop: 8, left: '50%', transform: 'translateX(-50%)' }}
                   >
+                    <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#1A1F36] rotate-45 rounded-sm" />
                     <div className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: color === '#00338D' ? '#60A5FA' : color }}>
                       {timeframes[i] || `Step ${i + 1}`}
                     </div>
                     <p className="text-xs leading-relaxed text-white/85">{step}</p>
-                    {/* Arrow */}
-                    <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#1A1F36] rotate-45 rounded-sm" />
                   </motion.div>
                 )}
               </div>
@@ -168,30 +167,42 @@ function InteractiveTimeline({ steps }) {
         </div>
       </div>
 
-      {/* Active step detail card */}
-      <div className="mt-24">
-        {activeStep !== null ? (
-          <motion.div
-            key={activeStep}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-gradient-to-r from-[#00338D]/5 to-[#0077C8]/5 rounded-xl border border-[#00338D]/15 p-5"
-          >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm text-white"
-                style={{ backgroundColor: colors[activeStep % colors.length] }}>
-                {activeStep + 1}
+      {/* Active step detail card — shown below, no overlap with tooltip */}
+      <div className="mt-6">
+        <AnimatePresence mode="wait">
+          {activeStep !== null ? (
+            <motion.div
+              key={activeStep}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.2 }}
+              className="bg-gradient-to-r from-[#00338D]/5 to-[#0077C8]/5 rounded-xl border border-[#00338D]/15 p-5"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm text-white"
+                  style={{ backgroundColor: colors[activeStep % colors.length] }}>
+                  {activeStep + 1}
+                </div>
+                <div>
+                  <p className="font-bold text-[#00338D] text-sm">{timeframes[activeStep] || `Step ${activeStep + 1}`}</p>
+                  <p className="text-[10px] text-[#9CA3AF] uppercase tracking-wider">Next Step</p>
+                </div>
               </div>
-              <div>
-                <p className="font-bold text-[#00338D] text-sm">{timeframes[activeStep] || `Step ${activeStep + 1}`}</p>
-                <p className="text-[10px] text-[#9CA3AF] uppercase tracking-wider">Next Step</p>
-              </div>
-            </div>
-            <p className="text-sm text-[#374151] leading-relaxed">{steps[activeStep]}</p>
-          </motion.div>
-        ) : (
-          <p className="text-center text-xs text-[#9CA3AF]">Click any step to expand details</p>
-        )}
+              <p className="text-sm text-[#374151] leading-relaxed">{steps[activeStep]}</p>
+            </motion.div>
+          ) : (
+            <motion.p
+              key="hint"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="text-center text-xs text-[#9CA3AF] py-4"
+            >
+              Click any step to expand details
+            </motion.p>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
@@ -247,10 +258,19 @@ async function exportPDF(stageNum, stageName, analysis) {
   const CONTENT_CSS = `
     *{box-sizing:border-box;margin:0;padding:0;}
     body{font-family:Arial,Helvetica,sans-serif;}
-    .section{break-inside:avoid;margin-bottom:28px;}
-    .section-title{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:2px;
-      color:#00338D;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid #E2E8F0;}
-    .section-body{font-size:13px;line-height:1.8;color:#374151;white-space:pre-wrap;}
+    .section{break-inside:avoid;margin-bottom:22px;}
+    .h1{font-size:16px;font-weight:800;color:#00338D;margin-bottom:6px;padding-bottom:6px;border-bottom:2px solid #E2E8F0;}
+    .h2{font-size:14px;font-weight:700;color:#00338D;margin-bottom:5px;padding-bottom:5px;border-bottom:1px solid #E2E8F0;}
+    .h3{font-size:13px;font-weight:700;color:#1A1F36;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px;}
+    .para{font-size:12px;line-height:1.8;color:#374151;}
+    .para strong{font-weight:700;color:#1A1F36;}
+    .para em{font-style:italic;}
+    .bullet-list{margin:0;padding-left:0;list-style:none;}
+    .bullet-list li{font-size:12px;line-height:1.75;color:#374151;padding-left:16px;position:relative;margin-bottom:3px;}
+    .bullet-list li::before{content:"•";position:absolute;left:2px;color:#0077C8;font-size:11px;}
+    .num-list{margin:0;padding-left:0;list-style:none;counter-reset:num;}
+    .num-list li{font-size:12px;line-height:1.75;color:#374151;padding-left:20px;position:relative;margin-bottom:3px;counter-increment:num;}
+    .num-list li::before{content:counter(num)".";position:absolute;left:0;color:#00338D;font-weight:700;font-size:11px;}
     .badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;
       background:#E8F0FB;color:#00338D;display:inline-block;margin-bottom:16px;}
     .footer-row{padding-top:12px;border-top:1px solid #E2E8F0;display:flex;
@@ -259,16 +279,68 @@ async function exportPDF(stageNum, stageName, analysis) {
     .page-num{position:absolute;bottom:24px;right:${PAD}px;font-size:10px;color:#CBD5E1;}
   `;
 
+  // ── Markdown → HTML converter for PDF ──────────────────────────────────
+  function inlineFormat(text) {
+    return text
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+      .replace(/`([^`]+)`/g, '<code style="font-family:monospace;background:#F4F6F9;padding:0 3px;border-radius:3px;font-size:11px;">$1</code>');
+  }
+
+  function markdownToSections(md) {
+    const lines = md.split('\n');
+    const sections = [];
+    let buffer = [];     // pending lines for current group
+    let bufType = null;  // 'bullet' | 'num' | null
+
+    const flushBuffer = () => {
+      if (!buffer.length) return;
+      if (bufType === 'bullet') {
+        sections.push(`<div class="section"><ul class="bullet-list">${buffer.map(b => `<li>${inlineFormat(b)}</li>`).join('')}</ul></div>`);
+      } else if (bufType === 'num') {
+        sections.push(`<div class="section"><ol class="num-list">${buffer.map(b => `<li>${inlineFormat(b)}</li>`).join('')}</ol></div>`);
+      }
+      buffer = []; bufType = null;
+    };
+
+    for (const raw of lines) {
+      const t = raw.trim();
+
+      // Skip horizontal rules
+      if (/^---+$/.test(t) || /^\*\*\*+$/.test(t)) continue;
+      // Skip empty lines (flush any pending list)
+      if (!t) { flushBuffer(); continue; }
+
+      if (t.startsWith('### ')) {
+        flushBuffer();
+        sections.push(`<div class="section"><div class="h3">${inlineFormat(t.slice(4))}</div></div>`);
+      } else if (t.startsWith('## ')) {
+        flushBuffer();
+        sections.push(`<div class="section"><div class="h2">${inlineFormat(t.slice(3))}</div></div>`);
+      } else if (t.startsWith('# ')) {
+        flushBuffer();
+        sections.push(`<div class="section"><div class="h1">${inlineFormat(t.slice(2))}</div></div>`);
+      } else if (/^[-*•]\s+/.test(t)) {
+        if (bufType !== 'bullet') flushBuffer();
+        bufType = 'bullet';
+        buffer.push(t.replace(/^[-*•]\s+/, ''));
+      } else if (/^\d+\.\s+/.test(t)) {
+        if (bufType !== 'num') flushBuffer();
+        bufType = 'num';
+        buffer.push(t.replace(/^\d+\.\s+/, ''));
+      } else {
+        flushBuffer();
+        sections.push(`<div class="section"><p class="para">${inlineFormat(t)}</p></div>`);
+      }
+    }
+    flushBuffer();
+    return sections;
+  }
+
   // ── Build section HTML strings ──────────────────────────────────────────
   const badgeHtml = `<div class="section"><div class="badge">STAGE ${stageNum} · ${stageName.toUpperCase()}</div></div>`;
 
-  const bodyHtmls = analysis.split('\n\n').filter(p => p.trim()).map(para => {
-    const isHeader = para.length < 60 && !para.includes('.') && para === para.trimEnd();
-    return `<div class="section">${isHeader
-      ? `<div class="section-title">${para}</div>`
-      : `<div class="section-body">${para}</div>`
-    }</div>`;
-  });
+  const bodyHtmls = markdownToSections(analysis);
 
   const footerHtml = `
     <div class="section footer-row">

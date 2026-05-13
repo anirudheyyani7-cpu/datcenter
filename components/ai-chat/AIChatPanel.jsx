@@ -10,7 +10,7 @@ export default function AIChatPanel({ context = '', systemContext = '', title = 
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [minimized, setMinimized] = useState(false);
+  const [minimized, setMinimized] = useState(true);
   const bottomRef = useRef(null);
 
   useEffect(() => {
