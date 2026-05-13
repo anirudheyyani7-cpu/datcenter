@@ -220,75 +220,110 @@ function SectionCard({ title, icon: Icon, color = '#00338D', children, defaultOp
 }
 
 // ── PDF export ─────────────────────────────────────────────────────────────
-function exportPDF(stageNum, stageName, analysis) {
+async function exportPDF(stageNum, stageName, analysis) {
+  const { default: jsPDF } = await import('jspdf');
+  const { default: html2canvas } = await import('html2canvas');
+
   const date = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
-  const html = `<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8"/>
-<title>KPMG K-Nexus — ${stageName} Report</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Plus Jakarta Sans', Arial, sans-serif; color: #1A1F36; background: white; }
-  .cover { background: linear-gradient(135deg, #00338D 0%, #0077C8 100%); color: white; padding: 60px 48px; min-height: 280px; position: relative; }
-  .cover-logo { font-size: 32px; font-weight: 900; letter-spacing: 4px; margin-bottom: 8px; }
-  .cover-sub { font-size: 11px; letter-spacing: 3px; opacity: 0.6; text-transform: uppercase; margin-bottom: 48px; }
-  .cover-title { font-size: 36px; font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
-  .cover-desc { font-size: 14px; opacity: 0.75; }
-  .cover-meta { position: absolute; bottom: 32px; left: 48px; right: 48px; display: flex; justify-content: space-between; font-size: 11px; opacity: 0.55; }
-  .cover-stripe { position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: rgba(255,255,255,0.3); }
-  .content { padding: 40px 48px; }
-  .section { margin-bottom: 32px; page-break-inside: avoid; }
-  .section-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #00338D; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #E2E8F0; }
-  .section-body { font-size: 13px; line-height: 1.8; color: #374151; white-space: pre-wrap; }
-  .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: #E8F0FB; color: #00338D; margin-bottom: 12px; }
-  .footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #E2E8F0; display: flex; justify-content: space-between; font-size: 10px; color: #9CA3AF; }
-  .disclaimer { font-size: 9px; color: #9CA3AF; margin-top: 32px; line-height: 1.6; }
-</style>
-</head>
-<body>
-<div class="cover">
-  <div class="cover-logo">KPMG</div>
-  <div class="cover-sub">K-Nexus Datacenter Intelligence</div>
-  <div class="cover-title">Stage ${stageNum}: ${stageName}<br/>Analysis Report</div>
-  <div class="cover-desc">AI-generated intelligence briefing · Strictly Confidential</div>
-  <div class="cover-meta">
-    <span>Generated: ${date}</span>
-    <span>© KPMG 2025 · Confidential</span>
-  </div>
-  <div class="cover-stripe"></div>
-</div>
-<div class="content">
-  <div class="badge">STAGE ${stageNum} · ${stageName.toUpperCase()}</div>
-  ${analysis.split('\n\n').map(para => {
+
+  const bodyHtml = analysis.split('\n\n').map(para => {
     if (!para.trim()) return '';
     const isHeader = para.length < 60 && !para.includes('.') && para === para.trimEnd();
     return isHeader
       ? `<div class="section"><div class="section-title">${para}</div></div>`
       : `<div class="section"><div class="section-body">${para}</div></div>`;
-  }).join('')}
+  }).join('');
+
+  const html = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, Helvetica, sans-serif; color: #1A1F36; background: white; width: 794px; }
+  .cover { background: linear-gradient(135deg, #00338D 0%, #0077C8 100%); color: white; padding: 60px 48px; min-height: 280px; position: relative; }
+  .cover-logo { font-size: 32px; font-weight: 900; letter-spacing: 4px; margin-bottom: 8px; }
+  .cover-sub { font-size: 11px; letter-spacing: 3px; opacity: 0.6; text-transform: uppercase; margin-bottom: 48px; }
+  .cover-title { font-size: 36px; font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+  .cover-desc { font-size: 14px; opacity: 0.75; }
+  .cover-meta { margin-top: 32px; display: flex; justify-content: space-between; font-size: 11px; opacity: 0.55; }
+  .cover-stripe { margin-top: 32px; height: 4px; background: rgba(255,255,255,0.3); }
+  .content { padding: 40px 48px; }
+  .section { margin-bottom: 28px; }
+  .section-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #00338D; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 2px solid #E2E8F0; }
+  .section-body { font-size: 13px; line-height: 1.8; color: #374151; white-space: pre-wrap; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: #E8F0FB; color: #00338D; margin-bottom: 16px; }
+  .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #E2E8F0; display: flex; justify-content: space-between; font-size: 10px; color: #9CA3AF; }
+  .disclaimer { font-size: 9px; color: #9CA3AF; margin-top: 24px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="cover">
+  <div class="cover-logo">K-Nexus.AI</div>
+  <div class="cover-sub">Datacenter Lifecycle Intelligence</div>
+  <div class="cover-title">Stage ${stageNum}: ${stageName}<br/>Analysis Report</div>
+  <div class="cover-desc">AI-generated intelligence briefing · Strictly Confidential</div>
+  <div class="cover-meta">
+    <span>Generated: ${date}</span>
+    <span>Confidential</span>
+  </div>
+  <div class="cover-stripe"></div>
+</div>
+<div class="content">
+  <div class="badge">STAGE ${stageNum} · ${stageName.toUpperCase()}</div>
+  ${bodyHtml}
   <div class="footer">
-    <span>KPMG K-Nexus Intelligence Platform</span>
+    <span>K-Nexus Intelligence Platform</span>
     <span>Stage ${stageNum}: ${stageName}</span>
     <span>${date}</span>
   </div>
   <div class="disclaimer">
-    This report has been generated by the KPMG K-Nexus AI Intelligence Engine for internal advisory purposes only.
+    This report has been generated by the K-Nexus AI Intelligence Engine for internal advisory purposes only.
     The analysis is based on available market data and AI-generated insights. This document is strictly confidential
-    and intended solely for the recipient. © KPMG 2025. All rights reserved.
+    and intended solely for the recipient. All rights reserved.
   </div>
 </div>
 </body>
 </html>`;
 
-  const blob = new Blob([html], { type: 'text/html' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `KPMG_KNexus_Stage${stageNum}_${stageName.replace(/\s+/g, '_')}_Report.html`;
-  a.click();
-  URL.revokeObjectURL(url);
+  // Render HTML off-screen, capture with html2canvas, assemble PDF pages
+  const container = document.createElement('div');
+  container.style.cssText = 'position:fixed;left:-9999px;top:0;width:794px;background:white;z-index:-1;';
+  container.innerHTML = html;
+  document.body.appendChild(container);
+
+  try {
+    const canvas = await html2canvas(container, {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#ffffff',
+      width: 794,
+      windowWidth: 794,
+    });
+
+    const imgData = canvas.toDataURL('image/jpeg', 0.92);
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+    const pdfW = pdf.internal.pageSize.getWidth();
+    const pdfH = pdf.internal.pageSize.getHeight();
+    const imgW = canvas.width;
+    const imgH = canvas.height;
+    const ratio = pdfW / (imgW / 2); // account for scale:2
+    const totalH = (imgH / 2) * ratio;
+    const pageH = pdfH;
+
+    let yOffset = 0;
+    while (yOffset < totalH) {
+      if (yOffset > 0) pdf.addPage();
+      pdf.addImage(imgData, 'JPEG', 0, -yOffset, pdfW, totalH);
+      yOffset += pageH;
+    }
+
+    pdf.save(`KNexus_Stage${stageNum}_${stageName.replace(/\s+/g, '_')}_Report.pdf`);
+  } finally {
+    document.body.removeChild(container);
+  }
 }
 
 // ── Parse AI output into structured sections ───────────────────────────────
@@ -421,6 +456,25 @@ function FullAnalysisRenderer({ text }) {
   return <div className="space-y-0.5 max-w-none">{elements}</div>;
 }
 
+function DownloadButton({ stageNum, stageName, rawOutput }) {
+  const [loading, setLoading] = useState(false);
+  const handleClick = () => {
+    setLoading(true);
+    exportPDF(stageNum, stageName, rawOutput).finally(() => setLoading(false));
+  };
+  return (
+    <button
+      onClick={handleClick}
+      disabled={loading}
+      className="flex items-center gap-2 px-4 py-2 bg-[#00338D] text-white rounded-xl text-sm font-bold hover:bg-[#0044b8] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+    >
+      {loading
+        ? <><div className="w-3.5 h-3.5 border-2 border-white/40 border-t-white rounded-full animate-spin" />Generating…</>
+        : <><Download size={15} />Download Report</>}
+    </button>
+  );
+}
+
 export default function AnalysisDashboard() {
   const { stageOutputs, completedStages } = useAppStore();
   const [selectedStage, setSelectedStage] = useState(null);
@@ -528,12 +582,7 @@ Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
                 ))}
               </div>
               {/* Download */}
-              <button
-                onClick={() => exportPDF(selectedStage, stageName, rawOutput)}
-                className="flex items-center gap-2 px-4 py-2 bg-[#00338D] text-white rounded-xl text-sm font-bold hover:bg-[#0044b8] transition-colors"
-              >
-                <Download size={15} />Download Report
-              </button>
+              <DownloadButton stageNum={selectedStage} stageName={stageName} rawOutput={rawOutput} />
             </div>
           </div>
         </div>

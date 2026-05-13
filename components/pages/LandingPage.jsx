@@ -12,43 +12,6 @@ import useAppStore from '@/store/appStore';
 const PLATFORM_PROMPT = `Provide a concise, executive-level summary (300 words max) of the K-Nexus Datacenter Lifecycle Management platform. Explain what it does, who it's for, and how AI enhances each of the 6 lifecycle stages: Strategy Assessment, Supply Chain Sourcing, Design & Build, Compliance, Operations, and Monetization. Frame it as a KPMG capability pitch for senior datacenter industry professionals.`;
 const PLATFORM_RAG_QUERY = 'datacenter lifecycle management AI platform market 2025';
 
-// ── KPMG Watermark ─────────────────────────────────────────────────────────
-function KPMGWatermark() {
-  return (
-    <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-      {/* Large faint KPMG text */}
-      <div
-        className="select-none"
-        style={{
-          fontSize: 'clamp(120px, 20vw, 280px)',
-          fontFamily: "'Plus Jakarta Sans', sans-serif",
-          fontWeight: 900,
-          color: 'transparent',
-          WebkitTextStroke: '1px rgba(0, 51, 141, 0.055)',
-          letterSpacing: '0.15em',
-          userSelect: 'none',
-          transform: 'rotate(-8deg)',
-          whiteSpace: 'nowrap',
-        }}
-      >
-        KPMG
-      </div>
-      {/* Diagonal repeated watermark */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: `repeating-linear-gradient(
-            -45deg,
-            transparent,
-            transparent 80px,
-            rgba(0,51,141,0.018) 80px,
-            rgba(0,51,141,0.018) 81px
-          )`,
-        }}
-      />
-    </div>
-  );
-}
 
 function AnimatedBackground() {
   return (
@@ -176,7 +139,6 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
       <AnimatedBackground />
-      <KPMGWatermark />
 
       <AnimatePresence>
         {(phase === 'logo' || phase === 'shrink') && (
@@ -262,24 +224,8 @@ export default function LandingPage() {
 
           {/* Wheel */}
           <div className="flex flex-col items-center justify-center gap-8">
-            {/* Wheel with KPMG watermark behind */}
             <div className="relative flex items-center justify-center">
-              {/* KPMG watermark behind wheel */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none"
-                style={{ zIndex: 0 }}>
-                <div style={{
-                  fontSize: '11rem',
-                  fontFamily: "'Plus Jakarta Sans', sans-serif",
-                  fontWeight: 900,
-                  color: 'transparent',
-                  WebkitTextStroke: '2px rgba(0, 51, 141, 0.07)',
-                  letterSpacing: '0.1em',
-                  userSelect: 'none',
-                  whiteSpace: 'nowrap',
-                }}>KPMG</div>
-              </div>
               <motion.div
-                style={{ position: 'relative', zIndex: 1 }}
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.6, type: 'spring', stiffness: 150 }}
