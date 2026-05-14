@@ -10,6 +10,7 @@ import useAppStore from '@/store/appStore';
 import { callClaude } from '@/lib/claude-api';
 
 const STAGE_NAMES = {
+  'doc': 'Strategy Document',
   '01': 'Strategy Assessment',
   '02': 'Supply Chain Sourcing',
   '03': 'Design & Build',
@@ -603,36 +604,42 @@ function DownloadButton({ stageNum, stageName, rawOutput }) {
 }
 
 export default function AnalysisDashboard() {
-  const { stageOutputs, completedStages } = useAppStore();
+  const { stageOutputs, completedStages, uploadedDocAnalysis, uploadedDocName } = useAppStore();
   const [selectedStage, setSelectedStage] = useState(null);
   const [sections, setSections] = useState(null);
   const [deepDiveLoading, setDeepDiveLoading] = useState(false);
   const [deepDiveData, setDeepDiveData] = useState(null);
   const printRef = useRef(null);
 
-  // Pick the first completed stage by default
+  const allStages = uploadedDocAnalysis ? ['doc', ...completedStages] : completedStages;
+
+  // Pick uploaded doc or first completed stage by default
   useEffect(() => {
-    if (completedStages.length > 0 && !selectedStage) {
-      setSelectedStage(completedStages[0]);
+    if (!selectedStage) {
+      if (uploadedDocAnalysis) setSelectedStage('doc');
+      else if (completedStages.length > 0) setSelectedStage(completedStages[0]);
     }
-  }, [completedStages]);
+  }, [completedStages, uploadedDocAnalysis]);
+
+  const getRaw = (stage) => stage === 'doc' ? uploadedDocAnalysis : stageOutputs[stage];
 
   useEffect(() => {
     if (!selectedStage) return;
-    const raw = stageOutputs[selectedStage];
+    const raw = getRaw(selectedStage);
     if (raw) setSections(parseAnalysisIntoSections(raw));
-  }, [selectedStage, stageOutputs]);
+  }, [selectedStage, stageOutputs, uploadedDocAnalysis]);
 
   // Generate structured deep-dive from the raw output
   useEffect(() => {
-    if (!selectedStage || !stageOutputs[selectedStage]) return;
+    const raw = getRaw(selectedStage);
+    if (!selectedStage || !raw) return;
     setDeepDiveLoading(true);
     setDeepDiveData(null);
 
     const prompt = `Based on this datacenter analysis, extract structured data in JSON format.
-    
+
 Analysis text:
-${stageOutputs[selectedStage]}
+${raw}
 
 Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
 {
@@ -659,7 +666,7 @@ Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
       .finally(() => setDeepDiveLoading(false));
   }, [selectedStage]);
 
-  if (completedStages.length === 0) {
+  if (allStages.length === 0) {
     return (
       <div className="min-h-screen bg-[#F4F6F9] pt-16 flex items-center justify-center">
         <div className="text-center max-w-md">
@@ -667,17 +674,19 @@ Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
             <BarChart3 size={28} className="text-[#00338D]" />
           </div>
           <h2 className="text-xl font-bold text-[#1A1F36] mb-2" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>No Analysis Available</h2>
-          <p className="text-[#6B7280] text-sm mb-6">Generate insights in at least one lifecycle stage first.</p>
-          <Link href="/stage/01" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#00338D] text-white rounded-xl text-sm font-bold hover:bg-[#0044b8] transition-colors">
-            Start Stage 01
+          <p className="text-[#6B7280] text-sm mb-6">Upload a strategy document or generate insights in at least one lifecycle stage.</p>
+          <Link href="/" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#00338D] text-white rounded-xl text-sm font-bold hover:bg-[#0044b8] transition-colors">
+            Go to Platform
           </Link>
         </div>
       </div>
     );
   }
 
-  const stageName = STAGE_NAMES[selectedStage] || `Stage ${selectedStage}`;
-  const rawOutput = stageOutputs[selectedStage] || '';
+  const stageName = selectedStage === 'doc'
+    ? (uploadedDocName ? uploadedDocName.replace(/\.[^.]+$/, '') : 'Strategy Document')
+    : (STAGE_NAMES[selectedStage] || `Stage ${selectedStage}`);
+  const rawOutput = getRaw(selectedStage) || '';
 
   return (
     <div className="min-h-screen bg-[#F4F6F9] pt-16">
@@ -685,14 +694,19 @@ Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
       <div className="bg-white border-b border-[#E2E8F0]">
         <div className="max-w-screen-xl mx-auto px-6 py-4">
           <div className="flex items-center gap-3 mb-3">
-            <Link href={`/stage/${selectedStage}`} className="flex items-center gap-1.5 text-sm text-[#6B7280] hover:text-[#1A1F36] transition-colors">
-              <ArrowLeft size={16} />Back to Stage
+            <Link href={selectedStage === 'doc' ? '/' : `/stage/${selectedStage}`} className="flex items-center gap-1.5 text-sm text-[#6B7280] hover:text-[#1A1F36] transition-colors">
+              <ArrowLeft size={16} />{selectedStage === 'doc' ? 'Back to Platform' : 'Back to Stage'}
             </Link>
           </div>
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-[#00338D]/10 text-[#00338D]">DEEP DIVE ANALYSIS</span>
+                <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-[#00338D]/10 text-[#00338D]">
+                  {selectedStage === 'doc' ? 'DOCUMENT ANALYSIS' : 'DEEP DIVE ANALYSIS'}
+                </span>
+                {selectedStage === 'doc' && uploadedDocName && (
+                  <span className="text-xs text-[#6B7280] truncate max-w-[200px]">{uploadedDocName}</span>
+                )}
               </div>
               <h1 className="text-2xl font-extrabold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                 {stageName} — Intelligence Report
@@ -701,15 +715,15 @@ Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
             <div className="flex items-center gap-3">
               {/* Stage selector */}
               <div className="flex gap-1.5">
-                {completedStages.map(s => (
+                {allStages.map(s => (
                   <button key={s} onClick={() => setSelectedStage(s)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${selectedStage === s ? 'bg-[#00338D] text-white' : 'bg-[#F4F6F9] text-[#6B7280] hover:bg-[#E2E8F0]'}`}>
-                    {s}
+                    {s === 'doc' ? 'DOC' : s}
                   </button>
                 ))}
               </div>
               {/* Download */}
-              <DownloadButton stageNum={selectedStage} stageName={stageName} rawOutput={rawOutput} />
+              <DownloadButton stageNum={selectedStage === 'doc' ? 'DOC' : selectedStage} stageName={stageName} rawOutput={rawOutput} />
             </div>
           </div>
         </div>

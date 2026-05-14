@@ -124,7 +124,7 @@ export default function LifecycleWheel({ onCenterClick }) {
           <circle cx={CX} cy={CY} r={INNER_R - 8} fill="url(#center-grad)" />
           <text x={CX} y={CY - 6} textAnchor="middle" fill="white" fontSize="22" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="800" letterSpacing="1">KPMG</text>
           <text x={CX} y={CY + 10} textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="8" fontFamily="'DM Sans', sans-serif" fontWeight="500" letterSpacing="1.5">DATACENTER INTELLIGENCE</text>
-          <text x={CX} y={CY + 22} textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="7" fontFamily="'DM Sans', sans-serif" fontWeight="400" letterSpacing="1">Click for platform overview</text>
+          <text x={CX} y={CY + 22} textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="7" fontFamily="'DM Sans', sans-serif" fontWeight="400" letterSpacing="1">Click to upload &amp; analyse</text>
         </motion.g>
 
         {STAGES.map((_, i) => {

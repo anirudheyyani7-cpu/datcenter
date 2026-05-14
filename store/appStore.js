@@ -30,6 +30,12 @@ const useAppStore = create((set) => ({
   activeModal: null,
   setActiveModal: (modal) => set({ activeModal: modal }),
 
+  // Uploaded document analysis
+  uploadedDocAnalysis: null,
+  setUploadedDocAnalysis: (text) => set({ uploadedDocAnalysis: text }),
+  uploadedDocName: null,
+  setUploadedDocName: (name) => set({ uploadedDocName: name }),
+
   // Intro animation done
   introComplete: false,
   setIntroComplete: () => set({ introComplete: true }),

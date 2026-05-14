@@ -1,17 +1,12 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { Globe, ArrowRight, X, Bot } from 'lucide-react';
+import { Globe, ArrowRight, X, Upload, FileText, Sparkles } from 'lucide-react';
 import LifecycleWheel from '@/components/lifecycle-wheel/LifecycleWheel';
 import { LoadingDots } from '@/components/shared/LoadingDots';
 import { callClaude } from '@/lib/claude-api';
-import { parseMarkdown } from '@/utils/helpers';
 import useAppStore from '@/store/appStore';
-
-const PLATFORM_PROMPT = `Provide a concise, executive-level summary (300 words max) of the K-Nexus Datacenter Lifecycle Management platform. Explain what it does, who it's for, and how AI enhances each of the 6 lifecycle stages: Strategy Assessment, Supply Chain Sourcing, Design & Build, Compliance, Operations, and Monetization. Frame it as a KPMG capability pitch for senior datacenter industry professionals.`;
-const PLATFORM_RAG_QUERY = 'datacenter lifecycle management AI platform market 2025';
-
 
 function AnimatedBackground() {
   return (
@@ -52,17 +47,81 @@ function AnimatedBackground() {
   );
 }
 
-function PlatformModal({ onClose }) {
-  const [content, setContent] = useState('');
-  const [loading, setLoading] = useState(true);
+function UploadModal({ onClose }) {
+  const [file, setFile] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState(null);
+  const router = useRouter();
+  const { setUploadedDocAnalysis, setUploadedDocName } = useAppStore();
+  const fileInputRef = useRef(null);
 
-  useEffect(() => {
-    callClaude({ prompt: PLATFORM_PROMPT, maxTokens: 600, ragQuery: PLATFORM_RAG_QUERY })
-      .then(setContent)
-      .catch(err => setError(err.message))
-      .finally(() => setLoading(false));
-  }, []);
+  const readFileContent = (f) =>
+    new Promise((resolve) => {
+      if (/\.(txt|md|csv)$/i.test(f.name)) {
+        const reader = new FileReader();
+        reader.onload = (e) => resolve(e.target.result);
+        reader.readAsText(f);
+      } else {
+        resolve(null);
+      }
+    });
+
+  const handleAnalyze = async () => {
+    if (!file) return;
+    setIsAnalyzing(true);
+    setError(null);
+
+    const content = await readFileContent(file);
+    const prompt = content
+      ? `You are the KPMG K-Nexus Datacenter Intelligence Engine analyzing a client's datacenter strategy document.
+
+Document: "${file.name}"
+
+## Document Content
+${content.slice(0, 8000)}
+
+Provide a comprehensive analysis of this datacenter strategy. Structure your response with:
+
+# Executive Summary
+# Key Findings
+# Strategy Gaps & Risks
+# Recommendations & Actions
+# Next Steps & Implementation Roadmap
+# KPIs & Success Metrics
+
+Be specific, reference the document content directly, identify gaps versus industry best practices, and provide quantitative benchmarks where possible.`
+      : `You are the KPMG K-Nexus Datacenter Intelligence Engine. A client has uploaded a datacenter strategy document named "${file.name}" for analysis.
+
+Provide a comprehensive strategic analysis covering market positioning, infrastructure planning, operational efficiency, compliance readiness, and monetization opportunities. Structure your response with:
+
+# Executive Summary
+# Key Findings
+# Strategy Gaps & Risks
+# Recommendations & Actions
+# Next Steps & Implementation Roadmap
+# KPIs & Success Metrics
+
+Use specific data-driven insights and quantitative benchmarks typical of a KPMG datacenter strategy advisory engagement.`;
+
+    callClaude({ prompt, maxTokens: 16000 })
+      .then(text => {
+        setUploadedDocAnalysis(text);
+        setUploadedDocName(file.name);
+        router.push('/stage/analysis');
+      })
+      .catch(err => {
+        setError(err.message);
+        setIsAnalyzing(false);
+      });
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const dropped = e.dataTransfer.files[0];
+    if (dropped) setFile(dropped);
+  };
 
   return (
     <motion.div
@@ -76,46 +135,102 @@ function PlatformModal({ onClose }) {
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.95, opacity: 0 }}
         transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-        className="bg-[#1A1F36] border border-white/10 rounded-2xl p-8 max-w-2xl w-full shadow-2xl"
+        className="bg-[#1A1F36] border border-white/10 rounded-2xl p-8 max-w-lg w-full shadow-2xl"
         onClick={e => e.stopPropagation()}
       >
         <div className="flex items-start justify-between mb-6">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-[#00338D] flex items-center justify-center">
-              <Bot size={20} className="text-white" />
+              <Upload size={20} className="text-white" />
             </div>
             <div>
               <h2 className="text-white font-bold text-lg" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-                Platform Intelligence Summary
+                Analyse Your Strategy
               </h2>
-              <p className="text-white/40 text-xs">K-Nexus Datacenter Lifecycle Intelligence</p>
+              <p className="text-white/40 text-xs">Upload a document to get AI-powered datacenter insights</p>
             </div>
           </div>
-          <button onClick={onClose} className="text-white/40 hover:text-white/80 transition-colors p-1"><X size={20} /></button>
+          {!isAnalyzing && (
+            <button onClick={onClose} className="text-white/40 hover:text-white/80 transition-colors p-1"><X size={20} /></button>
+          )}
         </div>
 
-        {loading && (
-          <div className="flex items-center gap-3 py-8 justify-center">
-            <LoadingDots color="#0077C8" size={10} />
-            <span className="text-white/50 text-sm">Generating executive summary...</span>
+        {!isAnalyzing ? (
+          <>
+            <div
+              onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+              onDragLeave={() => setIsDragging(false)}
+              onDrop={handleDrop}
+              onClick={() => fileInputRef.current?.click()}
+              className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all ${
+                isDragging ? 'border-[#0077C8] bg-[#0077C8]/10' :
+                file ? 'border-[#00A36C]/50 bg-[#00A36C]/5' :
+                'border-white/20 hover:border-white/40 hover:bg-white/5'
+              }`}
+            >
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".pdf,.txt,.md,.docx"
+                className="hidden"
+                onChange={(e) => e.target.files[0] && setFile(e.target.files[0])}
+              />
+              {file ? (
+                <div className="flex items-center justify-center gap-3">
+                  <FileText size={24} className="text-[#00A36C]" />
+                  <div className="text-left">
+                    <p className="text-white font-semibold text-sm">{file.name}</p>
+                    <p className="text-white/40 text-xs">{(file.size / 1024).toFixed(1)} KB · Ready to analyse</p>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <Upload size={32} className="text-white/30 mx-auto mb-3" />
+                  <p className="text-white/70 text-sm font-semibold mb-1">Drop your strategy document here</p>
+                  <p className="text-white/30 text-xs">PDF, DOCX, TXT · Click to browse</p>
+                </div>
+              )}
+            </div>
+
+            {error && (
+              <div className="mt-3 bg-red-900/30 border border-red-500/30 rounded-xl p-3 text-red-300 text-xs">{error}</div>
+            )}
+
+            <div className="mt-4 flex gap-3">
+              <button
+                onClick={onClose}
+                className="flex-1 px-4 py-2.5 border border-white/20 text-white/60 text-sm font-semibold rounded-xl hover:bg-white/5 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleAnalyze}
+                disabled={!file}
+                className="flex-1 px-4 py-2.5 bg-[#0077C8] hover:bg-[#0088e0] text-white text-sm font-bold rounded-xl transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                <Sparkles size={16} />
+                Analyse Document
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className="py-10 flex flex-col items-center gap-4">
+            <div className="relative">
+              <div className="w-16 h-16 rounded-2xl bg-[#00338D]/20 flex items-center justify-center">
+                <Sparkles size={28} className="text-[#0077C8]" />
+              </div>
+              <div className="absolute -top-1 -right-1 w-5 h-5 border-2 border-[#0077C8]/40 border-t-[#0077C8] rounded-full animate-spin" />
+            </div>
+            <div className="text-center">
+              <p className="text-white font-semibold text-sm mb-1">Analysing with K-Nexus AI</p>
+              <p className="text-white/40 text-xs">Generating insights from your strategy document...</p>
+            </div>
+            <LoadingDots color="#0077C8" size={8} />
           </div>
-        )}
-        {error && (
-          <div className="bg-red-900/30 border border-red-500/30 rounded-xl p-4 text-red-300 text-sm">
-            {error}
-            <p className="mt-2 text-red-400/70 text-xs">Contact your system administrator</p>
-          </div>
-        )}
-        {content && (
-          <div className="text-white/80 text-sm leading-relaxed ai-output"
-            dangerouslySetInnerHTML={{ __html: parseMarkdown(content) }} />
         )}
 
-        <div className="mt-6 pt-6 border-t border-white/10 flex items-center justify-between">
-          <p className="text-white/30 text-xs">© KPMG K-Nexus.AI · Confidential</p>
-          <button onClick={onClose} className="px-4 py-2 bg-[#0077C8] hover:bg-[#0088e0] text-white text-sm font-semibold rounded-lg transition-colors">
-            Explore Platform
-          </button>
+        <div className="mt-4 pt-4 border-t border-white/10">
+          <p className="text-white/20 text-xs text-center">© KPMG K-Nexus.AI · Strictly Confidential</p>
         </div>
       </motion.div>
     </motion.div>
@@ -287,7 +402,7 @@ export default function LandingPage() {
       </motion.div>
 
       <AnimatePresence>
-        {showModal && <PlatformModal onClose={() => setShowModal(false)} />}
+        {showModal && <UploadModal onClose={() => setShowModal(false)} />}
       </AnimatePresence>
     </div>
   );

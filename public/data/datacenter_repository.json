@@ -3,10 +3,9 @@
     "version": "2.0.0",
     "last_updated": "2026-05-13",
     "total_facilities": 115,
-    "total_countries": 45,
+    "total_countries": 40,
     "countries": [
       "Australia",
-      "Austria",
       "Brazil",
       "Canada",
       "Chile",
@@ -16,7 +15,6 @@
       "Finland",
       "France",
       "Germany",
-      "Greece",
       "Hong Kong",
       "Iceland",
       "India",
@@ -28,15 +26,12 @@
       "Kenya",
       "Malaysia",
       "Mexico",
-      "Morocco",
       "Netherlands",
       "New Zealand",
       "Nigeria",
       "Norway",
       "Philippines",
-      "Poland",
       "Portugal",
-      "Qatar",
       "Saudi Arabia",
       "Singapore",
       "South Africa",
@@ -2461,51 +2456,6 @@
       "notable_facts": "NTT Berlin 1 exports waste heat to neighboring residential buildings \u2014 a model for German datacenter sustainability regulations."
     },
     {
-      "id": "DE-MUN-001",
-      "name": "NorthC Munich 1",
-      "country": "Germany",
-      "city": "Munich",
-      "state": "Bavaria",
-      "coordinates": {
-        "latitude": 48.1351,
-        "longitude": 11.582
-      },
-      "operator": "NorthC Datacenters",
-      "owner_group": "NorthC Group",
-      "tier_rating": "Tier III",
-      "year_commissioned": 2020,
-      "status": "Operational",
-      "capacity_mw": 8,
-      "total_area_sqft": 75000,
-      "rack_count": 900,
-      "pue": 1.3,
-      "renewable_energy_pct": 100,
-      "cooling_type": "Free Cooling \u2014 Alpine Climate Benefit",
-      "certifications": [
-        "ISO 27001",
-        "SOC 2 Type II",
-        "BSI C5"
-      ],
-      "key_tenants": [
-        "Automotive (BMW, Siemens)",
-        "Manufacturing IoT"
-      ],
-      "connectivity": {
-        "submarine_cables": [],
-        "network_carriers": 15,
-        "cloud_on_ramps": [
-          "AWS",
-          "Azure"
-        ]
-      },
-      "sustainability": {
-        "solar_onsite_kw": 400,
-        "water_recycling": false,
-        "carbon_neutral_target_year": 2028
-      },
-      "notable_facts": "Munich serves Germany's automotive and manufacturing heartland. NorthC is expanding across 20+ European locations in the Benelux and DACH regions."
-    },
-    {
       "id": "NL-AMS-001",
       "name": "Equinix AM5 \u2014 Amsterdam Science Park",
       "country": "Netherlands",
@@ -2607,51 +2557,6 @@
         "carbon_neutral_target_year": 2028
       },
       "notable_facts": "Schiphol-Rijk is Amsterdam's premier datacenter corridor. Netherlands has 298 datacenters and is Europe's fourth-largest market."
-    },
-    {
-      "id": "NL-EIN-001",
-      "name": "NorthC Eindhoven 1",
-      "country": "Netherlands",
-      "city": "Eindhoven",
-      "state": "North Brabant",
-      "coordinates": {
-        "latitude": 51.4416,
-        "longitude": 5.4697
-      },
-      "operator": "NorthC Datacenters",
-      "owner_group": "NorthC Group",
-      "tier_rating": "Tier III",
-      "year_commissioned": 2018,
-      "status": "Operational",
-      "capacity_mw": 6,
-      "total_area_sqft": 55000,
-      "rack_count": 700,
-      "pue": 1.3,
-      "renewable_energy_pct": 100,
-      "cooling_type": "Precision Air with Free Cooling",
-      "certifications": [
-        "ISO 27001",
-        "SOC 2 Type II"
-      ],
-      "key_tenants": [
-        "ASML Ecosystem",
-        "Semiconductor R&D",
-        "Advanced Manufacturing"
-      ],
-      "connectivity": {
-        "submarine_cables": [],
-        "network_carriers": 8,
-        "cloud_on_ramps": [
-          "AWS",
-          "Azure"
-        ]
-      },
-      "sustainability": {
-        "solar_onsite_kw": 300,
-        "water_recycling": false,
-        "carbon_neutral_target_year": 2028
-      },
-      "notable_facts": "Eindhoven serves ASML's semiconductor ecosystem \u2014 the world's sole EUV lithography supplier. Dutch operators expanding beyond Amsterdam due to power grid constraints."
     },
     {
       "id": "FR-PAR-001",
@@ -4265,52 +4170,6 @@
       "notable_facts": "Milan is part of the FLAP-D+M corridor. Italy added Milan to Europe's top datacenter markets with 350+ MW capacity."
     },
     {
-      "id": "PL-WAW-001",
-      "name": "Equinix WA3 \u2014 Warsaw",
-      "country": "Poland",
-      "city": "Warsaw",
-      "state": "Masovian",
-      "coordinates": {
-        "latitude": 52.2297,
-        "longitude": 21.0122
-      },
-      "operator": "Equinix",
-      "owner_group": "Equinix Inc.",
-      "tier_rating": "Tier III",
-      "year_commissioned": 2023,
-      "status": "Operational",
-      "capacity_mw": 8,
-      "total_area_sqft": 70000,
-      "rack_count": 900,
-      "pue": 1.28,
-      "renewable_energy_pct": 60,
-      "cooling_type": "Free Cooling \u2014 Continental Climate",
-      "certifications": [
-        "ISO 27001",
-        "SOC 2 Type II"
-      ],
-      "key_tenants": [
-        "Polish Government",
-        "Nearshore IT",
-        "Gaming Studios (CD Projekt)"
-      ],
-      "connectivity": {
-        "submarine_cables": [],
-        "network_carriers": 15,
-        "cloud_on_ramps": [
-          "AWS",
-          "Azure",
-          "Google Cloud"
-        ]
-      },
-      "sustainability": {
-        "solar_onsite_kw": 500,
-        "water_recycling": false,
-        "carbon_neutral_target_year": 2030
-      },
-      "notable_facts": "Warsaw is Central Europe's fastest-growing datacenter market. Poland benefits from EU digital sovereignty initiatives and competitive labor costs."
-    },
-    {
       "id": "KE-NBO-001",
       "name": "Africa Data Centres \u2014 Nairobi",
       "country": "Kenya",
@@ -4611,56 +4470,6 @@
       "notable_facts": "Vietnam is one of Southeast Asia's fastest-growing digital economies with 78M+ internet users. AWS and Google both expanding cloud presence in Vietnam."
     },
     {
-      "id": "QA-DOH-001",
-      "name": "Meeza M-Vault 2 \u2014 Doha",
-      "country": "Qatar",
-      "city": "Doha",
-      "state": "Doha Municipality",
-      "coordinates": {
-        "latitude": 25.2854,
-        "longitude": 51.531
-      },
-      "operator": "Meeza",
-      "owner_group": "Qatar Foundation",
-      "tier_rating": "Tier III+",
-      "year_commissioned": 2018,
-      "status": "Operational",
-      "capacity_mw": 12,
-      "total_area_sqft": 110000,
-      "rack_count": 1400,
-      "pue": 1.45,
-      "renewable_energy_pct": 20,
-      "cooling_type": "District Cooling \u2014 Desert Climate",
-      "certifications": [
-        "ISO 27001",
-        "SOC 2 Type II",
-        "NIA"
-      ],
-      "key_tenants": [
-        "Qatar Government",
-        "Qatar Airways",
-        "Oil & Gas"
-      ],
-      "connectivity": {
-        "submarine_cables": [
-          "FALCON",
-          "FLAG",
-          "Qatar-UAE"
-        ],
-        "network_carriers": 10,
-        "cloud_on_ramps": [
-          "AWS",
-          "Azure"
-        ]
-      },
-      "sustainability": {
-        "solar_onsite_kw": 5000,
-        "water_recycling": true,
-        "carbon_neutral_target_year": 2040
-      },
-      "notable_facts": "Meeza is Qatar's sovereign datacenter provider. Qatar is investing heavily in digital infrastructure as part of its National Vision 2030."
-    },
-    {
       "id": "US-AZ-001",
       "name": "CyrusOne Chandler \u2014 Phoenix",
       "country": "United States",
@@ -4797,48 +4606,6 @@
         "carbon_neutral_target_year": 2025
       },
       "notable_facts": "Quincy benefits from Grant County PUD's hydroelectric rates \u2014 among the cheapest power in the US. Microsoft uses Columbia River basin water for evaporative cooling."
-    },
-    {
-      "id": "US-NC-001",
-      "name": "Meta \u2014 Forest City",
-      "country": "United States",
-      "city": "Forest City",
-      "state": "North Carolina",
-      "coordinates": {
-        "latitude": 35.334,
-        "longitude": -81.8651
-      },
-      "operator": "Meta Platforms",
-      "owner_group": "Meta Platforms Inc.",
-      "tier_rating": "Tier III+ (Custom)",
-      "year_commissioned": 2012,
-      "status": "Operational",
-      "capacity_mw": 120,
-      "total_area_sqft": 1400000,
-      "rack_count": 15000,
-      "pue": 1.1,
-      "renewable_energy_pct": 100,
-      "cooling_type": "Custom Evaporative \u2014 Open Compute Project",
-      "certifications": [
-        "ISO 27001",
-        "SOC 1/2/3"
-      ],
-      "key_tenants": [
-        "Self-Operated \u2014 Meta/Facebook/Instagram/WhatsApp"
-      ],
-      "connectivity": {
-        "submarine_cables": [],
-        "network_carriers": 0,
-        "cloud_on_ramps": [
-          "Native Meta"
-        ]
-      },
-      "sustainability": {
-        "solar_onsite_kw": 40000,
-        "water_recycling": true,
-        "carbon_neutral_target_year": 2030
-      },
-      "notable_facts": "One of Meta's earliest purpose-built datacenters. Pioneered the Open Compute Project (OCP). Meta's combined 2024 capex was part of the $228 billion hyperscaler total."
     },
     {
       "id": "US-IA-001",
@@ -5025,189 +4792,6 @@
       "notable_facts": "Tuas leverages LNG-regasification plants as waste heat sinks to achieve sub-1.2 PUE. Part of Singapore's Green Data Centre Roadmap for CFA-approved sustainable builds."
     },
     {
-      "id": "UK-EDI-001",
-      "name": "DataVita \u2014 Edinburgh",
-      "country": "United Kingdom",
-      "city": "Edinburgh",
-      "state": "Scotland",
-      "coordinates": {
-        "latitude": 55.9533,
-        "longitude": -3.1883
-      },
-      "operator": "DataVita",
-      "owner_group": "DataVita Group",
-      "tier_rating": "Tier III",
-      "year_commissioned": 2019,
-      "status": "Operational",
-      "capacity_mw": 6,
-      "total_area_sqft": 50000,
-      "rack_count": 600,
-      "pue": 1.2,
-      "renewable_energy_pct": 100,
-      "cooling_type": "Free Cooling \u2014 Scottish Climate",
-      "certifications": [
-        "ISO 27001",
-        "SOC 2 Type II"
-      ],
-      "key_tenants": [
-        "Scottish Government",
-        "Financial Services",
-        "University Research"
-      ],
-      "connectivity": {
-        "submarine_cables": [
-          "HAVFRUE"
-        ],
-        "network_carriers": 8,
-        "cloud_on_ramps": [
-          "AWS",
-          "Azure"
-        ]
-      },
-      "sustainability": {
-        "solar_onsite_kw": 200,
-        "water_recycling": false,
-        "carbon_neutral_target_year": 2028
-      },
-      "notable_facts": "Scotland offers abundant wind energy and natural free cooling. Edinburgh is emerging as a UK datacenter market beyond the London-Slough corridor."
-    },
-    {
-      "id": "UK-BIR-001",
-      "name": "Equinix BI1 \u2014 Birmingham",
-      "country": "United Kingdom",
-      "city": "Birmingham",
-      "state": "West Midlands",
-      "coordinates": {
-        "latitude": 52.4862,
-        "longitude": -1.8904
-      },
-      "operator": "Equinix",
-      "owner_group": "Equinix Inc.",
-      "tier_rating": "Tier III",
-      "year_commissioned": 2021,
-      "status": "Operational",
-      "capacity_mw": 8,
-      "total_area_sqft": 70000,
-      "rack_count": 900,
-      "pue": 1.28,
-      "renewable_energy_pct": 96,
-      "cooling_type": "Free Cooling with Precision Air",
-      "certifications": [
-        "ISO 27001",
-        "SOC 2 Type II",
-        "PCI DSS"
-      ],
-      "key_tenants": [
-        "Midlands Enterprise",
-        "Automotive",
-        "Manufacturing IoT"
-      ],
-      "connectivity": {
-        "submarine_cables": [],
-        "network_carriers": 15,
-        "cloud_on_ramps": [
-          "AWS",
-          "Azure"
-        ]
-      },
-      "sustainability": {
-        "solar_onsite_kw": 400,
-        "water_recycling": false,
-        "carbon_neutral_target_year": 2030
-      },
-      "notable_facts": "Birmingham is the UK's second city and a growing datacenter market with demand from cloud and tech companies alongside London and Manchester."
-    },
-    {
-      "id": "IN-PUN-001",
-      "name": "Yotta Pune \u2014 Kharadi",
-      "country": "India",
-      "city": "Pune",
-      "state": "Maharashtra",
-      "coordinates": {
-        "latitude": 18.553,
-        "longitude": 73.95
-      },
-      "operator": "Yotta Infrastructure",
-      "owner_group": "Hiranandani Group",
-      "tier_rating": "Tier III",
-      "year_commissioned": 2024,
-      "status": "Operational",
-      "capacity_mw": 20,
-      "total_area_sqft": 180000,
-      "rack_count": 2200,
-      "pue": 1.35,
-      "renewable_energy_pct": 35,
-      "cooling_type": "Chilled Water with Hot Aisle Containment",
-      "certifications": [
-        "ISO 27001",
-        "SOC 2 Type II"
-      ],
-      "key_tenants": [
-        "Automotive IT",
-        "Pharma",
-        "Enterprise"
-      ],
-      "connectivity": {
-        "submarine_cables": [],
-        "network_carriers": 10,
-        "cloud_on_ramps": [
-          "AWS",
-          "Azure"
-        ]
-      },
-      "sustainability": {
-        "solar_onsite_kw": 2000,
-        "water_recycling": true,
-        "carbon_neutral_target_year": 2032
-      },
-      "notable_facts": "Pune is an emerging Tier-2 datacenter market driven by IT/ITeS presence and proximity to Mumbai's submarine cable landing stations."
-    },
-    {
-      "id": "IN-GUJ-001",
-      "name": "Reliance Jamnagar DC \u2014 Gujarat",
-      "country": "India",
-      "city": "Jamnagar",
-      "state": "Gujarat",
-      "coordinates": {
-        "latitude": 22.4707,
-        "longitude": 70.0577
-      },
-      "operator": "Reliance Industries",
-      "owner_group": "Reliance Industries Ltd.",
-      "tier_rating": "Tier III+",
-      "year_commissioned": 2026,
-      "status": "Under Construction",
-      "capacity_mw": 100,
-      "total_area_sqft": 1200000,
-      "rack_count": 12000,
-      "pue": 1.25,
-      "renewable_energy_pct": 100,
-      "cooling_type": "Liquid Cooling \u2014 AI/HPC Optimized",
-      "certifications": [
-        "ISO 27001"
-      ],
-      "key_tenants": [
-        "Jio Platforms",
-        "NVIDIA Partnership",
-        "AI/LLM Training"
-      ],
-      "connectivity": {
-        "submarine_cables": [
-          "India-ME-WE"
-        ],
-        "network_carriers": 8,
-        "cloud_on_ramps": [
-          "Jio Cloud"
-        ]
-      },
-      "sustainability": {
-        "solar_onsite_kw": 50000,
-        "water_recycling": true,
-        "carbon_neutral_target_year": 2030
-      },
-      "notable_facts": "Reliance's planned 1 GW datacenter \u2014 one of the world's largest. Partnership with NVIDIA for AI chips. Powered entirely by renewable energy from Jamnagar refinery complex."
-    },
-    {
       "id": "JP-TYO-004",
       "name": "Colt Tokyo Shiohama",
       "country": "Japan",
@@ -5357,102 +4941,6 @@
       "notable_facts": "Lisbon is a critical Atlantic subsea cable hub. EllaLink connects Europe to Brazil directly. Equiano cable connects to West Africa. Portugal runs 80%+ on renewables."
     },
     {
-      "id": "AT-VIE-001",
-      "name": "Interxion VIE2 \u2014 Vienna",
-      "country": "Austria",
-      "city": "Vienna",
-      "state": "Vienna",
-      "coordinates": {
-        "latitude": 48.2082,
-        "longitude": 16.3738
-      },
-      "operator": "Digital Realty (Interxion)",
-      "owner_group": "Digital Realty Trust",
-      "tier_rating": "Tier III",
-      "year_commissioned": 2018,
-      "status": "Operational",
-      "capacity_mw": 8,
-      "total_area_sqft": 70000,
-      "rack_count": 900,
-      "pue": 1.28,
-      "renewable_energy_pct": 100,
-      "cooling_type": "Free Cooling with District Heat Export",
-      "certifications": [
-        "ISO 27001",
-        "SOC 2 Type II",
-        "EN 50600"
-      ],
-      "key_tenants": [
-        "Austrian Government",
-        "CERN Network",
-        "Central European Enterprise"
-      ],
-      "connectivity": {
-        "submarine_cables": [],
-        "network_carriers": 18,
-        "cloud_on_ramps": [
-          "AWS",
-          "Azure",
-          "Google Cloud"
-        ]
-      },
-      "sustainability": {
-        "solar_onsite_kw": 300,
-        "water_recycling": false,
-        "carbon_neutral_target_year": 2030
-      },
-      "notable_facts": "Vienna is Central Europe's interconnection hub bridging Western and Eastern European networks. Austria runs on 75%+ renewable energy (hydro + wind)."
-    },
-    {
-      "id": "GR-ATH-001",
-      "name": "Lamda Hellix Athens 3",
-      "country": "Greece",
-      "city": "Athens",
-      "state": "Attica",
-      "coordinates": {
-        "latitude": 37.9838,
-        "longitude": 23.7275
-      },
-      "operator": "Lamda Hellix (Digital Realty)",
-      "owner_group": "Digital Realty Trust",
-      "tier_rating": "Tier III",
-      "year_commissioned": 2021,
-      "status": "Operational",
-      "capacity_mw": 6,
-      "total_area_sqft": 50000,
-      "rack_count": 600,
-      "pue": 1.35,
-      "renewable_energy_pct": 50,
-      "cooling_type": "Chilled Water \u2014 Mediterranean Climate",
-      "certifications": [
-        "ISO 27001",
-        "SOC 2 Type II"
-      ],
-      "key_tenants": [
-        "Greek Banks",
-        "Shipping Industry",
-        "SE Europe Enterprise"
-      ],
-      "connectivity": {
-        "submarine_cables": [
-          "SEA-ME-WE 5",
-          "MedNautilus",
-          "OTEGLOBE"
-        ],
-        "network_carriers": 15,
-        "cloud_on_ramps": [
-          "AWS",
-          "Azure"
-        ]
-      },
-      "sustainability": {
-        "solar_onsite_kw": 1500,
-        "water_recycling": true,
-        "carbon_neutral_target_year": 2035
-      },
-      "notable_facts": "Athens is a key submarine cable landing point for Europe-Middle East-Asia routes. Digital Realty acquired Lamda Hellix in 2022 to enter the Greek market."
-    },
-    {
       "id": "PH-MNL-001",
       "name": "PLDT ePLDT VITRO Makati",
       "country": "Philippines",
@@ -5504,139 +4992,6 @@
       "notable_facts": "Philippines is Southeast Asia's BPO capital driving colocation demand. Manila has 20+ operational datacenters serving 110M+ population."
     },
     {
-      "id": "US-OR-001",
-      "name": "Meta Prineville \u2014 Oregon",
-      "country": "United States",
-      "city": "Prineville",
-      "state": "Oregon",
-      "coordinates": {
-        "latitude": 44.3001,
-        "longitude": -120.7344
-      },
-      "operator": "Meta Platforms",
-      "owner_group": "Meta Platforms Inc.",
-      "tier_rating": "Tier III+ (Custom)",
-      "year_commissioned": 2011,
-      "status": "Operational \u2014 Expanding",
-      "capacity_mw": 180,
-      "total_area_sqft": 2100000,
-      "rack_count": 20000,
-      "pue": 1.08,
-      "renewable_energy_pct": 100,
-      "cooling_type": "Custom Evaporative \u2014 Desert Climate",
-      "certifications": [
-        "ISO 27001",
-        "SOC 1/2/3"
-      ],
-      "key_tenants": [
-        "Self-Operated \u2014 Meta AI Infrastructure"
-      ],
-      "connectivity": {
-        "submarine_cables": [],
-        "network_carriers": 0,
-        "cloud_on_ramps": [
-          "Native Meta"
-        ]
-      },
-      "sustainability": {
-        "solar_onsite_kw": 30000,
-        "water_recycling": true,
-        "carbon_neutral_target_year": 2030
-      },
-      "notable_facts": "Meta's first custom-built datacenter and birthplace of the Open Compute Project. Prineville's dry climate and cold winters enable ultra-efficient evaporative cooling."
-    },
-    {
-      "id": "US-NE-001",
-      "name": "Meta \u2014 Papillion",
-      "country": "United States",
-      "city": "Papillion",
-      "state": "Nebraska",
-      "coordinates": {
-        "latitude": 41.1523,
-        "longitude": -96.0422
-      },
-      "operator": "Meta Platforms",
-      "owner_group": "Meta Platforms Inc.",
-      "tier_rating": "Tier III+ (Custom)",
-      "year_commissioned": 2020,
-      "status": "Operational",
-      "capacity_mw": 150,
-      "total_area_sqft": 1800000,
-      "rack_count": 18000,
-      "pue": 1.1,
-      "renewable_energy_pct": 100,
-      "cooling_type": "Custom Evaporative + Wind-Powered",
-      "certifications": [
-        "ISO 27001",
-        "SOC 1/2/3"
-      ],
-      "key_tenants": [
-        "Self-Operated \u2014 Meta AI & Social"
-      ],
-      "connectivity": {
-        "submarine_cables": [],
-        "network_carriers": 0,
-        "cloud_on_ramps": [
-          "Native Meta"
-        ]
-      },
-      "sustainability": {
-        "solar_onsite_kw": 0,
-        "water_recycling": true,
-        "carbon_neutral_target_year": 2030
-      },
-      "notable_facts": "Nebraska's abundant wind energy and OPPD competitive electricity rates make it ideal for hyperscale. Meta's largest Midwest facility."
-    },
-    {
-      "id": "MA-CAS-001",
-      "name": "N+ONE Casablanca DC1",
-      "country": "Morocco",
-      "city": "Casablanca",
-      "state": "Casablanca-Settat",
-      "coordinates": {
-        "latitude": 33.5731,
-        "longitude": -7.5898
-      },
-      "operator": "N+ONE Datacenters",
-      "owner_group": "N+ONE Group",
-      "tier_rating": "Tier III",
-      "year_commissioned": 2019,
-      "status": "Operational",
-      "capacity_mw": 5,
-      "total_area_sqft": 40000,
-      "rack_count": 500,
-      "pue": 1.4,
-      "renewable_energy_pct": 40,
-      "cooling_type": "Precision Cooling \u2014 Coastal Mediterranean",
-      "certifications": [
-        "ISO 27001",
-        "SOC 2 Type II"
-      ],
-      "key_tenants": [
-        "Moroccan Government",
-        "French Enterprise Africa",
-        "Banking"
-      ],
-      "connectivity": {
-        "submarine_cables": [
-          "SEA-ME-WE 5",
-          "Atlas Offshore",
-          "2Africa"
-        ],
-        "network_carriers": 8,
-        "cloud_on_ramps": [
-          "AWS",
-          "Azure"
-        ]
-      },
-      "sustainability": {
-        "solar_onsite_kw": 2000,
-        "water_recycling": true,
-        "carbon_neutral_target_year": 2035
-      },
-      "notable_facts": "Morocco is North Africa's most connected datacenter market. Strategic position between Europe and Sub-Saharan Africa. Morocco targets 52% renewable electricity by 2030."
-    },
-    {
       "id": "IS-REY-001",
       "name": "Verne Global \u2014 Keflavik Campus",
       "country": "Iceland",
@@ -5686,6 +5041,659 @@
         "carbon_neutral_target_year": 2020
       },
       "notable_facts": "World's lowest PUE at 1.03 \u2014 entirely free-air cooled in Arctic climate. 100% geothermal and hydroelectric power at Europe's cheapest electricity rates. Built on a former NATO air base. Carbon-neutral since 2020."
+    },
+    {
+      "id": "IN-MUM-005",
+      "name": "AWS Asia Pacific (Mumbai) Region \u2014 ap-south-1",
+      "country": "India",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "coordinates": {
+        "latitude": 19.076,
+        "longitude": 72.8777
+      },
+      "operator": "Amazon Web Services",
+      "owner_group": "Amazon.com Inc.",
+      "tier_rating": "Tier III+ (Custom)",
+      "year_commissioned": 2016,
+      "status": "Operational \u2014 Expanding",
+      "capacity_mw": 80,
+      "total_area_sqft": 750000,
+      "rack_count": 8000,
+      "pue": 1.25,
+      "renewable_energy_pct": 60,
+      "cooling_type": "Chilled Water \u2014 Custom AWS Design",
+      "certifications": [
+        "ISO 27001",
+        "SOC 1/2/3",
+        "PCI DSS",
+        "HIPAA",
+        "MeitY Empanelled"
+      ],
+      "key_tenants": [
+        "Self-Operated \u2014 AWS Cloud (ap-south-1)",
+        "3 Availability Zones"
+      ],
+      "connectivity": {
+        "submarine_cables": [
+          "MIST",
+          "India-ME-WE",
+          "BBG"
+        ],
+        "network_carriers": 30,
+        "cloud_on_ramps": [
+          "Native AWS"
+        ]
+      },
+      "sustainability": {
+        "solar_onsite_kw": 5000,
+        "water_recycling": true,
+        "carbon_neutral_target_year": 2030
+      },
+      "notable_facts": "AWS's first India region launched in 2016 with 3 AZs. AWS announced $8.3 billion expansion in Mumbai (MoU signed at Davos Jan 2025). Part of $12.7 billion total India investment by 2030. Also planning $430 million new facility in Navi Mumbai (49-acre Taloja site)."
+    },
+    {
+      "id": "IN-HYD-002",
+      "name": "AWS Asia Pacific (Hyderabad) Region \u2014 ap-south-2",
+      "country": "India",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "coordinates": {
+        "latitude": 17.385,
+        "longitude": 78.4867
+      },
+      "operator": "Amazon Web Services",
+      "owner_group": "Amazon.com Inc.",
+      "tier_rating": "Tier III+ (Custom)",
+      "year_commissioned": 2022,
+      "status": "Operational \u2014 Expanding",
+      "capacity_mw": 60,
+      "total_area_sqft": 550000,
+      "rack_count": 6500,
+      "pue": 1.22,
+      "renewable_energy_pct": 65,
+      "cooling_type": "Chilled Water \u2014 AI/ML Optimized",
+      "certifications": [
+        "ISO 27001",
+        "SOC 1/2/3",
+        "PCI DSS",
+        "MeitY Empanelled"
+      ],
+      "key_tenants": [
+        "Self-Operated \u2014 AWS Cloud (ap-south-2)",
+        "3 Availability Zones"
+      ],
+      "connectivity": {
+        "submarine_cables": [],
+        "network_carriers": 20,
+        "cloud_on_ramps": [
+          "Native AWS"
+        ]
+      },
+      "sustainability": {
+        "solar_onsite_kw": 4000,
+        "water_recycling": true,
+        "carbon_neutral_target_year": 2030
+      },
+      "notable_facts": "AWS's second India region (30th globally) launched Nov 2022. $7 billion Hyderabad expansion supports AI/ML workloads. AWS partnering with Tata Communications for high-capacity Mumbai-Hyderabad-Chennai backbone for GenAI and HPC."
+    },
+    {
+      "id": "IN-PUN-002",
+      "name": "Microsoft Azure Central India \u2014 Pune",
+      "country": "India",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "coordinates": {
+        "latitude": 18.5896,
+        "longitude": 73.7381
+      },
+      "operator": "Microsoft Azure",
+      "owner_group": "Microsoft Corporation",
+      "tier_rating": "Tier III+ (Custom)",
+      "year_commissioned": 2015,
+      "status": "Operational \u2014 Expanding",
+      "capacity_mw": 50,
+      "total_area_sqft": 450000,
+      "rack_count": 5500,
+      "pue": 1.25,
+      "renewable_energy_pct": 55,
+      "cooling_type": "Chilled Water \u2014 Azure Custom Design",
+      "certifications": [
+        "ISO 27001",
+        "SOC 1/2/3",
+        "PCI DSS",
+        "HIPAA",
+        "MeitY Empanelled"
+      ],
+      "key_tenants": [
+        "Self-Operated \u2014 Azure Cloud (Central India)",
+        "3 Availability Zones"
+      ],
+      "connectivity": {
+        "submarine_cables": [],
+        "network_carriers": 25,
+        "cloud_on_ramps": [
+          "Native Azure"
+        ]
+      },
+      "sustainability": {
+        "solar_onsite_kw": 3000,
+        "water_recycling": true,
+        "carbon_neutral_target_year": 2030
+      },
+      "notable_facts": "Azure's first India region (Central India) launched 2015 \u2014 Microsoft was the first major US cloud provider in India. Only Indian Azure region with Availability Zones (added Dec 2021). 99.99% uptime SLA. Part of Microsoft's $17.5 billion India investment (2026-2029)."
+    },
+    {
+      "id": "IN-CHN-002",
+      "name": "Microsoft Azure South India \u2014 Chennai",
+      "country": "India",
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "coordinates": {
+        "latitude": 13.0827,
+        "longitude": 80.2707
+      },
+      "operator": "Microsoft Azure",
+      "owner_group": "Microsoft Corporation",
+      "tier_rating": "Tier III (Custom)",
+      "year_commissioned": 2015,
+      "status": "Operational \u2014 Expanding",
+      "capacity_mw": 35,
+      "total_area_sqft": 300000,
+      "rack_count": 3800,
+      "pue": 1.28,
+      "renewable_energy_pct": 50,
+      "cooling_type": "Chilled Water \u2014 Tropical Climate Adapted",
+      "certifications": [
+        "ISO 27001",
+        "SOC 1/2/3",
+        "PCI DSS",
+        "MeitY Empanelled"
+      ],
+      "key_tenants": [
+        "Self-Operated \u2014 Azure Cloud (South India)"
+      ],
+      "connectivity": {
+        "submarine_cables": [
+          "Chennai-Singapore (CS1)",
+          "BBG",
+          "MIST"
+        ],
+        "network_carriers": 20,
+        "cloud_on_ramps": [
+          "Native Azure"
+        ]
+      },
+      "sustainability": {
+        "solar_onsite_kw": 2000,
+        "water_recycling": true,
+        "carbon_neutral_target_year": 2030
+      },
+      "notable_facts": "Azure South India launched alongside Pune and Mumbai in 2015. Chennai is India's second-largest datacenter market at 21% of national capacity. Submarine cable connectivity to Singapore and Southeast Asia."
+    },
+    {
+      "id": "IN-HYD-003",
+      "name": "Microsoft Azure India South Central \u2014 Hyderabad",
+      "country": "India",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "coordinates": {
+        "latitude": 17.36,
+        "longitude": 78.474
+      },
+      "operator": "Microsoft Azure",
+      "owner_group": "Microsoft Corporation",
+      "tier_rating": "Tier III+ (Custom)",
+      "year_commissioned": 2026,
+      "status": "Under Construction \u2014 Go-Live Mid-2026",
+      "capacity_mw": 100,
+      "total_area_sqft": 900000,
+      "rack_count": 10000,
+      "pue": 1.18,
+      "renewable_energy_pct": 70,
+      "cooling_type": "Liquid Cooling + Chilled Water \u2014 AI-Ready Hyperscale",
+      "certifications": [
+        "ISO 27001",
+        "SOC 1/2/3"
+      ],
+      "key_tenants": [
+        "Self-Operated \u2014 Azure Cloud (India South Central)",
+        "3 Availability Zones"
+      ],
+      "connectivity": {
+        "submarine_cables": [],
+        "network_carriers": 15,
+        "cloud_on_ramps": [
+          "Native Azure"
+        ]
+      },
+      "sustainability": {
+        "solar_onsite_kw": 10000,
+        "water_recycling": true,
+        "carbon_neutral_target_year": 2030
+      },
+      "notable_facts": "Microsoft's largest hyperscale region in India \u2014 'roughly equivalent in size to two Eden Gardens stadiums combined.' Go-live mid-2026 with 3 AZs. Part of $17.5 billion India investment (largest in Asia). Microsoft acquired 115+ acres across Mekaguda, Shadnagar, and Chandenvelly."
+    },
+    {
+      "id": "IN-MUM-006",
+      "name": "Google Cloud Mumbai Region \u2014 asia-south1",
+      "country": "India",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "coordinates": {
+        "latitude": 19.107,
+        "longitude": 72.837
+      },
+      "operator": "Google Cloud",
+      "owner_group": "Alphabet Inc.",
+      "tier_rating": "Tier III+ (Custom)",
+      "year_commissioned": 2017,
+      "status": "Operational \u2014 Expanding",
+      "capacity_mw": 45,
+      "total_area_sqft": 400000,
+      "rack_count": 5000,
+      "pue": 1.1,
+      "renewable_energy_pct": 80,
+      "cooling_type": "Custom Google Cooling \u2014 AI-Optimized",
+      "certifications": [
+        "ISO 27001",
+        "SOC 1/2/3",
+        "PCI DSS",
+        "HIPAA"
+      ],
+      "key_tenants": [
+        "Self-Operated \u2014 Google Cloud (asia-south1)",
+        "3 Availability Zones"
+      ],
+      "connectivity": {
+        "submarine_cables": [
+          "Blue-Raman",
+          "MIST",
+          "Equiano"
+        ],
+        "network_carriers": 25,
+        "cloud_on_ramps": [
+          "Native Google Cloud"
+        ]
+      },
+      "sustainability": {
+        "solar_onsite_kw": 5000,
+        "water_recycling": true,
+        "carbon_neutral_target_year": 2030
+      },
+      "notable_facts": "Google's first India cloud region launched 2017 across 3 Mumbai datacenters. Blue-Raman subsea cable India segment went live Q4 2025 with Mumbai landing. Also building first self-developed facility in Navi Mumbai. Part of Google's $75 billion global capex."
+    },
+    {
+      "id": "IN-DEL-002",
+      "name": "Google Cloud Delhi Region \u2014 asia-south2",
+      "country": "India",
+      "city": "Delhi NCR",
+      "state": "Delhi",
+      "coordinates": {
+        "latitude": 28.6139,
+        "longitude": 77.209
+      },
+      "operator": "Google Cloud",
+      "owner_group": "Alphabet Inc.",
+      "tier_rating": "Tier III (Custom)",
+      "year_commissioned": 2021,
+      "status": "Operational",
+      "capacity_mw": 30,
+      "total_area_sqft": 280000,
+      "rack_count": 3500,
+      "pue": 1.12,
+      "renewable_energy_pct": 75,
+      "cooling_type": "Custom Google Cooling \u2014 Dry Climate Benefit",
+      "certifications": [
+        "ISO 27001",
+        "SOC 1/2/3",
+        "PCI DSS"
+      ],
+      "key_tenants": [
+        "Self-Operated \u2014 Google Cloud (asia-south2)",
+        "3 Availability Zones"
+      ],
+      "connectivity": {
+        "submarine_cables": [],
+        "network_carriers": 20,
+        "cloud_on_ramps": [
+          "Native Google Cloud"
+        ]
+      },
+      "sustainability": {
+        "solar_onsite_kw": 3000,
+        "water_recycling": true,
+        "carbon_neutral_target_year": 2030
+      },
+      "notable_facts": "Google's second India region launched 2021 serving northern India. Delhi NCR's dry winter climate enables free cooling for several months. Supports India's growing government cloud adoption."
+    },
+    {
+      "id": "IN-VIZ-001",
+      "name": "Google-AdaniConneX AI Hub \u2014 Visakhapatnam",
+      "country": "India",
+      "city": "Visakhapatnam",
+      "state": "Andhra Pradesh",
+      "coordinates": {
+        "latitude": 17.6868,
+        "longitude": 83.2185
+      },
+      "operator": "Google / AdaniConneX / Airtel",
+      "owner_group": "Alphabet Inc. / Adani Group / Bharti Airtel",
+      "tier_rating": "Tier III+ (Planned)",
+      "year_commissioned": 2027,
+      "status": "Under Construction \u2014 Groundbreaking April 2026",
+      "capacity_mw": 1000,
+      "total_area_sqft": 8000000,
+      "rack_count": 100000,
+      "pue": 1.15,
+      "renewable_energy_pct": 100,
+      "cooling_type": "Liquid Cooling + Seawater Cooling \u2014 Coastal AI Infrastructure",
+      "certifications": [
+        "ISO 27001"
+      ],
+      "key_tenants": [
+        "Self-Operated \u2014 Google AI Infrastructure",
+        "Google's First Dedicated AI Hub"
+      ],
+      "connectivity": {
+        "submarine_cables": [
+          "Blue-Raman",
+          "New Subsea Gateway via Airtel"
+        ],
+        "network_carriers": 10,
+        "cloud_on_ramps": [
+          "Native Google Cloud"
+        ]
+      },
+      "sustainability": {
+        "solar_onsite_kw": 200000,
+        "water_recycling": true,
+        "carbon_neutral_target_year": 2030
+      },
+      "notable_facts": "Google's largest investment outside the US at $15 billion (2026-2030). India's first gigawatt-scale datacenter. Three linked campuses across 480 acres in Adivivaram, Tarluvada, and Rambilli-Achyutapuram. Includes subsea cable landing station via Airtel. Groundbreaking April 28, 2026."
+    },
+    {
+      "id": "IN-MUM-007",
+      "name": "Oracle Cloud Mumbai Region",
+      "country": "India",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "coordinates": {
+        "latitude": 19.052,
+        "longitude": 72.899
+      },
+      "operator": "Oracle Cloud Infrastructure",
+      "owner_group": "Oracle Corporation",
+      "tier_rating": "Tier III (Custom)",
+      "year_commissioned": 2020,
+      "status": "Operational",
+      "capacity_mw": 25,
+      "total_area_sqft": 200000,
+      "rack_count": 2800,
+      "pue": 1.3,
+      "renewable_energy_pct": 40,
+      "cooling_type": "Chilled Water \u2014 Standard OCI Design",
+      "certifications": [
+        "ISO 27001",
+        "SOC 1/2/3",
+        "PCI DSS",
+        "MeitY Empanelled"
+      ],
+      "key_tenants": [
+        "Self-Operated \u2014 Oracle Cloud (ap-mumbai-1)",
+        "Oracle Autonomous DB",
+        "OCI AI"
+      ],
+      "connectivity": {
+        "submarine_cables": [
+          "MIST",
+          "BBG"
+        ],
+        "network_carriers": 15,
+        "cloud_on_ramps": [
+          "Native OCI"
+        ]
+      },
+      "sustainability": {
+        "solar_onsite_kw": 1000,
+        "water_recycling": true,
+        "carbon_neutral_target_year": 2030
+      },
+      "notable_facts": "Oracle Cloud's first India region. OCI serves Indian government, banking, and enterprise workloads with data residency guarantees. Oracle is one of 8 major hyperscalers investing in India's datacenter ecosystem."
+    },
+    {
+      "id": "IN-HYD-004",
+      "name": "Oracle Cloud Hyderabad Region",
+      "country": "India",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "coordinates": {
+        "latitude": 17.415,
+        "longitude": 78.462
+      },
+      "operator": "Oracle Cloud Infrastructure",
+      "owner_group": "Oracle Corporation",
+      "tier_rating": "Tier III (Custom)",
+      "year_commissioned": 2021,
+      "status": "Operational",
+      "capacity_mw": 20,
+      "total_area_sqft": 180000,
+      "rack_count": 2200,
+      "pue": 1.28,
+      "renewable_energy_pct": 45,
+      "cooling_type": "Chilled Water \u2014 Standard OCI Design",
+      "certifications": [
+        "ISO 27001",
+        "SOC 1/2/3",
+        "PCI DSS"
+      ],
+      "key_tenants": [
+        "Self-Operated \u2014 Oracle Cloud (ap-hyderabad-1)",
+        "Oracle ERP Cloud"
+      ],
+      "connectivity": {
+        "submarine_cables": [],
+        "network_carriers": 12,
+        "cloud_on_ramps": [
+          "Native OCI"
+        ]
+      },
+      "sustainability": {
+        "solar_onsite_kw": 800,
+        "water_recycling": true,
+        "carbon_neutral_target_year": 2030
+      },
+      "notable_facts": "Oracle's second India region for disaster recovery and multi-region architectures. Hyderabad has become India's second-largest cloud hub after Mumbai with AWS, Microsoft, Oracle, and Google all operating regions."
+    },
+    {
+      "id": "IN-MUM-008",
+      "name": "Meta-Reliance Jio Data Hub \u2014 Mumbai",
+      "country": "India",
+      "city": "Navi Mumbai",
+      "state": "Maharashtra",
+      "coordinates": {
+        "latitude": 19.033,
+        "longitude": 73.0297
+      },
+      "operator": "Meta Platforms / Reliance Jio",
+      "owner_group": "Meta Platforms Inc. / Reliance Industries Ltd.",
+      "tier_rating": "Tier III",
+      "year_commissioned": 2025,
+      "status": "Operational \u2014 Phase 1",
+      "capacity_mw": 30,
+      "total_area_sqft": 250000,
+      "rack_count": 3200,
+      "pue": 1.25,
+      "renewable_energy_pct": 50,
+      "cooling_type": "Chilled Water \u2014 Content Delivery Optimized",
+      "certifications": [
+        "ISO 27001",
+        "SOC 2 Type II"
+      ],
+      "key_tenants": [
+        "Meta (Facebook, Instagram, WhatsApp)",
+        "Jio Platforms"
+      ],
+      "connectivity": {
+        "submarine_cables": [
+          "2Africa",
+          "India-Asia-Xpress (IAX)",
+          "MIST"
+        ],
+        "network_carriers": 15,
+        "cloud_on_ramps": [
+          "Meta Edge",
+          "Jio Cloud"
+        ]
+      },
+      "sustainability": {
+        "solar_onsite_kw": 3000,
+        "water_recycling": true,
+        "carbon_neutral_target_year": 2030
+      },
+      "notable_facts": "Meta-Reliance JV with Reliance holding 70% and Meta 30% \u2014 approximately \u20b9855 crore investment. Supports WhatsApp's 500M+ Indian users and Instagram's largest market outside US. Meta's 2Africa subsea cable lands in Mumbai."
+    },
+    {
+      "id": "IN-GUJ-001",
+      "name": "Reliance Jamnagar Gigawatt DC \u2014 Gujarat",
+      "country": "India",
+      "city": "Jamnagar",
+      "state": "Gujarat",
+      "coordinates": {
+        "latitude": 22.4707,
+        "longitude": 70.0577
+      },
+      "operator": "Reliance Industries",
+      "owner_group": "Reliance Industries Ltd.",
+      "tier_rating": "Tier III+ (Planned)",
+      "year_commissioned": 2027,
+      "status": "Under Construction",
+      "capacity_mw": 1000,
+      "total_area_sqft": 10000000,
+      "rack_count": 120000,
+      "pue": 1.2,
+      "renewable_energy_pct": 100,
+      "cooling_type": "Liquid Cooling \u2014 AI/HPC Optimized + Renewable Powered",
+      "certifications": [
+        "ISO 27001"
+      ],
+      "key_tenants": [
+        "Jio Platforms",
+        "NVIDIA AI Partnership",
+        "LLM Training for Indian Languages"
+      ],
+      "connectivity": {
+        "submarine_cables": [
+          "India-ME-WE",
+          "2Africa"
+        ],
+        "network_carriers": 10,
+        "cloud_on_ramps": [
+          "Jio Cloud"
+        ]
+      },
+      "sustainability": {
+        "solar_onsite_kw": 500000,
+        "water_recycling": true,
+        "carbon_neutral_target_year": 2030
+      },
+      "notable_facts": "Announced Jan 2025 \u2014 planned as one of the world's largest datacenters at 1 GW (expandable to 3 GW). Powered entirely by Reliance's 6 GW solar project. Secured NVIDIA Blackwell AI processors for India-specific LLMs. Located adjacent to the world's largest oil refinery complex."
+    },
+    {
+      "id": "IN-BLR-002",
+      "name": "AWS Bengaluru \u2014 Local Zone",
+      "country": "India",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "coordinates": {
+        "latitude": 12.978,
+        "longitude": 77.6408
+      },
+      "operator": "Amazon Web Services",
+      "owner_group": "Amazon.com Inc.",
+      "tier_rating": "Tier III",
+      "year_commissioned": 2025,
+      "status": "Operational",
+      "capacity_mw": 15,
+      "total_area_sqft": 120000,
+      "rack_count": 1500,
+      "pue": 1.28,
+      "renewable_energy_pct": 50,
+      "cooling_type": "Precision Cooling \u2014 Tropical Plateau Climate",
+      "certifications": [
+        "ISO 27001",
+        "SOC 1/2/3"
+      ],
+      "key_tenants": [
+        "Self-Operated \u2014 AWS Local Zone",
+        "Bengaluru Startups",
+        "AI/ML Workloads"
+      ],
+      "connectivity": {
+        "submarine_cables": [],
+        "network_carriers": 15,
+        "cloud_on_ramps": [
+          "Native AWS"
+        ]
+      },
+      "sustainability": {
+        "solar_onsite_kw": 1500,
+        "water_recycling": true,
+        "carbon_neutral_target_year": 2030
+      },
+      "notable_facts": "AWS Local Zone in Bengaluru brings single-digit millisecond latency to India's tech capital. Bengaluru hosts 40% of India's tech workforce. AWS also has Local Zones in Delhi and Kolkata."
+    },
+    {
+      "id": "IN-CHN-003",
+      "name": "Sify Ambattur AI-Hub \u2014 Chennai",
+      "country": "India",
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "coordinates": {
+        "latitude": 13.113,
+        "longitude": 80.147
+      },
+      "operator": "Sify Technologies",
+      "owner_group": "Sify Technologies Ltd.",
+      "tier_rating": "Tier III",
+      "year_commissioned": 2024,
+      "status": "Operational \u2014 Phase 1",
+      "capacity_mw": 40,
+      "total_area_sqft": 350000,
+      "rack_count": 4500,
+      "pue": 1.3,
+      "renewable_energy_pct": 35,
+      "cooling_type": "Hybrid Cooling \u2014 AI/GPU Optimized",
+      "certifications": [
+        "ISO 27001",
+        "SOC 2 Type II",
+        "PCI DSS",
+        "MeitY Empanelled"
+      ],
+      "key_tenants": [
+        "Hyperscale Cloud Tenants",
+        "Indian Enterprise",
+        "AI/ML Training"
+      ],
+      "connectivity": {
+        "submarine_cables": [
+          "Chennai-Singapore (CS1)",
+          "BBG",
+          "MIST"
+        ],
+        "network_carriers": 15,
+        "cloud_on_ramps": [
+          "AWS",
+          "Azure",
+          "Google Cloud"
+        ]
+      },
+      "sustainability": {
+        "solar_onsite_kw": 2000,
+        "water_recycling": true,
+        "carbon_neutral_target_year": 2035
+      },
+      "notable_facts": "Sify is one of India's largest domestic datacenter operators (est. 1998). Chennai accounts for 21% of India's total datacenter capacity \u2014 second only to Mumbai. Sify's AI-Hub designed for GPU-dense racks up to 50kW per rack."
     }
   ],
   "country_summary": {
@@ -5703,16 +5711,6 @@
         "CDC Data Centres",
         "Equinix",
         "NEXTDC"
-      ]
-    },
-    "Austria": {
-      "total_facilities_in_dataset": 1,
-      "cities_covered": [
-        "Vienna"
-      ],
-      "total_capacity_mw": 8,
-      "key_operators": [
-        "Digital Realty (Interxion)"
       ]
     },
     "Brazil": {
@@ -5806,28 +5804,16 @@
       ]
     },
     "Germany": {
-      "total_facilities_in_dataset": 4,
+      "total_facilities_in_dataset": 3,
       "cities_covered": [
         "Berlin",
-        "Frankfurt",
-        "Munich"
+        "Frankfurt"
       ],
-      "total_capacity_mw": 72,
+      "total_capacity_mw": 64,
       "key_operators": [
         "Digital Realty",
         "Equinix",
-        "NTT Global Data Centers",
-        "NorthC Datacenters"
-      ]
-    },
-    "Greece": {
-      "total_facilities_in_dataset": 1,
-      "cities_covered": [
-        "Athens"
-      ],
-      "total_capacity_mw": 6,
-      "key_operators": [
-        "Lamda Hellix (Digital Realty)"
+        "NTT Global Data Centers"
       ]
     },
     "Hong Kong": {
@@ -5852,10 +5838,11 @@
       ]
     },
     "India": {
-      "total_facilities_in_dataset": 12,
+      "total_facilities_in_dataset": 24,
       "cities_covered": [
         "Bengaluru",
         "Chennai",
+        "Delhi NCR",
         "Gurugram",
         "Hyderabad",
         "Jamnagar",
@@ -5863,17 +5850,25 @@
         "Mumbai",
         "Navi Mumbai",
         "Noida",
-        "Pune"
+        "Pune",
+        "Visakhapatnam"
       ],
-      "total_capacity_mw": 411,
+      "total_capacity_mw": 2821,
       "key_operators": [
         "AdaniConneX",
+        "Amazon Web Services",
         "CtrlS Datacenters",
         "Equinix",
+        "Google / AdaniConneX / Airtel",
+        "Google Cloud",
+        "Meta Platforms / Reliance Jio",
+        "Microsoft Azure",
         "NTT Global Data Centers",
         "Nxtra by Airtel",
+        "Oracle Cloud Infrastructure",
         "Reliance Industries",
         "ST Telemedia Global Data Centres",
+        "Sify Technologies",
         "Yotta Infrastructure"
       ]
     },
@@ -5975,27 +5970,15 @@
         "Equinix"
       ]
     },
-    "Morocco": {
-      "total_facilities_in_dataset": 1,
-      "cities_covered": [
-        "Casablanca"
-      ],
-      "total_capacity_mw": 5,
-      "key_operators": [
-        "N+ONE Datacenters"
-      ]
-    },
     "Netherlands": {
-      "total_facilities_in_dataset": 3,
+      "total_facilities_in_dataset": 2,
       "cities_covered": [
-        "Amsterdam",
-        "Eindhoven"
+        "Amsterdam"
       ],
-      "total_capacity_mw": 50,
+      "total_capacity_mw": 44,
       "key_operators": [
         "Digital Realty",
-        "Equinix",
-        "NorthC Datacenters"
+        "Equinix"
       ]
     },
     "New Zealand": {
@@ -6038,16 +6021,6 @@
         "ePLDT"
       ]
     },
-    "Poland": {
-      "total_facilities_in_dataset": 1,
-      "cities_covered": [
-        "Warsaw"
-      ],
-      "total_capacity_mw": 8,
-      "key_operators": [
-        "Equinix"
-      ]
-    },
     "Portugal": {
       "total_facilities_in_dataset": 1,
       "cities_covered": [
@@ -6056,16 +6029,6 @@
       "total_capacity_mw": 8,
       "key_operators": [
         "Equinix"
-      ]
-    },
-    "Qatar": {
-      "total_facilities_in_dataset": 1,
-      "cities_covered": [
-        "Doha"
-      ],
-      "total_capacity_mw": 12,
-      "key_operators": [
-        "Meeza"
       ]
     },
     "Saudi Arabia": {
@@ -6178,19 +6141,16 @@
       ]
     },
     "United Kingdom": {
-      "total_facilities_in_dataset": 7,
+      "total_facilities_in_dataset": 5,
       "cities_covered": [
-        "Birmingham",
-        "Edinburgh",
         "Hayes",
         "London",
         "Manchester",
         "Newport",
         "Slough"
       ],
-      "total_capacity_mw": 126,
+      "total_capacity_mw": 112,
       "key_operators": [
-        "DataVita",
         "Digital Realty",
         "Equinix",
         "Kao Data",
@@ -6199,7 +6159,7 @@
       ]
     },
     "United States": {
-      "total_facilities_in_dataset": 18,
+      "total_facilities_in_dataset": 15,
       "cities_covered": [
         "Altoona",
         "Ashburn",
@@ -6208,18 +6168,15 @@
         "Chandler",
         "Chicago",
         "Columbus",
-        "Forest City",
         "Haymarket",
         "Las Vegas",
-        "Papillion",
-        "Prineville",
         "Quincy",
         "San Antonio",
         "San Jose",
         "Suwanee",
         "The Dalles"
       ],
-      "total_capacity_mw": 2496,
+      "total_capacity_mw": 2046,
       "key_operators": [
         "Amazon Web Services",
         "CyrusOne",
@@ -6278,20 +6235,15 @@
         "Switzerland": "#FF0000",
         "Spain": "#AA151B",
         "Italy": "#008C45",
-        "Poland": "#DC143C",
         "Kenya": "#006600",
         "Nigeria": "#008751",
         "New Zealand": "#00247D",
         "Taiwan": "#FE0000",
         "Thailand": "#A51931",
         "Vietnam": "#DA251D",
-        "Qatar": "#8A1538",
         "Egypt": "#C09300",
         "Portugal": "#006600",
-        "Austria": "#ED2939",
-        "Greece": "#0D5EAF",
         "Philippines": "#0038A8",
-        "Morocco": "#006233",
         "Iceland": "#003897"
       }
     },
@@ -6318,13 +6270,6 @@
           142.3979
         ],
         "zoom": 4
-      },
-      "Austria": {
-        "center": [
-          48.2082,
-          16.3738
-        ],
-        "zoom": 11
       },
       "Brazil": {
         "center": [
@@ -6384,17 +6329,10 @@
       },
       "Germany": {
         "center": [
-          50.2125,
-          10.5798
+          50.905,
+          10.2457
         ],
         "zoom": 6
-      },
-      "Greece": {
-        "center": [
-          37.9838,
-          23.7275
-        ],
-        "zoom": 11
       },
       "Hong Kong": {
         "center": [
@@ -6412,8 +6350,8 @@
       },
       "India": {
         "center": [
-          19.5016,
-          76.8459
+          18.6649,
+          76.9788
         ],
         "zoom": 5
       },
@@ -6473,17 +6411,10 @@
         ],
         "zoom": 11
       },
-      "Morocco": {
-        "center": [
-          33.5731,
-          -7.5898
-        ],
-        "zoom": 11
-      },
       "Netherlands": {
         "center": [
-          52.0332,
-          5.0579
+          52.329,
+          4.852
         ],
         "zoom": 11
       },
@@ -6515,24 +6446,10 @@
         ],
         "zoom": 11
       },
-      "Poland": {
-        "center": [
-          52.2297,
-          21.0122
-        ],
-        "zoom": 11
-      },
       "Portugal": {
         "center": [
           38.7223,
           -9.1393
-        ],
-        "zoom": 11
-      },
-      "Qatar": {
-        "center": [
-          25.2854,
-          51.531
         ],
         "zoom": 11
       },
@@ -6608,15 +6525,15 @@
       },
       "United Kingdom": {
         "center": [
-          52.5755,
-          -1.6191
+          51.9178,
+          -1.251
         ],
-        "zoom": 6
+        "zoom": 8
       },
       "United States": {
         "center": [
-          38.1924,
-          -97.912
+          37.7784,
+          -97.585
         ],
         "zoom": 4
       },
