@@ -44,16 +44,16 @@ function CountUpNumber({ target, duration = 2000, suffix = '', prefix = '', deci
 function StatCard({ icon: Icon, label, value, suffix = '', prefix = '', decimals = 0, color = '#0077C8', sublabel = null }) {
   return (
     <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
-      className="bg-white/[0.08] backdrop-blur-sm border border-white/10 rounded-xl p-4 flex items-center gap-3">
-      <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: color + '25' }}>
+      className="bg-white border border-slate-200 rounded-xl p-4 flex items-center gap-3 shadow-sm">
+      <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: color + '18' }}>
         <Icon size={18} style={{ color }} />
       </div>
       <div>
-        <div className="text-white text-xl leading-none mb-0.5">
+        <div className="text-slate-900 text-xl leading-none mb-0.5">
           <CountUpNumber target={Number(value)} suffix={suffix} prefix={prefix} decimals={decimals} />
         </div>
-        <div className="text-white/45 text-xs">{label}</div>
-        {sublabel && <div className="text-white/25 text-[10px] mt-0.5">{sublabel}</div>}
+        <div className="text-slate-500 text-xs">{label}</div>
+        {sublabel && <div className="text-slate-400 text-[10px] mt-0.5">{sublabel}</div>}
       </div>
     </motion.div>
   );
@@ -261,12 +261,12 @@ export default function GlobalDashboard() {
 
   return (
     <div className="min-h-screen bg-[#0D1428] pt-16 flex flex-col">
-      <div className="bg-[#1A1F36] border-b border-white/[0.08] px-6 py-4 flex-shrink-0">
+      <div className="bg-[#EEF4FB] border-b border-slate-200 px-6 py-4 flex-shrink-0">
         <div className="max-w-screen-2xl mx-auto">
           <div className="flex items-center gap-3 mb-4">
-            <Link href="/" className="text-white/50 hover:text-white/80 transition-colors flex items-center gap-1.5 text-sm"><ArrowLeft size={16} />Back to Lifecycle</Link>
-            <div className="w-px h-4 bg-white/10" />
-            <div className="flex items-center gap-2"><Globe size={18} className="text-[#0077C8]" /><h1 className="text-white font-bold text-lg" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Global Datacenter Dashboard</h1></div>
+            <Link href="/" className="text-slate-400 hover:text-slate-700 transition-colors flex items-center gap-1.5 text-sm"><ArrowLeft size={16} />Back to Lifecycle</Link>
+            <div className="w-px h-4 bg-slate-300" />
+            <div className="flex items-center gap-2"><Globe size={18} className="text-[#0077C8]" /><h1 className="text-slate-900 font-bold text-lg" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Global Datacenter Dashboard</h1></div>
             <div className="ml-auto"><LiveBadge /></div>
           </div>
 
@@ -290,10 +290,10 @@ export default function GlobalDashboard() {
                   <button key={c} onClick={() => { setSelectedCountry(c); setSelectedDatacenter(null); }}
                     className={`px-2.5 py-1 rounded-full text-xs font-semibold transition-all whitespace-nowrap ${
                       selectedCountry === c
-                        ? 'bg-[#0077C8] text-white shadow-lg'
+                        ? 'bg-[#0077C8] text-white shadow-md'
                         : hasLocal
-                        ? 'bg-white/[0.08] text-white/70 hover:text-white hover:bg-white/[0.14] border border-white/10'
-                        : 'bg-white/[0.03] text-white/30 hover:text-white/50 hover:bg-white/[0.06] border border-white/5'
+                        ? 'bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-50 border border-slate-200'
+                        : 'bg-slate-100/70 text-slate-400 hover:text-slate-500 hover:bg-slate-100 border border-slate-200/60'
                     }`}>
                     {c}
                     {c !== 'All' && localCount > 0 && (
@@ -304,12 +304,12 @@ export default function GlobalDashboard() {
               })}
             </div>
             <div className="relative flex-shrink-0">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
               <input type="text" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder="Search facilities..."
-                className="bg-white/5 border border-white/10 rounded-lg pl-8 pr-3 py-1.5 text-xs text-white placeholder:text-white/30 focus:outline-none focus:border-[#0077C8]/50 w-44" />
+                className="bg-white border border-slate-200 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#0077C8]/50 w-44" />
             </div>
           </div>
-          <p className="text-white/25 text-[10px] mb-2">
+          <p className="text-slate-400 text-[10px] mb-2">
             Dimmed markets = global coverage tracked · Highlighted = curated KPMG facilities available
           </p>
         </div>
