@@ -267,7 +267,7 @@ export default function LandingPage() {
               animate={{ scale: phase === 'shrink' ? 0.3 : 1, opacity: phase === 'logo' ? 1 : 0, y: phase === 'shrink' ? -100 : 0 }}
               transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
             >
-              <div className="text-7xl font-extrabold text-[#00338D] tracking-widest mb-3" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>KPMG</div>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/d/db/KPMG_blue_logo.svg" alt="KPMG" className="h-20 w-auto mb-3 mx-auto" />
               <div className="text-[#6B7280] text-sm tracking-[6px] uppercase">Datacenter Intelligence</div>
             </motion.div>
           </motion.div>
