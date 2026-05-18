@@ -1,0 +1,393 @@
+'use client';
+import { useState, use } from 'react';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
+import { ArrowLeft, Server, AlertTriangle, Zap, Thermometer, Network, Shield, Activity, Leaf, Users } from 'lucide-react';
+import CCLayout from '@/components/command-center/CCLayout';
+import { mockDatacenters, mockIncidents, mockTenants, mockDCInfrastructure, mockSustainability } from '@/data/mock/index';
+
+const DatacenterModel3D = dynamic(() => import('@/components/datacenters/DatacenterModel3D'), { ssr: false });
+
+const STATUS_CONFIG = {
+  healthy:  { label: 'Healthy',  color: '#00A36C', bg: '#F0FDF4' },
+  degraded: { label: 'Degraded', color: '#D4A017', bg: '#FFFBEB' },
+  critical: { label: 'Critical', color: '#DC2626', bg: '#FEF2F2' },
+};
+
+const SEV_CONFIG = {
+  critical: { color: '#DC2626', bg: '#FEF2F2' },
+  high:     { color: '#D97706', bg: '#FFFBEB' },
+  medium:   { color: '#D4A017', bg: '#FFFBEB' },
+  low:      { color: '#0077C8', bg: '#EFF6FF' },
+};
+
+function StatCard({ label, value, sub, color = '#1A1F36' }) {
+  return (
+    <div className="bg-[#F4F6F9] rounded-xl p-3">
+      <p className="text-[10px] text-[#9CA3AF] font-medium uppercase tracking-wide mb-0.5">{label}</p>
+      <p className="text-lg font-bold" style={{ color, fontFamily: "'JetBrains Mono', monospace" }}>{value}</p>
+      {sub && <p className="text-[10px] text-[#9CA3AF] mt-0.5">{sub}</p>}
+    </div>
+  );
+}
+
+function HealthBar({ pct, label }) {
+  const color = pct >= 95 ? '#00A36C' : pct >= 80 ? '#D4A017' : '#DC2626';
+  return (
+    <div>
+      <div className="flex justify-between mb-1">
+        <span className="text-xs text-[#6B7280]">{label}</span>
+        <span className="text-xs font-bold" style={{ color }}>{pct}%</span>
+      </div>
+      <div className="h-1.5 rounded-full bg-[#E2E8F0] overflow-hidden">
+        <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: color }} />
+      </div>
+    </div>
+  );
+}
+
+function OverviewTab({ dc, infra }) {
+  const recentActivity = [
+    { time: '2h ago', event: `Utilization updated — ${dc.utilizationPercent}% of ${dc.totalCapacityMW}MW` },
+    { time: '6h ago', event: 'Automated health check completed — all systems nominal' },
+    { time: '1d ago', event: 'Monthly capacity report generated' },
+    { time: '2d ago', event: 'Security access log audit completed' },
+    { time: '3d ago', event: 'DCIM telemetry calibration performed' },
+  ];
+  return (
+    <div className="space-y-4">
+      <div className="grid grid-cols-3 gap-3">
+        <StatCard label="Total Racks" value={dc.totalRacks.toLocaleString()} sub={`${dc.usedRacks} in use`} />
+        <StatCard label="Utilization" value={`${dc.utilizationPercent}%`} color={dc.utilizationPercent > 85 ? '#DC2626' : '#0077C8'} sub="of total capacity" />
+        <StatCard label="Total Power" value={`${dc.totalCapacityMW} MW`} sub={`${Math.round(dc.totalCapacityMW * dc.utilizationPercent / 100)} MW drawn`} />
+        <StatCard label="PUE" value={dc.pue.toFixed(2)} color={dc.pue < 1.4 ? '#00A36C' : dc.pue < 1.6 ? '#D4A017' : '#DC2626'} sub="power usage effectiveness" />
+        <StatCard label="Active Incidents" value={dc.activeIncidents} color={dc.activeIncidents > 0 ? '#DC2626' : '#00A36C'} sub={dc.activeIncidents === 0 ? 'no issues' : 'require attention'} />
+        <StatCard label="Tenants" value={dc.tenantCount} sub={`${dc.tier} facility`} />
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="bg-[#F8FAFC] rounded-xl p-4 border border-[#E2E8F0]">
+          <p className="text-xs font-bold text-[#1A1F36] mb-3" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Key Contacts</p>
+          <div className="space-y-3">
+            {[{ role: 'Facility Manager', name: dc.manager }, { role: 'NOC Lead', name: dc.nocLead }].map(c => (
+              <div key={c.role} className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#0077C8] to-[#00338D] flex items-center justify-center flex-shrink-0">
+                  <span className="text-white text-[10px] font-bold">{c.name.split(' ').map(n => n[0]).join('').slice(0,2)}</span>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-[#1A1F36]">{c.name}</p>
+                  <p className="text-[10px] text-[#9CA3AF]">{c.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="bg-[#F8FAFC] rounded-xl p-4 border border-[#E2E8F0]">
+          <p className="text-xs font-bold text-[#1A1F36] mb-3" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Recent Activity</p>
+          <div className="space-y-2">
+            {recentActivity.map((a, i) => (
+              <div key={i} className="flex gap-2">
+                <span className="text-[10px] text-[#9CA3AF] flex-shrink-0 w-10">{a.time}</span>
+                <span className="text-[10px] text-[#6B7280]">{a.event}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function InfraTab({ infra }) {
+  if (!infra) return <p className="text-sm text-[#9CA3AF] p-4">No infrastructure data available.</p>;
+  const sections = [
+    { id: 'power', label: 'Power Systems', icon: Zap, color: '#F59E0B' },
+    { id: 'cooling', label: 'Cooling Systems', icon: Thermometer, color: '#0077C8' },
+    { id: 'network', label: 'Network Fabric', icon: Network, color: '#00A36C' },
+    { id: 'security', label: 'Physical Security', icon: Shield, color: '#7C3AED' },
+  ];
+  const [open, setOpen] = useState('power');
+
+  return (
+    <div className="space-y-2">
+      {sections.map(s => {
+        const Icon = s.icon;
+        const data = infra[s.id];
+        const isOpen = open === s.id;
+        return (
+          <div key={s.id} className="bg-white rounded-xl border border-[#E2E8F0] overflow-hidden">
+            <button onClick={() => setOpen(isOpen ? null : s.id)}
+              className="w-full flex items-center gap-3 px-4 py-3 hover:bg-[#F8FAFC] transition-colors text-left">
+              <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: s.color + '15' }}>
+                <Icon size={14} style={{ color: s.color }} />
+              </div>
+              <span className="text-sm font-semibold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{s.label}</span>
+              {data?.utilizationPct && <HealthBar pct={data.utilizationPct} label="" />}
+              <span className="ml-auto text-[#9CA3AF] text-sm">{isOpen ? '▲' : '▼'}</span>
+            </button>
+            {isOpen && (
+              <div className="px-4 pb-4 border-t border-[#F4F6F9] pt-3">
+                {s.id === 'power' && data && (
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-3 gap-3">
+                      <StatCard label="Total Capacity" value={`${data.totalCapacityMW} MW`} />
+                      <StatCard label="Current Load" value={`${data.currentLoadMW} MW`} />
+                      <StatCard label="Redundancy" value={data.redundancy} color="#00338D" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-[#1A1F36] mb-2">UPS Units</p>
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-xs">
+                          <thead><tr className="text-[#9CA3AF] text-[10px]"><th className="text-left py-1">ID</th><th className="text-left py-1">Status</th><th className="text-left py-1">Load %</th><th className="text-left py-1">Battery</th></tr></thead>
+                          <tbody>{data.ups.map(u => (
+                            <tr key={u.id} className="border-t border-[#F4F6F9]">
+                              <td className="py-1.5 font-mono text-[#1A1F36]">{u.id}</td>
+                              <td className="py-1.5"><span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold" style={{ background: STATUS_CONFIG[u.status]?.bg || '#F0FDF4', color: STATUS_CONFIG[u.status]?.color || '#00A36C' }}>{u.status}</span></td>
+                              <td className="py-1.5 font-mono">{u.loadPct}%</td>
+                              <td className="py-1.5 font-mono" style={{ color: u.batteryHealth < 70 ? '#DC2626' : '#00A36C' }}>{u.batteryHealth}%</td>
+                            </tr>
+                          ))}</tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {s.id === 'cooling' && data && (
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-3 gap-3">
+                      <StatCard label="Total Capacity" value={`${data.totalCapacityKW} kW`} />
+                      <StatCard label="Current Load" value={`${data.currentLoadKW} kW`} />
+                      <StatCard label="Redundancy" value={data.redundancy} color="#00338D" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-[#1A1F36] mb-2">CRAH Units</p>
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-xs">
+                          <thead><tr className="text-[#9CA3AF] text-[10px]"><th className="text-left py-1">ID</th><th className="text-left py-1">Status</th><th className="text-left py-1">Return Temp</th><th className="text-left py-1">Supply Temp</th></tr></thead>
+                          <tbody>{data.crahUnits.map(c => (
+                            <tr key={c.id} className="border-t border-[#F4F6F9]">
+                              <td className="py-1.5 font-mono text-[#1A1F36]">{c.id}</td>
+                              <td className="py-1.5"><span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold" style={{ background: STATUS_CONFIG[c.status]?.bg || '#F0FDF4', color: STATUS_CONFIG[c.status]?.color || '#00A36C' }}>{c.status}</span></td>
+                              <td className="py-1.5 font-mono" style={{ color: c.returnTempC > 30 ? '#DC2626' : '#1A1F36' }}>{c.returnTempC}°C</td>
+                              <td className="py-1.5 font-mono">{c.supplyTempC}°C</td>
+                            </tr>
+                          ))}</tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {s.id === 'network' && data && (
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-3 gap-3">
+                      <StatCard label="Bandwidth" value={`${data.totalBandwidthGbps} Gbps`} />
+                      <StatCard label="Throughput" value={`${data.currentThroughputGbps} Gbps`} />
+                      <StatCard label="Latency" value={`${data.latencyMs}ms`} color={data.latencyMs > 1 ? '#DC2626' : '#00A36C'} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-[#1A1F36] mb-2">Core Switches</p>
+                      <table className="w-full text-xs">
+                        <thead><tr className="text-[#9CA3AF] text-[10px]"><th className="text-left py-1">ID</th><th className="text-left py-1">Status</th><th className="text-left py-1">Port Utilization</th></tr></thead>
+                        <tbody>{data.coreSwitches.map(sw => (
+                          <tr key={sw.id} className="border-t border-[#F4F6F9]">
+                            <td className="py-1.5 font-mono text-[#1A1F36]">{sw.id}</td>
+                            <td className="py-1.5"><span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold" style={{ background: STATUS_CONFIG[sw.status]?.bg || '#F0FDF4', color: STATUS_CONFIG[sw.status]?.color || '#00A36C' }}>{sw.status}</span></td>
+                            <td className="py-1.5"><div className="flex items-center gap-2"><div className="w-20 h-1.5 rounded-full bg-[#E2E8F0] overflow-hidden"><div className="h-full rounded-full bg-[#0077C8]" style={{ width: `${sw.portUtilization}%` }} /></div><span className="font-mono">{sw.portUtilization}%</span></div></td>
+                          </tr>
+                        ))}</tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+                {s.id === 'security' && data && (
+                  <div className="grid grid-cols-3 gap-3">
+                    <StatCard label="CCTV Cameras" value={`${data.cctvOnline}/${data.cctvCameras}`} color={data.cctvOnline < data.cctvCameras ? '#DC2626' : '#00A36C'} sub="online/total" />
+                    <StatCard label="Access Points" value={data.accessControlPoints} sub="controlled zones" />
+                    <StatCard label="Mantrap Entries" value={data.mantrapEntries} sub="dual-auth" />
+                    <StatCard label="Security Staff" value={`${data.securityStaff24x7} staff`} sub="24×7 on-site" />
+                    <StatCard label="Last Breach" value="None" color="#00A36C" sub="recorded" />
+                    <div className="bg-[#F4F6F9] rounded-xl p-3">
+                      <p className="text-[10px] text-[#9CA3AF] font-medium uppercase tracking-wide mb-1">Certifications</p>
+                      <div className="flex flex-wrap gap-1">{data.complianceCerts.map(c => <span key={c} className="text-[9px] px-1.5 py-0.5 bg-[#00338D]/10 text-[#00338D] rounded-full font-bold">{c}</span>)}</div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function TenantsTab({ dcId }) {
+  const dcTenants = mockTenants.filter(t => t.allocations.some(a => a.dcId === dcId));
+  return (
+    <div className="space-y-3">
+      {dcTenants.length === 0 && <p className="text-sm text-[#9CA3AF]">No tenants found for this facility.</p>}
+      {dcTenants.map(t => {
+        const alloc = t.allocations.find(a => a.dcId === dcId);
+        if (!alloc) return null;
+        const utilPct = Math.round(alloc.racksUsed / alloc.racksAllocated * 100);
+        return (
+          <div key={t.id} className="bg-white rounded-xl border border-[#E2E8F0] p-4 flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 font-bold text-white text-sm" style={{ backgroundColor: t.color }}>
+              {t.name.charAt(0)}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-0.5">
+                <p className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{t.name}</p>
+                <span className="text-[9px] px-1.5 py-0.5 rounded-full font-bold" style={{ background: alloc.contractTier === 'Platinum' ? '#00338D15' : alloc.contractTier === 'Gold' ? '#D4A01715' : '#6B728015', color: alloc.contractTier === 'Platinum' ? '#00338D' : alloc.contractTier === 'Gold' ? '#D4A017' : '#6B7280' }}>{alloc.contractTier}</span>
+              </div>
+              <p className="text-xs text-[#9CA3AF]">{t.industry} · Expires {alloc.contractEndDate}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'JetBrains Mono', monospace" }}>{alloc.racksUsed}/{alloc.racksAllocated}</p>
+              <p className="text-[10px] text-[#9CA3AF]">racks used</p>
+            </div>
+            <div className="text-center w-20">
+              <div className="h-1.5 rounded-full bg-[#E2E8F0] overflow-hidden mb-0.5">
+                <div className="h-full rounded-full" style={{ width: `${utilPct}%`, backgroundColor: utilPct > 90 ? '#DC2626' : utilPct > 75 ? '#D4A017' : '#00A36C' }} />
+              </div>
+              <p className="text-[10px] font-bold text-[#1A1F36]">{utilPct}%</p>
+            </div>
+            <div className="text-right">
+              <p className="text-sm font-bold text-[#00A36C]" style={{ fontFamily: "'JetBrains Mono', monospace" }}>{alloc.monthlyRevenue}</p>
+              <p className="text-[10px] text-[#9CA3AF]">per month</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function IncidentsTab({ dcId }) {
+  const dcIncidents = mockIncidents.filter(i => i.siteId === dcId);
+  return (
+    <div className="space-y-3">
+      {dcIncidents.length === 0 && <div className="bg-[#F0FDF4] border border-[#00A36C]/20 rounded-xl p-4 text-sm text-[#00A36C] font-semibold">No active incidents for this facility.</div>}
+      {dcIncidents.map(inc => {
+        const sc = SEV_CONFIG[inc.severity] || SEV_CONFIG.medium;
+        return (
+          <div key={inc.id} className="bg-white rounded-xl border border-[#E2E8F0] p-4">
+            <div className="flex items-start gap-3 mb-2">
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase flex-shrink-0" style={{ backgroundColor: sc.bg, color: sc.color }}>{inc.severity}</span>
+              <div className="flex-1">
+                <p className="text-sm font-bold text-[#1A1F36]">{inc.title}</p>
+                <p className="text-[10px] text-[#9CA3AF] font-mono">{inc.id} · {inc.timeSinceDetection} ago · {inc.resolutionOwner}</p>
+              </div>
+              <span className="px-2 py-0.5 bg-[#F4F6F9] text-[#6B7280] text-[10px] rounded-full font-medium">{inc.status}</span>
+            </div>
+            <p className="text-xs text-[#6B7280] mb-2">{inc.rootCause}</p>
+            <div className="bg-[#EFF6FF] border border-[#0077C8]/20 rounded-lg p-2.5">
+              <p className="text-[10px] font-bold text-[#0077C8] mb-0.5">AI Recommendation</p>
+              <p className="text-[10px] text-[#1A1F36] leading-relaxed">{inc.aiRecommendation}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function SustainabilityTab({ dcId }) {
+  const s = mockSustainability.find(s => s.dcId === dcId);
+  if (!s) return <p className="text-sm text-[#9CA3AF]">No sustainability data available.</p>;
+  return (
+    <div className="space-y-4">
+      <div className="grid grid-cols-3 gap-3">
+        <StatCard label="PUE" value={s.pue.toFixed(2)} color={s.pue < 1.4 ? '#00A36C' : s.pue < 1.6 ? '#D4A017' : '#DC2626'} sub="power usage effectiveness" />
+        <StatCard label="Renewable Energy" value={`${s.renewablePct}%`} color="#00A36C" sub="of total consumption" />
+        <StatCard label="Carbon Intensity" value={`${s.carbonIntensity}`} sub="tCO₂/MWh" />
+        <StatCard label="WUE" value={`${s.wue} L/kWh`} sub="water usage effectiveness" />
+        <StatCard label="ESG Score" value={`${s.esgScore}/100`} color={s.esgScore >= 80 ? '#00A36C' : '#D4A017'} sub="environmental score" />
+      </div>
+      <div className="bg-white rounded-xl border border-[#E2E8F0] p-4">
+        <p className="text-xs font-bold text-[#1A1F36] mb-2" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Green Certifications</p>
+        {s.certifications.length > 0
+          ? <div className="flex flex-wrap gap-1.5">{s.certifications.map(c => <span key={c} className="text-xs px-2.5 py-1 bg-[#00A36C]/10 text-[#00A36C] rounded-full font-bold">{c}</span>)}</div>
+          : <p className="text-xs text-[#9CA3AF]">No certifications yet — roadmap in development.</p>}
+      </div>
+      <div className="bg-white rounded-xl border border-[#E2E8F0] p-4">
+        <p className="text-xs font-bold text-[#1A1F36] mb-2" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Sustainability Measures</p>
+        <ul className="space-y-1.5">{s.measures.map((m, i) => <li key={i} className="text-xs text-[#6B7280] flex gap-2"><span className="text-[#00A36C] flex-shrink-0">✓</span>{m}</li>)}</ul>
+      </div>
+    </div>
+  );
+}
+
+export default function DatacenterDetailPage({ params }) {
+  const { id } = use(params);
+  const router = useRouter();
+  const dc = mockDatacenters.find(d => d.id === id);
+  const infra = mockDCInfrastructure[id];
+  const [tab, setTab] = useState('overview');
+
+  if (!dc) return (
+    <CCLayout title="Datacenters">
+      <div className="p-6 text-[#9CA3AF]">Datacenter not found.</div>
+    </CCLayout>
+  );
+
+  const sc = STATUS_CONFIG[dc.status] || STATUS_CONFIG.healthy;
+  const tabs = ['overview', 'infrastructure', 'tenants', 'incidents', 'sustainability'];
+
+  return (
+    <CCLayout title={dc.name}>
+      <div className="flex h-full" style={{ height: 'calc(100vh - 56px)' }}>
+        {/* Left: 3D Model */}
+        <div className="w-80 flex-shrink-0 relative border-r border-[#E2E8F0]">
+          <DatacenterModel3D dc={dc} infraData={infra} />
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0d1428]/90 to-transparent p-4">
+            <p className="text-white font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{dc.name}</p>
+            <p className="text-white/60 text-xs">{dc.city}, {dc.country} · {dc.tier}</p>
+          </div>
+        </div>
+
+        {/* Right: Details */}
+        <div className="flex-1 flex flex-col overflow-hidden">
+          {/* Header */}
+          <div className="flex-shrink-0 px-6 py-4 border-b border-[#E2E8F0] bg-white">
+            <div className="flex items-center gap-3 mb-3">
+              <button onClick={() => router.push('/datacenters')} className="flex items-center gap-1.5 text-xs text-[#9CA3AF] hover:text-[#00338D] transition-colors">
+                <ArrowLeft size={13} /> Back
+              </button>
+              <div className="w-px h-4 bg-[#E2E8F0]" />
+              <h1 className="text-base font-bold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{dc.name}</h1>
+              <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: sc.bg, color: sc.color }}>{sc.label}</span>
+              <div className="ml-auto flex items-center gap-2">
+                <div className="h-1.5 rounded-full bg-[#E2E8F0] w-24 overflow-hidden">
+                  <div className="h-full rounded-full" style={{ width: `${dc.healthScore}%`, backgroundColor: dc.healthScore >= 90 ? '#00A36C' : '#D4A017' }} />
+                </div>
+                <span className="text-xs font-bold text-[#1A1F36]">Health: {dc.healthScore}</span>
+              </div>
+            </div>
+            {/* Tabs */}
+            <div className="flex gap-1">
+              {tabs.map(t => (
+                <button key={t} onClick={() => setTab(t)}
+                  className={`px-3 py-1.5 text-xs font-semibold rounded-lg capitalize transition-colors ${tab === t ? 'bg-[#00338D] text-white' : 'text-[#6B7280] hover:bg-[#F4F6F9]'}`}
+                >
+                  {t === 'ai-insights' ? 'AI Insights' : t}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Tab content */}
+          <div className="flex-1 overflow-y-auto p-6">
+            <motion.div key={tab} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
+              {tab === 'overview'        && <OverviewTab dc={dc} infra={infra} />}
+              {tab === 'infrastructure'  && <InfraTab infra={infra} />}
+              {tab === 'tenants'         && <TenantsTab dcId={id} />}
+              {tab === 'incidents'       && <IncidentsTab dcId={id} />}
+              {tab === 'sustainability'  && <SustainabilityTab dcId={id} />}
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </CCLayout>
+  );
+}
