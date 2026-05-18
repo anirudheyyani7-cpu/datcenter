@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Search, Plus, Globe, ChevronDown } from 'lucide-react';
+import { Search, Plus, Globe, ChevronDown, LayoutDashboard } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -63,6 +63,16 @@ export default function Navbar() {
             >
               <Globe size={14} />
               Dashboard
+            </Link>
+
+            <Link
+              href="/command-center"
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                pathname === '/command-center' ? 'text-white bg-white/10' : 'text-white/60 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <LayoutDashboard size={14} />
+              Command Center
             </Link>
 
             {/* Stages dropdown */}

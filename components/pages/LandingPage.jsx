@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { Globe, ArrowRight, X, Upload, FileText, Sparkles } from 'lucide-react';
+import { Globe, ArrowRight, X, Upload, FileText, Sparkles, LayoutDashboard } from 'lucide-react';
 import LifecycleWheel from '@/components/lifecycle-wheel/LifecycleWheel';
 import { LoadingDots } from '@/components/shared/LoadingDots';
 import { callClaude } from '@/lib/claude-api';
@@ -350,15 +350,25 @@ export default function LandingPage() {
             </div>
 
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.1 }} className="text-center">
-              <button
-                onClick={() => router.push('/dashboard')}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#00338D] text-white font-bold rounded-xl hover:bg-[#0044b8] transition-colors text-sm shadow-lg shadow-[#00338D]/20"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                <Globe size={16} />
-                Global Datacenter Dashboard
-                <ArrowRight size={15} />
-              </button>
+              <div className="flex items-center gap-3 flex-wrap justify-center">
+                <button
+                  onClick={() => router.push('/dashboard')}
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#00338D] text-white font-bold rounded-xl hover:bg-[#0044b8] transition-colors text-sm shadow-lg shadow-[#00338D]/20"
+                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                >
+                  <Globe size={16} />
+                  Global Datacenter Dashboard
+                  <ArrowRight size={15} />
+                </button>
+                <button
+                  onClick={() => router.push('/command-center')}
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white border border-[#00338D] text-[#00338D] font-bold rounded-xl hover:bg-[#00338D]/5 transition-colors text-sm shadow-sm"
+                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                >
+                  <LayoutDashboard size={16} />
+                  Operations Command Center
+                </button>
+              </div>
               <p className="text-[#9CA3AF] text-xs text-center mt-2">Global coverage · Live intelligence</p>
             </motion.div>
           </div>

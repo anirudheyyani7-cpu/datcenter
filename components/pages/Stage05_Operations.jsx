@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { Activity, LayoutDashboard, ArrowRight, Settings2 } from 'lucide-react';
 import StageLayout from '@/components/stage-pages/StageLayout';
 import { FormField, Select, TextInput, SliderField } from '@/components/stage-pages/FormComponents';
@@ -54,7 +55,28 @@ function OperationCards() {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+    <div className="space-y-4 mb-6">
+      {/* Command Center CTA */}
+      <div className="bg-gradient-to-r from-[#00338D] to-[#0077C8] rounded-2xl p-5 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center">
+            <LayoutDashboard size={20} className="text-white" />
+          </div>
+          <div>
+            <p className="text-white font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Global Command Center</p>
+            <p className="text-white/60 text-xs">Real-time NOC dashboard — incidents, capacity, AI insights</p>
+          </div>
+        </div>
+        <Link
+          href="/command-center"
+          className="flex items-center gap-2 px-4 py-2 bg-white text-[#00338D] font-bold text-sm rounded-xl hover:bg-white/90 transition-colors shadow-sm flex-shrink-0"
+          style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+        >
+          Launch Command Center <ArrowRight size={14} />
+        </Link>
+      </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {cards.map(card => {
         const Icon = card.icon;
         return (
@@ -87,6 +109,7 @@ function OperationCards() {
           </div>
         );
       })}
+    </div>
     </div>
   );
 }
