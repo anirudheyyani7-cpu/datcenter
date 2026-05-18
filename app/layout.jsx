@@ -1,4 +1,6 @@
 import './globals.css';
+import { createClient } from '@/lib/supabase-server';
+import SupabaseProvider from '@/components/SupabaseProvider';
 
 export const metadata = {
   title: 'K-Nexus — Datacenter Lifecycle Intelligence',
@@ -6,7 +8,10 @@ export const metadata = {
   icons: { icon: '/favicon.svg' },
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const supabase = await createClient();
+  const { data: { session } } = await supabase.auth.getSession();
+
   return (
     <html lang="en">
       <head>
@@ -15,7 +20,11 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <SupabaseProvider initialSession={session}>
+          {children}
+        </SupabaseProvider>
+      </body>
     </html>
   );
 }

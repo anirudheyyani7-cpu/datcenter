@@ -1,9 +1,10 @@
 'use client';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Search, Plus, Globe, ChevronDown, LayoutDashboard } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import { Search, Plus, Globe, ChevronDown, LayoutDashboard, LogOut } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { useSession } from '@/components/SupabaseProvider';
 
 const STAGES = [
   { num: '01', label: 'Strategy',     path: '/stage/01' },
@@ -16,10 +17,20 @@ const STAGES = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [searchFocused, setSearchFocused] = useState(false);
   const [stagesOpen, setStagesOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const { session, supabase } = useSession() ?? {};
 
   const isLanding = pathname === '/';
+  const userInitial = session?.user?.email?.[0]?.toUpperCase() ?? 'K';
+
+  async function handleSignOut() {
+    await supabase?.auth.signOut();
+    router.push('/login');
+    router.refresh();
+  }
 
   return (
     <motion.nav
@@ -133,9 +144,35 @@ export default function Navbar() {
             New Business Case
           </Link>
 
-          {/* Avatar */}
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0077C8] to-[#00338D] flex items-center justify-center flex-shrink-0 cursor-pointer">
-            <span className="text-white text-xs font-bold">KP</span>
+          {/* Avatar + user menu */}
+          <div className="relative flex-shrink-0">
+            <button
+              onClick={() => setUserMenuOpen(!userMenuOpen)}
+              className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0077C8] to-[#00338D] flex items-center justify-center cursor-pointer"
+            >
+              <span className="text-white text-xs font-bold">{userInitial}</span>
+            </button>
+            {userMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="absolute top-full right-0 mt-2 w-52 bg-[#1A1F36] border border-white/10 rounded-xl shadow-2xl overflow-hidden"
+                onMouseLeave={() => setUserMenuOpen(false)}
+              >
+                {session?.user?.email && (
+                  <div className="px-4 py-2.5 text-xs text-white/40 truncate border-b border-white/10">
+                    {session.user.email}
+                  </div>
+                )}
+                <button
+                  onClick={handleSignOut}
+                  className="flex items-center gap-2 w-full px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+                >
+                  <LogOut size={14} />
+                  Sign out
+                </button>
+              </motion.div>
+            )}
           </div>
         </div>
       </div>
