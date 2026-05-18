@@ -1,453 +1,800 @@
 'use client';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import CCLayout from '@/components/command-center/CCLayout';
+import AgenticNetworkBg from './AgenticNetworkBg';
 
-// ─── Inline SVG Logos ─────────────────────────────────────────────────────────
+// ─── Brand Logos (inline SVG, accurate brand colors) ────────────────────────
 
-function AWSLogo({ size = 28 }) {
+function AWSBedrockLogo({ size = 36 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 60 60" fill="none">
-      <path d="M17 38c-1.6 0.7-2.6 1-3.4 1-1.4 0-2.2-0.8-2.2-2.2 0-1.6 1.2-3 3.8-4.2l1.8-0.8v6.2zm0 3.4v1.4c0 0.4 0.3 0.6 0.8 0.6 0.4 0 0.8-0.1 1.2-0.3l0.2 1.2c-0.6 0.3-1.4 0.5-2.2 0.5-1.6 0-2.4-0.8-2.4-2.2v-1.4l2.4 0.2zm-4.2-5.4c0 2.8 1.8 4.4 4.6 4.4 1.2 0 2.2-0.2 3.2-0.7l-0.4-1.4c-0.8 0.4-1.6 0.6-2.6 0.6-1.8 0-2.8-1-2.8-2.8 0-1.2 0.6-2.2 1.8-2.8l-1-1c-1.8 1-2.8 2.4-2.8 3.7z" fill="#FF9900"/>
-      <path d="M30 20c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z" fill="#FF9900"/>
-      <path d="M9 44c8.6 5.4 19.8 6.8 29.6 3.4l-1-1.8c-9 3.2-19.4 1.8-27.4-3.6L9 44zm41 1.6c0.8-0.6 1.6-1.2 2.4-1.8l-1.2-1.4c-0.8 0.6-1.6 1.4-2.4 2l1.2 1.2z" fill="#FF9900"/>
-      <text x="30" y="33" textAnchor="middle" fill="#FF9900" fontSize="10" fontWeight="bold" fontFamily="Arial">AWS</text>
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
+      <rect width="48" height="48" rx="10" fill="#232F3E"/>
+      <path d="M24 8l12 7v14l-12 7-12-7V15z" fill="none" stroke="#FF9900" strokeWidth="1.5"/>
+      <path d="M24 8l12 7-12 7-12-7z" fill="#FF9900" opacity="0.9"/>
+      <path d="M12 15l12 7v14" stroke="#FF9900" strokeWidth="1.2" fill="none"/>
+      <path d="M36 15l-12 7v14" stroke="#FF9900" strokeWidth="1.2" fill="none" opacity="0.7"/>
+      <text x="24" y="43" textAnchor="middle" fill="#FF9900" fontSize="6" fontWeight="bold" fontFamily="Arial, sans-serif">BEDROCK</text>
     </svg>
   );
 }
 
-function ClaudeLogo({ size = 28 }) {
+function ClaudeLogo({ size = 36 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 60 60" fill="none">
-      <rect width="60" height="60" rx="12" fill="#D97757"/>
-      <path d="M18 42l6.5-18h3.2L20 42h-2zm5.5 0l6.5-18h3.2L25.7 42h-2.2zm5 0l6.5-18H38L31.5 42H28.5z" fill="white" opacity="0.9"/>
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
+      <rect width="48" height="48" rx="10" fill="#D97757"/>
+      <path d="M16 36l5-14h2.5L17 36h-1zm4.5 0l5-14H28l-5.5 14H20.5zm4.5 0l5-14h2.5L27 36H25z" fill="white" opacity="0.92"/>
     </svg>
   );
 }
 
-function TavilyLogo({ size = 28 }) {
+function TavilyLogo({ size = 36 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 60 60" fill="none">
-      <rect width="60" height="60" rx="12" fill="#1A1A2E"/>
-      <path d="M12 20h36v4H12zm8 8h20v4H20zm4 8h12v4H24z" fill="#F5A623"/>
-      <circle cx="44" cy="44" r="8" fill="#F5A623"/>
-      <path d="M41 44l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
+      <rect width="48" height="48" rx="10" fill="#18181B"/>
+      <rect x="10" y="14" width="28" height="3.5" rx="1.5" fill="#F5A623"/>
+      <rect x="14" y="21" width="20" height="3" rx="1.5" fill="#F5A623" opacity="0.8"/>
+      <rect x="18" y="27.5" width="12" height="2.5" rx="1.25" fill="#F5A623" opacity="0.6"/>
+      <circle cx="34" cy="36" r="6" fill="none" stroke="#F5A623" strokeWidth="2"/>
+      <line x1="38.2" y1="40.2" x2="42" y2="44" stroke="#F5A623" strokeWidth="2" strokeLinecap="round"/>
     </svg>
   );
 }
 
-function PeeringDBLogo({ size = 28 }) {
+function PeeringDBLogo({ size = 36 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 60 60" fill="none">
-      <rect width="60" height="60" rx="12" fill="#003366"/>
-      <circle cx="18" cy="30" r="6" fill="#4A90D9"/>
-      <circle cx="42" cy="18" r="5" fill="#4A90D9"/>
-      <circle cx="42" cy="42" r="5" fill="#4A90D9"/>
-      <circle cx="30" cy="30" r="4" fill="#7BB8F0"/>
-      <line x1="24" y1="30" x2="30" y2="30" stroke="#4A90D9" strokeWidth="2"/>
-      <line x1="34" y1="28" x2="38" y2="21" stroke="#4A90D9" strokeWidth="2"/>
-      <line x1="34" y1="32" x2="38" y2="39" stroke="#4A90D9" strokeWidth="2"/>
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
+      <rect width="48" height="48" rx="10" fill="#003366"/>
+      <circle cx="14" cy="24" r="5" fill="none" stroke="#4A90D9" strokeWidth="2"/>
+      <circle cx="34" cy="16" r="4" fill="none" stroke="#4A90D9" strokeWidth="2"/>
+      <circle cx="34" cy="32" r="4" fill="none" stroke="#4A90D9" strokeWidth="2"/>
+      <circle cx="24" cy="24" r="3" fill="#4A90D9" opacity="0.5"/>
+      <line x1="19" y1="24" x2="21" y2="24" stroke="#4A90D9" strokeWidth="1.5"/>
+      <line x1="27" y1="22" x2="30.5" y2="18.5" stroke="#4A90D9" strokeWidth="1.5"/>
+      <line x1="27" y1="26" x2="30.5" y2="29.5" stroke="#4A90D9" strokeWidth="1.5"/>
     </svg>
   );
 }
 
-function LangGraphLogo({ size = 28 }) {
+
+function CrewAILogo({ size = 36 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 60 60" fill="none">
-      <rect width="60" height="60" rx="12" fill="#1C1C1E"/>
-      <circle cx="30" cy="16" r="5" fill="#7C3AED"/>
-      <circle cx="16" cy="38" r="5" fill="#7C3AED"/>
-      <circle cx="44" cy="38" r="5" fill="#7C3AED"/>
-      <line x1="30" y1="21" x2="20" y2="33" stroke="#9F67FF" strokeWidth="2"/>
-      <line x1="30" y1="21" x2="40" y2="33" stroke="#9F67FF" strokeWidth="2"/>
-      <line x1="21" y1="38" x2="39" y2="38" stroke="#9F67FF" strokeWidth="2"/>
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
+      <rect width="48" height="48" rx="10" fill="#0F172A"/>
+      <circle cx="24" cy="18" r="6" fill="none" stroke="#E11D48" strokeWidth="2"/>
+      <path d="M13 40c0-6.1 4.9-11 11-11s11 4.9 11 11" stroke="#E11D48" strokeWidth="2" strokeLinecap="round" fill="none"/>
+      <circle cx="13" cy="21" r="3.5" fill="none" stroke="#E11D48" strokeWidth="1.5" opacity="0.65"/>
+      <circle cx="35" cy="21" r="3.5" fill="none" stroke="#E11D48" strokeWidth="1.5" opacity="0.65"/>
     </svg>
   );
 }
 
-function CrewAILogo({ size = 28 }) {
+function KnowledgeGraphLogo({ size = 36 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 60 60" fill="none">
-      <rect width="60" height="60" rx="12" fill="#0F172A"/>
-      <circle cx="30" cy="22" r="7" fill="#E11D48"/>
-      <path d="M16 44c0-7.7 6.3-14 14-14s14 6.3 14 14" stroke="#E11D48" strokeWidth="3" strokeLinecap="round" fill="none"/>
-      <circle cx="16" cy="26" r="4" fill="#E11D48" opacity="0.6"/>
-      <circle cx="44" cy="26" r="4" fill="#E11D48" opacity="0.6"/>
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
+      <rect width="48" height="48" rx="10" fill="#064E3B"/>
+      <circle cx="24" cy="24" r="4.5" fill="#10B981"/>
+      <circle cx="11" cy="17" r="3.5" fill="#34D399" opacity="0.85"/>
+      <circle cx="37" cy="17" r="3.5" fill="#34D399" opacity="0.85"/>
+      <circle cx="11" cy="37" r="3.5" fill="#34D399" opacity="0.85"/>
+      <circle cx="37" cy="37" r="3.5" fill="#34D399" opacity="0.85"/>
+      <line x1="14.5" y1="19" x2="20.5" y2="22" stroke="#10B981" strokeWidth="1.5"/>
+      <line x1="33.5" y1="19" x2="27.5" y2="22" stroke="#10B981" strokeWidth="1.5"/>
+      <line x1="14.5" y1="35" x2="20.5" y2="27" stroke="#10B981" strokeWidth="1.5"/>
+      <line x1="33.5" y1="35" x2="27.5" y2="27" stroke="#10B981" strokeWidth="1.5"/>
     </svg>
   );
 }
 
-function KnowledgeGraphLogo({ size = 28 }) {
+function RAGLogo({ size = 36 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 60 60" fill="none">
-      <rect width="60" height="60" rx="12" fill="#064E3B"/>
-      <circle cx="30" cy="30" r="5" fill="#10B981"/>
-      <circle cx="14" cy="22" r="4" fill="#34D399"/>
-      <circle cx="46" cy="22" r="4" fill="#34D399"/>
-      <circle cx="14" cy="42" r="4" fill="#34D399"/>
-      <circle cx="46" cy="42" r="4" fill="#34D399"/>
-      <line x1="18" y1="24" x2="26" y2="28" stroke="#10B981" strokeWidth="1.5"/>
-      <line x1="42" y1="24" x2="34" y2="28" stroke="#10B981" strokeWidth="1.5"/>
-      <line x1="18" y1="40" x2="26" y2="33" stroke="#10B981" strokeWidth="1.5"/>
-      <line x1="42" y1="40" x2="34" y2="33" stroke="#10B981" strokeWidth="1.5"/>
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
+      <rect width="48" height="48" rx="10" fill="#1E3A5F"/>
+      <ellipse cx="24" cy="16" rx="13" ry="5" fill="#2563EB"/>
+      <rect x="11" y="16" width="26" height="7" fill="#1D4ED8"/>
+      <ellipse cx="24" cy="23" rx="13" ry="5" fill="#3B82F6"/>
+      <rect x="11" y="23" width="26" height="7" fill="#2563EB"/>
+      <ellipse cx="24" cy="30" rx="13" ry="5" fill="#60A5FA"/>
+      <text x="24" y="18.5" textAnchor="middle" fill="white" fontSize="5.5" fontWeight="bold" fontFamily="Arial, sans-serif">KPMG</text>
+      <text x="24" y="32.5" textAnchor="middle" fill="white" fontSize="5" fontFamily="Arial, sans-serif">RAG</text>
     </svg>
   );
 }
 
-function RAGLogo({ size = 28 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 60 60" fill="none">
-      <rect width="60" height="60" rx="12" fill="#1E3A5F"/>
-      <ellipse cx="30" cy="20" rx="16" ry="6" fill="#2563EB"/>
-      <rect x="14" y="20" width="32" height="8" fill="#1D4ED8"/>
-      <ellipse cx="30" cy="28" rx="16" ry="6" fill="#3B82F6"/>
-      <rect x="14" y="28" width="32" height="8" fill="#2563EB"/>
-      <ellipse cx="30" cy="36" rx="16" ry="6" fill="#60A5FA"/>
-      <text x="30" y="22" textAnchor="middle" fill="white" fontSize="6" fontWeight="bold" fontFamily="Arial">KPMG</text>
-      <text x="30" y="39" textAnchor="middle" fill="white" fontSize="5" fontFamily="Arial">RAG</text>
-    </svg>
-  );
-}
+// ─── Animated SVG connector arrow drawn on load ────────────────────────────
 
-function BedrockLogo({ size = 28 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 60 60" fill="none">
-      <rect width="60" height="60" rx="12" fill="#232F3E"/>
-      <path d="M30 12l16 9v18l-16 9-16-9V21z" fill="none" stroke="#FF9900" strokeWidth="2"/>
-      <path d="M30 12l16 9-16 9-16-9z" fill="#FF9900" opacity="0.8"/>
-      <path d="M14 21l16 9v18" stroke="#FF9900" strokeWidth="1.5" fill="none"/>
-      <path d="M46 21l-16 9v18" stroke="#FF9900" strokeWidth="1.5" fill="none"/>
-    </svg>
-  );
-}
+function FlowConnector({ delay = 0, height = 32, color = '#0077C8' }) {
+  const pathRef = useRef(null);
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
+  useEffect(() => {
+    const el = pathRef.current;
+    if (!el) return;
+    const len = el.getTotalLength();
+    el.style.strokeDasharray = len;
+    el.style.strokeDashoffset = len;
+    const timeout = setTimeout(() => {
+      el.style.transition = `stroke-dashoffset 0.5s ease-out`;
+      el.style.strokeDashoffset = '0';
+    }, delay);
+    return () => clearTimeout(timeout);
+  }, [delay]);
 
-function FlowArrow({ className = '' }) {
+  const mid = height / 2;
   return (
-    <div className={`flex justify-center py-1 ${className}`}>
-      <svg width="24" height="20" viewBox="0 0 24 20" fill="none">
-        <path d="M12 0v14M5 10l7 8 7-8" stroke="#0077C8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <div className="flex justify-center" style={{ height }}>
+      <svg width="24" height={height} viewBox={`0 0 24 ${height}`} fill="none" overflow="visible">
+        <path
+          ref={pathRef}
+          d={`M12 0 L12 ${mid - 6}`}
+          stroke={color}
+          strokeWidth="1.8"
+          strokeLinecap="round"
+        />
+        <path
+          d={`M5 ${mid - 2} L12 ${mid + 6} L19 ${mid - 2}`}
+          stroke={color}
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+          style={{ opacity: 0.9 }}
+        />
       </svg>
     </div>
   );
 }
 
-function LayerLabel({ children }) {
+// ─── Animated SVG fan-out from aggregator to 6 agents ─────────────────────
+
+function FanOutConnector({ count = 6, delay = 0 }) {
+  const svgRef = useRef(null);
+
+  useEffect(() => {
+    const paths = svgRef.current?.querySelectorAll('path[data-anim]');
+    if (!paths) return;
+    paths.forEach(p => {
+      const len = p.getTotalLength();
+      p.style.strokeDasharray = len;
+      p.style.strokeDashoffset = len;
+    });
+    const timeout = setTimeout(() => {
+      paths.forEach((p, i) => {
+        setTimeout(() => {
+          p.style.transition = 'stroke-dashoffset 0.4s ease-out';
+          p.style.strokeDashoffset = '0';
+        }, i * 40);
+      });
+    }, delay);
+    return () => clearTimeout(timeout);
+  }, [delay]);
+
+  const W = 600, H = 40;
+  const cx = W / 2;
+  const slotW = W / count;
+  const points = Array.from({ length: count }, (_, i) => (i + 0.5) * slotW);
+
   return (
-    <span className="absolute -left-2 top-1/2 -translate-y-1/2 -translate-x-full text-[9px] font-bold uppercase tracking-widest text-white/25 rotate-180 [writing-mode:vertical-rl] hidden xl:block">
-      {children}
-    </span>
+    <div className="w-full" style={{ height: H }}>
+      <svg ref={svgRef} width="100%" height={H} viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none">
+        {points.map((x, i) => (
+          <path
+            key={i}
+            data-anim="true"
+            d={`M${cx} 0 Q${cx} ${H / 2} ${x} ${H}`}
+            stroke="#0077C8"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            fill="none"
+            opacity="0.45"
+          />
+        ))}
+      </svg>
+    </div>
   );
 }
 
+// ─── Data ─────────────────────────────────────────────────────────────────────
+
 const AGENTS = [
-  { label: 'Strategy',     color: '#00338D', desc: 'Market positioning & site strategy' },
-  { label: 'Sourcing',     color: '#0055A4', desc: 'Vendor & land acquisition' },
-  { label: 'Design',       color: '#0077C8', desc: 'Engineering & facility design' },
-  { label: 'Compliance',   color: '#005F9E', desc: 'Regulatory & legal adherence' },
-  { label: 'Operations',   color: '#0099CC', desc: 'Live facility management' },
-  { label: 'Monetization', color: '#00A36C', desc: 'Revenue & tenant optimization' },
+  {
+    label: 'Strategy',
+    color: '#00338D',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+    ),
+    desc: 'Market positioning, site selection, and long-term capacity strategy',
+    tools: ['Tavily Search', 'Knowledge Graph'],
+    model: 'Claude 3.5 Sonnet / 4.6 Opus | Gemini 3 Flash',
+  },
+  {
+    label: 'Sourcing',
+    color: '#0055A4',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+    ),
+    desc: 'Vendor procurement, land acquisition, and supply chain coordination',
+    tools: ['PeeringDB', 'Tavily Search'],
+    model: 'Claude 3.5 Sonnet',
+  },
+  {
+    label: 'Design',
+    color: '#0077C8',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    ),
+    desc: 'Facility engineering, mechanical/electrical design, and build planning',
+    tools: ['Knowledge Graph', 'RAG Vector Store'],
+    model: 'Claude 3.5 Sonnet',
+  },
+  {
+    label: 'Compliance',
+    color: '#005F9E',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    ),
+    desc: 'Regulatory adherence, legal frameworks, and certification management',
+    tools: ['RAG Vector Store', 'Knowledge Graph'],
+    model: 'Claude 3.5 Sonnet / 4.6 Opus | Gemini 3 Flash',
+  },
+  {
+    label: 'Operations',
+    color: '#0099CC',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+    ),
+    desc: 'Live facility management, SLA monitoring, and incident response',
+    tools: ['PeeringDB', 'Tavily Search', 'RAG Vector Store'],
+    model: 'Claude 3.5 Sonnet',
+  },
+  {
+    label: 'Monetization',
+    color: '#00A36C',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+    ),
+    desc: 'Revenue optimisation, tenant acquisition, and pricing strategy',
+    tools: ['Tavily Search', 'Knowledge Graph', 'RAG Vector Store'],
+    model: 'Claude 3.5 Sonnet / 4.6 Opus | Gemini 3 Flash',
+  },
 ];
 
 const DATA_TOOLS = [
-  { label: 'Tavily Search', sub: 'Live, verified market data',        Logo: TavilyLogo },
-  { label: 'PeeringDB',     sub: 'Global DC peering connectivity',    Logo: PeeringDBLogo },
-  { label: 'Knowledge Graph', sub: 'Entity relationship mappings',    Logo: KnowledgeGraphLogo },
-  { label: 'RAG Vector Store', sub: 'KPMG Frameworks — highly efficient retrieval', Logo: RAGLogo },
+  {
+    label: 'Tavily Search',
+    sub: 'Live, verified market data',
+    Logo: TavilyLogo,
+    stat: '< 200ms',
+    statLabel: 'avg latency',
+    detail: 'Real-time web intelligence with source verification and fact-checking',
+    badge: 'Live',
+    badgeColor: '#F5A623',
+  },
+  {
+    label: 'PeeringDB',
+    sub: 'Global DC peering connectivity',
+    Logo: PeeringDBLogo,
+    stat: '12,000+',
+    statLabel: 'network records',
+    detail: 'Comprehensive interconnection data for 12,000+ global datacenters',
+    badge: 'API',
+    badgeColor: '#4A90D9',
+  },
+  {
+    label: 'Knowledge Graph',
+    sub: 'Entity relationship mappings',
+    Logo: KnowledgeGraphLogo,
+    stat: '2.4M',
+    statLabel: 'entities indexed',
+    detail: 'Semantic entity graph linking assets, vendors, regulations, and tenants',
+    badge: 'Indexed',
+    badgeColor: '#10B981',
+  },
+  {
+    label: 'RAG Vector Store',
+    sub: 'KPMG Frameworks — efficient retrieval',
+    Logo: RAGLogo,
+    stat: '99.8%',
+    statLabel: 'retrieval accuracy',
+    detail: 'KPMG proprietary vectorised knowledge base with semantic search',
+    badge: 'KPMG',
+    badgeColor: '#00338D',
+  },
 ];
 
-const CORE_SKILLS = [
-  { logo: LangGraphLogo,  title: 'Multi-agent Orchestration', sub: 'LangGraph, CrewAI' },
-  { logo: null,           title: 'Dynamic Retrieval Routing', sub: 'Semantic + keyword hybrid' },
-  { logo: ClaudeLogo,     title: 'Reflect + Retry Self-correction', sub: 'Claude-powered' },
-  { logo: KnowledgeGraphLogo, title: 'Hybrid RAG', sub: 'Semantic, Knowledge Graph' },
-];
 
 const TOOL_FRAMEWORKS = [
-  { Logo: BedrockLogo,      label: 'AWS Bedrock',           sub: 'Cloud Platform' },
-  { Logo: ClaudeLogo,       label: 'Claude 3.5 Sonnet & Opus', sub: 'Foundation Models' },
-  { Logo: TavilyLogo,       label: 'Tavily Search',         sub: 'Live market data' },
-  { Logo: PeeringDBLogo,    label: 'PeeringDB',              sub: 'Network connectivity' },
-  { Logo: RAGLogo,          label: 'RAG Vector Store',       sub: 'KPMG Frameworks' },
-  { Logo: KnowledgeGraphLogo, label: 'Knowledge Graph',     sub: 'Entity mappings' },
+  { Logo: AWSBedrockLogo, label: 'AWS Bedrock', sub: 'Cloud Platform' },
+  { Logo: ClaudeLogo, label: 'Claude 3.5 Sonnet / 4.6 Opus | Gemini 3 Flash', sub: 'Foundation Models' },
+  { Logo: TavilyLogo, label: 'Tavily Search', sub: 'Live market data' },
+  { Logo: PeeringDBLogo, label: 'PeeringDB', sub: 'Network connectivity' },
+  { Logo: RAGLogo, label: 'RAG Vector Store', sub: 'KPMG Frameworks' },
+  { Logo: KnowledgeGraphLogo, label: 'Knowledge Graph', sub: 'Entity mappings' },
 ];
 
-const fade = (delay = 0) => ({
-  initial: { opacity: 0, y: 12 },
-  animate: { opacity: 1, y: 0 },
-  transition: { delay, duration: 0.4 },
-});
+// ─── Agent Card ────────────────────────────────────────────────────────────────
 
-// ─── Main Component ───────────────────────────────────────────────────────────
+function AgentCard({ agent, isActive, onClick }) {
+  return (
+    <div className="relative flex flex-col">
+      <motion.div
+        onClick={onClick}
+        whileHover={{ y: -4, scale: 1.03 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+        className="cursor-pointer rounded-xl border bg-white shadow-sm overflow-hidden select-none"
+        style={{
+          borderColor: isActive ? agent.color : '#E2E8F0',
+          boxShadow: isActive ? `0 4px 20px ${agent.color}22` : undefined,
+        }}
+      >
+        {/* Top color strip */}
+        <div className="h-1 w-full" style={{ background: agent.color }} />
+        <div className="p-3 flex flex-col items-center gap-2">
+          <div
+            className="w-9 h-9 rounded-lg flex items-center justify-center"
+            style={{ background: `${agent.color}15`, color: agent.color }}
+          >
+            {agent.icon}
+          </div>
+          <p
+            className="text-[11px] font-bold text-center text-[#1A1F36]"
+            style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+          >
+            {agent.label}
+          </p>
+          <p className="text-[9px] text-[#9CA3AF] text-center">Agent</p>
+        </div>
+      </motion.div>
+
+      <AnimatePresence>
+        {isActive && (
+          <motion.div
+            initial={{ opacity: 0, y: -6, scaleY: 0.9 }}
+            animate={{ opacity: 1, y: 0, scaleY: 1 }}
+            exit={{ opacity: 0, y: -4, scaleY: 0.9 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-52 bg-white rounded-xl border border-[#E2E8F0] shadow-xl p-3 z-30"
+            style={{ borderTop: `3px solid ${agent.color}` }}
+          >
+            <p className="text-[#1A1F36] font-bold text-xs mb-1.5">{agent.label} Agent</p>
+            <p className="text-[#6B7280] text-[10px] mb-2 leading-relaxed">{agent.desc}</p>
+            <div className="space-y-1">
+              <p className="text-[9px] font-bold uppercase tracking-widest text-[#9CA3AF]">Connected Tools</p>
+              {agent.tools.map(t => (
+                <span key={t} className="inline-flex items-center gap-1 mr-1 mb-1 px-1.5 py-0.5 bg-[#F4F6F9] border border-[#E2E8F0] rounded text-[9px] text-[#374151] font-medium">
+                  {t}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+// ─── Data Tool Card ────────────────────────────────────────────────────────────
+
+function DataToolCard({ tool }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <motion.div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      whileHover={{ y: -4, boxShadow: '0 8px 28px rgba(0,0,0,0.10)' }}
+      transition={{ type: 'spring', stiffness: 400, damping: 28 }}
+      className="relative bg-white rounded-xl border border-[#E2E8F0] p-3.5 overflow-hidden cursor-default"
+    >
+      <div className="flex items-start gap-3">
+        <tool.Logo size={36} />
+        <div className="flex-1 min-w-0">
+          <p className="text-[#1A1F36] font-bold text-xs" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{tool.label}</p>
+          <p className="text-[#9CA3AF] text-[10px] mt-0.5 leading-tight">{tool.sub}</p>
+          <div className="mt-2 flex items-center gap-1.5">
+            <span
+              className="px-1.5 py-0.5 rounded text-[9px] font-bold"
+              style={{ background: `${tool.badgeColor}15`, color: tool.badgeColor }}
+            >
+              {tool.badge}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Hover overlay */}
+      <AnimatePresence>
+        {hovered && (
+          <motion.div
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            exit={{ y: '100%' }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
+            className="absolute inset-0 rounded-xl p-3 flex flex-col justify-end"
+            style={{ background: `linear-gradient(160deg, ${tool.badgeColor} 0%, ${tool.badgeColor} 100%)` }}
+          >
+            <p className="text-white font-bold text-xs mb-1">{tool.label}</p>
+            <p className="text-white/80 text-[10px] leading-relaxed mb-2">{tool.detail}</p>
+            <div className="flex items-center justify-between">
+              <span className="text-white/60 text-[9px]">{tool.statLabel}</span>
+              <span className="text-white font-bold text-sm" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
+                {tool.stat}
+              </span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
+// ─── Layer Card wrapper ────────────────────────────────────────────────────────
+
+function LayerCard({ children, glowColor = '#0077C8', className = '' }) {
+  return (
+    <motion.div
+      whileHover={{ boxShadow: `0 8px 32px ${glowColor}22` }}
+      transition={{ duration: 0.25 }}
+      className={`bg-white rounded-2xl border border-[#E2E8F0] shadow-sm transition-colors hover:border-[#0077C8]/30 ${className}`}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+// ─── Capability row (right panel) ─────────────────────────────────────────────
+
+function CapabilityRow({ Logo, title, sub }) {
+  return (
+    <motion.div
+      whileHover={{ x: 4, backgroundColor: '#F4F6F9' }}
+      transition={{ duration: 0.18 }}
+      className="flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-default"
+    >
+      <div className="w-7 h-7 rounded-lg bg-[#F4F6F9] border border-[#E2E8F0] flex items-center justify-center flex-shrink-0">
+        {Logo ? <Logo size={18} /> : (
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0077C8" strokeWidth="2.5" strokeLinecap="round">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01z"/>
+          </svg>
+        )}
+      </div>
+      <div className="min-w-0">
+        <p className="text-[#1A1F36] text-[11px] font-semibold truncate" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+          {title}
+        </p>
+        <p className="text-[#9CA3AF] text-[9px]">{sub}</p>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Main Page ─────────────────────────────────────────────────────────────────
 
 export default function AgenticStackPage() {
+  const [activeAgent, setActiveAgent] = useState(null);
+
+  const handleAgentClick = (label) => {
+    setActiveAgent(prev => (prev === label ? null : label));
+  };
+
   return (
     <CCLayout title="Agentic AI Stack">
-      <div className="p-5 min-h-full bg-[#0D1117]">
-        {/* Page heading */}
-        <motion.div {...fade(0)} className="mb-6">
-          <div className="flex items-center justify-between">
+      {/* Relative wrapper so Three.js canvas can be absolute behind content */}
+      <div className="relative min-h-full bg-[#F4F6F9] overflow-hidden">
+        <AgenticNetworkBg />
+
+        <div className="relative z-10 p-5">
+          {/* ── Page header ── */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="mb-6 flex items-start justify-between"
+          >
             <div>
               <h1
-                className="text-white font-bold text-xl tracking-tight"
+                className="text-[#1A1F36] font-bold text-xl tracking-tight"
                 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
               >
                 Data Center Life-Cycle Intelligence Platform
               </h1>
-              <p className="text-white/40 text-sm mt-0.5">
-                Proprietary KPMG Agentic AI Architecture — Powered by AWS Bedrock & Claude
+              <p className="text-[#6B7280] text-sm mt-0.5">
+                Proprietary KPMG Agentic AI Architecture — powered by AWS Bedrock &amp; Claude 3.5
               </p>
             </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#00338D]/20 border border-[#00338D]/30">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#00A36C] animate-pulse" />
-              <span className="text-[#0077C8] text-xs font-bold uppercase tracking-widest">Proprietary Framework</span>
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <span className="px-3 py-1 rounded-full bg-[#00338D]/10 border border-[#00338D]/20 text-[#00338D] text-[11px] font-bold uppercase tracking-wider">
+                Proprietary
+              </span>
+              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#00A36C]/10 border border-[#00A36C]/20 text-[#00A36C] text-[11px] font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00A36C] animate-pulse" />
+                Live
+              </span>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        {/* Main layout: diagram + right panel */}
-        <div className="flex gap-5 items-start">
+          {/* ── Two-column layout ── */}
+          <div className="flex gap-5 items-start">
 
-          {/* ── Left: Architecture Diagram ── */}
-          <div className="flex-1 min-w-0 space-y-2 relative">
+            {/* ─────── Left: Architecture Diagram ─────── */}
+            <div className="flex-1 min-w-0 space-y-0">
 
-            {/* User Query */}
-            <motion.div {...fade(0.05)} className="flex justify-center">
-              <div className="px-10 py-3 rounded-xl bg-white/[0.06] border border-white/15 shadow-lg">
-                <p className="text-white font-semibold text-sm tracking-wide text-center">User Query</p>
-              </div>
-            </motion.div>
-
-            <FlowArrow />
-
-            {/* Memory + Planning Layer */}
-            <motion.div {...fade(0.1)} className="grid grid-cols-2 gap-4 relative">
-              {/* Horizontal connector between the two */}
-              <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none" style={{ zIndex: 0 }}>
-                <div className="w-full flex items-center">
-                  <div className="flex-1 h-px bg-[#0077C8]/40" />
-                  <div className="mx-2 px-2.5 py-0.5 rounded-md bg-[#0D1117] border border-[#0077C8]/40 text-[#0077C8] text-[10px] font-bold tracking-widest flex-shrink-0">
-                    AND
-                  </div>
-                  <div className="flex-1 h-px bg-[#0077C8]/40" />
-                </div>
-              </div>
-
-              {/* Memory Layer */}
-              <div className="relative z-10 rounded-xl border border-[#00338D]/40 bg-[#00338D]/10 p-3.5">
-                <div className="flex items-start gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#00338D]/30 border border-[#0077C8]/30 flex items-center justify-center flex-shrink-0">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0077C8" strokeWidth="2" strokeLinecap="round">
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-                      <path d="M12 6v6l4 2"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold text-xs">Memory Layer</p>
-                    <p className="text-white/45 text-[10px] mt-0.5">Short + Long term context storage</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Planning Layer */}
-              <div className="relative z-10 rounded-xl border border-[#00338D]/40 bg-[#00338D]/10 p-3.5">
-                <div className="flex items-start gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#00338D]/30 border border-[#0077C8]/30 flex items-center justify-center flex-shrink-0">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0077C8" strokeWidth="2" strokeLinecap="round">
-                      <circle cx="12" cy="12" r="10"/>
-                      <path d="M9 12l2 2 4-4"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold text-xs">Planning Layer</p>
-                    <p className="text-white/45 text-[10px] mt-0.5">ReAct + Chain-of-Thought Reasoning</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            <FlowArrow />
-
-            {/* Aggregator Agent */}
-            <motion.div {...fade(0.15)} className="flex justify-center">
-              <div className="w-full max-w-sm rounded-xl border border-[#0077C8]/50 bg-[#0077C8]/10 p-3.5 flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-[#0077C8]/20 border border-[#0077C8]/40 flex items-center justify-center flex-shrink-0">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0077C8" strokeWidth="2" strokeLinecap="round">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01z"/>
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-white font-semibold text-sm">Aggregator Agent</p>
-                  <p className="text-white/45 text-[10px]">Routes and coordinates all specialist agents</p>
-                </div>
-              </div>
-            </motion.div>
-
-            <FlowArrow />
-
-            {/* 6 Specialist Agents */}
-            <motion.div {...fade(0.2)}>
-              <p className="text-[9px] font-bold uppercase tracking-widest text-white/25 mb-2 text-center">Specialist Agents</p>
-              <div className="grid grid-cols-6 gap-2">
-                {AGENTS.map((agent) => (
-                  <div
-                    key={agent.label}
-                    className="rounded-xl border border-white/10 bg-white/[0.04] hover:bg-white/[0.07] transition-colors p-2.5 flex flex-col items-center gap-1.5 text-center group"
-                  >
-                    <div
-                      className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                      style={{ background: `${agent.color}25`, border: `1px solid ${agent.color}50` }}
-                    >
-                      <div className="w-3.5 h-3.5 rounded-sm" style={{ background: agent.color }} />
+              {/* User Query */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
+                className="flex justify-center"
+              >
+                <LayerCard className="px-12 py-3.5">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-7 h-7 rounded-lg bg-[#00338D]/10 flex items-center justify-center">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00338D" strokeWidth="2.5" strokeLinecap="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                      </svg>
                     </div>
-                    <p className="text-white text-[10px] font-semibold leading-tight">{agent.label}</p>
-                    <p className="text-white/35 text-[9px] leading-tight hidden group-hover:block absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-[#1A1F36] border border-white/10 rounded-lg px-2 py-1 w-28 z-10 pointer-events-none whitespace-normal">
-                      {agent.desc}
+                    <p className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                      User Query
                     </p>
                   </div>
-                ))}
-              </div>
-            </motion.div>
+                </LayerCard>
+              </motion.div>
 
-            <FlowArrow />
+              <FlowConnector delay={200} height={30} />
 
-            {/* Data & Tools */}
-            <motion.div {...fade(0.25)}>
-              <p className="text-[9px] font-bold uppercase tracking-widest text-white/25 mb-2 text-center">Data & Tools</p>
-              <div className="grid grid-cols-4 gap-3">
-                {DATA_TOOLS.map(({ label, sub, Logo }) => (
-                  <div key={label} className="rounded-xl border border-white/10 bg-white/[0.04] p-3 flex flex-col gap-2">
-                    <Logo size={28} />
+              {/* Memory + Planning — no connector inside the cards */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+                className="grid grid-cols-2 gap-4"
+              >
+                <LayerCard className="p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-[#00338D]/10 border border-[#00338D]/20 flex items-center justify-center flex-shrink-0">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00338D" strokeWidth="2" strokeLinecap="round">
+                        <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                      </svg>
+                    </div>
                     <div>
-                      <p className="text-white text-[11px] font-semibold">{label}</p>
-                      <p className="text-white/40 text-[9px] mt-0.5 leading-tight">{sub}</p>
+                      <p className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Memory Layer</p>
+                      <p className="text-[#6B7280] text-[10px] mt-0.5">Short + long-term context storage</p>
                     </div>
                   </div>
-                ))}
-              </div>
-            </motion.div>
+                </LayerCard>
 
-            <FlowArrow />
-
-            {/* AWS Bedrock */}
-            <motion.div {...fade(0.3)}>
-              <div className="rounded-xl border border-[#FF9900]/30 bg-[#FF9900]/5 p-3.5 flex items-center gap-4">
-                <BedrockLogo size={36} />
-                <div className="flex-1">
-                  <p className="text-white font-semibold text-sm">AWS Bedrock</p>
-                  <p className="text-white/45 text-[10px] mt-0.5">Managed Foundation Models + Vector DB + Embeddings</p>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#00A36C] animate-pulse" />
-                  <span className="text-[#00A36C] text-[10px] font-semibold">Active</span>
-                </div>
-              </div>
-            </motion.div>
-
-            <FlowArrow />
-
-            {/* Generative Model + Reflect & Retry */}
-            <motion.div {...fade(0.35)} className="grid grid-cols-5 gap-3">
-              {/* Generative Model */}
-              <div className="col-span-3 rounded-xl border border-[#D97757]/30 bg-[#D97757]/5 p-3.5 flex items-center gap-3">
-                <ClaudeLogo size={36} />
-                <div>
-                  <p className="text-white font-semibold text-sm">Generative Model</p>
-                  <p className="text-white/45 text-[10px] mt-0.5">Claude 3.5 Sonnet / Opus — Inference, Scoring, Output Generation</p>
-                </div>
-              </div>
-
-              {/* Arrow connector */}
-              <div className="col-span-2 flex flex-col items-center justify-center">
-                <div className="w-full flex items-center gap-2">
-                  <div className="flex-1 flex flex-col items-center gap-1">
-                    <div className="h-px w-full bg-[#0077C8]/40" />
-                    <span className="text-[9px] text-[#0077C8]/60 font-semibold tracking-wider">reflect + retry</span>
-                    <div className="h-px w-full bg-[#0077C8]/40" />
+                <LayerCard className="p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-[#0077C8]/10 border border-[#0077C8]/20 flex items-center justify-center flex-shrink-0">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0077C8" strokeWidth="2" strokeLinecap="round">
+                        <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Planning Layer</p>
+                      <p className="text-[#6B7280] text-[10px] mt-0.5">ReAct + Chain-of-Thought Reasoning</p>
+                    </div>
                   </div>
-                  <div className="rounded-xl border border-[#0077C8]/40 bg-[#0077C8]/10 p-3 text-center flex-shrink-0">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0077C8" strokeWidth="2" strokeLinecap="round" className="mx-auto">
-                      <path d="M21 2v6h-6M3 12a9 9 0 0115-6.7L21 8M3 22v-6h6M21 12a9 9 0 01-15 6.7L3 16"/>
-                    </svg>
-                    <p className="text-[9px] text-white/60 mt-1 font-semibold">Reflect &amp; Retry</p>
-                    <p className="text-[8px] text-white/30">Self-correction</p>
+                </LayerCard>
+              </motion.div>
+
+              {/* AND badge sits below both cards, outside them */}
+              <div className="flex items-center py-2">
+                <div className="flex-1 h-px bg-[#0077C8]/20 ml-6" />
+                <span className="mx-3 px-3 py-1 rounded-lg bg-white border border-[#0077C8]/30 text-[#0077C8] text-[10px] font-bold tracking-widest shadow-sm flex-shrink-0">
+                  AND
+                </span>
+                <div className="flex-1 h-px bg-[#0077C8]/20 mr-6" />
+              </div>
+
+              <FlowConnector delay={350} height={24} />
+
+              {/* Aggregator Agent */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
+                className="flex justify-center"
+              >
+                <LayerCard className="px-8 py-4" glowColor="#0077C8">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#0077C8]/10 border border-[#0077C8]/25 flex items-center justify-center flex-shrink-0">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077C8" strokeWidth="2" strokeLinecap="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                        Aggregator Agent
+                      </p>
+                      <p className="text-[#6B7280] text-[10px]">Routes and coordinates all specialist agents</p>
+                    </div>
                   </div>
+                </LayerCard>
+              </motion.div>
+
+              {/* Fan-out connector */}
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
+                <FanOutConnector count={6} delay={400} />
+              </motion.div>
+
+              {/* 6 Specialist Agents */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.22 }}
+              >
+                <p className="text-[9px] font-bold uppercase tracking-widest text-[#9CA3AF] text-center mb-2">
+                  Specialist Agents — click to explore
+                </p>
+                <div className="grid grid-cols-6 gap-2.5">
+                  {AGENTS.map(agent => (
+                    <AgentCard
+                      key={agent.label}
+                      agent={agent}
+                      isActive={activeAgent === agent.label}
+                      onClick={() => handleAgentClick(agent.label)}
+                    />
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Space for agent expansion */}
+              <AnimatePresence>
+                {activeAgent && (
+                  <motion.div
+                    key="agent-spacer"
+                    initial={{ height: 0 }}
+                    animate={{ height: 24 }}
+                    exit={{ height: 0 }}
+                    transition={{ duration: 0.2 }}
+                  />
+                )}
+              </AnimatePresence>
+              {!activeAgent && <div style={{ height: 8 }} />}
+
+              <FlowConnector delay={550} height={30} />
+
+              {/* Data & Tools */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.27 }}
+              >
+                <p className="text-[9px] font-bold uppercase tracking-widest text-[#9CA3AF] text-center mb-2">
+                  Data & Tools — hover for details
+                </p>
+                <div className="grid grid-cols-4 gap-3">
+                  {DATA_TOOLS.map(tool => <DataToolCard key={tool.label} tool={tool} />)}
+                </div>
+              </motion.div>
+
+              <FlowConnector delay={700} height={30} />
+
+              {/* AWS Bedrock (top-left) + Generative Model (bottom-left) + Reflect & Retry (right, full height) */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.32 }}
+              >
+                <div className="flex gap-3 items-stretch">
+
+                  {/* Left column: AWS Bedrock stacked above Generative Model */}
+                  <div className="flex-1 flex flex-col gap-3">
+                    <LayerCard className="p-4" glowColor="#FF9900">
+                      <div className="flex items-center gap-4">
+                        <AWSBedrockLogo size={44} />
+                        <div className="flex-1">
+                          <p className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                            AWS Bedrock
+                          </p>
+                          <p className="text-[#6B7280] text-[10px] mt-0.5">
+                            Managed Foundation Models + Vector DB + Embeddings
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="px-2.5 py-1 rounded-lg bg-[#FF9900]/10 border border-[#FF9900]/25 text-[#FF9900] text-[10px] font-bold">
+                            Cloud Platform
+                          </span>
+                          <span className="flex items-center gap-1 text-[10px] text-[#00A36C] font-semibold">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#00A36C] animate-pulse" />
+                            Active
+                          </span>
+                        </div>
+                      </div>
+                    </LayerCard>
+
+                    <LayerCard className="p-4" glowColor="#D97757">
+                      <div className="flex items-center gap-3">
+                        <ClaudeLogo size={44} />
+                        <div>
+                          <p className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                            Generative Model
+                          </p>
+                          <p className="text-[#6B7280] text-[10px] mt-0.5">
+                            Claude 3.5 Sonnet / 4.6 Opus | Gemini 3 Flash
+                          </p>
+                          <p className="text-[#9CA3AF] text-[9px] mt-1">
+                            Inference, Scoring &amp; Output Generation
+                          </p>
+                        </div>
+                      </div>
+                    </LayerCard>
+                  </div>
+
+                  {/* Arrow column: up-arrow (R&R → AWS) top half, right-arrow (GenModel → R&R) bottom half */}
+                  <div className="w-10 flex flex-col items-center justify-between py-4 gap-1">
+                    {/* Arrow pointing up: from R&R back to AWS Bedrock */}
+                    <div className="flex flex-col items-center gap-1">
+                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" rotate-0>
+                        <path d="M9 16V4" stroke="#0077C8" strokeWidth="1.6" strokeLinecap="round"/>
+                        <path d="M3 9l6-6 6 6" stroke="#0077C8" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                      <span className="text-[7px] text-[#0077C8]/60 font-bold uppercase tracking-wide text-center leading-tight rotate-0">loop</span>
+                    </div>
+                    <div className="flex-1 w-px bg-[#0077C8]/20" />
+                    {/* Arrow pointing right: from Generative Model to R&R */}
+                    <div className="flex flex-col items-center gap-1">
+                      <span className="text-[7px] text-[#0077C8]/60 font-bold uppercase tracking-wide text-center leading-tight">send</span>
+                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path d="M2 9h13" stroke="#0077C8" strokeWidth="1.6" strokeLinecap="round"/>
+                        <path d="M10 4l5 5-5 5" stroke="#0077C8" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Right column: Reflect & Retry spanning full height */}
+                  <div className="w-48 flex">
+                    <LayerCard className="p-4 flex-1 flex flex-col justify-center" glowColor="#0077C8">
+                      <div className="flex flex-col items-center text-center gap-3">
+                        <div className="w-11 h-11 rounded-xl bg-[#0077C8]/10 border border-[#0077C8]/20 flex items-center justify-center">
+                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0077C8" strokeWidth="2" strokeLinecap="round">
+                            <path d="M21 2v6h-6M3 12a9 9 0 0115-6.7L21 8M3 22v-6h6M21 12a9 9 0 01-15 6.7L3 16"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                            Reflect &amp; Retry
+                          </p>
+                          <p className="text-[#6B7280] text-[10px] mt-1 leading-relaxed">
+                            Autonomous self-correction loop
+                          </p>
+                        </div>
+                        <span className="px-2.5 py-1 bg-[#0077C8]/10 border border-[#0077C8]/20 rounded-lg text-[10px] text-[#0077C8] font-bold">
+                          Agent
+                        </span>
+                      </div>
+                    </LayerCard>
+                  </div>
+
+                </div>
+              </motion.div>
+
+            </div>
+
+            {/* ─────── Right: Capabilities Panel ─────── */}
+            <motion.div
+              initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.12 }}
+              className="w-64 flex-shrink-0 space-y-4"
+            >
+              {/* Panel title */}
+              <div className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
+                <div className="h-1 bg-gradient-to-r from-[#00338D] to-[#0077C8]" />
+                <div className="px-4 py-3.5 text-center">
+                  <p
+                    className="text-[#1A1F36] font-bold text-xs uppercase tracking-wider leading-snug"
+                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                  >
+                    Data Center Life-Cycle<br />Intelligence Platform
+                  </p>
+                  <p className="text-[#9CA3AF] text-[10px] mt-1 uppercase tracking-widest font-semibold">Capabilities</p>
                 </div>
               </div>
+
+              {/* Tools & Frameworks */}
+              <div className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
+                <div className="px-4 py-2.5 border-b border-[#E2E8F0] flex items-center gap-2">
+                  <div className="w-1 h-4 rounded-full bg-[#00A36C]" />
+                  <p className="text-[#1A1F36] font-bold text-xs uppercase tracking-wider" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                    Tools & Frameworks
+                  </p>
+                </div>
+                <div className="py-1">
+                  {TOOL_FRAMEWORKS.map(({ Logo, label, sub }) => (
+                    <CapabilityRow key={label} Logo={Logo} title={label} sub={sub} />
+                  ))}
+                </div>
+              </div>
+
             </motion.div>
 
           </div>
-
-          {/* ── Right: Capabilities Panel ── */}
-          <motion.div {...fade(0.1)} className="w-64 flex-shrink-0 space-y-4">
-
-            {/* Title card */}
-            <div className="rounded-xl border border-[#00338D]/40 bg-[#00338D]/15 p-4">
-              <p className="text-white font-bold text-xs uppercase tracking-widest text-center leading-snug">
-                Data Center Life-Cycle<br />Intelligence Platform
-              </p>
-              <div className="mt-2 flex items-center justify-center gap-2">
-                <div className="w-px h-3 bg-white/20" />
-                <p className="text-white/40 text-[10px] font-semibold uppercase tracking-widest">Capabilities</p>
-                <div className="w-px h-3 bg-white/20" />
-              </div>
-            </div>
-
-            {/* Core Skills */}
-            <div className="rounded-xl border border-white/10 bg-white/[0.03] overflow-hidden">
-              <div className="px-4 py-2.5 bg-[#00338D]/20 border-b border-white/[0.06]">
-                <p className="text-white font-bold text-xs uppercase tracking-wider">Core Skills</p>
-              </div>
-              <div className="p-3 space-y-2.5">
-                {CORE_SKILLS.map(({ logo: Logo, title, sub }) => (
-                  <div key={title} className="flex items-start gap-2.5">
-                    <div className="w-5 h-5 rounded-md bg-[#00338D]/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      {Logo ? (
-                        <Logo size={12} />
-                      ) : (
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#0077C8" strokeWidth="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01z"/></svg>
-                      )}
-                    </div>
-                    <div>
-                      <p className="text-white/85 text-[11px] font-semibold leading-tight">{title}</p>
-                      <p className="text-white/35 text-[9px] mt-0.5">{sub}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Tools & Frameworks */}
-            <div className="rounded-xl border border-white/10 bg-white/[0.03] overflow-hidden">
-              <div className="px-4 py-2.5 bg-[#00A36C]/15 border-b border-white/[0.06]">
-                <p className="text-[#00A36C] font-bold text-xs uppercase tracking-wider">Tools & Frameworks</p>
-              </div>
-              <div className="p-3 space-y-2.5">
-                {TOOL_FRAMEWORKS.map(({ Logo, label, sub }) => (
-                  <div key={label} className="flex items-center gap-2.5">
-                    <Logo size={22} />
-                    <div className="min-w-0">
-                      <p className="text-white/85 text-[11px] font-semibold truncate">{label}</p>
-                      <p className="text-white/35 text-[9px]">{sub}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* KPMG Badge */}
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 flex items-center justify-between">
-              <div>
-                <p className="text-white/30 text-[9px] uppercase tracking-widest">Powered by</p>
-                <p className="text-white font-bold text-xs mt-0.5" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>KPMG</p>
-              </div>
-              <div className="text-right">
-                <p className="text-white/30 text-[9px] uppercase tracking-widest">Framework</p>
-                <p className="text-[#0077C8] font-bold text-[10px] mt-0.5">Proprietary</p>
-              </div>
-            </div>
-
-          </motion.div>
         </div>
       </div>
     </CCLayout>
