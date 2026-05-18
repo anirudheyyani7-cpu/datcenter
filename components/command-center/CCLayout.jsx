@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard, Building2, Server, Cpu, Users, Leaf, Brain,
   AlertTriangle, Wrench, FileText, Settings, Bell, ChevronLeft,
-  ChevronRight, Search, Sparkles,
+  ChevronRight, Search, Sparkles, Layers,
 } from 'lucide-react';
 import AICopilotPanel from './AICopilotPanel';
 
@@ -150,6 +150,14 @@ function Header({ title, onCopilotOpen }) {
         </div>
         <span className="text-xs text-white/60 font-semibold">Live</span>
       </div>
+
+      <Link
+        href="/agentic-stack"
+        className="flex items-center gap-1.5 px-3 py-1.5 bg-white/[0.06] hover:bg-white/10 border border-white/10 hover:border-[#0077C8]/40 text-white/70 hover:text-white text-xs font-semibold rounded-lg transition-colors flex-shrink-0"
+      >
+        <Layers size={13} />
+        AI Stack
+      </Link>
 
       <button
         onClick={onCopilotOpen}
