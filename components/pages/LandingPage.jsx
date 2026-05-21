@@ -535,9 +535,6 @@ export default function LandingPage() {
           {/* Hero */}
           <motion.div className="text-center mb-16" initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2, duration: 0.7 }}>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#00338D]/8 border border-[#00338D]/15 rounded-full mb-6">
-              <div className="w-5 h-5 rounded bg-[#00338D] flex items-center justify-center">
-                <span className="text-white text-[10px] font-extrabold">K</span>
-              </div>
               <span className="text-[#00338D] text-xs font-bold tracking-wider uppercase">KPMG Advisory · Confidential</span>
             </div>
 

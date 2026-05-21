@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CCLayout from '@/components/command-center/CCLayout';
-import AgenticNetworkBg from './AgenticNetworkBg';
+
 
 // ─── Brand Logos (inline SVG, accurate brand colors) ────────────────────────
 
@@ -477,10 +477,7 @@ export default function AgenticStackPage() {
 
   return (
     <CCLayout title="Agentic AI Stack">
-      {/* Relative wrapper so Three.js canvas can be absolute behind content */}
       <div className="relative min-h-full bg-[#F4F6F9] overflow-hidden">
-        <AgenticNetworkBg />
-
         <div className="relative z-10 p-5">
           {/* ── Page header ── */}
           <motion.div
@@ -497,7 +494,7 @@ export default function AgenticStackPage() {
                 Data Center Life-Cycle Intelligence Platform
               </h1>
               <p className="text-[#6B7280] text-sm mt-0.5">
-                Proprietary KPMG Agentic AI Architecture — powered by AWS Bedrock &amp; Claude 3.5
+                Proprietary KPMG Agentic AI Architecture
               </p>
             </div>
             <div className="flex items-center gap-2 flex-shrink-0">
@@ -511,11 +508,8 @@ export default function AgenticStackPage() {
             </div>
           </motion.div>
 
-          {/* ── Two-column layout ── */}
-          <div className="flex gap-5 items-start">
-
-            {/* ─────── Left: Architecture Diagram ─────── */}
-            <div className="flex-1 min-w-0 space-y-0">
+          {/* ── Architecture Diagram ── */}
+          <div className="space-y-0">
 
               {/* User Query */}
               <motion.div
@@ -572,11 +566,11 @@ export default function AgenticStackPage() {
                 </LayerCard>
               </motion.div>
 
-              {/* AND badge sits below both cards, outside them */}
+              {/* Combined badge sits below both cards, outside them */}
               <div className="flex items-center py-2">
                 <div className="flex-1 h-px bg-[#0077C8]/20 ml-6" />
                 <span className="mx-3 px-3 py-1 rounded-lg bg-white border border-[#0077C8]/30 text-[#0077C8] text-[10px] font-bold tracking-widest shadow-sm flex-shrink-0">
-                  AND
+                  Combined
                 </span>
                 <div className="flex-1 h-px bg-[#0077C8]/20 mr-6" />
               </div>
@@ -672,16 +666,13 @@ export default function AgenticStackPage() {
                         <AWSBedrockLogo size={44} />
                         <div className="flex-1">
                           <p className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-                            AWS Bedrock
+                            KPMG Secure Cloud Hosting
                           </p>
                           <p className="text-[#6B7280] text-[10px] mt-0.5">
                             Managed Foundation Models + Vector DB + Embeddings
                           </p>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="px-2.5 py-1 rounded-lg bg-[#FF9900]/10 border border-[#FF9900]/25 text-[#FF9900] text-[10px] font-bold">
-                            Cloud Platform
-                          </span>
                           <span className="flex items-center gap-1 text-[10px] text-[#00A36C] font-semibold">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#00A36C] animate-pulse" />
                             Active
@@ -696,9 +687,6 @@ export default function AgenticStackPage() {
                         <div>
                           <p className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                             Generative Model
-                          </p>
-                          <p className="text-[#6B7280] text-[10px] mt-0.5">
-                            Claude 3.5 Sonnet / 4.6 Opus | Gemini 3 Flash
                           </p>
                           <p className="text-[#9CA3AF] text-[9px] mt-1">
                             Inference, Scoring &amp; Output Generation
@@ -755,44 +743,6 @@ export default function AgenticStackPage() {
 
                 </div>
               </motion.div>
-
-            </div>
-
-            {/* ─────── Right: Capabilities Panel ─────── */}
-            <motion.div
-              initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.12 }}
-              className="w-64 flex-shrink-0 space-y-4"
-            >
-              {/* Panel title */}
-              <div className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
-                <div className="h-1 bg-gradient-to-r from-[#00338D] to-[#0077C8]" />
-                <div className="px-4 py-3.5 text-center">
-                  <p
-                    className="text-[#1A1F36] font-bold text-xs uppercase tracking-wider leading-snug"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                  >
-                    Data Center Life-Cycle<br />Intelligence Platform
-                  </p>
-                  <p className="text-[#9CA3AF] text-[10px] mt-1 uppercase tracking-widest font-semibold">Capabilities</p>
-                </div>
-              </div>
-
-              {/* Tools & Frameworks */}
-              <div className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
-                <div className="px-4 py-2.5 border-b border-[#E2E8F0] flex items-center gap-2">
-                  <div className="w-1 h-4 rounded-full bg-[#00A36C]" />
-                  <p className="text-[#1A1F36] font-bold text-xs uppercase tracking-wider" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-                    Tools & Frameworks
-                  </p>
-                </div>
-                <div className="py-1">
-                  {TOOL_FRAMEWORKS.map(({ Logo, label, sub }) => (
-                    <CapabilityRow key={label} Logo={Logo} title={label} sub={sub} />
-                  ))}
-                </div>
-              </div>
-
-            </motion.div>
 
           </div>
         </div>

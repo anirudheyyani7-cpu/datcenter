@@ -1,25 +1,16 @@
 'use client';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Search, Plus, Globe, ChevronDown, LayoutDashboard, LogOut } from 'lucide-react';
+import { Search, Plus, Globe, LayoutDashboard, LogOut } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useSession } from '@/components/SupabaseProvider';
 
-const STAGES = [
-  { num: '01', label: 'Strategy',     path: '/stage/01' },
-  { num: '02', label: 'Sourcing',     path: '/stage/02' },
-  { num: '03', label: 'Design & Build', path: '/stage/03' },
-  { num: '04', label: 'Compliance',   path: '/stage/04' },
-  { num: '05', label: 'Operations',   path: '/stage/05' },
-  { num: '06', label: 'Monetization', path: '/stage/06' },
-];
 
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const [searchFocused, setSearchFocused] = useState(false);
-  const [stagesOpen, setStagesOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const { session, supabase } = useSession() ?? {};
 
@@ -45,11 +36,10 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 flex-shrink-0 group">
-            <div className="w-8 h-8 rounded-lg bg-[#00338D] flex items-center justify-center">
-              <span className="text-white font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>K</span>
-            </div>
             <div className="leading-none">
-              <div className="text-white font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>K-Nexus.AI</div>
+              <div className="font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                <span className="text-white">K-Nexus</span><span style={{ color: '#0F348A' }}>.AI</span>
+              </div>
               <div className="text-white/40 text-xs">Datacenter Lifecycle</div>
             </div>
           </Link>
@@ -86,39 +76,6 @@ export default function Navbar() {
               Command Center
             </Link>
 
-            {/* Stages dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setStagesOpen(!stagesOpen)}
-                className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                  pathname.startsWith('/stage') ? 'text-white bg-white/10' : 'text-white/60 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                Lifecycle Stages
-                <ChevronDown size={14} className={`transition-transform ${stagesOpen ? 'rotate-180' : ''}`} />
-              </button>
-
-              {stagesOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="absolute top-full left-0 mt-2 w-56 bg-[#1A1F36] border border-white/10 rounded-xl shadow-2xl overflow-hidden"
-                  onMouseLeave={() => setStagesOpen(false)}
-                >
-                  {STAGES.map((s) => (
-                    <Link
-                      key={s.num}
-                      href={s.path}
-                      onClick={() => setStagesOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
-                    >
-                      <span className="text-[#0077C8] font-mono text-xs font-bold">{s.num}</span>
-                      {s.label}
-                    </Link>
-                  ))}
-                </motion.div>
-              )}
-            </div>
           </div>
 
           {/* Search */}

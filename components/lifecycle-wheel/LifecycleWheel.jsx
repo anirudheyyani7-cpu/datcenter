@@ -122,9 +122,9 @@ export default function LifecycleWheel({ onCenterClick }) {
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }} />
           <circle cx={CX} cy={CY} r={INNER_R - 4} fill="#0D1428" />
           <circle cx={CX} cy={CY} r={INNER_R - 8} fill="url(#center-grad)" />
-          <text x={CX} y={CY - 6} textAnchor="middle" fill="white" fontSize="22" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="800" letterSpacing="1">KPMG</text>
-          <text x={CX} y={CY + 10} textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="8" fontFamily="'DM Sans', sans-serif" fontWeight="500" letterSpacing="1.5">DATACENTER INTELLIGENCE</text>
-          <text x={CX} y={CY + 22} textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="7" fontFamily="'DM Sans', sans-serif" fontWeight="400" letterSpacing="1">Click to upload &amp; analyse</text>
+          <image href="/kpmg-logo.png" x={CX - 60} y={CY - 65} width="120" height="100" preserveAspectRatio="xMidYMid meet" />
+          <text x={CX} y={CY + 47} textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="8" fontFamily="'DM Sans', sans-serif" fontWeight="500" letterSpacing="1.5">DATACENTER INTELLIGENCE</text>
+          <text x={CX} y={CY + 60} textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="7" fontFamily="'DM Sans', sans-serif" fontWeight="400" letterSpacing="1">Click to upload &amp; analyse</text>
         </motion.g>
 
         {STAGES.map((_, i) => {

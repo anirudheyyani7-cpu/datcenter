@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard, Building2, Server, Cpu, Users, Leaf, Brain,
   AlertTriangle, Wrench, FileText, Settings, Bell, ChevronLeft,
-  ChevronRight, Search, Sparkles, Layers,
+  ChevronRight, Search, Sparkles, Layers, Home,
 } from 'lucide-react';
 import AICopilotPanel from './AICopilotPanel';
 
@@ -119,11 +119,10 @@ function Header({ title, onCopilotOpen }) {
   return (
     <div className="h-14 flex-shrink-0 bg-[#1A1F36]/95 border-b border-white/[0.08] flex items-center gap-3 px-4" style={{ backdropFilter: 'blur(20px)' }}>
       <div className="flex items-center gap-2 flex-shrink-0">
-        <div className="w-7 h-7 rounded-lg bg-[#00338D] flex items-center justify-center">
-          <span className="text-white font-bold text-xs" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>K</span>
-        </div>
         <div className="flex items-center gap-2">
-          <span className="text-white font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>K-Nexus</span>
+          <span className="font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+            <span className="text-white">K-Nexus</span><span style={{ color: '#0F348A' }}>.AI</span>
+          </span>
           <span className="text-white/30 text-sm">|</span>
           <span className="text-white/70 text-sm">{title}</span>
         </div>
@@ -150,6 +149,14 @@ function Header({ title, onCopilotOpen }) {
         </div>
         <span className="text-xs text-white/60 font-semibold">Live</span>
       </div>
+
+      <Link
+        href="/"
+        className="flex items-center gap-1.5 px-3 py-1.5 bg-white/[0.06] hover:bg-white/10 border border-white/10 hover:border-white/30 text-white/70 hover:text-white text-xs font-semibold rounded-lg transition-colors flex-shrink-0"
+      >
+        <Home size={13} />
+        Home
+      </Link>
 
       <Link
         href="/agentic-stack"

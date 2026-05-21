@@ -38,7 +38,9 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-[#0a0a0f]">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <div className="text-2xl font-bold text-white tracking-tight">K-Nexus</div>
+          <div className="text-2xl font-bold tracking-tight">
+            <span className="text-white">K-Nexus</span><span style={{ color: '#0F348A' }}>.AI</span>
+          </div>
           <div className="text-sm text-gray-400 mt-1">Datacenter Lifecycle Intelligence</div>
         </div>
 
