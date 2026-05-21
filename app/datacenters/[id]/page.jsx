@@ -1,13 +1,14 @@
 'use client';
-import { useState, use } from 'react';
+import { useState, use, useCallback, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Server, AlertTriangle, Zap, Thermometer, Network, Shield, Activity, Leaf, Users } from 'lucide-react';
 import CCLayout from '@/components/command-center/CCLayout';
-import { mockDatacenters, mockIncidents, mockTenants, mockDCInfrastructure, mockSustainability } from '@/data/mock/index';
+import { mockDatacenters, mockIncidents, mockTenants, mockDCInfrastructure, mockSustainability, mockZoneHealth } from '@/data/mock/index';
 
-const DatacenterModel3D = dynamic(() => import('@/components/datacenters/DatacenterModel3D'), { ssr: false });
+const DigitalTwinViewer = dynamic(() => import('@/components/datacenters/DigitalTwinViewer'), { ssr: false });
+const LiveStatsDashboard = dynamic(() => import('@/components/datacenters/LiveStatsDashboard'), { ssr: false });
 
 const STATUS_CONFIG = {
   healthy:  { label: 'Healthy',  color: '#00A36C', bg: '#F0FDF4' },
@@ -318,12 +319,32 @@ function SustainabilityTab({ dcId }) {
   );
 }
 
+const RIGHT_TABS = [
+  { id: 'stats',     label: 'Live Stats',  Icon: Activity },
+  { id: 'overview',  label: 'Overview',    Icon: Server },
+  { id: 'infra',     label: 'Infra',       Icon: Zap },
+  { id: 'tenants',   label: 'Tenants',     Icon: Users },
+  { id: 'incidents', label: 'Incidents',   Icon: AlertTriangle },
+  { id: 'esg',       label: 'ESG',         Icon: Leaf },
+];
+
 export default function DatacenterDetailPage({ params }) {
   const { id } = use(params);
   const router = useRouter();
   const dc = mockDatacenters.find(d => d.id === id);
   const infra = mockDCInfrastructure[id];
-  const [tab, setTab] = useState('overview');
+  const zoneHealth = mockZoneHealth[id];
+  const [activeZoneId, setActiveZoneId] = useState(null);
+  const [rightTab, setRightTab] = useState('stats');
+
+  const handleHotspotChange = useCallback((zoneId) => {
+    setActiveZoneId(zoneId);
+  }, []);
+
+  // Auto-switch to Live Stats when a hotspot is clicked so detail panel is visible
+  useEffect(() => {
+    if (activeZoneId) setRightTab('stats');
+  }, [activeZoneId]);
 
   if (!dc) return (
     <CCLayout title="Datacenters">
@@ -332,59 +353,96 @@ export default function DatacenterDetailPage({ params }) {
   );
 
   const sc = STATUS_CONFIG[dc.status] || STATUS_CONFIG.healthy;
-  const tabs = ['overview', 'infrastructure', 'tenants', 'incidents', 'sustainability'];
 
   return (
     <CCLayout title={dc.name}>
-      <div className="flex h-full" style={{ height: 'calc(100vh - 56px)' }}>
-        {/* Left: 3D Model */}
-        <div className="w-80 flex-shrink-0 relative border-r border-[#E2E8F0]">
-          <DatacenterModel3D dc={dc} infraData={infra} />
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0d1428]/90 to-transparent p-4">
-            <p className="text-white font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{dc.name}</p>
-            <p className="text-white/60 text-xs">{dc.city}, {dc.country} · {dc.tier}</p>
+      <div className="flex" style={{ height: 'calc(100vh - 56px)' }}>
+        {/* Left: Digital Twin — 60% */}
+        <div className="flex-shrink-0 relative border-r border-[#E2E8F0]" style={{ width: '60%' }}>
+          {/* Back button + DC name strip */}
+          <div className="absolute top-0 left-0 right-0 z-10 flex items-center gap-2 px-3 py-2 bg-white/90 backdrop-blur-sm border-b border-[#E2E8F0]">
+            <button
+              onClick={() => router.push('/datacenters')}
+              className="flex items-center gap-1.5 text-[10px] text-[#6B7280] hover:text-[#0077C8] transition-colors"
+            >
+              <ArrowLeft size={11} /> Back
+            </button>
+            <div className="w-px h-3 bg-[#E2E8F0]" />
+            <span className="text-[10px] font-semibold text-[#374151]">{dc.name}</span>
+            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full ml-1" style={{ backgroundColor: sc.color + '22', color: sc.color }}>
+              {sc.label}
+            </span>
+            <div className="ml-auto flex items-center gap-1.5">
+              <div className="h-1 rounded-full bg-[#E2E8F0] w-16 overflow-hidden">
+                <div className="h-full rounded-full" style={{ width: `${dc.healthScore}%`, backgroundColor: dc.healthScore >= 90 ? '#00A36C' : '#D4A017' }} />
+              </div>
+              <span className="text-[10px] font-mono text-[#6B7280]">{dc.healthScore}</span>
+            </div>
+          </div>
+
+          {/* Twin canvas — full height minus the top strip (36px) */}
+          <div className="absolute inset-0" style={{ top: 36 }}>
+            <DigitalTwinViewer
+              dc={dc}
+              zoneHealth={zoneHealth}
+              onHotspotChange={handleHotspotChange}
+            />
           </div>
         </div>
 
-        {/* Right: Details */}
-        <div className="flex-1 flex flex-col overflow-hidden">
-          {/* Header */}
-          <div className="flex-shrink-0 px-6 py-4 border-b border-[#E2E8F0] bg-white">
-            <div className="flex items-center gap-3 mb-3">
-              <button onClick={() => router.push('/datacenters')} className="flex items-center gap-1.5 text-xs text-[#9CA3AF] hover:text-[#00338D] transition-colors">
-                <ArrowLeft size={13} /> Back
-              </button>
-              <div className="w-px h-4 bg-[#E2E8F0]" />
-              <h1 className="text-base font-bold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{dc.name}</h1>
-              <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: sc.bg, color: sc.color }}>{sc.label}</span>
-              <div className="ml-auto flex items-center gap-2">
-                <div className="h-1.5 rounded-full bg-[#E2E8F0] w-24 overflow-hidden">
-                  <div className="h-full rounded-full" style={{ width: `${dc.healthScore}%`, backgroundColor: dc.healthScore >= 90 ? '#00A36C' : '#D4A017' }} />
-                </div>
-                <span className="text-xs font-bold text-[#1A1F36]">Health: {dc.healthScore}</span>
-              </div>
-            </div>
-            {/* Tabs */}
-            <div className="flex gap-1">
-              {tabs.map(t => (
-                <button key={t} onClick={() => setTab(t)}
-                  className={`px-3 py-1.5 text-xs font-semibold rounded-lg capitalize transition-colors ${tab === t ? 'bg-[#00338D] text-white' : 'text-[#6B7280] hover:bg-[#F4F6F9]'}`}
+        {/* Right: Tabbed panel — 40% */}
+        <div className="flex-1 overflow-hidden flex flex-col bg-white">
+          {/* Tab bar */}
+          <div className="flex-shrink-0 flex items-center gap-0.5 px-2 py-1.5 border-b border-[#E2E8F0] overflow-x-auto">
+            {RIGHT_TABS.map((tab) => {
+              const Icon = tab.Icon;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setRightTab(tab.id)}
+                  className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all flex-shrink-0 ${
+                    rightTab === tab.id
+                      ? 'bg-[#EFF6FF] text-[#0077C8]'
+                      : 'text-[#9CA3AF] hover:text-[#1A1F36] hover:bg-[#F8FAFC]'
+                  }`}
                 >
-                  {t === 'ai-insights' ? 'AI Insights' : t}
+                  <Icon size={12} />
+                  {tab.label}
                 </button>
-              ))}
-            </div>
+              );
+            })}
           </div>
 
           {/* Tab content */}
-          <div className="flex-1 overflow-y-auto p-6">
-            <motion.div key={tab} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
-              {tab === 'overview'        && <OverviewTab dc={dc} infra={infra} />}
-              {tab === 'infrastructure'  && <InfraTab infra={infra} />}
-              {tab === 'tenants'         && <TenantsTab dcId={id} />}
-              {tab === 'incidents'       && <IncidentsTab dcId={id} />}
-              {tab === 'sustainability'  && <SustainabilityTab dcId={id} />}
-            </motion.div>
+          <div className="flex-1 overflow-hidden">
+            {rightTab === 'stats' && (
+              <LiveStatsDashboard dc={dc} zoneHealth={zoneHealth} activeZoneId={activeZoneId} />
+            )}
+            {rightTab === 'overview' && (
+              <div className="h-full overflow-y-auto p-4">
+                <OverviewTab dc={dc} infra={infra} />
+              </div>
+            )}
+            {rightTab === 'infra' && (
+              <div className="h-full overflow-y-auto p-4">
+                <InfraTab infra={infra} />
+              </div>
+            )}
+            {rightTab === 'tenants' && (
+              <div className="h-full overflow-y-auto p-4">
+                <TenantsTab dcId={id} />
+              </div>
+            )}
+            {rightTab === 'incidents' && (
+              <div className="h-full overflow-y-auto p-4">
+                <IncidentsTab dcId={id} />
+              </div>
+            )}
+            {rightTab === 'esg' && (
+              <div className="h-full overflow-y-auto p-4">
+                <SustainabilityTab dcId={id} />
+              </div>
+            )}
           </div>
         </div>
       </div>
