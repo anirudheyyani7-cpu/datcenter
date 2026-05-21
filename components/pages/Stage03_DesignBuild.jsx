@@ -2,7 +2,7 @@
 import { Settings } from 'lucide-react';
 import StageLayout from '@/components/stage-pages/StageLayout';
 import { FormField, Select, MultiSelect, TextInput, SliderField } from '@/components/stage-pages/FormComponents';
-import { callClaude, buildStagePrompt, buildRagQuery } from '@/lib/claude-api';
+import { callClaude, buildContextualPrompt, buildRagQuery } from '@/lib/claude-api';
 
 const STAGE_CONTEXT = `This stage covers the technical design and construction requirements for a datacenter — from tier classification and power architecture to cooling strategy, MEP design, and build approach.`;
 
@@ -20,9 +20,16 @@ function Fields({ formData, updateField }) {
   );
 }
 
-async function generateInsights(formData) {
-  const prompt = buildStagePrompt('Stage 03: Design & Build Requirements', STAGE_CONTEXT, formData, null);
-  const ragQuery = buildRagQuery('datacenter design build cooling architecture', formData);
+async function generateInsights(formData, sessionContext, stageOutputs) {
+  const prompt = buildContextualPrompt(
+    'Stage 03: Design & Build Requirements',
+    STAGE_CONTEXT,
+    formData,
+    sessionContext,
+    stageOutputs,
+    '03'
+  );
+  const ragQuery = buildRagQuery('datacenter design build cooling architecture', { ...formData, ...sessionContext });
   return callClaude({ prompt, maxTokens: 8192, ragQuery });
 }
 

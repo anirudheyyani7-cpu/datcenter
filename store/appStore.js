@@ -46,6 +46,29 @@ const useAppStore = create((set, get) => ({
     syncStageToSupabase(stageNum, { ai_output: output });
   },
 
+  // ─── SESSION CONTEXT (agent-to-agent) ────────────────────────────────────
+  // Locked fields from Stage 01. Passed into every subsequent stage's prompt.
+  // null means Stage 01 hasn't been run yet.
+  sessionContext: null,
+
+  setSessionContext: (ctx) => set({ sessionContext: ctx }),
+
+  // Clear outputs from stageNum onward (used when user edits locked context)
+  clearOutputsFrom: (fromStageNum) => {
+    set((state) => {
+      const newOutputs = { ...state.stageOutputs };
+      const newCompleted = state.completedStages.filter(
+        (n) => parseInt(n) < parseInt(fromStageNum)
+      );
+      for (let i = parseInt(fromStageNum); i <= 6; i++) {
+        delete newOutputs[String(i).padStart(2, '0')];
+        delete newOutputs[i];
+      }
+      return { stageOutputs: newOutputs, completedStages: newCompleted };
+    });
+  },
+  // ─────────────────────────────────────────────────────────────────────────
+
   // Load stage progress from Supabase (call on app init)
   loadStageProgress: async () => {
     try {

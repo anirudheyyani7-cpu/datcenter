@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Activity, LayoutDashboard, ArrowRight, Settings2 } from 'lucide-react';
 import StageLayout from '@/components/stage-pages/StageLayout';
 import { FormField, Select, TextInput, SliderField } from '@/components/stage-pages/FormComponents';
-import { callClaude, buildStagePrompt, buildRagQuery } from '@/lib/claude-api';
+import { callClaude, buildContextualPrompt, buildRagQuery } from '@/lib/claude-api';
 
 const STAGE_CONTEXT = `This stage covers day-to-day datacenter operations — staffing models, DCIM tooling, SLA management, PUE optimization, incident response, and predictive maintenance strategies.`;
 
@@ -21,13 +21,19 @@ function Fields({ formData, updateField }) {
   );
 }
 
-async function generateInsights(formData) {
-  const prompt = buildStagePrompt('Stage 05: DC Operations', STAGE_CONTEXT, formData, null);
-  const ragQuery = buildRagQuery('datacenter operations PUE DCIM efficiency optimization', formData);
+async function generateInsights(formData, sessionContext, stageOutputs) {
+  const prompt = buildContextualPrompt(
+    'Stage 05: DC Operations',
+    STAGE_CONTEXT,
+    formData,
+    sessionContext,
+    stageOutputs,
+    '05'
+  );
+  const ragQuery = buildRagQuery('datacenter operations PUE DCIM efficiency optimization', { ...formData, ...sessionContext });
   return callClaude({ prompt, maxTokens: 8192, ragQuery });
 }
 
-// ── 2 Operation cards ──────────────────────────────────────────────────────
 function OperationCards() {
   const cards = [
     {
@@ -37,7 +43,6 @@ function OperationCards() {
       tag: 'Assessment',
       label: 'DC Optimization',
       description: 'Comprehensive datacenter efficiency assessment — PUE benchmarking, capacity analysis, and full optimization roadmap.',
-      action: null,
       actionLabel: 'Configure below',
       href: null,
     },
@@ -48,7 +53,6 @@ function OperationCards() {
       tag: 'Analysis',
       label: 'AI Operations',
       description: 'Day-to-day operations analysis — staffing models, DCIM tooling, SLA management, and predictive maintenance strategies.',
-      action: null,
       actionLabel: 'View AI in Operations',
       href: 'https://www.knexus.space/agents/aiops-sentry/login',
     },
@@ -56,7 +60,6 @@ function OperationCards() {
 
   return (
     <div className="space-y-4 mb-6">
-      {/* Command Center CTA */}
       <div className="bg-gradient-to-r from-[#00338D] to-[#0077C8] rounded-2xl p-5 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center">
@@ -76,40 +79,32 @@ function OperationCards() {
         </Link>
       </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {cards.map(card => {
-        const Icon = card.icon;
-        return (
-          <div
-            key={card.id}
-            className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm hover:border-[#CBD5E1] hover:shadow-md transition-all"
-          >
-            <div className="p-5">
-              <div className="flex items-start justify-between mb-4">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: card.color + '15' }}>
-                  <Icon size={20} style={{ color: card.color }} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {cards.map(card => {
+          const Icon = card.icon;
+          return (
+            <div key={card.id} className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm hover:border-[#CBD5E1] hover:shadow-md transition-all">
+              <div className="p-5">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: card.color + '15' }}>
+                    <Icon size={20} style={{ color: card.color }} />
+                  </div>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#00338D]/10 text-[#00338D]">{card.tag}</span>
                 </div>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#00338D]/10 text-[#00338D]">{card.tag}</span>
+                <h3 className="font-bold text-[#1A1F36] text-sm mb-2" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{card.label}</h3>
+                <p className="text-[#6B7280] text-xs leading-relaxed mb-4">{card.description}</p>
+                {card.href ? (
+                  <a href={card.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs font-bold text-[#00338D] hover:text-[#0044b8] transition-colors">
+                    {card.actionLabel} <ArrowRight size={12} />
+                  </a>
+                ) : (
+                  <span className="text-xs text-[#9CA3AF] font-medium">{card.actionLabel}</span>
+                )}
               </div>
-              <h3 className="font-bold text-[#1A1F36] text-sm mb-2" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{card.label}</h3>
-              <p className="text-[#6B7280] text-xs leading-relaxed mb-4">{card.description}</p>
-              {card.href ? (
-                <a
-                  href={card.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-xs font-bold text-[#00338D] hover:text-[#0044b8] transition-colors"
-                >
-                  {card.actionLabel} <ArrowRight size={12} />
-                </a>
-              ) : (
-                <span className="text-xs text-[#9CA3AF] font-medium">{card.actionLabel}</span>
-              )}
             </div>
-          </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -2,7 +2,7 @@
 import { DollarSign } from 'lucide-react';
 import StageLayout from '@/components/stage-pages/StageLayout';
 import { FormField, Select, MultiSelect, SliderField } from '@/components/stage-pages/FormComponents';
-import { callClaude, buildStagePrompt, buildRagQuery } from '@/lib/claude-api';
+import { callClaude, buildContextualPrompt, buildRagQuery } from '@/lib/claude-api';
 
 const STAGE_CONTEXT = `This stage covers datacenter monetization strategies — business model selection, pricing optimization, customer acquisition, and revenue diversification.`;
 
@@ -19,9 +19,16 @@ function Fields({ formData, updateField }) {
   );
 }
 
-async function generateInsights(formData) {
-  const prompt = buildStagePrompt('Stage 06: DC Monetization & Revenue Strategy', STAGE_CONTEXT, formData, null);
-  const ragQuery = buildRagQuery('datacenter monetization colocation pricing revenue 2025', formData);
+async function generateInsights(formData, sessionContext, stageOutputs) {
+  const prompt = buildContextualPrompt(
+    'Stage 06: DC Monetization & Revenue Strategy',
+    STAGE_CONTEXT,
+    formData,
+    sessionContext,
+    stageOutputs,
+    '06'
+  );
+  const ragQuery = buildRagQuery('datacenter monetization colocation pricing revenue 2025', { ...formData, ...sessionContext });
   return callClaude({ prompt, maxTokens: 8192, ragQuery });
 }
 

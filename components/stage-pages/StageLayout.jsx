@@ -1,13 +1,12 @@
 'use client';
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, ChevronRight, Sparkles, RotateCcw, BarChart3 } from 'lucide-react';
+import { ArrowLeft, ChevronRight, Sparkles, BarChart3, X } from 'lucide-react';
 import { Button } from '@/components/shared/Button';
 import { AIThinkingLoader } from '@/components/shared/LoadingDots';
 import AIChatPanel from '@/components/ai-chat/AIChatPanel';
-import { parseMarkdown } from '@/utils/helpers';
 import useAppStore from '@/store/appStore';
 
 const ALL_STAGES = [
@@ -18,6 +17,8 @@ const ALL_STAGES = [
   { num: '05', label: 'Operations',   path: '/stage/05' },
   { num: '06', label: 'Monetization', path: '/stage/06' },
 ];
+
+
 
 function StageProgress({ current }) {
   return (
@@ -46,7 +47,6 @@ function StageProgress({ current }) {
   );
 }
 
-// Render inline markdown: **bold**
 function renderInline(text) {
   const parts = text.split(/(\*\*[^*]+\*\*)/g);
   return parts.map((part, i) => {
@@ -57,7 +57,6 @@ function renderInline(text) {
   });
 }
 
-// Render full markdown output as styled JSX
 function MarkdownOutput({ text }) {
   if (!text) return null;
   const lines = text.split('\n');
@@ -116,27 +115,98 @@ function MarkdownOutput({ text }) {
   return <div className="space-y-0.5">{elements}</div>;
 }
 
+// ── Context chip: read-only locked field ─────────────────────────────────
+function ContextChip({ label, value }) {
+  return (
+    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#00338D]/6 border border-[#00338D]/15 rounded-lg text-xs">
+      <span className="text-[#6B7280] font-medium">{label}:</span>
+      <span className="text-[#1A1F36] font-semibold truncate max-w-[140px]">{value}</span>
+    </div>
+  );
+}
+
+// ── Session context strip (shown on stages 2–6) — read-only ──────────────
+function SessionContextStrip({ sessionContext }) {
+  if (!sessionContext) return null;
+
+  const locationLabel = sessionContext.state
+    ? `${sessionContext.state}, ${sessionContext.region}`
+    : sessionContext.region;
+
+  const chips = [
+    locationLabel                    && { label: 'Location', value: locationLabel },
+    sessionContext.budget            && { label: 'Budget', value: sessionContext.budget },
+    sessionContext.capacity          && { label: 'Capacity', value: `${sessionContext.capacity} MW` },
+    sessionContext.timeline          && { label: 'Timeline', value: sessionContext.timeline },
+    sessionContext.workloads?.length && {
+      label: 'Workloads',
+      value: sessionContext.workloads.slice(0, 2).join(', ') +
+        (sessionContext.workloads.length > 2 ? ` +${sessionContext.workloads.length - 2}` : ''),
+    },
+  ].filter(Boolean);
+
+  return (
+    <div className="bg-[#F0F4FF] border border-[#00338D]/12 rounded-xl px-4 py-2.5 flex items-center gap-2 flex-wrap mb-5">
+      <span className="text-[10px] font-bold text-[#00338D] uppercase tracking-wider mr-1 flex-shrink-0">
+        Session Context
+      </span>
+      <div className="flex items-center gap-1.5 flex-wrap">
+        {chips.map((chip, i) => (
+          <ContextChip key={i} label={chip.label} value={chip.value} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Main StageLayout ──────────────────────────────────────────────────────
 export default function StageLayout({
   stageNum, stageName, stageDescription, stageIcon: StageIcon,
   color = '#00338D', formFields, generateInsights, systemContext, topContent,
 }) {
   const router = useRouter();
-  const { stageOutputs, setStageOutput, markStageComplete } = useAppStore();
+  const { stageOutputs, setStageOutput, markStageComplete, sessionContext, setSessionContext } = useAppStore();
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
   const [output, setOutput] = useState(stageOutputs[stageNum] || '');
   const [error, setError] = useState(null);
 
+  const isFirstStage = stageNum === '01';
   const updateField = (key, value) => setFormData(prev => ({ ...prev, [key]: value }));
+
+  useEffect(() => {
+    const handler = (e) => {
+      const { sessionContext } = useAppStore.getState();
+      if (sessionContext) {
+        e.preventDefault();
+        e.returnValue = 'Your session context will be lost if you refresh. Are you sure?';
+      }
+    };
+    window.addEventListener('beforeunload', handler);
+    return () => window.removeEventListener('beforeunload', handler);
+  }, []);
 
   const handleGenerate = async () => {
     setLoading(true);
     setError(null);
     try {
-      const result = await generateInsights(formData);
+      const result = await generateInsights(formData, sessionContext, stageOutputs);
       setOutput(result);
       setStageOutput(stageNum, result);
       markStageComplete(stageNum);
+
+      // Stage 01 locks in the session context for all subsequent stages
+      if (isFirstStage) {
+        setSessionContext({
+          region:         formData.region        || null,
+          state:          formData.state         || null,
+          workloads:      formData.workloads      || [],
+          capacity:       formData.capacity       || null,
+          budget:         formData.budget         || null,
+          timeline:       formData.timeline       || null,
+          sustainability: formData.sustainability || null,
+        });
+      }
     } catch (err) {
       setError(err.message);
     } finally {
@@ -166,6 +236,12 @@ export default function StageLayout({
               <div>
                 <div className="flex items-center gap-2 mb-0.5">
                   <span className="text-xs font-bold px-2 py-0.5 rounded-md" style={{ backgroundColor: color + '12', color }}>STAGE {stageNum}</span>
+                  {!isFirstStage && sessionContext && (
+                    <span className="text-xs px-2 py-0.5 rounded-md bg-[#00338D]/8 text-[#00338D] font-semibold flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#00A36C] inline-block" />
+                      Context active
+                    </span>
+                  )}
                 </div>
                 <h1 className="text-2xl font-extrabold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{stageName}</h1>
               </div>
@@ -187,13 +263,13 @@ export default function StageLayout({
           {/* Form */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
-              <div className="px-6 py-4 border-b border-[#E2E8F0] flex items-center justify-between">
+              <div className="px-6 py-4 border-b border-[#E2E8F0] flex items-center">
                 <h2 className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Analysis Parameters</h2>
-                <button onClick={() => setFormData({})} className="text-[#9CA3AF] hover:text-[#6B7280] transition-colors" title="Reset">
-                  <RotateCcw size={14} />
-                </button>
               </div>
               <div className="p-6 space-y-5">
+                {!isFirstStage && (
+                  <SessionContextStrip sessionContext={sessionContext} />
+                )}
                 {formFields({ formData, updateField })}
                 <div className="pt-2">
                   <Button onClick={handleGenerate} disabled={loading} variant="primary" size="lg" className="w-full justify-center">
@@ -240,8 +316,21 @@ export default function StageLayout({
                     <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: color + '10' }}>
                       <Sparkles size={28} style={{ color }} />
                     </div>
-                    <h3 className="text-[#1A1F36] font-bold text-sm mb-2" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Ready to generate insights</h3>
-                    <p className="text-[#9CA3AF] text-sm">Fill in the parameters and click Generate Insights.</p>
+                    <h3 className="text-[#1A1F36] font-bold text-sm mb-2" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                      {!isFirstStage && !sessionContext
+                        ? 'Complete Stage 01 first to activate context'
+                        : 'Ready to generate insights'}
+                    </h3>
+                    <p className="text-[#9CA3AF] text-sm">
+                      {!isFirstStage && !sessionContext
+                        ? 'Stage 01 context feeds all subsequent agents.'
+                        : 'Fill in the parameters and click Generate Insights.'}
+                    </p>
+                    {!isFirstStage && !sessionContext && (
+                      <Link href="/stage/01" className="inline-flex items-center gap-1.5 mt-4 px-4 py-2 bg-[#00338D] text-white text-xs font-bold rounded-lg hover:bg-[#0044b8] transition-colors">
+                        Go to Stage 01 <ChevronRight size={12} />
+                      </Link>
+                    )}
                   </div>
                 )}
                 {!loading && output && (

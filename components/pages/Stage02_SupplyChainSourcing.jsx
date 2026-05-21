@@ -2,7 +2,7 @@
 import { Package } from 'lucide-react';
 import StageLayout from '@/components/stage-pages/StageLayout';
 import { FormField, Select, MultiSelect, TextInput } from '@/components/stage-pages/FormComponents';
-import { callClaude, buildStagePrompt, buildRagQuery } from '@/lib/claude-api';
+import { callClaude, buildContextualPrompt, buildRagQuery } from '@/lib/claude-api';
 
 const STAGE_CONTEXT = `This stage covers procurement strategy for datacenter construction — evaluating facility types, identifying critical components, selecting vendors, and optimizing supply chain logistics.`;
 
@@ -19,9 +19,16 @@ function Fields({ formData, updateField }) {
   );
 }
 
-async function generateInsights(formData) {
-  const prompt = buildStagePrompt('Stage 02: DC Supply Chain & Sourcing', STAGE_CONTEXT, formData, null);
-  const ragQuery = buildRagQuery('supply chain sourcing procurement', formData);
+async function generateInsights(formData, sessionContext, stageOutputs) {
+  const prompt = buildContextualPrompt(
+    'Stage 02: DC Supply Chain & Sourcing',
+    STAGE_CONTEXT,
+    formData,
+    sessionContext,
+    stageOutputs,
+    '02'
+  );
+  const ragQuery = buildRagQuery('supply chain sourcing procurement', { ...formData, ...sessionContext });
   return callClaude({ prompt, maxTokens: 8192, ragQuery });
 }
 
