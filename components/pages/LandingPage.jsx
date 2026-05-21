@@ -2,12 +2,44 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { Globe, ArrowRight, X, Upload, FileText, Sparkles, LayoutDashboard } from 'lucide-react';
+import { Globe, ArrowRight, X, Upload, FileText, Sparkles, LayoutDashboard, MessageCircle, Send, ChevronRight } from 'lucide-react';
 import LifecycleWheel from '@/components/lifecycle-wheel/LifecycleWheel';
 import { LoadingDots } from '@/components/shared/LoadingDots';
 import { callClaude } from '@/lib/claude-api';
 import useAppStore from '@/store/appStore';
 
+// ── Stage directory the guide bot knows about ─────────────────────────────
+const STAGE_DIRECTORY = [
+  { num: '01', path: '/stage/01', label: 'Strategy Assessment', keywords: ['strategy', 'market', 'region', 'country', 'entry', 'invest', 'business case', 'feasibility', 'where', 'opportunity', 'demand'] },
+  { num: '02', path: '/stage/02', label: 'Supply Chain & Sourcing', keywords: ['supply', 'procurement', 'vendor', 'equipment', 'hardware', 'component', 'sourcing', 'buy', 'cost', 'budget', 'capex'] },
+  { num: '03', path: '/stage/03', label: 'Design & Build', keywords: ['design', 'build', 'construct', 'architecture', 'cooling', 'power', 'tier', 'pue', 'rack', 'mep', 'engineer'] },
+  { num: '04', path: '/stage/04', label: 'Compliance', keywords: ['compliance', 'regulation', 'legal', 'gdpr', 'dpdp', 'license', 'permit', 'esg', 'audit', 'certification', 'iso', 'tax'] },
+  { num: '05', path: '/stage/05', label: 'Operations', keywords: ['operate', 'operations', 'run', 'staff', 'dcim', 'monitoring', 'uptime', 'sla', 'incident', 'maintenance', 'efficiency'] },
+  { num: '06', path: '/stage/06', label: 'Monetization', keywords: ['monetize', 'revenue', 'colocation', 'pricing', 'customer', 'tenant', 'ebitda', 'profit', 'sell', 'lease'] },
+];
+
+const GUIDE_BOT_SYSTEM = `You are the K-Nexus Guide — a friendly, concise AI assistant on the KPMG K-Nexus Datacenter Intelligence Platform landing page.
+
+Your job: understand what the user wants to accomplish, then recommend the most relevant stage(s) to start with.
+
+The 6 stages are:
+01 - Strategy Assessment: Market opportunity, region selection, demand analysis, investment thesis
+02 - Supply Chain & Sourcing: Procurement strategy, vendors, components, CapEx planning
+03 - Design & Build: Technical architecture, cooling, power, tier rating, construction approach
+04 - Compliance: Regulatory requirements, data sovereignty, ESG, certifications
+05 - Operations: Day-to-day running, DCIM, staffing, PUE optimization, SLAs
+06 - Monetization: Revenue models, pricing, colocation, customer segments
+
+RULES:
+- Be warm, brief, and direct. Max 2–3 sentences before your recommendation.
+- Always end with a raw JSON block (no markdown fences, no backticks) in this exact format:
+  {"stage": "01", "label": "Strategy Assessment", "reason": "one short sentence"}
+- The JSON must be the very last thing in your response. No text after it.
+- If the user is clearly asking about multiple stages, pick the best starting point.
+- If the message is a greeting or too vague, ask one clarifying question and do NOT include the JSON block yet.
+- Never make up features — only reference the 6 stages above.`;
+
+// ── AnimatedBackground (unchanged) ────────────────────────────────────────
 function AnimatedBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -47,6 +79,7 @@ function AnimatedBackground() {
   );
 }
 
+// ── Upload Modal (unchanged) ───────────────────────────────────────────────
 function UploadModal({ onClose }) {
   const [file, setFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -74,35 +107,8 @@ function UploadModal({ onClose }) {
 
     const content = await readFileContent(file);
     const prompt = content
-      ? `You are the KPMG K-Nexus Datacenter Intelligence Engine analyzing a client's datacenter strategy document.
-
-Document: "${file.name}"
-
-## Document Content
-${content.slice(0, 8000)}
-
-Provide a comprehensive analysis of this datacenter strategy. Structure your response with:
-
-# Executive Summary
-# Key Findings
-# Strategy Gaps & Risks
-# Recommendations & Actions
-# Next Steps & Implementation Roadmap
-# KPIs & Success Metrics
-
-Be specific, reference the document content directly, identify gaps versus industry best practices, and provide quantitative benchmarks where possible.`
-      : `You are the KPMG K-Nexus Datacenter Intelligence Engine. A client has uploaded a datacenter strategy document named "${file.name}" for analysis.
-
-Provide a comprehensive strategic analysis covering market positioning, infrastructure planning, operational efficiency, compliance readiness, and monetization opportunities. Structure your response with:
-
-# Executive Summary
-# Key Findings
-# Strategy Gaps & Risks
-# Recommendations & Actions
-# Next Steps & Implementation Roadmap
-# KPIs & Success Metrics
-
-Use specific data-driven insights and quantitative benchmarks typical of a KPMG datacenter strategy advisory engagement.`;
+      ? `You are the KPMG K-Nexus Datacenter Intelligence Engine analyzing a client's datacenter strategy document.\n\nDocument: "${file.name}"\n\n## Document Content\n${content.slice(0, 8000)}\n\nProvide a comprehensive analysis of this datacenter strategy. Structure your response with:\n\n# Executive Summary\n# Key Findings\n# Strategy Gaps & Risks\n# Recommendations & Actions\n# Next Steps & Implementation Roadmap\n# KPIs & Success Metrics\n\nBe specific, reference the document content directly, identify gaps versus industry best practices, and provide quantitative benchmarks where possible.`
+      : `You are the KPMG K-Nexus Datacenter Intelligence Engine. A client has uploaded a datacenter strategy document named "${file.name}" for analysis.\n\nProvide a comprehensive strategic analysis covering market positioning, infrastructure planning, operational efficiency, compliance readiness, and monetization opportunities. Structure your response with:\n\n# Executive Summary\n# Key Findings\n# Strategy Gaps & Risks\n# Recommendations & Actions\n# Next Steps & Implementation Roadmap\n# KPIs & Success Metrics\n\nUse specific data-driven insights and quantitative benchmarks typical of a KPMG datacenter strategy advisory engagement.`;
 
     callClaude({ prompt, maxTokens: 16000 })
       .then(text => {
@@ -197,19 +203,13 @@ Use specific data-driven insights and quantitative benchmarks typical of a KPMG 
             )}
 
             <div className="mt-4 flex gap-3">
-              <button
-                onClick={onClose}
-                className="flex-1 px-4 py-2.5 border border-white/20 text-white/60 text-sm font-semibold rounded-xl hover:bg-white/5 transition-colors"
-              >
-                Cancel
-              </button>
+              <button onClick={onClose} className="flex-1 px-4 py-2.5 border border-white/20 text-white/60 text-sm font-semibold rounded-xl hover:bg-white/5 transition-colors">Cancel</button>
               <button
                 onClick={handleAnalyze}
                 disabled={!file}
                 className="flex-1 px-4 py-2.5 bg-[#0077C8] hover:bg-[#0088e0] text-white text-sm font-bold rounded-xl transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                <Sparkles size={16} />
-                Analyse Document
+                <Sparkles size={16} />Analyse Document
               </button>
             </div>
           </>
@@ -237,6 +237,257 @@ Use specific data-driven insights and quantitative benchmarks typical of a KPMG 
   );
 }
 
+// ── Guide Bot ─────────────────────────────────────────────────────────────
+function GuideBot() {
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [redirect, setRedirect] = useState(null); // { stage, label, path, reason }
+  const [showThought, setShowThought] = useState(true);
+  const inputRef = useRef(null);
+  const bottomRef = useRef(null);
+
+  // Hide the thought bubble after 6s or when the bot opens
+  useEffect(() => {
+    const t = setTimeout(() => setShowThought(false), 6000);
+    return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    if (open) {
+      setShowThought(false);
+      setTimeout(() => inputRef.current?.focus(), 100);
+      if (messages.length === 0) {
+        setMessages([{
+          role: 'assistant',
+          text: "Hi! I'm your K-Nexus guide. Tell me what you're trying to achieve — building a new datacenter, improving operations, exploring a market — and I'll point you to the right stage.",
+        }]);
+      }
+    }
+  }, [open]);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, loading]);
+
+  const parseResponse = (text) => {
+    // Remove the JSON stage block first (with or without markdown fences)
+    let cleanText = text
+      .replace(/```json[\s\S]*?```/gi, '')   // fenced ```json ... ```
+      .replace(/```[\s\S]*?```/g, '')         // any other fenced block
+      .replace(/\{[\s\S]*?"stage"\s*:\s*"[^"]*"[\s\S]*?\}/g, '') // bare JSON object
+      .replace(/`{1,3}/g, '')                 // any stray backticks left over
+      .trim();
+
+    // Also parse the JSON for the redirect CTA
+    let stageData = null;
+    const jsonMatch = text.match(/\{[\s\S]*?"stage"\s*:\s*"([^"]*)"[\s\S]*?\}/);
+    if (jsonMatch) {
+      try { stageData = JSON.parse(jsonMatch[0]); } catch {}
+    }
+
+    return { cleanText, stageData };
+  };
+
+  const sendMessage = async () => {
+    const trimmed = input.trim();
+    if (!trimmed || loading) return;
+
+    const userMsg = { role: 'user', text: trimmed };
+    setMessages(prev => [...prev, userMsg]);
+    setInput('');
+    setLoading(true);
+    setRedirect(null);
+
+    // Build conversation history for context
+    const history = [...messages, userMsg]
+      .map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.text}`)
+      .join('\n\n');
+
+    const prompt = `${history}`;
+
+    try {
+      const response = await callClaude({
+        prompt,
+        systemOverride: GUIDE_BOT_SYSTEM,
+        maxTokens: 400,
+      });
+
+      const { cleanText, stageData } = parseResponse(response);
+
+      setMessages(prev => [...prev, { role: 'assistant', text: cleanText }]);
+
+      if (stageData?.stage) {
+        const match = STAGE_DIRECTORY.find(s => s.num === stageData.stage);
+        if (match) {
+          setRedirect({
+            stage: match.num,
+            label: match.label,
+            path: match.path,
+            reason: stageData.reason || '',
+          });
+        }
+      }
+    } catch (err) {
+      setMessages(prev => [...prev, { role: 'assistant', text: 'Sorry, I hit an error. Please try again.' }]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
+  return (
+    <>
+      {/* Thought bubble */}
+      <AnimatePresence>
+        {showThought && !open && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85, y: 8 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 4 }}
+            transition={{ duration: 0.3 }}
+            className="fixed bottom-24 right-6 z-40 pointer-events-none"
+          >
+            <div className="relative bg-white border border-[#E2E8F0] rounded-2xl rounded-br-sm px-4 py-2.5 shadow-lg max-w-[180px]">
+              <p className="text-[#1A1F36] text-xs font-semibold leading-snug">How can I help you?</p>
+              <p className="text-[#9CA3AF] text-[10px] mt-0.5">Click to get started</p>
+              {/* Tail */}
+              <div className="absolute -bottom-2 right-3 w-3 h-3 bg-white border-r border-b border-[#E2E8F0] rotate-45" />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* FAB button */}
+      <motion.button
+        onClick={() => setOpen(prev => !prev)}
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#00338D] text-white shadow-xl shadow-[#00338D]/30 flex items-center justify-center hover:bg-[#0044b8] transition-colors"
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.95 }}
+        aria-label="Open guide bot"
+      >
+        <AnimatePresence mode="wait">
+          {open
+            ? <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}><X size={22} /></motion.span>
+            : <motion.span key="chat" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}><MessageCircle size={22} /></motion.span>
+          }
+        </AnimatePresence>
+      </motion.button>
+
+      {/* Chat panel */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.93, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 12 }}
+            transition={{ type: 'spring', stiffness: 340, damping: 28 }}
+            className="fixed bottom-24 right-6 z-50 w-80 bg-white rounded-2xl shadow-2xl border border-[#E2E8F0] overflow-hidden flex flex-col"
+            style={{ maxHeight: '480px' }}
+          >
+            {/* Header */}
+            <div className="px-4 py-3 bg-[#00338D] flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center flex-shrink-0">
+                <Sparkles size={15} className="text-white" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-white font-bold text-sm leading-none" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>K-Nexus Guide</p>
+                <p className="text-white/50 text-[10px] mt-0.5">Find your starting stage</p>
+              </div>
+              <button onClick={() => setOpen(false)} className="text-white/50 hover:text-white transition-colors">
+                <X size={16} />
+              </button>
+            </div>
+
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0">
+              {messages.map((msg, i) => (
+                <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`max-w-[85%] px-3 py-2 rounded-xl text-xs leading-relaxed ${
+                    msg.role === 'user'
+                      ? 'bg-[#00338D] text-white rounded-br-sm'
+                      : 'bg-[#F4F6F9] text-[#374151] rounded-bl-sm'
+                  }`}>
+                    {msg.text.replace(/```json\s*/gi, '').replace(/```/g, '').trim()}
+                  </div>
+                </div>
+              ))}
+
+              {loading && (
+                <div className="flex justify-start">
+                  <div className="bg-[#F4F6F9] px-3 py-2 rounded-xl rounded-bl-sm flex items-center gap-1.5">
+                    {[0, 1, 2].map(i => (
+                      <motion.div key={i} className="w-1.5 h-1.5 rounded-full bg-[#9CA3AF]"
+                        animate={{ opacity: [0.3, 1, 0.3], y: [0, -3, 0] }}
+                        transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.15 }} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Stage redirect CTA */}
+              {redirect && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                  className="bg-[#F0F4FF] border border-[#00338D]/15 rounded-xl p-3"
+                >
+                  <p className="text-[10px] text-[#6B7280] mb-1.5">Recommended stage</p>
+                  <div className="flex items-center justify-between gap-2">
+                    <div>
+                      <p className="text-xs font-bold text-[#00338D]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                        Stage {redirect.stage} — {redirect.label}
+                      </p>
+                      {redirect.reason && <p className="text-[10px] text-[#6B7280] mt-0.5">{redirect.reason}</p>}
+                    </div>
+                    <button
+                      onClick={() => { setOpen(false); router.push(redirect.path); }}
+                      className="flex-shrink-0 flex items-center gap-1 px-3 py-1.5 bg-[#00338D] text-white text-[10px] font-bold rounded-lg hover:bg-[#0044b8] transition-colors"
+                    >
+                      Go <ChevronRight size={10} />
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+
+              <div ref={bottomRef} />
+            </div>
+
+            {/* Input */}
+            <div className="px-3 pb-3 pt-2 border-t border-[#F4F6F9]">
+              <div className="flex items-center gap-2 bg-[#F4F6F9] rounded-xl px-3 py-2">
+                <input
+                  ref={inputRef}
+                  value={input}
+                  onChange={e => setInput(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Describe your goal..."
+                  className="flex-1 bg-transparent text-xs text-[#1A1F36] placeholder-[#9CA3AF] outline-none"
+                />
+                <button
+                  onClick={sendMessage}
+                  disabled={!input.trim() || loading}
+                  className="w-7 h-7 rounded-lg bg-[#00338D] text-white flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#0044b8] transition-colors flex-shrink-0"
+                >
+                  <Send size={12} />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
+// ── LandingPage ────────────────────────────────────────────────────────────
 export default function LandingPage() {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
@@ -283,7 +534,6 @@ export default function LandingPage() {
         <div className="max-w-screen-xl mx-auto">
           {/* Hero */}
           <motion.div className="text-center mb-16" initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2, duration: 0.7 }}>
-            {/* KPMG badge */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#00338D]/8 border border-[#00338D]/15 rounded-full mb-6">
               <div className="w-5 h-5 rounded bg-[#00338D] flex items-center justify-center">
                 <span className="text-white text-[10px] font-extrabold">K</span>
@@ -303,7 +553,6 @@ export default function LandingPage() {
               from market strategy to monetization.
             </p>
 
-            {/* Tagline pills */}
             <div className="flex items-center justify-center gap-3 mt-6 flex-wrap">
               {['Assess', 'Analyse', 'Recommend', 'Deliver Outcomes'].map((word, i) => (
                 <div key={i} className="flex items-center gap-2">
@@ -325,7 +574,6 @@ export default function LandingPage() {
               ))}
             </div>
 
-            {/* Decorative accent line */}
             <div className="flex items-center justify-center gap-3 mt-6">
               <div className="h-px w-16 bg-gradient-to-r from-transparent to-[#00338D]/30" />
               <div className="flex gap-1.5">
@@ -393,7 +641,6 @@ export default function LandingPage() {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.9 + i * 0.06 }}
                 >
-                  {/* subtle gradient accent */}
                   <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#00338D] to-[#0077C8] opacity-0 group-hover:opacity-100 transition-opacity" />
                   <div className="text-[#0077C8] font-mono font-bold text-xs mb-2">{s.num}</div>
                   <div className="text-[#1A1F36] font-semibold text-xs leading-tight whitespace-pre-line" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
@@ -414,6 +661,9 @@ export default function LandingPage() {
       <AnimatePresence>
         {showModal && <UploadModal onClose={() => setShowModal(false)} />}
       </AnimatePresence>
+
+      {/* Guide Bot — only on landing page */}
+      <GuideBot />
     </div>
   );
 }

@@ -4,11 +4,10 @@ import { ShieldCheck, CheckCircle2, XCircle, AlertTriangle, ChevronDown, Chevron
 import { motion, AnimatePresence } from 'framer-motion';
 import StageLayout from '@/components/stage-pages/StageLayout';
 import { FormField, Select, MultiSelect, Toggle } from '@/components/stage-pages/FormComponents';
-import { callClaude, buildStagePrompt, buildRagQuery } from '@/lib/claude-api';
+import { callClaude, buildContextualPrompt, buildRagQuery } from '@/lib/claude-api';
 
 const STAGE_CONTEXT = `This stage covers the compliance, regulatory, tax, and certification requirements for datacenter operations across multiple jurisdictions.`;
 
-// ── Compliance checklist data ──────────────────────────────────────────────
 const COMPLIANCE_FRAMEWORK = [
   {
     category: 'Data Protection & Privacy',
@@ -147,7 +146,6 @@ function ComplianceChecklist({ selectedJurisdictions = [] }) {
         })}
       </div>
 
-      {/* Summary bar */}
       <div className="px-6 py-3 border-t border-[#E2E8F0] bg-[#F4F6F9] flex items-center gap-3">
         <div className="flex-1 h-2 bg-[#E2E8F0] rounded-full overflow-hidden">
           <motion.div className="h-full rounded-full" style={{ backgroundColor: pct === 100 ? '#00A36C' : pct > 60 ? '#0077C8' : '#D4A017' }}
@@ -191,9 +189,16 @@ function Fields({ formData, updateField }) {
   );
 }
 
-async function generateInsights(formData) {
-  const prompt = buildStagePrompt('Stage 04: Compliance Checks (Tax, Regulatory, ESG, Cyber)', STAGE_CONTEXT, formData, null);
-  const ragQuery = buildRagQuery('datacenter compliance regulatory GDPR DPDP ESG', formData);
+async function generateInsights(formData, sessionContext, stageOutputs) {
+  const prompt = buildContextualPrompt(
+    'Stage 04: Compliance Checks (Tax, Regulatory, ESG, Cyber)',
+    STAGE_CONTEXT,
+    formData,
+    sessionContext,
+    stageOutputs,
+    '04'
+  );
+  const ragQuery = buildRagQuery('datacenter compliance regulatory GDPR DPDP ESG', { ...formData, ...sessionContext });
   return callClaude({ prompt, maxTokens: 8192, ragQuery });
 }
 
