@@ -13,8 +13,7 @@ const REPORTS = [
   { id: 'maintenance', name: 'Maintenance & Asset Report', description: 'Maintenance schedule adherence, asset health scores, and predicted failure analysis.', frequency: 'Weekly', lastGenerated: '2026-05-15 06:00 UTC', color: '#D4A017' },
 ];
 
-function generatePDF(report, showToast) {
-  // Use jspdf (already installed)
+function generatePDF(report, showToast, { dateFrom, dateTo } = {}) {
   import('jspdf').then(({ jsPDF }) => {
     const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
     const w = 210; const margin = 20;
@@ -149,8 +148,20 @@ function generatePDF(report, showToast) {
     doc.text('CONFIDENTIAL — K-Nexus Datacenter Intelligence Platform', margin, 288);
     doc.text('Powered by K-Nexus Intelligence Platform  |  kpmg.com/knexus', w - margin, 288, { align: 'right' });
 
-    doc.save(`KNexus_${report.id}_${new Date().toISOString().slice(0,10)}.pdf`);
+    const fileName = `KNexus_${report.id}_${new Date().toISOString().slice(0,10)}.pdf`;
+    doc.save(fileName);
     showToast('Report downloaded successfully');
+    fetch('/api/user-reports', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        report_type: report.id,
+        report_name: report.name,
+        file_name: fileName,
+        date_from: dateFrom ?? null,
+        date_to: dateTo ?? null,
+      }),
+    }).catch(() => {});
   });
 }
 
@@ -208,7 +219,7 @@ function CustomReportModal({ onClose, showToast }) {
     setTimeout(() => {
       setLoading(false);
       setDone(true);
-      generatePDF(report, showToast);
+      generatePDF(report, showToast, { dateFrom, dateTo });
     }, 2000);
   };
 

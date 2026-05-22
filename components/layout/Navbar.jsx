@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Search, Plus, Globe, LayoutDashboard, LogOut } from 'lucide-react';
+import { Search, Plus, Globe, LayoutDashboard, LogOut, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useSession } from '@/components/SupabaseProvider';
@@ -121,6 +121,14 @@ export default function Navbar() {
                     {session.user.email}
                   </div>
                 )}
+                <Link
+                  href="/user-dashboard"
+                  onClick={() => setUserMenuOpen(false)}
+                  className="flex items-center gap-2 w-full px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+                >
+                  <User size={14} />
+                  My Dashboard
+                </Link>
                 <button
                   onClick={handleSignOut}
                   className="flex items-center gap-2 w-full px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"

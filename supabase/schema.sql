@@ -110,6 +110,25 @@ create policy "Users can manage their own stage progress"
   using (auth.uid() = user_id)
   with check (auth.uid() = user_id);
 
+-- User-generated report history
+create table public.user_reports (
+  id            uuid primary key default gen_random_uuid(),
+  user_id       uuid references auth.users(id) on delete cascade not null,
+  report_type   text not null,
+  report_name   text not null,
+  file_name     text,
+  date_from     date,
+  date_to       date,
+  generated_at  timestamptz default now() not null
+);
+alter table public.user_reports enable row level security;
+create policy "Users can read their own reports"
+  on public.user_reports for select to authenticated using (auth.uid() = user_id);
+create policy "Users can insert their own reports"
+  on public.user_reports for insert to authenticated with check (auth.uid() = user_id);
+create policy "Users can delete their own reports"
+  on public.user_reports for delete to authenticated using (auth.uid() = user_id);
+
 -- AI outputs cache
 create table public.ai_outputs (
   id uuid primary key default gen_random_uuid(),

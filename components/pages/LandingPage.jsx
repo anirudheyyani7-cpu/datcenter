@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { Globe, ArrowRight, X, Upload, FileText, Sparkles, LayoutDashboard, MessageCircle, Send, ChevronRight } from 'lucide-react';
+import { Globe, ArrowRight, X, Upload, FileText, Sparkles, LayoutDashboard, MessageCircle, Send, ChevronRight, ExternalLink, Clock, Newspaper } from 'lucide-react';
 import LifecycleWheel from '@/components/lifecycle-wheel/LifecycleWheel';
 import { LoadingDots } from '@/components/shared/LoadingDots';
 import { callClaude } from '@/lib/claude-api';
@@ -487,6 +487,162 @@ function GuideBot() {
   );
 }
 
+// ── Helpers ───────────────────────────────────────────────────────────────
+function relativeTime(isoString) {
+  if (!isoString) return '';
+  const diff = (new Date(isoString) - Date.now()) / 1000;
+  const abs = Math.abs(diff);
+  const fmt = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+  if (abs < 60) return fmt.format(Math.round(diff), 'second');
+  if (abs < 3600) return fmt.format(Math.round(diff / 60), 'minute');
+  if (abs < 86400) return fmt.format(Math.round(diff / 3600), 'hour');
+  return fmt.format(Math.round(diff / 86400), 'day');
+}
+
+// ── DatacenterNewsSection ─────────────────────────────────────────────────
+function DatacenterNewsSection() {
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchNews = async () => {
+    try {
+      setError(null);
+      const res = await fetch('/api/news');
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      setArticles(data.articles || []);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchNews();
+    const interval = setInterval(fetchNews, 60 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const wrapperProps = {
+    className: 'mt-24',
+    initial: { y: 40, opacity: 0 },
+    animate: { y: 0, opacity: 1 },
+    transition: { delay: 0.8, duration: 0.6 },
+  };
+
+  if (loading) return (
+    <motion.div {...wrapperProps}>
+      <h2 className="text-[#9CA3AF] text-center text-sm font-semibold uppercase tracking-widest mb-8">
+        Global Datacenter News
+      </h2>
+      <div style={{ columnCount: 3, columnGap: '12px' }}>
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="break-inside-avoid mb-3 bg-white border border-[#E2E8F0] rounded-xl overflow-hidden shadow-sm">
+            {i % 4 === 0 && <div className="shimmer h-44 w-full" />}
+            <div className="p-4 space-y-2">
+              <div className="shimmer h-3 w-1/3 rounded" />
+              <div className="shimmer h-4 w-full rounded" />
+              <div className="shimmer h-4 w-5/6 rounded" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+
+  if (error || articles.length === 0) return (
+    <motion.div {...wrapperProps}>
+      <h2 className="text-[#9CA3AF] text-center text-sm font-semibold uppercase tracking-widest mb-8">
+        Global Datacenter News
+      </h2>
+      <div className="bg-white border border-[#E2E8F0] rounded-xl p-8 text-center shadow-sm">
+        <Newspaper size={32} className="text-[#CBD5E1] mx-auto mb-3" />
+        <p className="text-[#6B7280] text-sm font-semibold mb-1">News unavailable</p>
+        <p className="text-[#9CA3AF] text-xs mb-4">{error || 'No articles found at this time.'}</p>
+        <button
+          onClick={() => { setLoading(true); fetchNews(); }}
+          className="px-4 py-2 bg-[#00338D] text-white text-xs font-bold rounded-lg hover:bg-[#0044b8] transition-colors"
+          style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+        >
+          Try again
+        </button>
+      </div>
+    </motion.div>
+  );
+
+  return (
+    <motion.div {...wrapperProps}>
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center gap-3">
+          <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+          <h2 className="text-[#9CA3AF] text-sm font-semibold uppercase tracking-widest">
+            Global Datacenter News
+          </h2>
+        </div>
+        <span className="text-[#CBD5E1] text-[10px]">Refreshes hourly</span>
+      </div>
+
+      <div style={{ columnGap: '12px' }} className="[column-count:1] md:[column-count:2] lg:[column-count:3]">
+        {articles.map((article, i) => {
+          const featured = i % 4 === 0;
+          const showImage = article.urlToImage && (featured || i % 3 === 1);
+          return (
+            <motion.a
+              key={article.url}
+              href={article.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="break-inside-avoid block mb-3 bg-white border border-[#E2E8F0] rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:border-[#0077C8]/30 transition-all duration-200 group relative"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.9 + i * 0.06 }}
+            >
+              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#00338D] to-[#0077C8] opacity-0 group-hover:opacity-100 transition-opacity" />
+              {showImage && (
+                <div className={`overflow-hidden ${featured ? 'h-44' : 'h-28'}`}>
+                  <img
+                    src={article.urlToImage}
+                    alt=""
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    onError={e => { e.currentTarget.parentElement.style.display = 'none'; }}
+                  />
+                </div>
+              )}
+              <div className="p-4">
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <span className="text-[#0077C8] text-[10px] font-bold uppercase tracking-wider truncate">
+                    {article.source}
+                  </span>
+                  <span className="flex items-center gap-1 text-[#9CA3AF] text-[10px] flex-shrink-0">
+                    <Clock size={9} />{relativeTime(article.publishedAt)}
+                  </span>
+                </div>
+                <h3
+                  className={`text-[#1A1F36] font-bold leading-snug mb-2 group-hover:text-[#00338D] transition-colors ${featured ? 'text-sm line-clamp-3' : 'text-xs line-clamp-2'}`}
+                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                >
+                  {article.title}
+                </h3>
+                {article.description && (
+                  <p className={`text-[#6B7280] leading-relaxed mb-3 ${featured ? 'text-xs line-clamp-3' : 'text-[10px] line-clamp-2'}`}>
+                    {article.description}
+                  </p>
+                )}
+                <div className="flex items-center gap-1 text-[#0077C8] text-[10px] font-semibold group-hover:gap-2 transition-all">
+                  Read more <ExternalLink size={9} />
+                </div>
+              </div>
+            </motion.a>
+          );
+        })}
+      </div>
+    </motion.div>
+  );
+}
+
 // ── LandingPage ────────────────────────────────────────────────────────────
 export default function LandingPage() {
   const router = useRouter();
@@ -618,35 +774,8 @@ export default function LandingPage() {
             </motion.div>
           </div>
 
-          {/* Stage cards */}
-          <motion.div className="mt-24" initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.8, duration: 0.6 }}>
-            <h2 className="text-[#9CA3AF] text-center text-sm font-semibold uppercase tracking-widest mb-8">6 Integrated Lifecycle Stages</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-              {[
-                { num: '01', label: 'Strategy',                       path: '/stage/01' },
-                { num: '02', label: 'Supply Chain\nManagement',      path: '/stage/02' },
-                { num: '03', label: 'Design and\nBuild',             path: '/stage/03' },
-                { num: '04', label: 'Regulatory and\nCompliance',    path: '/stage/04' },
-                { num: '05', label: 'Operations',                    path: '/stage/05' },
-                { num: '06', label: 'Monetization',                  path: '/stage/06' },
-              ].map((s, i) => (
-                <motion.button
-                  key={i}
-                  onClick={() => router.push(s.path)}
-                  className="bg-white border border-[#E2E8F0] rounded-xl p-4 text-center hover:bg-[#F4F6F9] hover:border-[#0077C8]/40 hover:shadow-md transition-all group hover:-translate-y-1 shadow-sm relative overflow-hidden"
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.9 + i * 0.06 }}
-                >
-                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#00338D] to-[#0077C8] opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="text-[#0077C8] font-mono font-bold text-xs mb-2">{s.num}</div>
-                  <div className="text-[#1A1F36] font-semibold text-xs leading-tight whitespace-pre-line" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-                    {s.label}
-                  </div>
-                </motion.button>
-              ))}
-            </div>
-          </motion.div>
+          {/* Global Datacenter News */}
+          <DatacenterNewsSection />
 
           {/* Footer */}
           <motion.div className="mt-16 text-center" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}>
