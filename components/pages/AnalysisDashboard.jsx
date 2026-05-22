@@ -11,11 +11,11 @@ import { callClaude } from '@/lib/claude-api';
 
 const STAGE_NAMES = {
   'doc': 'Strategy Document',
-  '01': 'Strategy Assessment',
-  '02': 'Supply Chain Sourcing',
-  '03': 'Design & Build',
-  '04': 'Compliance',
-  '05': 'DC Operations',
+  '01': 'Strategy',
+  '02': 'Supply Chain Management',
+  '03': 'Design and Build',
+  '04': 'Regulatory and Compliance',
+  '05': 'Operations',
   '06': 'Monetization',
 };
 

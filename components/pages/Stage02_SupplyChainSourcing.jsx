@@ -33,5 +33,5 @@ async function generateInsights(formData, sessionContext, stageOutputs) {
 }
 
 export default function Stage02() {
-  return <StageLayout stageNum="02" stageName="DC Supply Chain Sourcing" stageDescription="Develop a robust procurement and sourcing strategy." stageIcon={Package} color="#0055A4" formFields={Fields} generateInsights={generateInsights} />;
+  return <StageLayout stageNum="02" stageName="Supply Chain Management" stageDescription="Develop a robust procurement and sourcing strategy." stageIcon={Package} color="#0055A4" formFields={Fields} generateInsights={generateInsights} />;
 }

@@ -5,12 +5,12 @@ import { useRouter } from 'next/navigation';
 import { TrendingUp, Package, Settings, ShieldCheck, Activity, DollarSign } from 'lucide-react';
 
 const STAGES = [
-  { title: 'Strategy &\nAssessment', shortTitle: 'Strategy & Assessment', description: 'Market scan & opportunity analysis', expectedOutput: 'Market opportunity report, site shortlist & investment thesis', icon: TrendingUp, path: '/stage/01', color: '#00338D', hoverColor: '#0044b8' },
-  { title: 'Supply Chain\nSourcing', shortTitle: 'Supply Chain Sourcing', description: 'Components, requirements & selection', expectedOutput: 'Vendor shortlist, BOM, cost estimates & supply agreements', icon: Package, path: '/stage/02', color: '#0055A4', hoverColor: '#0066c4' },
-  { title: 'Design &\nBuild', shortTitle: 'Design & Build', description: 'Architecture & construction requirements', expectedOutput: 'Technical specs, construction milestones & commissioning plan', icon: Settings, path: '/stage/03', color: '#00529B', hoverColor: '#0063bb' },
-  { title: 'Compliance\nChecks', shortTitle: 'Compliance Checks', description: 'Tax, regulatory, ESG & cyber', expectedOutput: 'Compliance matrix, tax structure, ESG rating & risk register', icon: ShieldCheck, path: '/stage/04', color: '#1B3A5C', hoverColor: '#234d7a' },
-  { title: 'DC\nOperations', shortTitle: 'DC Operations', description: 'Efficiency, DCIM & uptime management', expectedOutput: 'SLA metrics, uptime reports, DCIM dashboard & O&M plan', icon: Activity, path: '/stage/05', color: '#003580', hoverColor: '#0044a0' },
-  { title: 'DC\nMonetization', shortTitle: 'DC Monetization', description: 'Revenue models & market positioning', expectedOutput: 'Revenue model, pricing strategy, tenant agreements & ROI analysis', icon: DollarSign, path: '/stage/06', color: '#0077C8', hoverColor: '#0088e0' },
+  { title: 'Strategy', shortTitle: 'Strategy', description: 'Market scan & opportunity analysis', expectedOutput: 'Market opportunity report, site shortlist & investment thesis', icon: TrendingUp, path: '/stage/01', color: '#00338D', hoverColor: '#0044b8' },
+  { title: 'Supply Chain\nManagement', shortTitle: 'Supply Chain Management', description: 'Components, requirements & selection', expectedOutput: 'Vendor shortlist, BOM, cost estimates & supply agreements', icon: Package, path: '/stage/02', color: '#0055A4', hoverColor: '#0066c4' },
+  { title: 'Design and\nBuild', shortTitle: 'Design and Build', description: 'Architecture & construction requirements', expectedOutput: 'Technical specs, construction milestones & commissioning plan', icon: Settings, path: '/stage/03', color: '#00529B', hoverColor: '#0063bb' },
+  { title: 'Regulatory and\nCompliance', shortTitle: 'Regulatory and Compliance', description: 'Tax, regulatory, ESG & cyber', expectedOutput: 'Compliance matrix, tax structure, ESG rating & risk register', icon: ShieldCheck, path: '/stage/04', color: '#1B3A5C', hoverColor: '#234d7a' },
+  { title: 'Operations', shortTitle: 'Operations', description: 'Efficiency, DCIM & uptime management', expectedOutput: 'SLA metrics, uptime reports, DCIM dashboard & O&M plan', icon: Activity, path: '/stage/05', color: '#003580', hoverColor: '#0044a0' },
+  { title: 'Monetization', shortTitle: 'Monetization', description: 'Revenue models & market positioning', expectedOutput: 'Revenue model, pricing strategy, tenant agreements & ROI analysis', icon: DollarSign, path: '/stage/06', color: '#0077C8', hoverColor: '#0088e0' },
 ];
 
 function polarToCartesian(cx, cy, r, angleDeg) {

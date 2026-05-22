@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { Activity, LayoutDashboard, ArrowRight, Settings2 } from 'lucide-react';
+import { Activity, LayoutDashboard, ArrowRight, Settings2, Layers, TicketCheck } from 'lucide-react';
 import StageLayout from '@/components/stage-pages/StageLayout';
 import { FormField, Select, TextInput, SliderField } from '@/components/stage-pages/FormComponents';
 import { callClaude, buildContextualPrompt, buildRagQuery } from '@/lib/claude-api';
@@ -56,6 +56,26 @@ function OperationCards() {
       actionLabel: 'View AI in Operations',
       href: 'https://www.knexus.space/agents/aiops-sentry/login',
     },
+    {
+      id: 'portfolio-rationalisation',
+      icon: Layers,
+      color: '#005EB8',
+      tag: 'Strategy',
+      label: 'Portfolio Rationalisation',
+      description: 'Rationalise application and technology portfolios to cut redundancy and unlock investment capacity.',
+      actionLabel: 'View Portfolio Rationalisation',
+      href: 'https://tech-ratio-vercel.vercel.app/',
+    },
+    {
+      id: 'ticketing-management',
+      icon: TicketCheck,
+      color: '#006747',
+      tag: 'Operations',
+      label: 'Ticketing Management',
+      description: 'Reduce MTTR and automate resolution workflows for seamless ticket handling.',
+      actionLabel: 'View Ticketing Management',
+      href: 'https://www.knexus.space/agents/operations/login',
+    },
   ];
 
   return (
@@ -79,7 +99,7 @@ function OperationCards() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {cards.map(card => {
           const Icon = card.icon;
           return (
@@ -113,7 +133,7 @@ export default function Stage05() {
   return (
     <StageLayout
       stageNum="05"
-      stageName="DC Operations"
+      stageName="Operations"
       stageDescription="Optimize your datacenter operations across efficiency, staffing, monitoring, and uptime."
       stageIcon={Activity}
       color="#003580"

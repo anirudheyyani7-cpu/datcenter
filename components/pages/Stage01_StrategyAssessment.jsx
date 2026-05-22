@@ -137,7 +137,7 @@ export default function Stage01() {
   return (
     <StageLayout
       stageNum="01"
-      stageName="Strategy Assessment"
+      stageName="Strategy"
       stageDescription="Conduct a comprehensive market scan and opportunity analysis to validate your datacenter investment thesis. Identify demand drivers, competitive dynamics, and optimal entry strategy for your target region."
       stageIcon={TrendingUp}
       color="#00338D"

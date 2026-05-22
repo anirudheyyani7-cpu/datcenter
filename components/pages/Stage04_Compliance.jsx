@@ -208,7 +208,7 @@ export default function Stage04() {
   return (
     <StageLayout
       stageNum="04"
-      stageName="Compliance Checks"
+      stageName="Regulatory and Compliance"
       stageDescription="Navigate the complex compliance landscape across datacenter jurisdictions."
       stageIcon={ShieldCheck}
       color="#1B3A5C"

@@ -10,8 +10,8 @@ import useAppStore from '@/store/appStore';
 
 // ── Stage directory the guide bot knows about ─────────────────────────────
 const STAGE_DIRECTORY = [
-  { num: '01', path: '/stage/01', label: 'Strategy Assessment', keywords: ['strategy', 'market', 'region', 'country', 'entry', 'invest', 'business case', 'feasibility', 'where', 'opportunity', 'demand'] },
-  { num: '02', path: '/stage/02', label: 'Supply Chain & Sourcing', keywords: ['supply', 'procurement', 'vendor', 'equipment', 'hardware', 'component', 'sourcing', 'buy', 'cost', 'budget', 'capex'] },
+  { num: '01', path: '/stage/01', label: 'Strategy', keywords: ['strategy', 'market', 'region', 'country', 'entry', 'invest', 'business case', 'feasibility', 'where', 'opportunity', 'demand'] },
+  { num: '02', path: '/stage/02', label: 'Supply Chain Management', keywords: ['supply', 'procurement', 'vendor', 'equipment', 'hardware', 'component', 'sourcing', 'buy', 'cost', 'budget', 'capex'] },
   { num: '03', path: '/stage/03', label: 'Design & Build', keywords: ['design', 'build', 'construct', 'architecture', 'cooling', 'power', 'tier', 'pue', 'rack', 'mep', 'engineer'] },
   { num: '04', path: '/stage/04', label: 'Compliance', keywords: ['compliance', 'regulation', 'legal', 'gdpr', 'dpdp', 'license', 'permit', 'esg', 'audit', 'certification', 'iso', 'tax'] },
   { num: '05', path: '/stage/05', label: 'Operations', keywords: ['operate', 'operations', 'run', 'staff', 'dcim', 'monitoring', 'uptime', 'sla', 'incident', 'maintenance', 'efficiency'] },
@@ -23,8 +23,8 @@ const GUIDE_BOT_SYSTEM = `You are the K-Nexus Guide — a friendly, concise AI a
 Your job: understand what the user wants to accomplish, then recommend the most relevant stage(s) to start with.
 
 The 6 stages are:
-01 - Strategy Assessment: Market opportunity, region selection, demand analysis, investment thesis
-02 - Supply Chain & Sourcing: Procurement strategy, vendors, components, CapEx planning
+01 - Strategy: Market opportunity, region selection, demand analysis, investment thesis
+02 - Supply Chain Management: Procurement strategy, vendors, components, CapEx planning
 03 - Design & Build: Technical architecture, cooling, power, tier rating, construction approach
 04 - Compliance: Regulatory requirements, data sovereignty, ESG, certifications
 05 - Operations: Day-to-day running, DCIM, staffing, PUE optimization, SLAs
@@ -33,7 +33,7 @@ The 6 stages are:
 RULES:
 - Be warm, brief, and direct. Max 2–3 sentences before your recommendation.
 - Always end with a raw JSON block (no markdown fences, no backticks) in this exact format:
-  {"stage": "01", "label": "Strategy Assessment", "reason": "one short sentence"}
+  {"stage": "01", "label": "Strategy", "reason": "one short sentence"}
 - The JSON must be the very last thing in your response. No text after it.
 - If the user is clearly asking about multiple stages, pick the best starting point.
 - If the message is a greeting or too vague, ask one clarifying question and do NOT include the JSON block yet.
@@ -623,12 +623,12 @@ export default function LandingPage() {
             <h2 className="text-[#9CA3AF] text-center text-sm font-semibold uppercase tracking-widest mb-8">6 Integrated Lifecycle Stages</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
               {[
-                { num: '01', label: 'Strategy\nAssessment',   path: '/stage/01' },
-                { num: '02', label: 'Supply Chain\nSourcing', path: '/stage/02' },
-                { num: '03', label: 'Design &\nBuild',        path: '/stage/03' },
-                { num: '04', label: 'Compliance\nChecks',     path: '/stage/04' },
-                { num: '05', label: 'DC\nOperations',         path: '/stage/05' },
-                { num: '06', label: 'DC\nMonetization',       path: '/stage/06' },
+                { num: '01', label: 'Strategy',                       path: '/stage/01' },
+                { num: '02', label: 'Supply Chain\nManagement',      path: '/stage/02' },
+                { num: '03', label: 'Design and\nBuild',             path: '/stage/03' },
+                { num: '04', label: 'Regulatory and\nCompliance',    path: '/stage/04' },
+                { num: '05', label: 'Operations',                    path: '/stage/05' },
+                { num: '06', label: 'Monetization',                  path: '/stage/06' },
               ].map((s, i) => (
                 <motion.button
                   key={i}
