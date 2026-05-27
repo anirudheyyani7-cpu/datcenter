@@ -151,6 +151,20 @@ function generatePDFForHistory(reportType, reportName) {
   });
 }
 
+const WIDGET_DEFS = [
+  { id: 'profile',      label: 'Profile Card' },
+  { id: 'stats',        label: 'KPI Stats' },
+  { id: 'stages',       label: 'Stage Progress' },
+  { id: 'chart',        label: 'Report Activity Chart' },
+  { id: 'reports',      label: 'Reports List' },
+];
+
+const PRESETS = {
+  ops:  { label: 'Operations', widgets: ['profile', 'stats', 'stages', 'reports'] },
+  exec: { label: 'Executive',  widgets: ['profile', 'stats', 'chart', 'reports'] },
+  esg:  { label: 'ESG View',   widgets: ['profile', 'stats', 'stages'] },
+};
+
 export default function UserDashboardPage() {
   const { session, supabase } = useSession() ?? {};
   const [reports, setReports] = useState([]);
@@ -160,6 +174,34 @@ export default function UserDashboardPage() {
   const [typeFilter, setTypeFilter] = useState('all');
   const [deletingId, setDeletingId] = useState(null);
   const [toast, setToast] = useState(null);
+  const [preset, setPreset] = useState(() => {
+    if (typeof window !== 'undefined') return localStorage.getItem('db_preset') || 'ops';
+    return 'ops';
+  });
+  const [customWidgets, setCustomWidgets] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try { return JSON.parse(localStorage.getItem('db_widgets') || 'null'); } catch { return null; }
+    }
+    return null;
+  });
+  const [showCustomize, setShowCustomize] = useState(false);
+
+  const activeWidgets = customWidgets || PRESETS[preset]?.widgets || PRESETS.ops.widgets;
+
+  const applyPreset = (p) => {
+    setPreset(p);
+    setCustomWidgets(null);
+    if (typeof window !== 'undefined') { localStorage.setItem('db_preset', p); localStorage.removeItem('db_widgets'); }
+  };
+
+  const toggleWidget = (id) => {
+    const base = customWidgets || PRESETS[preset]?.widgets || [];
+    const next = base.includes(id) ? base.filter(w => w !== id) : [...base, id];
+    setCustomWidgets(next);
+    if (typeof window !== 'undefined') localStorage.setItem('db_widgets', JSON.stringify(next));
+  };
+
+  const widgetVisible = (id) => activeWidgets.includes(id);
 
   useEffect(() => {
     if (!session?.user || !supabase) return;
@@ -242,6 +284,54 @@ export default function UserDashboardPage() {
       <Navbar />
 
       <main className="pt-16">
+        {/* Dashboard customization bar */}
+        <div className="sticky top-14 z-20 bg-white border-b border-[#E2E8F0] shadow-sm">
+          <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] text-[#9CA3AF] font-medium uppercase tracking-wide">Layout:</span>
+              <div className="flex items-center gap-1 p-0.5 bg-[#F4F6F9] rounded-lg border border-[#E2E8F0]">
+                {Object.entries(PRESETS).map(([key, p]) => (
+                  <button
+                    key={key}
+                    onClick={() => applyPreset(key)}
+                    className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${
+                      preset === key && !customWidgets ? 'bg-[#0077C8] text-white shadow' : 'text-[#9CA3AF] hover:text-[#374151]'
+                    }`}
+                  >
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <button
+              onClick={() => setShowCustomize(!showCustomize)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
+                showCustomize ? 'bg-[#EFF6FF] border-[#0077C8]/30 text-[#0077C8]' : 'border-[#E2E8F0] text-[#6B7280] hover:bg-[#F8FAFC]'
+              }`}
+            >
+              ⚙ Customize Widgets
+            </button>
+          </div>
+          {showCustomize && (
+            <div className="max-w-7xl mx-auto px-6 pb-2 flex items-center gap-3 flex-wrap border-t border-[#E2E8F0] pt-2">
+              <span className="text-[10px] text-[#9CA3AF] font-medium">Widgets:</span>
+              {WIDGET_DEFS.map(w => (
+                <button
+                  key={w.id}
+                  onClick={() => toggleWidget(w.id)}
+                  className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold border transition-all ${
+                    activeWidgets.includes(w.id)
+                      ? 'bg-[#0077C8] border-[#0077C8] text-white'
+                      : 'border-[#E2E8F0] text-[#9CA3AF] hover:border-[#D1D5DB]'
+                  }`}
+                >
+                  {activeWidgets.includes(w.id) ? '✓' : '+'} {w.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
         <div className="max-w-7xl mx-auto px-6 py-10">
           <motion.div
             variants={containerVariants}
@@ -250,7 +340,7 @@ export default function UserDashboardPage() {
             className="space-y-6"
           >
             {/* ── Hero Header ── */}
-            <motion.div variants={itemVariants} className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
+            {widgetVisible('profile') && <motion.div variants={itemVariants} className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
               <div className="h-1.5 w-full bg-gradient-to-r from-[#00338D] via-[#0077C8] to-[#00A36C]" />
               <div className="p-6 flex flex-col sm:flex-row items-start sm:items-center gap-5">
                 <div className="relative">
@@ -291,20 +381,20 @@ export default function UserDashboardPage() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </motion.div>}
 
             {/* ── Stats Row ── */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {widgetVisible('stats') && <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <StatCard icon={FileText}    label="Total Reports"      value={reports.length}        sub="PDFs generated"                          color="#0077C8" />
               <StatCard icon={CheckCircle2} label="Stages Completed"  value={`${stagesCompleted}/6`} sub="Lifecycle progress"                    color="#00A36C" />
               <StatCard icon={BarChart2}   label="Report Types Used"  value={uniqueTypes.length}    sub={`of ${Object.keys(REPORT_META).length} available`} color="#7C3AED" />
               <StatCard icon={Calendar}    label="Member Since"        value={joinDate.split(' ')[2] ?? '—'} sub={joinDate}                       color="#D4A017" />
-            </div>
+            </div>}
 
             {/* ── Main 2-col grid ── */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {(widgetVisible('reports') || widgetVisible('stages')) && <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Reports History Table */}
-              <motion.div variants={itemVariants} className="lg:col-span-2 bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
+              {widgetVisible('reports') && <motion.div variants={itemVariants} className="lg:col-span-2 bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
                 <div className="px-5 py-4 border-b border-[#E2E8F0] flex items-center justify-between gap-3 flex-wrap">
                   <div className="flex items-center gap-2">
                     <FileText size={16} className="text-[#00338D]" />
@@ -392,10 +482,10 @@ export default function UserDashboardPage() {
                     </table>
                   </div>
                 )}
-              </motion.div>
+              </motion.div>}
 
               {/* Stage Progress */}
-              <motion.div variants={itemVariants} className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
+              {widgetVisible('stages') && <motion.div variants={itemVariants} className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
                 <div className="px-5 py-4 border-b border-[#E2E8F0] flex items-center gap-2">
                   <CheckCircle2 size={16} className="text-[#00A36C]" />
                   <h2 className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Lifecycle Progress</h2>
@@ -449,13 +539,13 @@ export default function UserDashboardPage() {
                     </Link>
                   </div>
                 </div>
-              </motion.div>
-            </div>
+              </motion.div>}
+            </div>}
 
             {/* ── Second row ── */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {(widgetVisible('chart') || widgetVisible('stages')) && <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Activity Chart */}
-              <motion.div variants={itemVariants} className="lg:col-span-2 bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
+              {widgetVisible('chart') && <motion.div variants={itemVariants} className="lg:col-span-2 bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
                 <div className="px-5 py-4 border-b border-[#E2E8F0] flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <TrendingUp size={16} className="text-[#0077C8]" />
@@ -506,7 +596,7 @@ export default function UserDashboardPage() {
                     {reports.length === 0 ? 'Generate your first report to see activity here' : `${reports.length} total report${reports.length !== 1 ? 's' : ''} generated`}
                   </p>
                 </div>
-              </motion.div>
+              </motion.div>}
 
               {/* Quick Actions */}
               <motion.div variants={itemVariants} className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
@@ -565,7 +655,7 @@ export default function UserDashboardPage() {
                   ))}
                 </div>
               </motion.div>
-            </div>
+            </div>}
 
             {/* ── Recent Activity Feed ── */}
             <motion.div variants={itemVariants} className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">

@@ -2,29 +2,41 @@
 import { useState, useCallback, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Building2, Server } from 'lucide-react';
+import { Building2, Server, Thermometer } from 'lucide-react';
 import HotspotCard from './HotspotCard';
+import RackDetailPanel from './RackDetailPanel';
 
 const ExteriorModel3D = dynamic(() => import('./ExteriorModel3D'), { ssr: false });
 const InteriorModel3D = dynamic(() => import('./InteriorModel3D'), { ssr: false });
+const ThermalHeatmapView = dynamic(() => import('../thermal/ThermalHeatmapView'), { ssr: false });
 
 export default function DigitalTwinViewer({ dc, zoneHealth, onHotspotChange }) {
   const [view, setView] = useState('exterior');
   const [activeHotspot, setActiveHotspot] = useState(null);
+  const [activeRackId, setActiveRackId] = useState(null);
   const containerRef = useRef(null);
 
   const handleHotspotClick = useCallback((zoneId, canvasPos) => {
+    setActiveRackId(null);
     setActiveHotspot({ zoneId, position: canvasPos });
     onHotspotChange?.(zoneId);
   }, [onHotspotChange]);
 
+  const handleRackClick = useCallback((rackId) => {
+    setActiveHotspot(null);
+    onHotspotChange?.(null);
+    setActiveRackId(rackId);
+  }, [onHotspotChange]);
+
   const handleClose = useCallback(() => {
     setActiveHotspot(null);
+    setActiveRackId(null);
     onHotspotChange?.(null);
   }, [onHotspotChange]);
 
   const handleToggle = (newView) => {
     setActiveHotspot(null);
+    setActiveRackId(null);
     onHotspotChange?.(null);
     setView(newView);
   };
@@ -58,6 +70,17 @@ export default function DigitalTwinViewer({ dc, zoneHealth, onHotspotChange }) {
             <Server size={13} />
             Inside View
           </button>
+          <button
+            onClick={() => handleToggle('thermal')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
+              view === 'thermal'
+                ? 'bg-[#ef4444] text-white shadow'
+                : 'text-[#64748b] hover:text-[#94a3b8]'
+            }`}
+          >
+            <Thermometer size={13} />
+            Thermal
+          </button>
         </div>
 
         {/* DC name tag */}
@@ -67,12 +90,12 @@ export default function DigitalTwinViewer({ dc, zoneHealth, onHotspotChange }) {
         </div>
       </div>
 
-      {/* 3D Canvas */}
+      {/* 3D Canvas / Thermal view */}
       <div className="flex-1 relative overflow-hidden" onClick={(e) => {
         if (e.target === e.currentTarget) handleClose();
       }}>
         <AnimatePresence mode="wait">
-          {view === 'exterior' ? (
+          {view === 'exterior' && (
             <motion.div
               key="exterior"
               initial={{ opacity: 0 }}
@@ -83,7 +106,8 @@ export default function DigitalTwinViewer({ dc, zoneHealth, onHotspotChange }) {
             >
               <ExteriorModel3D dc={dc} zoneHealth={zoneHealth} onHotspotClick={handleHotspotClick} />
             </motion.div>
-          ) : (
+          )}
+          {view === 'interior' && (
             <motion.div
               key="interior"
               initial={{ opacity: 0 }}
@@ -92,7 +116,19 @@ export default function DigitalTwinViewer({ dc, zoneHealth, onHotspotChange }) {
               transition={{ duration: 0.25 }}
               className="absolute inset-0"
             >
-              <InteriorModel3D dc={dc} zoneHealth={zoneHealth} onHotspotClick={handleHotspotClick} />
+              <InteriorModel3D dc={dc} zoneHealth={zoneHealth} onHotspotClick={handleHotspotClick} onRackClick={handleRackClick} />
+            </motion.div>
+          )}
+          {view === 'thermal' && (
+            <motion.div
+              key="thermal"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="absolute inset-0"
+            >
+              <ThermalHeatmapView dc={dc} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -107,25 +143,36 @@ export default function DigitalTwinViewer({ dc, zoneHealth, onHotspotChange }) {
           />
         )}
 
+        {/* Rack detail panel */}
+        {activeRackId && (
+          <RackDetailPanel
+            rackId={activeRackId}
+            dcId={dc?.id}
+            onClose={handleClose}
+          />
+        )}
+
         {/* View label pill */}
         <div className="absolute top-3 left-3 pointer-events-none">
           <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold border ${
             view === 'exterior'
               ? 'bg-[#060e1a]/80 border-[#1e3050] text-[#60a5fa]'
+              : view === 'thermal'
+              ? 'bg-[#1a0000]/80 border-[#3b0000] text-[#f87171]'
               : 'bg-[#0a1220]/80 border-[#1e3050] text-[#34d399]'
           }`}>
             <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{
-              background: view === 'exterior' ? '#60a5fa' : '#34d399'
+              background: view === 'exterior' ? '#60a5fa' : view === 'thermal' ? '#f87171' : '#34d399'
             }} />
-            {view === 'exterior' ? 'EXTERIOR — SECURITY VIEW' : 'INTERIOR — OPERATIONAL VIEW'}
+            {view === 'exterior' ? 'EXTERIOR — SECURITY VIEW' : view === 'thermal' ? 'THERMAL — CFD HEATMAP' : 'INTERIOR — OPERATIONAL VIEW'}
           </div>
         </div>
 
-        {/* Hotspot hint */}
-        {!activeHotspot && (
+        {/* Hint */}
+        {!activeHotspot && !activeRackId && view !== 'thermal' && (
           <div className="absolute bottom-14 left-1/2 -translate-x-1/2 pointer-events-none">
             <div className="text-[10px] text-[#6B7280] font-mono bg-white/70 px-3 py-1 rounded-full border border-[#E2E8F0]">
-              Click glowing markers to inspect zones
+              {view === 'interior' ? 'Click racks or glowing markers to inspect' : 'Click glowing markers to inspect zones'}
             </div>
           </div>
         )}

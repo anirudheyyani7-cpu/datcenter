@@ -16,9 +16,13 @@ const ZONES = [
   { id: 'racks',    label: 'RACKS',    x: 0,   z: 0,    color: 0x34d399 },
 ];
 
-export default function InteriorModel3D({ dc, zoneHealth, onHotspotClick }) {
+const ROW_LABELS = ['A', 'B', 'C', 'D'];
+
+export default function InteriorModel3D({ dc, zoneHealth, onHotspotClick, onRackClick }) {
   const mountRef = useRef(null);
   const sceneRef = useRef(null);
+  const onRackClickRef = useRef(onRackClick);
+  onRackClickRef.current = onRackClick;
 
   useEffect(() => {
     if (!mountRef.current) return;
@@ -26,6 +30,7 @@ export default function InteriorModel3D({ dc, zoneHealth, onHotspotClick }) {
     let animFrameId;
     let THREE_REF;
     let hotspotMeshes = [];
+    let rackMeshes = [];
 
     const getUtilColor = (util) => {
       if (util > 85) return 0xdc2626;
@@ -94,6 +99,7 @@ export default function InteriorModel3D({ dc, zoneHealth, onHotspotClick }) {
         for (let col = 0; col < racksPerRow; col++) {
           const rackUtil = utilPct + (Math.random() - 0.5) * 20;
           const rackColor = getUtilColor(rackUtil);
+          const rackId = `${dc?.id}-${ROW_LABELS[row]}${col + 1}`;
 
           // Rack body
           const rack = new THREE.Mesh(
@@ -104,6 +110,8 @@ export default function InteriorModel3D({ dc, zoneHealth, onHotspotClick }) {
           const rz = row * 1.8 - (rows * 1.8) / 2;
           rack.position.set(rx, 1.1, rz);
           rack.castShadow = true;
+          rack.userData = { rackId };
+          rackMeshes.push(rack);
           scene.add(rack);
 
           // Wireframe
@@ -340,10 +348,20 @@ export default function InteriorModel3D({ dc, zoneHealth, onHotspotClick }) {
         mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
         mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
         raycaster.setFromCamera(mouse, camera);
-        const hits = raycaster.intersectObjects(hotspotMeshes.map((h) => h.sphere));
-        if (hits.length > 0) {
-          const { zoneId } = hits[0].object.userData;
+
+        // Check hotspot spheres first
+        const hotspotHits = raycaster.intersectObjects(hotspotMeshes.map((h) => h.sphere));
+        if (hotspotHits.length > 0) {
+          const { zoneId } = hotspotHits[0].object.userData;
           onHotspotClick?.(zoneId, { x: e.clientX - rect.left, y: e.clientY - rect.top });
+          return;
+        }
+
+        // Then check rack bodies
+        const rackHits = raycaster.intersectObjects(rackMeshes);
+        if (rackHits.length > 0) {
+          const { rackId } = rackHits[0].object.userData;
+          if (rackId) onRackClickRef.current?.(rackId);
         }
       };
       renderer.domElement.addEventListener('click', handleClick);

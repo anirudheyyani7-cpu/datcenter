@@ -7,6 +7,7 @@ import {
   LayoutDashboard, Building2, Server, Cpu, Users, Leaf, Brain,
   AlertTriangle, Wrench, FileText, Settings, Bell, ChevronLeft,
   ChevronRight, Search, Sparkles, Layers, Home,
+  Package, Shield, Plug,
 } from 'lucide-react';
 import AICopilotPanel from './AICopilotPanel';
 
@@ -35,6 +36,14 @@ const NAV_GROUPS = [
       { id: 'maintenance', label: 'Maintenance', icon: Wrench,        href: '/maintenance' },
       { id: 'reports',     label: 'Reports',     icon: FileText,      href: '/reports' },
       { id: 'settings',    label: 'Settings',    icon: Settings,      href: '/settings' },
+    ],
+  },
+  {
+    label: 'V3 Features',
+    items: [
+      { id: 'deployments',  label: 'Loading Bay',   icon: Package, href: '/deployments' },
+      { id: 'scenarios',    label: 'Scenarios',     icon: Shield,  href: '/scenarios' },
+      { id: 'integrations', label: 'Integrations',  icon: Plug,    href: '/integrations' },
     ],
   },
 ];
