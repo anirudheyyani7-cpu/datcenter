@@ -8,6 +8,7 @@ import { Button } from '@/components/shared/Button';
 import { AIThinkingLoader } from '@/components/shared/LoadingDots';
 import AIChatPanel from '@/components/ai-chat/AIChatPanel';
 import useAppStore from '@/store/appStore';
+import { writeToWiki } from '@/lib/wiki';
 
 const ALL_STAGES = [
   { num: '01', label: 'Strategy',     path: '/stage/01' },
@@ -194,6 +195,16 @@ export default function StageLayout({
       setOutput(result);
       setStageOutput(stageNum, result);
       markStageComplete(stageNum);
+
+      // ── Wiki: fire-and-forget knowledge extraction ──────────────────────
+      writeToWiki('stage-completion', result, {
+        stage: stageNum,
+        stageLabel: stageName,
+        region: sessionContext?.region || formData.region || null,
+        capacity: sessionContext?.capacity || formData.capacity || null,
+        workloads: sessionContext?.workloads || formData.workloads || null,
+      });
+      // ───────────────────────────────────────────────────────────────────
 
       // Stage 01 locks in the session context for all subsequent stages
       if (isFirstStage) {

@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Search, Plus, Globe, LayoutDashboard, LogOut, User } from 'lucide-react';
+import { Search, Plus, Globe, LayoutDashboard, LogOut, User, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useSession } from '@/components/SupabaseProvider';
@@ -74,6 +74,15 @@ export default function Navbar() {
             >
               <LayoutDashboard size={14} />
               Command Center
+            </Link>
+            <Link
+              href="/wiki"
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                pathname === '/wiki' ? 'text-white bg-white/10' : 'text-white/60 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <BookOpen size={14} />
+              Knowledge Wiki
             </Link>
 
           </div>
