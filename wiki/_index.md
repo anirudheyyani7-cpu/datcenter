@@ -10,6 +10,17 @@ Auto-maintained by K-Nexus AI. Never edit manually.
 
 ## Recent Updates
 - 2026-05-31: [[clients/mytrah-group/overview]] (created)
+- 2026-05-31: [[clients/arka-ventures/profile]] (created)
+- 2026-05-31: [[concepts/joint-venture-jv]] (created)
+- 2026-05-31: [[concepts/readiness-assessment-framework]] (created)
+- 2026-05-31: [[market/datacenter-sector-overview]] (created)
+- 2026-05-31: [[patterns/new-entrant-jv-pathway]] (created)
+- 2026-05-31: [[clients/notion/overview]] (created)
+- 2026-05-31: [[clients/notion/readiness-assessment]] (created)
+- 2026-05-31: [[concepts/greenfield-client]] (created)
+- 2026-05-31: [[concepts/joint-venture-structures]] (created)
+- 2026-05-31: [[concepts/readiness-scoring]] (created)
+- 2026-05-31: [[patterns/new-entrant-jv-pattern]] (created)
 - 2026-05-31: [[clients/mytrah-group/overview]] (merged)
 - 2026-05-31: [[concepts/tier-3-data-centre]] (created)
 - 2026-05-31: [[concepts/hyperscale-data-centre]] (merged)
