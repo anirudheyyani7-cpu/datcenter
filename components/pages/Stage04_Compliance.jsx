@@ -189,8 +189,8 @@ function Fields({ formData, updateField }) {
   );
 }
 
-async function generateInsights(formData, sessionContext, stageOutputs) {
-  const prompt = buildContextualPrompt(
+async function generateInsights(formData, sessionContext, stageOutputs, researchContext = null) {
+  const basePrompt = buildContextualPrompt(
     'Stage 04: Compliance Checks (Tax, Regulatory, ESG, Cyber)',
     STAGE_CONTEXT,
     formData,
@@ -198,8 +198,9 @@ async function generateInsights(formData, sessionContext, stageOutputs) {
     stageOutputs,
     '04'
   );
+  const researchBlock = researchContext ? `\n\n## LIVE RESEARCH CONTEXT\n${researchContext}` : '';
   const ragQuery = buildRagQuery('datacenter compliance regulatory GDPR DPDP ESG', { ...formData, ...sessionContext });
-  return callClaude({ prompt, maxTokens: 8192, ragQuery });
+  return callClaude({ prompt: basePrompt + researchBlock, maxTokens: 8192, ragQuery });
 }
 
 export default function Stage04() {

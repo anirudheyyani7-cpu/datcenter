@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { callClaude } from '@/lib/claude-api';
 import { writeToWiki } from '@/lib/wiki';
+import { researchClient } from '@/lib/research';
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 const KPMG_BLUE = '#00338D';
@@ -49,15 +50,33 @@ const STAGE_LABELS = {
   '05': 'Operations', '06': 'Monetization',
 };
 
-const COCKPIT_SYSTEM = `You are a senior KPMG Datacenter Advisory AI generating structured JSON data for a real-time client intelligence cockpit dashboard. 
+// ── Persona Detection ─────────────────────────────────────────────────────────
+const PERSONA_DETECTION_SYSTEM = `You are classifying a client brief into exactly one of three datacenter personas.
 
-Given a client brief, you MUST return ONLY a single valid JSON object — no markdown, no backticks, no explanation. Just the JSON.
+You will receive a client brief and optionally live research context about the company.
+Use BOTH the brief AND the research signals (e.g. recent acquisitions = expander, compliance audit = operator) to classify.
 
-The JSON must follow this exact schema:
-
+Return ONLY a JSON object — no markdown, no explanation:
 {
+  "persona": "builder" | "expander" | "operator",
+  "confidence": number between 0 and 1,
+  "signals": ["signal1", "signal2"],
+  "clarificationNeeded": true | false,
+  "clarificationQuestion": "string or null"
+}
+
+Persona definitions:
+- "builder": Client has NO existing datacenter. Wants to build/enter from scratch. Signals: "new to", "foray into", "set up", "establish", "greenfield", "first datacenter", "looking to enter", "no experience", "explore the market"
+- "expander": Client HAS existing DC(s) and wants MORE capacity or new locations. Signals: "expand", "scale up", "additional capacity", "second site", "new location", "increase MW", "portfolio", "acquire", "acquisition", "JV"
+- "operator": Client HAS existing DC(s) and wants to IMPROVE or MANAGE them. Signals: "operations", "running", "currently operate", "compliance", "PMO", "efficiency", "PUE", "uptime", "SLA", "audit", "existing facility", "improve", "optimise"
+
+Set clarificationNeeded: true ONLY if confidence is below 0.6 after seeing both brief and research.
+When clarificationNeeded is true, set clarificationQuestion to one short question like: "Are you looking to build new datacenter capacity, expand existing capacity, or improve operations of a running datacenter?"`;
+
+// ── Shared JSON schema used by all three cockpit system prompts ───────────────
+const COCKPIT_SCHEMA = `{
   "clientName": "string — extracted client/company name",
-  "profile": "new|expansion|ops — classify strictly: new=no DC experience/first entry, expansion=existing DC player scaling up, ops=running DCs needing PMO/ops/compliance help",
+  "profile": "new|expansion|ops",
   "snapshot": {
     "sector": "string — primary industry sector",
     "hq": "string — headquarters location",
@@ -77,72 +96,10 @@ The JSON must follow this exact schema:
     ]
   },
   "marketContext": {
-    "headline": "string — key market stat relevant to client (e.g. 'India DC market growing at 20% CAGR')",
+    "headline": "string — key market stat relevant to client",
     "demandDriver": "string — top demand driver in their target market",
     "supplyGap": "string — key supply gap or opportunity",
     "keyPlayers": ["string", "string", "string"]
-  },
-  "infraRec": {
-    "recommended": "Greenfield|Brownfield|JV|Colocation|Hybrid",
-    "reasoning": "string — 2 sentences explaining why",
-    "alternatives": [
-      {"type": "string", "fit": number 0-100, "note": "string — one line"},
-      {"type": "string", "fit": number 0-100, "note": "string — one line"}
-    ]
-  },
-  "profilePanels": {
-    "new": {
-      "entryOptions": [
-        {"path": "string — option name", "timeline": "string", "capex": "string", "risk": "Low|Medium|High", "note": "string — 1 line"},
-        {"path": "string", "timeline": "string", "capex": "string", "risk": "Low|Medium|High", "note": "string"},
-        {"path": "string", "timeline": "string", "capex": "string", "risk": "Low|Medium|High", "note": "string"}
-      ],
-      "partners": [
-        {"name": "string", "type": "Hyperscaler|EPC|OEM|Investor|Operator", "relevance": "string — 1 line"},
-        {"name": "string", "type": "string", "relevance": "string"},
-        {"name": "string", "type": "string", "relevance": "string"},
-        {"name": "string", "type": "string", "relevance": "string"}
-      ]
-    },
-    "expansion": {
-      "capacityGap": {
-        "current": "string — e.g. '0 MW'",
-        "target": "string — e.g. '300 MW'",
-        "gap": "string",
-        "timeline": "string"
-      },
-      "siteShortlist": [
-        {"location": "string", "score": number 0-100, "pros": "string", "cons": "string"},
-        {"location": "string", "score": number 0-100, "pros": "string", "cons": "string"},
-        {"location": "string", "score": number 0-100, "pros": "string", "cons": "string"}
-      ],
-      "supplyPriorities": [
-        {"item": "string", "priority": "Critical|High|Medium", "note": "string"},
-        {"item": "string", "priority": "Critical|High|Medium", "note": "string"},
-        {"item": "string", "priority": "Critical|High|Medium", "note": "string"},
-        {"item": "string", "priority": "Critical|High|Medium", "note": "string"}
-      ]
-    },
-    "ops": {
-      "healthScores": [
-        {"dimension": "Power Infrastructure", "score": number 0-100},
-        {"dimension": "Cooling Systems", "score": number 0-100},
-        {"dimension": "Compliance & Certs", "score": number 0-100},
-        {"dimension": "Operational Maturity", "score": number 0-100},
-        {"dimension": "ESG / Sustainability", "score": number 0-100},
-        {"dimension": "Financial Performance", "score": number 0-100}
-      ],
-      "complianceGaps": [
-        {"item": "string", "severity": "High|Medium|Low", "action": "string"},
-        {"item": "string", "severity": "High|Medium|Low", "action": "string"},
-        {"item": "string", "severity": "High|Medium|Low", "action": "string"}
-      ],
-      "efficiencyWins": [
-        {"opportunity": "string", "impact": "High|Medium|Low", "effort": "Quick Win|Medium-term|Strategic"},
-        {"opportunity": "string", "impact": "High|Medium|Low", "effort": "Quick Win|Medium-term|Strategic"},
-        {"opportunity": "string", "impact": "High|Medium|Low", "effort": "Quick Win|Medium-term|Strategic"}
-      ]
-    }
   },
   "stageRoadmap": [
     {"stage": "01|02|03|04|05|06", "priority": "Must|Should|Optional", "why": "string — 1 line"},
@@ -161,9 +118,252 @@ The JSON must follow this exact schema:
     {"action": "string", "owner": "string", "by": "string"},
     {"action": "string", "owner": "string", "by": "string"}
   ]
+}`;
+
+// ── Builder: client entering datacenter market for the first time ─────────────
+const COCKPIT_SYSTEM_BUILDER = `You are a senior KPMG Datacenter Advisory AI generating structured JSON for a client intelligence cockpit.
+
+This client is a BUILDER — they have NO existing datacenter and want to enter the market or build capacity from scratch.
+Focus on: greenfield vs brownfield vs JV entry options, partner ecosystem, market entry strategy.
+Do NOT recommend operational improvements — the client does not yet operate a datacenter.
+
+Set "profile": "new" in your response.
+
+For stageRoadmap: all 6 stages are relevant. Stages 01-03 are "Must", 04-06 are "Should".
+
+Return ONLY a single valid JSON object — no markdown, no backticks. Schema:
+
+{
+  "clientName": "string",
+  "profile": "new",
+  "snapshot": { "sector": "string", "hq": "string", "revenue": "string", "experience": "None|Limited", "whyDC": "string" },
+  "readiness": {
+    "score": number 0-100,
+    "rationale": "string",
+    "dimensions": [
+      {"label": "Financial Strength", "score": number},
+      {"label": "Technical Know-how", "score": number},
+      {"label": "Market Timing", "score": number},
+      {"label": "Regulatory Readiness", "score": number},
+      {"label": "Partnership Potential", "score": number}
+    ]
+  },
+  "marketContext": { "headline": "string", "demandDriver": "string", "supplyGap": "string", "keyPlayers": ["string","string","string"] },
+  "infraRec": {
+    "recommended": "Greenfield|Brownfield|JV|Colocation|Hybrid",
+    "reasoning": "string — 2 sentences",
+    "alternatives": [
+      {"type": "string", "fit": number 0-100, "note": "string"},
+      {"type": "string", "fit": number 0-100, "note": "string"}
+    ]
+  },
+  "profilePanels": {
+    "new": {
+      "entryOptions": [
+        {"path": "string", "timeline": "string", "capex": "string", "risk": "Low|Medium|High", "note": "string"},
+        {"path": "string", "timeline": "string", "capex": "string", "risk": "Low|Medium|High", "note": "string"},
+        {"path": "string", "timeline": "string", "capex": "string", "risk": "Low|Medium|High", "note": "string"}
+      ],
+      "partners": [
+        {"name": "string", "type": "Hyperscaler|EPC|OEM|Investor|Operator", "relevance": "string"},
+        {"name": "string", "type": "string", "relevance": "string"},
+        {"name": "string", "type": "string", "relevance": "string"},
+        {"name": "string", "type": "string", "relevance": "string"}
+      ]
+    },
+    "expansion": null,
+    "ops": null
+  },
+  "stageRoadmap": [
+    {"stage": "01", "priority": "Must", "why": "string"},
+    {"stage": "02", "priority": "Must", "why": "string"},
+    {"stage": "03", "priority": "Must", "why": "string"},
+    {"stage": "04", "priority": "Should", "why": "string"},
+    {"stage": "05", "priority": "Should", "why": "string"},
+    {"stage": "06", "priority": "Should", "why": "string"}
+  ],
+  "risks": [
+    {"risk": "string", "severity": "High|Medium|Low", "mitigation": "string"},
+    {"risk": "string", "severity": "High|Medium|Low", "mitigation": "string"},
+    {"risk": "string", "severity": "High|Medium|Low", "mitigation": "string"},
+    {"risk": "string", "severity": "High|Medium|Low", "mitigation": "string"}
+  ],
+  "immediateActions": [
+    {"action": "string", "owner": "string", "by": "string"},
+    {"action": "string", "owner": "string", "by": "string"},
+    {"action": "string", "owner": "string", "by": "string"}
+  ]
 }
 
-Be specific — use client name, capacity (MW), geography, sector throughout. Use Tavily research for real market data. Return ONLY the JSON.`;
+Be specific — use client name, capacity (MW), geography, sector throughout.`;
+
+// ── Expander: client with existing DCs seeking more capacity or new sites ─────
+const COCKPIT_SYSTEM_EXPANDER = `You are a senior KPMG Datacenter Advisory AI generating structured JSON for a client intelligence cockpit.
+
+This client is an EXPANDER — they ALREADY OPERATE datacenter(s) and want to grow: more capacity, new sites, acquisitions, or portfolio optimisation.
+DO NOT recommend greenfield market entry or first-time DC builds — the client already has assets.
+Focus on: capacity expansion options, new site identification, supply chain for scale, financing structures, portfolio optimisation.
+
+Set "profile": "expansion" in your response.
+
+For stageRoadmap: Stage 01 (market/site), 02 (supply chain), 03 (design) are relevant; mark 04 and 05 as "Should" (review existing); 06 (monetisation) is "Must" if seeking revenue from new capacity.
+
+For infraRec.recommended, choose from: "Organic Expansion" | "Acquisition" | "JV Expansion" | "Sale-Leaseback" | "REIT Structure"
+
+Return ONLY a single valid JSON object — no markdown, no backticks. Schema:
+
+{
+  "clientName": "string",
+  "profile": "expansion",
+  "snapshot": { "sector": "string", "hq": "string", "revenue": "string", "experience": "Moderate|Extensive", "whyDC": "string" },
+  "readiness": {
+    "score": number 0-100,
+    "rationale": "string",
+    "dimensions": [
+      {"label": "Financial Strength", "score": number},
+      {"label": "Technical Know-how", "score": number},
+      {"label": "Market Timing", "score": number},
+      {"label": "Regulatory Readiness", "score": number},
+      {"label": "Partnership Potential", "score": number}
+    ]
+  },
+  "marketContext": { "headline": "string", "demandDriver": "string", "supplyGap": "string", "keyPlayers": ["string","string","string"] },
+  "infraRec": {
+    "recommended": "Organic Expansion|Acquisition|JV Expansion|Sale-Leaseback|REIT Structure",
+    "reasoning": "string — 2 sentences focused on expansion strategy, not greenfield entry",
+    "alternatives": [
+      {"type": "string", "fit": number 0-100, "note": "string"},
+      {"type": "string", "fit": number 0-100, "note": "string"}
+    ]
+  },
+  "profilePanels": {
+    "new": null,
+    "expansion": {
+      "capacityGap": { "current": "string e.g. 50 MW", "target": "string e.g. 300 MW", "gap": "string", "timeline": "string" },
+      "siteShortlist": [
+        {"location": "string", "score": number 0-100, "pros": "string", "cons": "string"},
+        {"location": "string", "score": number 0-100, "pros": "string", "cons": "string"},
+        {"location": "string", "score": number 0-100, "pros": "string", "cons": "string"}
+      ],
+      "supplyPriorities": [
+        {"item": "string", "priority": "Critical|High|Medium", "note": "string"},
+        {"item": "string", "priority": "Critical|High|Medium", "note": "string"},
+        {"item": "string", "priority": "Critical|High|Medium", "note": "string"},
+        {"item": "string", "priority": "Critical|High|Medium", "note": "string"}
+      ]
+    },
+    "ops": null
+  },
+  "stageRoadmap": [
+    {"stage": "01", "priority": "Must", "why": "string — site identification and market validation"},
+    {"stage": "02", "priority": "Must", "why": "string — supply chain for scale"},
+    {"stage": "03", "priority": "Must", "why": "string — design for new capacity"},
+    {"stage": "04", "priority": "Should", "why": "string — review compliance across expanded portfolio"},
+    {"stage": "05", "priority": "Should", "why": "string — standardise operations across sites"},
+    {"stage": "06", "priority": "Must", "why": "string — monetise new capacity"}
+  ],
+  "risks": [
+    {"risk": "string", "severity": "High|Medium|Low", "mitigation": "string"},
+    {"risk": "string", "severity": "High|Medium|Low", "mitigation": "string"},
+    {"risk": "string", "severity": "High|Medium|Low", "mitigation": "string"},
+    {"risk": "string", "severity": "High|Medium|Low", "mitigation": "string"}
+  ],
+  "immediateActions": [
+    {"action": "string", "owner": "string", "by": "string"},
+    {"action": "string", "owner": "string", "by": "string"},
+    {"action": "string", "owner": "string", "by": "string"}
+  ]
+}
+
+Be specific — use client name, current MW, target MW, geography, sector throughout.`;
+
+// ── Operator: client with existing DCs wanting to improve/manage them ─────────
+const COCKPIT_SYSTEM_OPERATOR = `You are a senior KPMG Datacenter Advisory AI generating structured JSON for a client intelligence cockpit.
+
+This client is an OPERATOR — they ALREADY RUN datacenters and want to IMPROVE operations, compliance, efficiency, or PMO structure.
+DO NOT recommend building new capacity or market entry — the client is not asking to expand.
+Focus on: operations health, compliance gaps, efficiency opportunities, PMO structure, SLA improvement, cost reduction.
+
+Set "profile": "ops" in your response.
+
+For stageRoadmap: Stage 04 (compliance) and 05 (operations) are primary "Must"; Stage 06 (monetisation) is relevant if they want to unlock revenue; Stages 01-03 should be marked "Optional" with note "not applicable unless expanding".
+
+Instead of infraRec, return opsRec with this structure:
+"opsRec": { "primaryFocus": "string — main ops priority", "approach": "string — 2 sentences on recommended approach", "timeline": "string — e.g. 6-12 months" }
+
+Return ONLY a single valid JSON object — no markdown, no backticks. Schema:
+
+{
+  "clientName": "string",
+  "profile": "ops",
+  "snapshot": { "sector": "string", "hq": "string", "revenue": "string", "experience": "Moderate|Extensive", "whyDC": "string — why ops improvement matters now" },
+  "readiness": {
+    "score": number 0-100,
+    "rationale": "string — readiness for ops improvement programme",
+    "dimensions": [
+      {"label": "Financial Strength", "score": number},
+      {"label": "Technical Know-how", "score": number},
+      {"label": "Market Timing", "score": number},
+      {"label": "Regulatory Readiness", "score": number},
+      {"label": "Partnership Potential", "score": number}
+    ]
+  },
+  "marketContext": { "headline": "string — ops/compliance benchmark relevant to client", "demandDriver": "string", "supplyGap": "string — ops capability gap in market", "keyPlayers": ["string","string","string"] },
+  "opsRec": {
+    "primaryFocus": "string — e.g. PUE Optimisation | Compliance Uplift | PMO Implementation | SLA Improvement",
+    "approach": "string — 2 sentences on the recommended ops programme",
+    "timeline": "string — e.g. 6-12 months"
+  },
+  "profilePanels": {
+    "new": null,
+    "expansion": null,
+    "ops": {
+      "healthScores": [
+        {"dimension": "Power Infrastructure", "score": number 0-100},
+        {"dimension": "Cooling Systems", "score": number 0-100},
+        {"dimension": "Compliance & Certs", "score": number 0-100},
+        {"dimension": "Operational Maturity", "score": number 0-100},
+        {"dimension": "ESG / Sustainability", "score": number 0-100},
+        {"dimension": "Financial Performance", "score": number 0-100}
+      ],
+      "complianceGaps": [
+        {"item": "string", "severity": "High|Medium|Low", "action": "string"},
+        {"item": "string", "severity": "High|Medium|Low", "action": "string"},
+        {"item": "string", "severity": "High|Medium|Low", "action": "string"},
+        {"item": "string", "severity": "High|Medium|Low", "action": "string"},
+        {"item": "string", "severity": "High|Medium|Low", "action": "string"}
+      ],
+      "efficiencyWins": [
+        {"opportunity": "string", "impact": "High|Medium|Low", "effort": "Quick Win|Medium-term|Strategic"},
+        {"opportunity": "string", "impact": "High|Medium|Low", "effort": "Quick Win|Medium-term|Strategic"},
+        {"opportunity": "string", "impact": "High|Medium|Low", "effort": "Quick Win|Medium-term|Strategic"},
+        {"opportunity": "string", "impact": "High|Medium|Low", "effort": "Quick Win|Medium-term|Strategic"},
+        {"opportunity": "string", "impact": "High|Medium|Low", "effort": "Quick Win|Medium-term|Strategic"}
+      ]
+    }
+  },
+  "stageRoadmap": [
+    {"stage": "04", "priority": "Must", "why": "string — compliance and certification gaps"},
+    {"stage": "05", "priority": "Must", "why": "string — operational efficiency and SLA improvement"},
+    {"stage": "06", "priority": "Should", "why": "string — revenue optimisation from existing assets"},
+    {"stage": "01", "priority": "Optional", "why": "Not applicable unless client is also expanding capacity"},
+    {"stage": "02", "priority": "Optional", "why": "Not applicable unless client is also expanding capacity"},
+    {"stage": "03", "priority": "Optional", "why": "Not applicable unless client is also expanding capacity"}
+  ],
+  "risks": [
+    {"risk": "string", "severity": "High|Medium|Low", "mitigation": "string"},
+    {"risk": "string", "severity": "High|Medium|Low", "mitigation": "string"},
+    {"risk": "string", "severity": "High|Medium|Low", "mitigation": "string"},
+    {"risk": "string", "severity": "High|Medium|Low", "mitigation": "string"}
+  ],
+  "immediateActions": [
+    {"action": "string", "owner": "string", "by": "string"},
+    {"action": "string", "owner": "string", "by": "string"},
+    {"action": "string", "owner": "string", "by": "string"}
+  ]
+}
+
+Be specific — use client name, current MW capacity, facility locations, sector, compliance standards throughout.`;
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
@@ -348,40 +548,69 @@ function ClientIntelRow({ data }) {
 }
 
 // ── Section: Infra Rec + Profile Panels ──────────────────────────────────────
-function InfraAndProfile({ data }) {
-  const profile = data.profile;
-  const ir = data.infraRec;
+function InfraRecCard({ ir }) {
   const fitColors = { 90: '#059669', 75: '#0077C8', 60: '#D97706', 0: '#9CA3AF' };
   const fitColor = (score) => Object.entries(fitColors).reverse().find(([k]) => score >= Number(k))?.[1] || '#9CA3AF';
 
   return (
-    <div className="grid grid-cols-3 gap-4 mb-4">
-      {/* Infra Recommendation — always shown */}
-      <Card delay={0.2}>
-        <CardLabel icon={Server} label="Infra Recommendation" color="#7C3AED" />
-        <div className="mb-3 p-3 rounded-xl border-2" style={{ background: '#F5F3FF', borderColor: '#DDD6FE' }}>
-          <p className="text-[9px] font-bold text-[#7C3AED] uppercase tracking-wider mb-0.5">Recommended</p>
-          <p className="text-lg font-black text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{ir.recommended}</p>
-        </div>
-        <p className="text-[11px] text-[#374151] leading-relaxed mb-3">{ir.reasoning}</p>
-        <p className="text-[9px] text-[#9CA3AF] uppercase tracking-wider mb-2">Alternatives</p>
-        {ir.alternatives.map(a => (
-          <div key={a.type} className="flex items-center gap-2 mb-1.5">
-            <div className="flex-1">
-              <div className="flex items-center justify-between mb-0.5">
-                <span className="text-[10px] font-semibold text-[#374151]">{a.type}</span>
-                <span className="text-[10px] font-bold" style={{ color: fitColor(a.fit) }}>{a.fit}%</span>
-              </div>
-              <div className="h-1 bg-[#E2E8F0] rounded-full overflow-hidden">
-                <motion.div className="h-full rounded-full" style={{ background: fitColor(a.fit) }}
-                  initial={{ width: 0 }} animate={{ width: `${a.fit}%` }}
-                  transition={{ duration: 0.8, delay: 0.5 }} />
-              </div>
-              <p className="text-[9px] text-[#9CA3AF] mt-0.5">{a.note}</p>
+    <Card delay={0.2}>
+      <CardLabel icon={Server} label="Infra Recommendation" color="#7C3AED" />
+      <div className="mb-3 p-3 rounded-xl border-2" style={{ background: '#F5F3FF', borderColor: '#DDD6FE' }}>
+        <p className="text-[9px] font-bold text-[#7C3AED] uppercase tracking-wider mb-0.5">Recommended</p>
+        <p className="text-lg font-black text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{ir.recommended}</p>
+      </div>
+      <p className="text-[11px] text-[#374151] leading-relaxed mb-3">{ir.reasoning}</p>
+      <p className="text-[9px] text-[#9CA3AF] uppercase tracking-wider mb-2">Alternatives</p>
+      {ir.alternatives?.map(a => (
+        <div key={a.type} className="flex items-center gap-2 mb-1.5">
+          <div className="flex-1">
+            <div className="flex items-center justify-between mb-0.5">
+              <span className="text-[10px] font-semibold text-[#374151]">{a.type}</span>
+              <span className="text-[10px] font-bold" style={{ color: fitColor(a.fit) }}>{a.fit}%</span>
             </div>
+            <div className="h-1 bg-[#E2E8F0] rounded-full overflow-hidden">
+              <motion.div className="h-full rounded-full" style={{ background: fitColor(a.fit) }}
+                initial={{ width: 0 }} animate={{ width: `${a.fit}%` }}
+                transition={{ duration: 0.8, delay: 0.5 }} />
+            </div>
+            <p className="text-[9px] text-[#9CA3AF] mt-0.5">{a.note}</p>
           </div>
-        ))}
-      </Card>
+        </div>
+      ))}
+    </Card>
+  );
+}
+
+function OpsRecCard({ opsRec }) {
+  return (
+    <Card delay={0.2}>
+      <CardLabel icon={Wrench} label="Ops Recommendation" color="#7C3AED" />
+      <div className="mb-3 p-3 rounded-xl border-2" style={{ background: '#F5F3FF', borderColor: '#DDD6FE' }}>
+        <p className="text-[9px] font-bold text-[#7C3AED] uppercase tracking-wider mb-0.5">Primary Focus</p>
+        <p className="text-base font-black text-[#1A1F36] leading-tight" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{opsRec.primaryFocus}</p>
+      </div>
+      <p className="text-[11px] text-[#374151] leading-relaxed mb-3">{opsRec.approach}</p>
+      <div className="p-2.5 rounded-xl bg-[#F4F6F9] flex items-center gap-2">
+        <Clock size={12} className="text-[#9CA3AF] flex-shrink-0" />
+        <div>
+          <p className="text-[9px] text-[#9CA3AF] uppercase tracking-wider">Programme Timeline</p>
+          <p className="text-[11px] font-bold text-[#374151]">{opsRec.timeline}</p>
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+function InfraAndProfile({ data }) {
+  const profile = data.profile;
+  const isOperator = profile === 'ops';
+
+  return (
+    <div className="grid grid-cols-3 gap-4 mb-4">
+      {isOperator
+        ? <OpsRecCard opsRec={data.opsRec || { primaryFocus: 'Operational Excellence', approach: 'Focus on efficiency and compliance.', timeline: '6-12 months' }} />
+        : <InfraRecCard ir={data.infraRec || {}} />
+      }
 
       {/* Profile-specific panels — span 2 cols */}
       <div className="col-span-2">
@@ -672,16 +901,26 @@ function LoadingState({ clientName }) {
   );
 }
 
+const PERSONA_SYSTEM_MAP = {
+  builder: COCKPIT_SYSTEM_BUILDER,
+  expander: COCKPIT_SYSTEM_EXPANDER,
+  operator: COCKPIT_SYSTEM_OPERATOR,
+};
+
 // ── Main Cockpit ──────────────────────────────────────────────────────────────
 export default function ClientCockpit() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const brief = searchParams.get('brief') || '';
   const clientNameParam = searchParams.get('client') || '';
+  const personaParam = searchParams.get('persona') || ''; // 'builder'|'expander'|'operator'
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [persona, setPersona] = useState(personaParam || null);
+  // Inline clarification state — used when persona cannot be auto-detected
+  const [clarification, setClarification] = useState(null); // { question, researchContext }
 
   useEffect(() => {
     if (!brief) {
@@ -692,23 +931,73 @@ export default function ClientCockpit() {
     generateCockpit();
   }, [brief]);
 
-  const generateCockpit = async () => {
+  const generateCockpit = async (overridePersona = null) => {
     setLoading(true);
     setError(null);
     setData(null);
+    setClarification(null);
+
     try {
-      const raw = await callClaude({
-        prompt: `Generate the client cockpit dashboard JSON for this client brief:\n\n${brief}\n\nClient name hint: ${clientNameParam || 'extract from brief'}`,
-        systemOverride: COCKPIT_SYSTEM,
-        maxTokens: 4000,
-        ragQuery: `${clientNameParam || 'company'} datacenter India market 2025 2026`,
+      // Step 1: fetch research (open-web, no domain whitelist)
+      const researchContext = await researchClient({
+        clientName: clientNameParam || '',
+        brief,
+        sector: null,
+        eventType: 'cockpit',
       });
 
-      // strip any accidental markdown fences
+      // Step 2: determine persona
+      let resolvedPersona = overridePersona || personaParam;
+      if (!resolvedPersona) {
+        // Run fast persona detection using both brief + research
+        try {
+          const detectionPrompt = `Client brief:\n${brief}\n\nLive research about this company:\n${researchContext || 'No research available.'}`;
+          const raw = await callClaude({
+            prompt: detectionPrompt,
+            systemOverride: PERSONA_DETECTION_SYSTEM,
+            maxTokens: 200,
+          });
+          const cleaned = raw.replace(/```json|```/gi, '').trim();
+          const detected = JSON.parse(cleaned);
+
+          if (detected.clarificationNeeded) {
+            // Cannot auto-detect — show inline clarification UI
+            setClarification({ question: detected.clarificationQuestion, researchContext });
+            setLoading(false);
+            return;
+          }
+          resolvedPersona = detected.persona;
+        } catch {
+          resolvedPersona = 'builder'; // safe default
+        }
+      }
+
+      setPersona(resolvedPersona);
+
+      // Step 3: select persona-specific system prompt
+      const systemPrompt = PERSONA_SYSTEM_MAP[resolvedPersona] || COCKPIT_SYSTEM_BUILDER;
+
+      // Step 4: inject research context into the system prompt
+      const enrichedSystem = researchContext
+        ? `${systemPrompt}\n\n## LIVE RESEARCH CONTEXT (retrieved ${new Date().toISOString()})\n${researchContext}\n\nIMPORTANT: If the research context contains very recent announcements (check dates), flag these prominently in the assessment as they may significantly change the strategic picture. Do not miss breaking news about this company.`
+        : systemPrompt;
+
+      // Step 5: generate cockpit JSON
+      const raw = await callClaude({
+        prompt: `Generate the client cockpit dashboard JSON for this client brief:\n\n${brief}\n\nClient name hint: ${clientNameParam || 'extract from brief'}`,
+        systemOverride: enrichedSystem,
+        maxTokens: 4000,
+      });
+
       const cleaned = raw.replace(/```json|```/gi, '').trim();
       const parsed = JSON.parse(cleaned);
       setData(parsed);
-      writeToWiki('cockpit', brief, { client: parsed.clientName, profile: parsed.profile, infraRec: parsed.infraRec?.recommended, readinessScore: parsed.readiness?.score });
+      writeToWiki('cockpit', brief, {
+        client: parsed.clientName,
+        profile: parsed.profile,
+        infraRec: parsed.infraRec?.recommended || parsed.opsRec?.primaryFocus,
+        readinessScore: parsed.readiness?.score,
+      });
     } catch (err) {
       setError(`Failed to generate cockpit: ${err.message}`);
     } finally {
@@ -743,7 +1032,7 @@ export default function ClientCockpit() {
         </div>
         <div className="flex items-center gap-2">
           {data && (
-            <button onClick={generateCockpit}
+            <button onClick={() => generateCockpit(persona)}
               className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white text-[11px] font-semibold rounded-lg transition-colors">
               <RefreshCw size={12} /> Regenerate
             </button>
@@ -786,7 +1075,41 @@ export default function ClientCockpit() {
           </div>
         )}
 
-        {error && !loading && (
+        {/* Inline persona clarification — shown when auto-detection confidence is low */}
+        {clarification && !loading && !data && (
+          <div className="h-full flex flex-col items-center justify-center gap-6 p-8">
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center" style={{ background: `${KPMG_BLUE}12` }}>
+              <Target size={28} style={{ color: KPMG_BLUE }} />
+            </div>
+            <div className="text-center max-w-md">
+              <p className="text-lg font-extrabold text-[#1A1F36] mb-2" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                One quick question
+              </p>
+              <p className="text-sm text-[#6B7280] leading-relaxed">
+                {clarification.question || 'What is the primary goal for this engagement?'}
+              </p>
+            </div>
+            <div className="flex gap-3 flex-wrap justify-center">
+              {[
+                { key: 'builder', label: 'Build New DC', Icon: Building2 },
+                { key: 'expander', label: 'Expand Existing', Icon: TrendingUp },
+                { key: 'operator', label: 'Improve Operations', Icon: Wrench },
+              ].map(({ key, label, Icon }) => (
+                <button
+                  key={key}
+                  onClick={() => generateCockpit(key)}
+                  className="flex items-center gap-2 px-5 py-3 rounded-xl border-2 font-bold text-sm transition-all hover:shadow-md"
+                  style={{ borderColor: KPMG_BLUE, color: KPMG_BLUE, background: 'white' }}
+                >
+                  <Icon size={16} />
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {error && !loading && !clarification && (
           <div className="h-full flex flex-col items-center justify-center gap-4">
             <AlertTriangle size={40} className="text-[#DC2626]" />
             <div className="text-center">

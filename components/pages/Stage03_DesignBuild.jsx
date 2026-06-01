@@ -20,8 +20,8 @@ function Fields({ formData, updateField }) {
   );
 }
 
-async function generateInsights(formData, sessionContext, stageOutputs) {
-  const prompt = buildContextualPrompt(
+async function generateInsights(formData, sessionContext, stageOutputs, researchContext = null) {
+  const basePrompt = buildContextualPrompt(
     'Stage 03: Design & Build Requirements',
     STAGE_CONTEXT,
     formData,
@@ -29,8 +29,9 @@ async function generateInsights(formData, sessionContext, stageOutputs) {
     stageOutputs,
     '03'
   );
+  const researchBlock = researchContext ? `\n\n## LIVE RESEARCH CONTEXT\n${researchContext}` : '';
   const ragQuery = buildRagQuery('datacenter design build cooling architecture', { ...formData, ...sessionContext });
-  return callClaude({ prompt, maxTokens: 8192, ragQuery });
+  return callClaude({ prompt: basePrompt + researchBlock, maxTokens: 8192, ragQuery });
 }
 
 export default function Stage03() {

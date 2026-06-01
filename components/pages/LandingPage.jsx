@@ -2,11 +2,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { Globe, ArrowRight, X, Upload, FileText, Sparkles, LayoutDashboard, MessageCircle, Send, ChevronRight, ExternalLink, Clock, Newspaper, Download, FileSearch, Zap } from 'lucide-react';
+import { Globe, ArrowRight, X, Upload, FileText, Sparkles, LayoutDashboard, MessageCircle, Send, ChevronRight, ExternalLink, Clock, Newspaper, Download, FileSearch, Zap, Building2, TrendingUp, Settings } from 'lucide-react';
 import LifecycleWheel from '@/components/lifecycle-wheel/LifecycleWheel';
 import { LoadingDots } from '@/components/shared/LoadingDots';
 import { callClaude } from '@/lib/claude-api';
 import { writeToWiki } from '@/lib/wiki';
+import { researchClientLight } from '@/lib/research';
 import useAppStore from '@/store/appStore';
 
 const STAGE_DIRECTORY = [
@@ -456,6 +457,20 @@ function renderBotText(text) {
   });
 }
 
+// ── Persona Detection (shared with ClientCockpit) ─────────────────────────────
+const GUIDEBOT_PERSONA_DETECTION = `You are classifying a client brief into exactly one of three datacenter personas.
+Return ONLY a JSON object — no markdown, no explanation:
+{
+  "persona": "builder" | "expander" | "operator",
+  "confidence": number between 0 and 1,
+  "clarificationNeeded": true | false,
+  "clarificationQuestion": "string or null"
+}
+- "builder": no existing DC, wants to build/enter from scratch
+- "expander": has existing DC(s), wants more capacity or new sites
+- "operator": has existing DC(s), wants to improve/manage operations
+Set clarificationNeeded: true ONLY if confidence < 0.6 after seeing brief and research context.`;
+
 // ── Guide Bot ─────────────────────────────────────────────────────────────────
 function GuideBot() {
   const router = useRouter();
@@ -471,6 +486,10 @@ function GuideBot() {
   const [reportContent, setReportContent] = useState('');
   const [reportType, setReportType] = useState('');
   const [pdfLoading, setPdfLoading] = useState(false);
+  const [detectedPersona, setDetectedPersona] = useState(null);
+  const [personaClarificationQ, setPersonaClarificationQ] = useState(null);
+  const [personaLoading, setPersonaLoading] = useState(false);
+  const [lightResearch, setLightResearch] = useState(null);
   const inputRef = useRef(null);
   const bottomRef = useRef(null);
 
@@ -520,6 +539,29 @@ function GuideBot() {
     return 'Client';
   };
 
+  const runPersonaDetection = async (brief, researchContext) => {
+    setPersonaLoading(true);
+    setDetectedPersona(null);
+    setPersonaClarificationQ(null);
+    try {
+      const raw = await callClaude({
+        prompt: `Client brief: ${brief}\n\nResearch context:\n${researchContext || 'None available.'}`,
+        systemOverride: GUIDEBOT_PERSONA_DETECTION,
+        maxTokens: 200,
+      });
+      const personaData = JSON.parse(raw.replace(/```json|```/gi, '').trim());
+      if (personaData.clarificationNeeded) {
+        setPersonaClarificationQ(personaData.clarificationQuestion || 'Are you looking to build new datacenter capacity, expand existing capacity, or improve operations of a running datacenter?');
+      } else {
+        setDetectedPersona(personaData.persona);
+      }
+    } catch {
+      // Fail silently — GuideBot continues normally, cockpit link just won't carry a persona param
+    } finally {
+      setPersonaLoading(false);
+    }
+  };
+
   const sendMessage = async () => {
     const trimmed = input.trim();
     if (!trimmed || loading) return;
@@ -534,11 +576,24 @@ function GuideBot() {
     if (name !== 'Client') setClientName(name);
     setClientContext(trimmed);
 
+    // Kick off light research in parallel for complex queries (>80 chars)
+    const researchPromise = trimmed.length > 80
+      ? researchClientLight({ clientName: name, brief: trimmed })
+      : Promise.resolve(null);
+
     const history = [...messages, userMsg].map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.text}`).join('\n\n');
+
+    // Await research (runs in parallel with history build; usually done by now)
+    const researchResult = await researchPromise;
+    if (researchResult) setLightResearch(researchResult);
+
+    const enrichedHistory = researchResult
+      ? `[Research context: ${researchResult}]\n\n${history}`
+      : history;
 
     try {
       const response = await callClaude({
-        prompt: history,
+        prompt: enrichedHistory,
         systemOverride: GUIDE_BOT_SYSTEM,
         maxTokens: 500,
         ragQuery: trimmed.length > 50 ? `${name} company datacenter India` : null,
@@ -552,6 +607,8 @@ function GuideBot() {
           setRedirect({ stage: match.num, label: match.label, path: match.path, reason: stageData.reason || '' });
           if (stageData.isComplex) {
             setBotPhase('assessment-offer');
+            // Run persona detection using brief + already-fetched research
+            runPersonaDetection(trimmed, researchResult);
           }
         }
       }
@@ -691,12 +748,45 @@ function GuideBot() {
                   {botPhase === 'assessment-offer' && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="border-t border-[#00338D]/10 pt-3 space-y-2">
                       <p className="text-[10px] text-[#6B7280] mb-2 font-medium">Complex requirement detected. How would you like to proceed?</p>
+
+                      {/* Persona clarification — shown when auto-detection confidence is low */}
+                      {personaClarificationQ && !detectedPersona && (
+                        <div className="mb-2">
+                          <p className="text-[10px] text-[#374151] mb-2">{personaClarificationQ}</p>
+                          <div className="flex flex-col gap-1.5">
+                            {[
+                              { key: 'builder', label: 'Build New DC', Icon: Building2 },
+                              { key: 'expander', label: 'Expand Existing', Icon: TrendingUp },
+                              { key: 'operator', label: 'Improve Operations', Icon: Settings },
+                            ].map(({ key, label, Icon }) => (
+                              <button
+                                key={key}
+                                onClick={() => { setDetectedPersona(key); setPersonaClarificationQ(null); }}
+                                className="flex items-center gap-2 px-3 py-2 bg-white border border-[#00338D]/20 text-[#00338D] text-[10px] font-bold rounded-lg hover:bg-[#00338D]/5 transition-colors"
+                              >
+                                <Icon size={11} />
+                                {label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Persona detection in progress */}
+                      {personaLoading && !personaClarificationQ && !detectedPersona && (
+                        <div className="flex items-center gap-2 py-1">
+                          <div className="w-3 h-3 border-2 border-[#0077C8]/30 border-t-[#0077C8] rounded-full animate-spin flex-shrink-0" />
+                          <span className="text-[9px] text-[#9CA3AF]">Analysing client profile...</span>
+                        </div>
+                      )}
+
                       <button
                         onClick={() => {
                           setOpen(false);
                           const params = new URLSearchParams({
                             brief: clientContext,
                             client: clientName !== 'Client' ? clientName : '',
+                            ...(detectedPersona ? { persona: detectedPersona } : {}),
                           });
                           router.push(`/client-cockpit?${params.toString()}`);
                         }}

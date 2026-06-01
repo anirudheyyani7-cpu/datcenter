@@ -21,8 +21,8 @@ function Fields({ formData, updateField }) {
   );
 }
 
-async function generateInsights(formData, sessionContext, stageOutputs) {
-  const prompt = buildContextualPrompt(
+async function generateInsights(formData, sessionContext, stageOutputs, researchContext = null) {
+  const basePrompt = buildContextualPrompt(
     'Stage 05: DC Operations',
     STAGE_CONTEXT,
     formData,
@@ -30,8 +30,9 @@ async function generateInsights(formData, sessionContext, stageOutputs) {
     stageOutputs,
     '05'
   );
+  const researchBlock = researchContext ? `\n\n## LIVE RESEARCH CONTEXT\n${researchContext}` : '';
   const ragQuery = buildRagQuery('datacenter operations PUE DCIM efficiency optimization', { ...formData, ...sessionContext });
-  return callClaude({ prompt, maxTokens: 8192, ragQuery });
+  return callClaude({ prompt: basePrompt + researchBlock, maxTokens: 8192, ragQuery });
 }
 
 function OperationCards() {

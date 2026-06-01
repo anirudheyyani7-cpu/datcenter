@@ -113,14 +113,13 @@ function Fields({ formData, updateField }) {
   );
 }
 
-async function generateInsights(formData) {
+async function generateInsights(formData, sessionContext, stageOutputs, researchContext = null) {
   const dcData = await loadDatacenters();
   const knownCountries = Object.keys(dcData.country_summary || {});
   const regionData = formData.region && knownCountries.includes(formData.region)
     ? getCountryDataForAI(dcData, formData.region)
     : null;
 
-  // Pass human-readable location into the prompt
   const enrichedFormData = {
     ...formData,
     location: formData.state
@@ -128,9 +127,10 @@ async function generateInsights(formData) {
       : formData.region,
   };
 
-  const prompt = buildStagePrompt('Stage 01: Strategy Assessment & Market Scan', STAGE_CONTEXT, enrichedFormData, regionData);
+  const basePrompt = buildStagePrompt('Stage 01: Strategy Assessment & Market Scan', STAGE_CONTEXT, enrichedFormData, regionData);
+  const researchBlock = researchContext ? `\n\n## LIVE RESEARCH CONTEXT\n${researchContext}` : '';
   const ragQuery = buildRagQuery('strategy assessment market', enrichedFormData);
-  return callClaude({ prompt, maxTokens: 8192, ragQuery });
+  return callClaude({ prompt: basePrompt + researchBlock, maxTokens: 8192, ragQuery });
 }
 
 export default function Stage01() {

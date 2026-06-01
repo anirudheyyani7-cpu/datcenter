@@ -9,6 +9,7 @@ import { AIThinkingLoader } from '@/components/shared/LoadingDots';
 import AIChatPanel from '@/components/ai-chat/AIChatPanel';
 import useAppStore from '@/store/appStore';
 import { writeToWiki } from '@/lib/wiki';
+import { researchClient } from '@/lib/research';
 
 const ALL_STAGES = [
   { num: '01', label: 'Strategy',     path: '/stage/01' },
@@ -191,7 +192,17 @@ export default function StageLayout({
     setLoading(true);
     setError(null);
     try {
-      const result = await generateInsights(formData, sessionContext, stageOutputs);
+      // Fetch research with a 5s timeout — if it takes longer, continue without it
+      const researchPromise = researchClient({
+        clientName: sessionContext?.client || null,
+        brief: JSON.stringify(formData),
+        sector: sessionContext?.sector || null,
+        eventType: 'stage',
+      });
+      const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(null), 5000));
+      const stageResearch = await Promise.race([researchPromise, timeoutPromise]);
+
+      const result = await generateInsights(formData, sessionContext, stageOutputs, stageResearch);
       setOutput(result);
       setStageOutput(stageNum, result);
       markStageComplete(stageNum);
