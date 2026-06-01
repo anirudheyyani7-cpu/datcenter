@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -7,11 +7,12 @@ import {
   Globe, Zap, Leaf, Activity, Server, X, ArrowLeft, Search,
   Bot, Award, Users, Wifi, Radio, Building2, Network
 } from 'lucide-react';
-import { loadDatacenters, calculateGlobalStats, formatDatacenterForAI } from '@/lib/datacenter-data';
+import { loadDatacenters, calculateGlobalStats, formatDatacenterForAI, filterPeeringFacilities } from '@/lib/datacenter-data';
 import { getCountryColor, getPUEColor } from '@/utils/helpers';
 import { StatusBadge } from '@/components/shared/Badge';
 import { LoadingDots } from '@/components/shared/LoadingDots';
 import AIChatPanel from '@/components/ai-chat/AIChatPanel';
+import PeeringDetailPanel from '@/components/pages/PeeringDetailPanel';
 import useAppStore from '@/store/appStore';
 
 const MapContainer = dynamic(() => import('react-leaflet').then(m => m.MapContainer), { ssr: false });
@@ -202,26 +203,65 @@ export default function GlobalDashboard() {
   const { selectedCountry, setSelectedCountry, selectedDatacenter, setSelectedDatacenter } = useAppStore();
   const [showAIPanel, setShowAIPanel] = useState(false);
   const [localStats, setLocalStats] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(null);
+
+  // PeeringDB global facilities state
+  const [peeringRaw, setPeeringRaw] = useState([]);
+  const [selectedPeeringFacility, setSelectedPeeringFacility] = useState(null);
+  const [peeringDetail, setPeeringDetail] = useState(null);
+  const [peeringDetailLoading, setPeeringDetailLoading] = useState(false);
 
   useEffect(() => {
-    // Load local JSON data
     loadDatacenters().then(data => {
       setDcData(data);
       setLocalStats(calculateGlobalStats(data.datacenters));
       setLoading(false);
     });
 
-    // Load live global stats from PeeringDB
     fetch('/api/global-stats')
       .then(r => r.json())
       .then(setGlobalStats)
       .catch(() => {});
 
+    // Load all PeeringDB facilities in the background
+    fetch('/api/peeringdb-facilities')
+      .then(r => r.json())
+      .then(data => { if (data.facilities?.length) setPeeringRaw(data.facilities); })
+      .catch(() => {});
+
     return () => setSelectedDatacenter(null);
   }, []);
 
-  // Country filter: use global markets from API + local countries from JSON
+  // Deduplicate: remove PeeringDB facilities that are already in the curated set
+  const peeringFacilities = useMemo(() => {
+    if (!peeringRaw.length || !dcData) return peeringRaw;
+    return filterPeeringFacilities(peeringRaw, dcData.datacenters);
+  }, [peeringRaw, dcData]);
+
+  async function handlePeeringClick(facility) {
+    // Close curated panel if open
+    setSelectedDatacenter(null);
+    setShowAIPanel(false);
+    setSelectedPeeringFacility(facility);
+    setPeeringDetail(null);
+    setPeeringDetailLoading(true);
+
+    const existingData = `Datacenter: ${facility.name}\nLocation: ${facility.city}, ${facility.country}\nOrganisation: ${facility.org_name || 'Unknown'}\nSource: PeeringDB Global Registry`;
+    try {
+      const res = await fetch('/api/facility', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: facility.name, city: facility.city, country: facility.country, existingData }),
+      });
+      const data = await res.json();
+      setPeeringDetail(data);
+    } catch {
+      setPeeringDetail({ liveData: null, summary: null });
+    } finally {
+      setPeeringDetailLoading(false);
+    }
+  }
+
   const localCountries = dcData
     ? Array.from(new Set(dcData.datacenters.map(dc => dc.country))).sort()
     : [];
@@ -231,7 +271,7 @@ export default function GlobalDashboard() {
     : ['All', ...localCountries];
 
   const filteredDCs = dcData?.datacenters.filter(dc => {
-    const matchesCountry = selectedCountry === 'All' || dc.country === selectedCountry;
+    const matchesCountry = !selectedCountry || selectedCountry === 'All' || dc.country === selectedCountry;
     const matchesSearch = !searchQuery ||
       dc.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       dc.city.toLowerCase().includes(searchQuery.toLowerCase());
@@ -246,18 +286,17 @@ export default function GlobalDashboard() {
     );
   }
 
-  // Stats: blend local precise data with global live counts
   const displayStats = {
-    // Local curated facilities (precise)
     curatedFacilities: localStats?.total || 0,
     totalCapacity: localStats?.totalCapacity || 0,
     avgPUE: localStats?.avgPUE || 0,
     avgRenewable: localStats?.avgRenewable || 0,
-    // Global live counts from PeeringDB
     globalFacilities: globalStats?.globalFacilities || null,
     globalMarkets: globalStats?.marketsCount || localStats?.countries || 0,
     globalExchanges: globalStats?.globalExchanges || null,
   };
+
+  const totalPinsOnMap = filteredDCs.length + peeringFacilities.length;
 
   return (
     <div className="min-h-screen bg-[#0D1428] pt-16 flex flex-col">
@@ -270,24 +309,22 @@ export default function GlobalDashboard() {
             <div className="ml-auto"><LiveBadge /></div>
           </div>
 
-          {/* Stats row — 6 cards mixing curated + live global data */}
           <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-4">
-            <StatCard icon={Server}    label="Curated Facilities"  value={displayStats.curatedFacilities}          color="#0077C8" sublabel="KPMG monitored" />
-            <StatCard icon={Building2} label="Global Facilities"   value={displayStats.globalFacilities  || 9000}  color="#0055A4" sublabel="Live global count" />
-            <StatCard icon={Globe}     label="Markets Covered"     value={displayStats.globalMarkets     || 25}    color="#00A36C" sublabel="Active regions" />
-            <StatCard icon={Network}   label="Internet Exchanges"  value={displayStats.globalExchanges   || 1200}  color="#D4A017" sublabel="Global IX points" />
-            <StatCard icon={Activity}  label="Average PUE"         value={displayStats.avgPUE} decimals={2}        color="#0077C8" sublabel="Curated portfolio" />
-            <StatCard icon={Leaf}      label="Avg Renewable %"     value={displayStats.avgRenewable} suffix="%"    color="#00A36C" sublabel="Curated portfolio" />
+            <StatCard icon={Server}    label="Curated Facilities"  value={displayStats.curatedFacilities}                         color="#0077C8" sublabel="KPMG monitored" />
+            <StatCard icon={Building2} label="Global Coverage"     value={peeringFacilities.length || displayStats.globalFacilities || 9000} color="#0055A4" sublabel="PeeringDB tracked" />
+            <StatCard icon={Globe}     label="Markets Covered"     value={displayStats.globalMarkets || 25}                       color="#00A36C" sublabel="Active regions" />
+            <StatCard icon={Network}   label="Internet Exchanges"  value={displayStats.globalExchanges || 1200}                   color="#D4A017" sublabel="Global IX points" />
+            <StatCard icon={Activity}  label="Average PUE"         value={displayStats.avgPUE} decimals={2}                      color="#0077C8" sublabel="Curated portfolio" />
+            <StatCard icon={Leaf}      label="Avg Renewable %"     value={displayStats.avgRenewable} suffix="%"                  color="#00A36C" sublabel="Curated portfolio" />
           </div>
 
-          {/* Country filter — global list from API */}
           <div className="flex items-center gap-2 flex-wrap mb-1">
             <div className="flex items-center gap-1.5 flex-wrap flex-1">
               {allFilterCountries.map(c => {
                 const localCount = dcData?.datacenters.filter(d => d.country === c).length || 0;
                 const hasLocal = c === 'All' || localCount > 0;
                 return (
-                  <button key={c} onClick={() => { setSelectedCountry(c); setSelectedDatacenter(null); }}
+                  <button key={c} onClick={() => { setSelectedCountry(c); setSelectedDatacenter(null); setSelectedPeeringFacility(null); }}
                     className={`px-2.5 py-1 rounded-full text-xs font-semibold transition-all whitespace-nowrap ${
                       selectedCountry === c
                         ? 'bg-[#0077C8] text-white shadow-md'
@@ -305,7 +342,7 @@ export default function GlobalDashboard() {
             </div>
             <div className="relative flex-shrink-0">
               <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-              <input type="text" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder="Search facilities..."
+              <input type="text" value={searchQuery || ''} onChange={e => setSearchQuery(e.target.value)} placeholder="Search facilities..."
                 className="bg-white border border-slate-200 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#0077C8]/50 w-44" />
             </div>
           </div>
@@ -323,16 +360,28 @@ export default function GlobalDashboard() {
               attribution='&copy; OpenStreetMap &copy; CARTO'
               maxZoom={19}
             />
-            <MapHook selectedCountry={selectedCountry} selectedDC={selectedDatacenter} dcData={dcData} filteredDCs={filteredDCs}
-              setSelectedDatacenter={setSelectedDatacenter} setShowAIPanel={setShowAIPanel} getPUEColor={getPUEColor} getCountryColor={getCountryColor} />
+            <MapHook
+              selectedCountry={selectedCountry}
+              selectedDC={selectedDatacenter}
+              dcData={dcData}
+              filteredDCs={filteredDCs}
+              peeringFacilities={peeringFacilities}
+              setSelectedDatacenter={setSelectedDatacenter}
+              onPeeringClick={handlePeeringClick}
+              setShowAIPanel={setShowAIPanel}
+              getPUEColor={getPUEColor}
+              getCountryColor={getCountryColor}
+            />
           </MapContainer>
 
           <div className="absolute top-4 left-4 z-10 glass-dark rounded-xl px-4 py-2.5">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-[#00A36C] animate-pulse" />
               <span className="text-white/80 text-sm font-semibold">
-                {filteredDCs.length} curated {filteredDCs.length === 1 ? 'facility' : 'facilities'}
-                {displayStats.globalFacilities && <span className="text-white/40 font-normal"> · {displayStats.globalFacilities.toLocaleString()} tracked globally</span>}
+                {filteredDCs.length} curated
+                {peeringFacilities.length > 0 && (
+                  <span className="text-white/40 font-normal"> · {totalPinsOnMap.toLocaleString()} total on map</span>
+                )}
               </span>
             </div>
           </div>
@@ -356,6 +405,15 @@ export default function GlobalDashboard() {
               <DatacenterDetailPanel key={`detail-${selectedDatacenter.id}`} dc={selectedDatacenter}
                 onClose={() => setSelectedDatacenter(null)} onAskAI={() => setShowAIPanel(true)} />
             )
+          )}
+          {selectedPeeringFacility && !selectedDatacenter && (
+            <PeeringDetailPanel
+              key={`peering-${selectedPeeringFacility.id}`}
+              facility={selectedPeeringFacility}
+              detail={peeringDetail}
+              loading={peeringDetailLoading}
+              onClose={() => setSelectedPeeringFacility(null)}
+            />
           )}
         </AnimatePresence>
       </div>

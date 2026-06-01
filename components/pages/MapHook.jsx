@@ -6,8 +6,11 @@
  */
 import { useEffect } from 'react';
 import { useMap, Marker, Popup } from 'react-leaflet';
+import MarkerClusterGroup from 'react-leaflet-cluster';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import 'react-leaflet-cluster/dist/assets/MarkerCluster.css';
+import 'react-leaflet-cluster/dist/assets/MarkerCluster.Default.css';
 
 // Fix default Leaflet icon paths
 delete L.Icon.Default.prototype._getIconUrl;
@@ -30,6 +33,16 @@ function createDCIcon(country, color, isSelected = false) {
   return L.divIcon({ html: svg, className: '', iconSize: [size, size * 1.17], iconAnchor: [size / 2, size * 1.17], popupAnchor: [0, -size * 1.17] });
 }
 
+// Small grey dot for non-curated PeeringDB facilities
+const peeringIcon = L.divIcon({
+  html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12">
+    <circle cx="6" cy="6" r="5" fill="#64748b" stroke="white" stroke-width="1.5" opacity="0.75"/>
+  </svg>`,
+  className: '',
+  iconSize: [12, 12],
+  iconAnchor: [6, 6],
+});
+
 function MapController({ selectedCountry, selectedDC, dcData }) {
   const map = useMap();
   useEffect(() => {
@@ -49,46 +62,65 @@ function MapController({ selectedCountry, selectedDC, dcData }) {
   return null;
 }
 
-export default function MapHook({ selectedCountry, selectedDC, dcData, filteredDCs, setSelectedDatacenter, setShowAIPanel, getPUEColor, getCountryColor }) {
+export default function MapHook({
+  selectedCountry, selectedDC, dcData, filteredDCs, peeringFacilities,
+  setSelectedDatacenter, onPeeringClick, setShowAIPanel, getPUEColor, getCountryColor,
+}) {
   const map = useMap();
+
+  const validCurated = filteredDCs.filter(dc => {
+    const lat = dc.coordinates?.lat;
+    const lng = dc.coordinates?.lng;
+    return lat != null && lng != null && !isNaN(lat) && !isNaN(lng);
+  });
 
   return (
     <>
       <MapController selectedCountry={selectedCountry} selectedDC={selectedDC} dcData={dcData} />
-      {filteredDCs.filter(dc => {
-        const lat = dc.coordinates?.lat;
-        const lng = dc.coordinates?.lng;
-        return lat != null && lng != null && !isNaN(lat) && !isNaN(lng);
-      }).map(dc => (
-        <Marker
-          key={dc.id}
-          position={[dc.coordinates.lat, dc.coordinates.lng]}
-          icon={createDCIcon(dc.country, getCountryColor(dc.country), selectedDC?.id === dc.id)}
-        >
-          <Popup>
-            <div className="p-3 min-w-[200px]">
-              <div className="text-white font-bold text-sm mb-1" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{dc.name}</div>
-              <div className="text-white/50 text-xs mb-3">{dc.operator}</div>
-              <div className="grid grid-cols-2 gap-2">
-                <div className="text-center">
-                  <div className="text-[#0077C8] font-bold font-mono">{dc.capacity_mw}MW</div>
-                  <div className="text-white/40 text-xs">Capacity</div>
+
+      <MarkerClusterGroup chunkedLoading disableClusteringAtZoom={14}>
+        {/* Curated KPMG facilities — full detail on click */}
+        {validCurated.map(dc => (
+          <Marker
+            key={`curated-${dc.id}`}
+            position={[dc.coordinates.lat, dc.coordinates.lng]}
+            icon={createDCIcon(dc.country, getCountryColor(dc.country), selectedDC?.id === dc.id)}
+          >
+            <Popup>
+              <div className="p-3 min-w-[200px]">
+                <div className="text-white font-bold text-sm mb-1" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{dc.name}</div>
+                <div className="text-white/50 text-xs mb-3">{dc.operator}</div>
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="text-center">
+                    <div className="text-[#0077C8] font-bold font-mono">{dc.capacity_mw}MW</div>
+                    <div className="text-white/40 text-xs">Capacity</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="font-bold font-mono" style={{ color: getPUEColor(dc.pue) }}>{dc.pue}</div>
+                    <div className="text-white/40 text-xs">PUE</div>
+                  </div>
                 </div>
-                <div className="text-center">
-                  <div className="font-bold font-mono" style={{ color: getPUEColor(dc.pue) }}>{dc.pue}</div>
-                  <div className="text-white/40 text-xs">PUE</div>
-                </div>
+                <button
+                  onClick={() => { map.closePopup(); setSelectedDatacenter(dc); setShowAIPanel(false); }}
+                  className="w-full mt-3 text-xs px-3 py-1.5 bg-[#00338D] text-white rounded-lg hover:bg-[#0044b8] transition-colors font-semibold"
+                >
+                  View Details →
+                </button>
               </div>
-              <button
-                onClick={() => { map.closePopup(); setSelectedDatacenter(dc); setShowAIPanel(false); }}
-                className="w-full mt-3 text-xs px-3 py-1.5 bg-[#00338D] text-white rounded-lg hover:bg-[#0044b8] transition-colors font-semibold"
-              >
-                View Details →
-              </button>
-            </div>
-          </Popup>
-        </Marker>
-      ))}
+            </Popup>
+          </Marker>
+        ))}
+
+        {/* Non-curated PeeringDB facilities — AI intelligence on click */}
+        {(peeringFacilities ?? []).map(f => (
+          <Marker
+            key={`peering-${f.id}`}
+            position={[f.latitude, f.longitude]}
+            icon={peeringIcon}
+            eventHandlers={{ click: () => onPeeringClick(f) }}
+          />
+        ))}
+      </MarkerClusterGroup>
     </>
   );
 }
