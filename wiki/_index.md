@@ -10,6 +10,11 @@ Auto-maintained by K-Nexus AI. Never edit manually.
 
 ## Recent Updates
 - 2026-05-31: [[clients/mytrah-group/overview]] (created)
+- 2026-06-02: [[clients/hitachi-energy-india/overview]] (created)
+- 2026-06-02: [[concepts/tier-3-data-center]] (created)
+- 2026-06-02: [[concepts/greenfield-development]] (created)
+- 2026-06-02: [[market/india-data-center-market]] (created)
+- 2026-06-02: [[patterns/energy-sector-dc-entry]] (created)
 - 2026-05-31: [[clients/arka-ventures/profile]] (created)
 - 2026-05-31: [[concepts/joint-venture-jv]] (created)
 - 2026-05-31: [[concepts/readiness-assessment-framework]] (created)

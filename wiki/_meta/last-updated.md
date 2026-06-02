@@ -21,3 +21,7 @@ tags: [meta]
 - Event: cockpit
 - Files: clients/arka-ventures/profile.md, concepts/joint-venture-jv.md, concepts/readiness-assessment-framework.md, market/datacenter-sector-overview.md, patterns/new-entrant-jv-pathway.md
 
+## 2026-06-02T05:00:01.612Z
+- Event: cockpit
+- Files: clients/hitachi-energy-india/overview.md, concepts/tier-3-data-center.md, concepts/greenfield-development.md, market/india-data-center-market.md, patterns/energy-sector-dc-entry.md
+
