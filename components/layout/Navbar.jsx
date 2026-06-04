@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Search, Plus, Globe, LayoutDashboard, LogOut, User, BookOpen } from 'lucide-react';
+import { Search, Plus, Globe, LayoutDashboard, LogOut, User, BookOpen, Network } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useSession } from '@/components/SupabaseProvider';
@@ -83,6 +83,15 @@ export default function Navbar() {
             >
               <BookOpen size={14} />
               Knowledge Wiki
+            </Link>
+            <Link
+              href="/ontology"
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                pathname === '/ontology' ? 'text-white bg-white/10' : 'text-white/60 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <Network size={14} />
+              DC Ontology
             </Link>
 
           </div>

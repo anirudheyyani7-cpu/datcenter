@@ -86,7 +86,7 @@ export async function POST(request) {
     return Response.json({ error: 'Invalid JSON body.' }, { status: 400 });
   }
 
-  const { clientName, brief, sector, mode = 'full' } = body;
+  const { clientName, brief, sector, mode = 'full', customQueries = null } = body;
 
   if (!clientName && !brief) {
     return Response.json({ researchContext: null });
@@ -95,27 +95,40 @@ export async function POST(request) {
   const year = new Date().getFullYear();
   const name = clientName || 'the company';
 
-  // Start Tavily queries immediately (always run for both modes)
-  const tavilyQ1 = fetchTavily(
-    `${name} datacenter strategy India ${year} latest news announcement`
-  );
-  const tavilyQ2 = fetchTavily(
-    `${name} company profile sector background India`
-  );
-
   let results;
 
-  if (mode === 'light') {
-    results = await Promise.allSettled([tavilyQ1, tavilyQ2]);
+  if (customQueries && customQueries.length >= 2) {
+    // Use dynamically generated queries from the intent planner
+    const tavilyQ1 = fetchTavily(customQueries[0]);
+    const tavilyQ2 = fetchTavily(customQueries[1]);
+
+    if (mode === 'light') {
+      results = await Promise.allSettled([tavilyQ1, tavilyQ2]);
+    } else {
+      const exaQ3 = fetchExa(customQueries[2] || customQueries[0]);
+      const exaQ4 = fetchExa(customQueries[3] || customQueries[1]);
+      results = await Promise.allSettled([tavilyQ1, tavilyQ2, exaQ3, exaQ4]);
+    }
   } else {
-    // Start Exa queries in parallel with Tavily
-    const exaQ3 = fetchExa(
-      `companies similar to ${name} entering datacenter market India ${sector || ''}`
+    // Fall back to hardcoded queries
+    const tavilyQ1 = fetchTavily(
+      `${name} datacenter strategy India ${year} latest news announcement`
     );
-    const exaQ4 = fetchExa(
-      `India hyperscale datacenter investment market ${year} ${name}`
+    const tavilyQ2 = fetchTavily(
+      `${name} company profile sector background India`
     );
-    results = await Promise.allSettled([tavilyQ1, tavilyQ2, exaQ3, exaQ4]);
+
+    if (mode === 'light') {
+      results = await Promise.allSettled([tavilyQ1, tavilyQ2]);
+    } else {
+      const exaQ3 = fetchExa(
+        `companies similar to ${name} entering datacenter market India ${sector || ''}`
+      );
+      const exaQ4 = fetchExa(
+        `India hyperscale datacenter investment market ${year} ${name}`
+      );
+      results = await Promise.allSettled([tavilyQ1, tavilyQ2, exaQ3, exaQ4]);
+    }
   }
 
   const [r1, r2, r3, r4] = results;

@@ -25,3 +25,15 @@ tags: [meta]
 - Event: cockpit
 - Files: clients/hitachi-energy-india/overview.md, concepts/tier-3-data-center.md, concepts/greenfield-development.md, market/india-data-center-market.md, patterns/energy-sector-dc-entry.md
 
+## 2026-06-03T09:39:22.001Z
+- Event: cockpit
+- Files: clients/arka-ventures/initial-profile.md, clients/arka-ventures/market-entry-question.md, concepts/readiness-score.md, concepts/joint-venture.md, market/new-entrant-landscape.md, patterns/money-first-inquiry.md
+
+## 2026-06-03T10:26:31.967Z
+- Event: cockpit
+- Files: clients/blackstone-capital/overview.md, clients/blackstone-capital/entry-strategy-requirements.md, concepts/platform-acquisition.md, market/india-data-center-market.md, market/india-market-entry-strategies.md
+
+## 2026-06-04T01:31:57.087Z
+- Event: cockpit
+- Files: clients/blackstone-credit/overview.md, concepts/reit-exit.md, concepts/pre-spac-co-investment.md, market/india-data-center.md, patterns/institutional-india-dc-playbook.md
+
