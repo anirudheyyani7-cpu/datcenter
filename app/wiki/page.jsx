@@ -66,9 +66,18 @@ function NodePanel({ node, onClose }) {
   );
 }
 
-function ForceGraph({ nodes, edges, selectedNode, onSelectNode }) {
+function ForceGraph({ nodes, edges, selectedNode, onSelectNode, flashKey }) {
   const svgRef = useRef(null);
   const zoomRef = useRef(null);
+  const containerRef = useRef(null);
+
+  // Trigger a brief border-pulse on each silent refresh
+  useEffect(() => {
+    if (!flashKey || !containerRef.current) return;
+    containerRef.current.classList.add('wiki-refresh-flash');
+    const t = setTimeout(() => containerRef.current?.classList.remove('wiki-refresh-flash'), 700);
+    return () => clearTimeout(t);
+  }, [flashKey]);
 
   useEffect(() => {
     if (!svgRef.current || nodes.length === 0) return;
@@ -94,11 +103,14 @@ function ForceGraph({ nodes, edges, selectedNode, onSelectNode }) {
       .filter(e => nodeById[e.source] && nodeById[e.target])
       .map(e => ({ ...e, source: nodeById[e.source], target: nodeById[e.target] }));
 
+    const padding = 40;
     const sim = d3.forceSimulation(simNodes)
       .force('link', d3.forceLink(simEdges).id(d => d.id).distance(d => 80 + d.source.size * 5).strength(0.4))
       .force('charge', d3.forceManyBody().strength(d => -120 - d.size * 10))
       .force('center', d3.forceCenter(W / 2, H / 2))
-      .force('collision', d3.forceCollide().radius(d => d.size + 8));
+      .force('collision', d3.forceCollide().radius(d => d.size + 8))
+      .force('boundX', d3.forceX(W / 2).strength(0.06))
+      .force('boundY', d3.forceY(H / 2).strength(0.06));
 
     const link = g.append('g').selectAll('line').data(simEdges).join('line')
       .attr('stroke', '#E2E8F0').attr('stroke-width', 1).attr('marker-end', 'url(#arrow)');
@@ -136,6 +148,10 @@ function ForceGraph({ nodes, edges, selectedNode, onSelectNode }) {
     node.append('title').text(d => `${d.label}\n${d.type} · ${d.wordCount} words\n${d.relPath}`);
 
     sim.on('tick', () => {
+      simNodes.forEach(d => {
+        d.x = Math.max(d.size + padding, Math.min(W - d.size - padding, d.x));
+        d.y = Math.max(d.size + padding, Math.min(H - d.size - padding, d.y));
+      });
       link.attr('x1', d => d.source.x).attr('y1', d => d.source.y).attr('x2', d => d.target.x).attr('y2', d => d.target.y);
       node.attr('transform', d => `translate(${d.x},${d.y})`);
     });
@@ -165,7 +181,8 @@ function ForceGraph({ nodes, edges, selectedNode, onSelectNode }) {
   };
 
   return (
-    <div className="relative w-full h-full">
+    <div ref={containerRef} className="relative w-full h-full border border-[#E2E8F0] rounded-xl overflow-hidden" style={{ transition: 'box-shadow 0.3s' }}>
+      <style>{`.wiki-refresh-flash { box-shadow: 0 0 0 2px #0077C8, 0 0 12px 2px #0077C840 !important; }`}</style>
       <svg ref={svgRef} className="w-full h-full bg-[#FAFBFD]" />
       <div className="absolute bottom-4 right-4 flex flex-col gap-1">
         {[
@@ -219,6 +236,7 @@ export default function KnowledgeGraphPage() {
   const [loading, setLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState(null);
   const [isLive, setIsLive] = useState(true);
+  const [flashKey, setFlashKey] = useState(0);
   const pollRef = useRef(null);
 
   const fetchGraph = useCallback(async (silent = false) => {
@@ -228,6 +246,7 @@ export default function KnowledgeGraphPage() {
       const data = await res.json();
       setGraphData(data);
       setLastUpdated(new Date());
+      if (silent) setFlashKey(k => k + 1);
     } catch (err) {
       console.error('[Wiki Graph]', err);
     } finally {
@@ -352,7 +371,7 @@ export default function KnowledgeGraphPage() {
           ) : empty ? (
             <EmptyState />
           ) : (
-            <ForceGraph nodes={nodes} edges={edges} selectedNode={selectedNode} onSelectNode={setSelectedNode} />
+            <ForceGraph nodes={nodes} edges={edges} selectedNode={selectedNode} onSelectNode={setSelectedNode} flashKey={flashKey} />
           )}
           <AnimatePresence>
             {selectedNode && <NodePanel node={selectedNode} onClose={() => setSelectedNode(null)} />}

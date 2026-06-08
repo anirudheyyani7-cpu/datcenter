@@ -37,3 +37,11 @@ tags: [meta]
 - Event: cockpit
 - Files: clients/blackstone-credit/overview.md, concepts/reit-exit.md, concepts/pre-spac-co-investment.md, market/india-data-center.md, patterns/institutional-india-dc-playbook.md
 
+## 2026-06-08T21:59:10.346Z
+- Event: cockpit
+- Files: clients/brookfield-asset-management/investment-strategy-india.md, clients/brookfield-asset-management/nxtra-data-competitive-bid.md, concepts/data-center-lifecycle.md, concepts/10x-return-strategies.md, market/india-dc-market.md, patterns/minority-stake-platform-strategy.md
+
+## 2026-06-08T21:59:25.489Z
+- Event: cockpit
+- Files: clients/brookfield-asset-management/investment-strategy-india.md, clients/brookfield-asset-management/power-allocation-requirements.md, concepts/dc-lifecycle-investment-stages.md, concepts/institutional-investor-dc-strategies.md, market/india-dc-market-2030.md, patterns/power-as-moat.md
+

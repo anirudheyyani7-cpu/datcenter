@@ -913,11 +913,13 @@ function DatacenterNewsSection() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [indiaMode, setIndiaMode] = useState(false);
 
-  const fetchNews = async () => {
+  const fetchNews = async (india = indiaMode) => {
     try {
       setError(null);
-      const res = await fetch('/api/news');
+      setLoading(true);
+      const res = await fetch(`/api/news${india ? '?mode=india' : ''}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       if (data.error) throw new Error(data.error);
@@ -930,16 +932,32 @@ function DatacenterNewsSection() {
   };
 
   useEffect(() => {
-    fetchNews();
-    const interval = setInterval(fetchNews, 60 * 60 * 1000);
+    fetchNews(indiaMode);
+    const interval = setInterval(() => fetchNews(indiaMode), 60 * 60 * 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [indiaMode]);
 
+  const toggleIndia = () => setIndiaMode(m => !m);
+
+  const sectionTitle = indiaMode ? 'India Datacenter News' : 'Global Datacenter News';
   const wrapperProps = { className: 'mt-24', initial: { y: 40, opacity: 0 }, animate: { y: 0, opacity: 1 }, transition: { delay: 0.8, duration: 0.6 } };
+
+  const IndiaToggle = () => (
+    <button
+      onClick={toggleIndia}
+      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold border transition-colors ${indiaMode ? 'bg-[#FF9933]/10 border-[#FF9933]/40 text-[#CC6600]' : 'bg-white border-[#E2E8F0] text-[#9CA3AF] hover:bg-[#F4F6F9]'}`}
+    >
+      <span>{indiaMode ? '🇮🇳' : '🌐'}</span>
+      {indiaMode ? 'India Focus' : 'Global'}
+    </button>
+  );
 
   if (loading) return (
     <motion.div {...wrapperProps}>
-      <h2 className="text-[#9CA3AF] text-center text-sm font-semibold uppercase tracking-widest mb-8">Global Datacenter News</h2>
+      <div className="flex items-center justify-between mb-8">
+        <h2 className="text-[#9CA3AF] text-sm font-semibold uppercase tracking-widest">{sectionTitle}</h2>
+        <IndiaToggle />
+      </div>
       <div style={{ columnCount: 3, columnGap: '12px' }}>
         {[...Array(6)].map((_, i) => (
           <div key={i} className="break-inside-avoid mb-3 bg-white border border-[#E2E8F0] rounded-xl overflow-hidden shadow-sm">
@@ -957,12 +975,15 @@ function DatacenterNewsSection() {
 
   if (error || articles.length === 0) return (
     <motion.div {...wrapperProps}>
-      <h2 className="text-[#9CA3AF] text-center text-sm font-semibold uppercase tracking-widest mb-8">Global Datacenter News</h2>
+      <div className="flex items-center justify-between mb-8">
+        <h2 className="text-[#9CA3AF] text-sm font-semibold uppercase tracking-widest">{sectionTitle}</h2>
+        <IndiaToggle />
+      </div>
       <div className="bg-white border border-[#E2E8F0] rounded-xl p-8 text-center shadow-sm">
         <Newspaper size={32} className="text-[#CBD5E1] mx-auto mb-3" />
         <p className="text-[#6B7280] text-sm font-semibold mb-1">News unavailable</p>
         <p className="text-[#9CA3AF] text-xs mb-4">{error || 'No articles found at this time.'}</p>
-        <button onClick={() => { setLoading(true); fetchNews(); }}
+        <button onClick={() => fetchNews(indiaMode)}
           className="px-4 py-2 bg-[#00338D] text-white text-xs font-bold rounded-lg hover:bg-[#0044b8] transition-colors"
           style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Try again</button>
       </div>
@@ -974,9 +995,12 @@ function DatacenterNewsSection() {
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-3">
           <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-          <h2 className="text-[#9CA3AF] text-sm font-semibold uppercase tracking-widest">Global Datacenter News</h2>
+          <h2 className="text-[#9CA3AF] text-sm font-semibold uppercase tracking-widest">{sectionTitle}</h2>
         </div>
-        <span className="text-[#CBD5E1] text-[10px]">Refreshes hourly</span>
+        <div className="flex items-center gap-3">
+          <IndiaToggle />
+          <span className="text-[#CBD5E1] text-[10px]">Refreshes hourly</span>
+        </div>
       </div>
       <div style={{ columnGap: '12px' }} className="[column-count:1] md:[column-count:2] lg:[column-count:3]">
         {articles.map((article, i) => {

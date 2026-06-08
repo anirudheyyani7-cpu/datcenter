@@ -397,19 +397,19 @@ function UrgencyBadge({ urgency }) {
 function TimingBadge({ timing }) {
   const map = { 'Quick Win': { bg: '#DCFCE7', color: '#16A34A' }, 'Medium-Term': { bg: '#EBF5FF', color: KPMG_MID }, 'Long-Term': { bg: '#F4F6F9', color: '#6B7280' } };
   const s = map[timing] || map['Long-Term'];
-  return <span className="text-[8px] font-bold px-1.5 py-0.5 rounded whitespace-nowrap flex-shrink-0" style={{ background: s.bg, color: s.color }}>{timing}</span>;
+  return <span className="text-[9px] font-bold px-1.5 py-0.5 rounded whitespace-nowrap flex-shrink-0" style={{ background: s.bg, color: s.color }}>{timing}</span>;
 }
 
 function CategoryBadge({ category }) {
   const map = { Hyperscaler: KPMG_BLUE, Operator: '#059669', Investor: '#D97706', Developer: '#7C3AED' };
   const color = map[category] || '#6B7280';
-  return <span className="text-[8px] font-bold px-1 py-0.5 rounded" style={{ background: `${color}18`, color }}>{category}</span>;
+  return <span className="text-[9px] font-bold px-1 py-0.5 rounded" style={{ background: `${color}18`, color }}>{category}</span>;
 }
 
 function RiskBadge({ risk }) {
   const map = { High: { bg: '#FEE2E2', color: '#DC2626' }, Medium: { bg: '#FEF3C7', color: '#D97706' }, Low: { bg: '#DCFCE7', color: '#16A34A' } };
   const s = map[risk] || map.Low;
-  return <span className="text-[8px] font-bold px-1 py-0.5 rounded flex-shrink-0" style={{ background: s.bg, color: s.color }}>{risk}</span>;
+  return <span className="text-[9px] font-bold px-1 py-0.5 rounded flex-shrink-0" style={{ background: s.bg, color: s.color }}>{risk}</span>;
 }
 
 function PlayerRow({ player, rank }) {
@@ -457,13 +457,26 @@ function OpportunityFunnelCard({ data, onModal }) {
   const f = data.opportunityFunnel;
   if (!f) return null;
   const stages = (f.stages || []).slice(0, 3);
-  const colors = [KPMG_BLUE, KPMG_MID, '#003080'];
 
-  const layerH = 28;
+  const layerH = 30;
   const gap = 2;
   const viewW = 240;
   const topW = 220;
   const bottomW = 100;
+
+  // Gradient colour pairs: [light, dark]
+  const gradients = [
+    ['#1E5FAD', '#00338D'],
+    ['#0077C8', '#005B99'],
+    ['#3A86D4', '#003080'],
+  ];
+
+  // Pick the most relevant headline KPI chip
+  const kpiLabel = f.indiaSharePct2030
+    ? { label: "India's 2030 global share", value: `${f.indiaSharePct2030}%` }
+    : f.globalCagrPct
+    ? { label: 'Global DC CAGR', value: `${f.globalCagrPct}%` }
+    : null;
 
   return (
     <CockpitCard accentColor={KPMG_BLUE} onClick={() => onModal('opportunityFunnel', f)} delay={0.05}>
@@ -496,8 +509,16 @@ function OpportunityFunnelCard({ data, onModal }) {
               viewBox={`0 0 ${viewW} ${stages.length * layerH + (stages.length - 1) * gap}`}
               width="100%"
               preserveAspectRatio="xMidYMid meet"
-              style={{ maxHeight: 120 }}
+              style={{ maxHeight: 140, filter: 'drop-shadow(0 3px 6px rgba(0,51,141,0.18))' }}
             >
+              <defs>
+                {gradients.map(([light, dark], i) => (
+                  <linearGradient key={i} id={`funnelGrad${i}`} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor={light} />
+                    <stop offset="100%" stopColor={dark} />
+                  </linearGradient>
+                ))}
+              </defs>
               {stages.map((s, i) => {
                 const t1 = i / stages.length;
                 const t2 = (i + 1) / stages.length;
@@ -510,10 +531,10 @@ function OpportunityFunnelCard({ data, onModal }) {
 
                 return (
                   <g key={i}>
-                    <polygon points={points} fill={colors[i] || KPMG_BLUE} />
+                    <polygon points={points} fill={`url(#funnelGrad${i})`} />
                     <text
                       x={viewW / 2}
-                      y={y + layerH / 2 - (s.gw ? 3 : 0)}
+                      y={y + layerH / 2 - (s.gw ? 4 : 0)}
                       textAnchor="middle"
                       dominantBaseline="central"
                       fill="white"
@@ -529,7 +550,7 @@ function OpportunityFunnelCard({ data, onModal }) {
                         y={y + layerH / 2 + 10}
                         textAnchor="middle"
                         dominantBaseline="central"
-                        fill="rgba(255,255,255,0.85)"
+                        fill="rgba(255,255,255,0.8)"
                         fontSize={9}
                         fontWeight="500"
                       >
@@ -543,7 +564,15 @@ function OpportunityFunnelCard({ data, onModal }) {
           </div>
         </div>
 
-        <p className="text-[8px] text-[#9CA3AF] mt-2 text-center">Click to expand</p>
+        {/* KPI chip */}
+        {kpiLabel && (
+          <div className="flex items-center gap-1.5 mt-2 px-2 py-1 rounded-lg" style={{ background: `${KPMG_BLUE}0D` }}>
+            <span className="text-[9px] font-semibold" style={{ color: KPMG_BLUE }}>{kpiLabel.value}</span>
+            <span className="text-[8px] text-[#9CA3AF]">{kpiLabel.label}</span>
+          </div>
+        )}
+
+        <p className="text-[8px] text-[#9CA3AF] mt-1.5 text-center">Click to expand</p>
       </div>
     </CockpitCard>
   );
@@ -582,7 +611,7 @@ function OpportunityAreasCard({ data, onModal }) {
                 </div>
               ) : (
                 <div className="flex-shrink-0 w-14">
-                  <p className="text-[7px] text-[#9CA3AF] mb-0.5">Fit score</p>
+                  <p className="text-[8px] text-[#9CA3AF] mb-0.5">Fit score</p>
                   <div className="h-1 bg-[#E2E8F0] rounded-full overflow-hidden">
                     <div className="h-full rounded-full" style={{ width: `${a.score}%`, background: a.potential === 'High' ? '#059669' : a.potential === 'Medium' ? KPMG_MID : '#9CA3AF' }} />
                   </div>
@@ -617,13 +646,13 @@ function CompetitiveLandscapeCard({ data, onModal }) {
 
         <div className="grid grid-cols-2 gap-2 flex-1 min-h-0">
           <div>
-            <p className="text-[8px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-1">Top Leaders</p>
+            <p className="text-[9px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-1">Top Leaders</p>
             <div className="space-y-0.5">
               {leaders.map((p, i) => <PlayerRow key={i} player={p} rank={i + 1} />)}
             </div>
           </div>
           <div>
-            <p className="text-[8px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-1">Emerging Players</p>
+            <p className="text-[9px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-1">Emerging Players</p>
             <div className="space-y-0.5">
               {emerging.map((p, i) => <PlayerRow key={i} player={p} rank={null} />)}
             </div>
@@ -765,7 +794,7 @@ function StrategicRoadmapCard({ data, onModal }) {
               >
                 <span className="font-black text-[8px] leading-none mb-1" style={{ color: c.label }}>{ph.phase}</span>
                 <p className="font-bold text-[10px] leading-snug" style={{ color: c.label }}>{ph.title || ph.phase}</p>
-                <span className="text-[7px] font-semibold mt-1" style={{ color: c.dot }}>{ph.duration}</span>
+                <span className="text-[8px] font-semibold mt-1" style={{ color: c.dot }}>{ph.duration}</span>
               </div>
             );
           })}
@@ -2032,7 +2061,27 @@ ${cockpitSummary}`;
 }
 
 // ── Loading State (percentage-based) ─────────────────────────────────────────
+const STEP4_SUB_MESSAGES = [
+  'Analysing market context & sizing…',
+  'Mapping competitive landscape…',
+  'Identifying addressable opportunities…',
+  'Structuring strategic advisory brief…',
+  'Profiling key players & differentiators…',
+  'Building KPMG viewpoint & roadmap…',
+  'Calibrating risk & opportunity signals…',
+  'Finalising cockpit intelligence schema…',
+];
+
 function LoadingState({ clientName, progressStep = 0, progressPct = 0 }) {
+  const [subMsgIdx, setSubMsgIdx] = useState(0);
+
+  useEffect(() => {
+    if (progressStep !== 4) return;
+    setSubMsgIdx(0);
+    const timer = setInterval(() => setSubMsgIdx(i => (i + 1) % STEP4_SUB_MESSAGES.length), 8000);
+    return () => clearInterval(timer);
+  }, [progressStep]);
+
   const steps = [
     'Analysing client intent…',
     'Researching client & market…',
@@ -2041,7 +2090,11 @@ function LoadingState({ clientName, progressStep = 0, progressPct = 0 }) {
     'Generating cockpit intelligence…',
     'Finalising & saving…',
   ];
-  const currentLabel = steps[Math.min(progressStep, steps.length - 1)];
+  const currentLabel = progressStep === 4
+    ? STEP4_SUB_MESSAGES[subMsgIdx]
+    : steps[Math.min(progressStep, steps.length - 1)];
+
+  const displayPct = Math.round(progressPct);
 
   return (
     <div className="flex flex-col items-center justify-center h-full gap-5 px-8">
@@ -2059,12 +2112,22 @@ function LoadingState({ clientName, progressStep = 0, progressPct = 0 }) {
       </div>
       <div className="w-72">
         <div className="flex justify-between items-center mb-1.5">
-          <span className="text-[10px] text-[#9CA3AF] truncate flex-1 mr-2">{currentLabel}</span>
-          <span className="text-[13px] font-black flex-shrink-0" style={{ color: KPMG_BLUE }}>{progressPct}%</span>
+          <AnimatePresence mode="wait">
+            <motion.span key={currentLabel}
+              initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.35 }}
+              className="text-[10px] text-[#9CA3AF] truncate flex-1 mr-2">
+              {currentLabel}
+            </motion.span>
+          </AnimatePresence>
+          <span className="text-[13px] font-black flex-shrink-0" style={{ color: KPMG_BLUE }}>{displayPct}%</span>
         </div>
         <div className="h-2 bg-[#E2E8F0] rounded-full overflow-hidden">
-          <div className="h-full rounded-full" style={{ width: `${progressPct}%`, background: KPMG_BLUE, transition: 'width 0.6s ease-out' }} />
+          <div className="h-full rounded-full" style={{ width: `${progressPct}%`, background: KPMG_BLUE, transition: 'width 0.8s ease-out' }} />
         </div>
+        {progressStep === 4 && (
+          <p className="text-[9px] text-[#CBD5E1] mt-1.5 text-center">This step typically takes 60–90 seconds — almost there</p>
+        )}
       </div>
       <div className="flex flex-col gap-2 w-72">
         {steps.map((s, i) => (
@@ -2188,10 +2251,19 @@ export default function ClientCockpit() {
       setProgressPct(65);
 
       setProgressStep(4); setProgressPct(68);
-      const raw = await callClaude({
-        prompt: `Generate the client cockpit dashboard JSON for this client brief:\n\n${brief}\n\nClient name hint: ${clientNameParam || 'extract from brief'}`,
-        systemOverride: enrichedSystem,
-      });
+      // Micro-increment during the long Claude generation step (68 → cap 89)
+      const microTimer = setInterval(() => {
+        setProgressPct(prev => (prev < 89 ? parseFloat((prev + 0.25).toFixed(2)) : prev));
+      }, 1000);
+      let raw;
+      try {
+        raw = await callClaude({
+          prompt: `Generate the client cockpit dashboard JSON for this client brief:\n\n${brief}\n\nClient name hint: ${clientNameParam || 'extract from brief'}`,
+          systemOverride: enrichedSystem,
+        });
+      } finally {
+        clearInterval(microTimer);
+      }
       const _cleaned = raw.replace(/```json|```/gi, '').trim();
       const _jsonStart = _cleaned.indexOf('{');
       const _jsonEnd   = _cleaned.lastIndexOf('}');

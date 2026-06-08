@@ -10,6 +10,18 @@ Auto-maintained by K-Nexus AI. Never edit manually.
 
 ## Recent Updates
 - 2026-05-31: [[clients/mytrah-group/overview]] (created)
+- 2026-06-08: [[clients/brookfield-asset-management/investment-strategy-india]] (merged)
+- 2026-06-08: [[clients/brookfield-asset-management/power-allocation-requirements]] (created)
+- 2026-06-08: [[concepts/dc-lifecycle-investment-stages]] (created)
+- 2026-06-08: [[concepts/institutional-investor-dc-strategies]] (created)
+- 2026-06-08: [[market/india-dc-market-2030]] (created)
+- 2026-06-08: [[patterns/power-as-moat]] (created)
+- 2026-06-08: [[clients/brookfield-asset-management/investment-strategy-india]] (created)
+- 2026-06-08: [[clients/brookfield-asset-management/nxtra-data-competitive-bid]] (created)
+- 2026-06-08: [[concepts/data-center-lifecycle]] (created)
+- 2026-06-08: [[concepts/10x-return-strategies]] (created)
+- 2026-06-08: [[market/india-dc-market]] (created)
+- 2026-06-08: [[patterns/minority-stake-platform-strategy]] (created)
 - 2026-06-04: [[clients/blackstone-credit/overview]] (created)
 - 2026-06-04: [[concepts/reit-exit]] (created)
 - 2026-06-04: [[concepts/pre-spac-co-investment]] (created)
@@ -48,4 +60,3 @@ Auto-maintained by K-Nexus AI. Never edit manually.
 - 2026-05-31: [[patterns/solar-to-dc-transition]] (created)
 - 2026-05-31: [[concepts/new-entrant-profile]] (created)
 - 2026-05-31: [[concepts/hyperscale-data-centre]] (created)
-- 2026-05-31: [[patterns/epc-to-datacentre-transition]] (created)

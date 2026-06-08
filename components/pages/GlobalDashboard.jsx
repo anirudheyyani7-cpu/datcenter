@@ -211,6 +211,11 @@ export default function GlobalDashboard() {
   const [peeringDetail, setPeeringDetail] = useState(null);
   const [peeringDetailLoading, setPeeringDetailLoading] = useState(false);
 
+  // India-specific PeeringDB lazy-load state
+  const [indiaFacilitiesRaw, setIndiaFacilitiesRaw] = useState([]);
+  const [indiaFacilitiesLoaded, setIndiaFacilitiesLoaded] = useState(false);
+  const [indiaFacilitiesLoading, setIndiaFacilitiesLoading] = useState(false);
+
   useEffect(() => {
     loadDatacenters().then(data => {
       setDcData(data);
@@ -232,11 +237,31 @@ export default function GlobalDashboard() {
     return () => setSelectedDatacenter(null);
   }, []);
 
+  // Lazy-load all India PeeringDB facilities when India is selected
+  useEffect(() => {
+    if (selectedCountry !== 'India' || indiaFacilitiesLoaded || indiaFacilitiesLoading) return;
+    setIndiaFacilitiesLoading(true);
+    fetch('/api/peeringdb-india')
+      .then(r => r.json())
+      .then(data => {
+        if (data.facilities?.length) setIndiaFacilitiesRaw(data.facilities);
+        setIndiaFacilitiesLoaded(true);
+      })
+      .catch(() => setIndiaFacilitiesLoaded(true))
+      .finally(() => setIndiaFacilitiesLoading(false));
+  }, [selectedCountry, indiaFacilitiesLoaded, indiaFacilitiesLoading]);
+
   // Deduplicate: remove PeeringDB facilities that are already in the curated set
   const peeringFacilities = useMemo(() => {
-    if (!peeringRaw.length || !dcData) return peeringRaw;
-    return filterPeeringFacilities(peeringRaw, dcData.datacenters);
-  }, [peeringRaw, dcData]);
+    // Merge global PeeringDB + India-specific (dedup by id)
+    const merged = [...peeringRaw];
+    const existingIds = new Set(peeringRaw.map(f => f.id));
+    for (const f of indiaFacilitiesRaw) {
+      if (!existingIds.has(f.id)) merged.push(f);
+    }
+    if (!merged.length || !dcData) return merged;
+    return filterPeeringFacilities(merged, dcData.datacenters);
+  }, [peeringRaw, indiaFacilitiesRaw, dcData]);
 
   async function handlePeeringClick(facility) {
     // Close curated panel if open
@@ -383,6 +408,9 @@ export default function GlobalDashboard() {
                   <span className="text-white/40 font-normal"> · {totalPinsOnMap.toLocaleString()} total on map</span>
                 )}
               </span>
+              {indiaFacilitiesLoading && (
+                <span className="text-white/50 text-xs ml-1 animate-pulse">· Loading India DCs…</span>
+              )}
             </div>
           </div>
         </div>

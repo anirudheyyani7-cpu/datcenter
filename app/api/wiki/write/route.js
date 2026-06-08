@@ -106,13 +106,28 @@ Metadata: ${JSON.stringify(metadata)}
 Content (first 4000 chars):
 ${content.slice(0, 4000)}`;
 
-  const raw = await claudeCall(EXTRACTION_SYSTEM, prompt, 4000);
+  const raw = await claudeCall(EXTRACTION_SYSTEM, prompt, 6000);
   // Strip any accidental markdown fences
   const cleaned = raw.replace(/```json|```/gi, '').trim();
   // Find JSON object in response
   const jsonMatch = cleaned.match(/\{[\s\S]*\}/);
   if (!jsonMatch) throw new Error('No JSON found in extraction response');
-  return JSON.parse(jsonMatch[0]);
+  try {
+    return JSON.parse(jsonMatch[0]);
+  } catch {
+    // Response was truncated — attempt to close open arrays/objects and re-parse
+    let partial = jsonMatch[0];
+    const opens = (partial.match(/\[/g) || []).length - (partial.match(/\]/g) || []).length;
+    const braces = (partial.match(/\{/g) || []).length - (partial.match(/\}/g) || []).length;
+    // Strip trailing incomplete token (last comma or partial string)
+    partial = partial.replace(/,\s*$/, '').replace(/"[^"]*$/, '"...');;
+    partial += ']'.repeat(Math.max(0, opens)) + '}'.repeat(Math.max(0, braces));
+    try {
+      return JSON.parse(partial);
+    } catch {
+      throw new Error('Could not parse extraction response as JSON — response may have been truncated');
+    }
+  }
 }
 
 async function mergeIntoExisting(existingContent, newContent, title) {
