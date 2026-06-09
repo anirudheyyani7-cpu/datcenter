@@ -7,6 +7,7 @@ import {
   Globe, Zap, Leaf, Activity, Server, X, ArrowLeft, Search,
   Bot, Award, Users, Wifi, Radio, Building2, Network
 } from 'lucide-react';
+import { Country } from 'country-state-city';
 import { loadDatacenters, calculateGlobalStats, formatDatacenterForAI, filterPeeringFacilities } from '@/lib/datacenter-data';
 import { getCountryColor, getPUEColor } from '@/utils/helpers';
 import { StatusBadge } from '@/components/shared/Badge';
@@ -234,12 +235,7 @@ export default function GlobalDashboard() {
       .then(data => { if (data.facilities?.length) setPeeringRaw(data.facilities); })
       .catch(() => {});
 
-    return () => setSelectedDatacenter(null);
-  }, []);
-
-  // Lazy-load all India PeeringDB facilities when India is selected
-  useEffect(() => {
-    if (selectedCountry !== 'India' || indiaFacilitiesLoaded || indiaFacilitiesLoading) return;
+    // Load India-specific PeeringDB data on mount for complete coverage
     setIndiaFacilitiesLoading(true);
     fetch('/api/peeringdb-india')
       .then(r => r.json())
@@ -249,7 +245,9 @@ export default function GlobalDashboard() {
       })
       .catch(() => setIndiaFacilitiesLoaded(true))
       .finally(() => setIndiaFacilitiesLoading(false));
-  }, [selectedCountry, indiaFacilitiesLoaded, indiaFacilitiesLoading]);
+
+    return () => setSelectedDatacenter(null);
+  }, []);
 
   // Deduplicate: remove PeeringDB facilities that are already in the curated set
   const peeringFacilities = useMemo(() => {
@@ -262,6 +260,20 @@ export default function GlobalDashboard() {
     if (!merged.length || !dcData) return merged;
     return filterPeeringFacilities(merged, dcData.datacenters);
   }, [peeringRaw, indiaFacilitiesRaw, dcData]);
+
+  // Aggregate PeeringDB facilities per country (ISO code → dashboard country name)
+  const peeringCountByCountry = useMemo(() => {
+    if (!peeringFacilities.length) return {};
+    const nameOverrides = { AE: 'UAE', KR: 'South Korea', HK: 'Hong Kong', TW: 'Taiwan', MO: 'Macau' };
+    const isoToName = Object.fromEntries(
+      Country.getAllCountries().map(c => [c.isoCode, nameOverrides[c.isoCode] ?? c.name])
+    );
+    return peeringFacilities.reduce((acc, f) => {
+      const name = isoToName[f.country];
+      if (name) acc[name] = (acc[name] || 0) + 1;
+      return acc;
+    }, {});
+  }, [peeringFacilities]);
 
   async function handlePeeringClick(facility) {
     // Close curated panel if open
@@ -336,7 +348,7 @@ export default function GlobalDashboard() {
 
           <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-4">
             <StatCard icon={Server}    label="Curated Facilities"  value={displayStats.curatedFacilities}                         color="#0077C8" sublabel="KPMG monitored" />
-            <StatCard icon={Building2} label="Global Coverage"     value={peeringFacilities.length || displayStats.globalFacilities || 9000} color="#0055A4" sublabel="PeeringDB tracked" />
+            <StatCard icon={Building2} label="Global Coverage"     value={peeringFacilities.length || displayStats.globalFacilities || 9000} color="#0055A4" />
             <StatCard icon={Globe}     label="Markets Covered"     value={displayStats.globalMarkets || 25}                       color="#00A36C" sublabel="Active regions" />
             <StatCard icon={Network}   label="Internet Exchanges"  value={displayStats.globalExchanges || 1200}                   color="#D4A017" sublabel="Global IX points" />
             <StatCard icon={Activity}  label="Average PUE"         value={displayStats.avgPUE} decimals={2}                      color="#0077C8" sublabel="Curated portfolio" />
@@ -346,8 +358,9 @@ export default function GlobalDashboard() {
           <div className="flex items-center gap-2 flex-wrap mb-1">
             <div className="flex items-center gap-1.5 flex-wrap flex-1">
               {allFilterCountries.map(c => {
-                const localCount = dcData?.datacenters.filter(d => d.country === c).length || 0;
-                const hasLocal = c === 'All' || localCount > 0;
+                const curatedCount = dcData?.datacenters.filter(d => d.country === c).length || 0;
+                const totalCount = curatedCount + (peeringCountByCountry[c] || 0);
+                const hasLocal = c === 'All' || curatedCount > 0;
                 return (
                   <button key={c} onClick={() => { setSelectedCountry(c); setSelectedDatacenter(null); setSelectedPeeringFacility(null); }}
                     className={`px-2.5 py-1 rounded-full text-xs font-semibold transition-all whitespace-nowrap ${
@@ -358,8 +371,8 @@ export default function GlobalDashboard() {
                         : 'bg-slate-100/70 text-slate-400 hover:text-slate-500 hover:bg-slate-100 border border-slate-200/60'
                     }`}>
                     {c}
-                    {c !== 'All' && localCount > 0 && (
-                      <span className="ml-1 opacity-70">{localCount}</span>
+                    {c !== 'All' && totalCount > 0 && (
+                      <span className="ml-1 opacity-70">{totalCount}</span>
                     )}
                   </button>
                 );
@@ -408,9 +421,6 @@ export default function GlobalDashboard() {
                   <span className="text-white/40 font-normal"> · {totalPinsOnMap.toLocaleString()} total on map</span>
                 )}
               </span>
-              {indiaFacilitiesLoading && (
-                <span className="text-white/50 text-xs ml-1 animate-pulse">· Loading India DCs…</span>
-              )}
             </div>
           </div>
         </div>

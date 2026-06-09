@@ -4,17 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "68758836a1f5278c",
+        "id": "ca2874fb5ccf1c85",
         "type": "tabs",
         "children": [
           {
-            "id": "84bac9062a8e8322",
+            "id": "d57d9de87a81c216",
             "type": "leaf",
             "state": {
-              "type": "graph",
+              "type": "empty",
               "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
         ]
@@ -74,8 +74,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "e213dcf2a16a36de",
@@ -177,8 +176,18 @@
       "bases:Create new base": false
     }
   },
-  "active": "84bac9062a8e8322",
+  "active": "d57d9de87a81c216",
   "lastOpenFiles": [
+    "_index.md",
+    "patterns/new-entrant-playbook.md",
+    "market/2030-market-outlook.md",
+    "concepts/market-entry-strategy.md",
+    "concepts/jv-partner-diligence-process.md",
+    "patterns/new-entrant-hyperscale-strategy.md",
+    "market/india-hyperscale-segment.md",
+    "concepts/build-to-suit-agreement.md",
+    "concepts/hyperscaler-bts-partnership.md",
+    "clients/arka-ventures/market-entry-plan.md",
     "patterns/energy-sector-dc-entry.md",
     "market/india-data-center-market.md",
     "concepts/tier-3-data-center.md",
@@ -197,16 +206,7 @@
     "concepts/joint-venture-structures.md",
     "concepts/greenfield-client.md",
     "clients/notion/readiness-assessment.md",
-    "clients/notion/overview.md",
     "clients/notion",
-    "patterns/solar-to-dc-transition.md",
-    "concepts/tier-3-data-centre.md",
-    "concepts/new-entrant-profile.md",
-    "_index.md",
-    "_meta/last-updated.md",
-    "patterns/epc-to-datacentre-transition.md",
-    "concepts/hyperscale-data-centre.md",
-    "clients/mytrah-group/overview.md",
     "clients/mytrah-group"
   ]
 }
