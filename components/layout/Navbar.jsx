@@ -1,20 +1,44 @@
 'use client';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Search, Plus, Globe, LayoutDashboard, LogOut, User, BookOpen } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import {
+  LogOut, User, BookOpen, LayoutDashboard, ChevronDown,
+  TrendingUp, Package, Wrench, Shield, Activity, DollarSign, Globe,
+} from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef } from 'react';
 import { useSession } from '@/components/SupabaseProvider';
 
+const LIFECYCLE_STAGES = [
+  { num: '01', label: 'Strategy',                path: '/stage/01', Icon: TrendingUp  },
+  { num: '02', label: 'Supply Chain Management', path: '/stage/02', Icon: Package     },
+  { num: '03', label: 'Design & Build',          path: '/stage/03', Icon: Wrench      },
+  { num: '04', label: 'Regulatory Compliance',   path: '/stage/04', Icon: Shield      },
+  { num: '05', label: 'Operations',              path: '/stage/05', Icon: Activity    },
+  { num: '06', label: 'Monetisation',            path: '/stage/06', Icon: DollarSign  },
+];
+
+function NavLink({ href, children, active }) {
+  return (
+    <Link
+      href={href}
+      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
+        active ? 'text-white bg-white/10' : 'text-white/60 hover:text-white hover:bg-white/5'
+      }`}
+    >
+      {children}
+    </Link>
+  );
+}
 
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
-  const [searchFocused, setSearchFocused] = useState(false);
+  const [stagesOpen, setStagesOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const stagesTimeout = useRef(null);
   const { session, supabase } = useSession() ?? {};
 
-  const isLanding = pathname === '/';
   const userInitial = session?.user?.email?.[0]?.toUpperCase() ?? 'K';
 
   async function handleSignOut() {
@@ -23,131 +47,175 @@ export default function Navbar() {
     router.refresh();
   }
 
+  const openStages = () => {
+    clearTimeout(stagesTimeout.current);
+    setStagesOpen(true);
+  };
+  const closeStages = () => {
+    stagesTimeout.current = setTimeout(() => setStagesOpen(false), 120);
+  };
+
+  const isStageActive = pathname?.startsWith('/stage');
+
   return (
     <motion.nav
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, delay: isLanding ? 3.5 : 0 }}
+      transition={{ duration: 0.45, delay: 0.15 }}
       className="fixed top-0 left-0 right-0 z-50 h-16"
       style={{ backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
     >
       <div className="bg-[#1A1F36]/95 border-b border-white/[0.08] h-full">
         <div className="max-w-screen-2xl mx-auto px-6 h-full flex items-center gap-4">
 
-          {/* Logo */}
+          {/* ── Logo ── */}
           <Link href="/" className="flex items-center gap-3 flex-shrink-0 group">
-            <div className="leading-none">
-              <div className="font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-                <span className="text-white">K-Nexus</span><span style={{ color: '#0F348A' }}>.AI</span>
-              </div>
-              <div className="text-white/40 text-xs">Datacenter Lifecycle</div>
+            <div
+              className="font-extrabold text-sm tracking-tight flex items-center gap-1.5 whitespace-nowrap"
+              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+            >
+              <span className="text-white">KNexus</span>
+              <span style={{ color: '#0F82E0' }}>.AI</span>
+              <span className="text-white/30 font-light text-xs">·</span>
+              <span className="text-white/45 font-medium text-xs tracking-wide">Data Centre Intelligence</span>
             </div>
           </Link>
 
-          <div className="w-px h-8 bg-white/10 mx-1" />
+          <div className="w-px h-7 bg-white/10 mx-1 flex-shrink-0" />
 
-          {/* Nav links */}
-          <div className="flex items-center gap-1">
-            <Link
-              href="/"
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                pathname === '/' ? 'text-white bg-white/10' : 'text-white/60 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              Overview
-            </Link>
-            <Link
-              href="/dashboard"
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                pathname === '/dashboard' ? 'text-white bg-white/10' : 'text-white/60 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              <Globe size={14} />
-              Dashboard
-            </Link>
+          {/* ── Nav links ── */}
+          <div className="flex items-center gap-0.5">
 
-            <Link
-              href="/command-center"
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                pathname === '/command-center' ? 'text-white bg-white/10' : 'text-white/60 hover:text-white hover:bg-white/5'
-              }`}
+            <NavLink href="/" active={pathname === '/'}>Overview</NavLink>
+
+            <NavLink href="/dashboard" active={pathname?.startsWith('/dashboard')}>
+              <span className="flex items-center gap-1.5">
+                <Globe size={12} />
+                Global DC
+              </span>
+            </NavLink>
+
+            {/* Lifecycle Stages with hover dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={openStages}
+              onMouseLeave={closeStages}
             >
-              <LayoutDashboard size={14} />
-              Command Center
-            </Link>
-            <Link
-              href="/wiki"
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                pathname === '/wiki' ? 'text-white bg-white/10' : 'text-white/60 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              <BookOpen size={14} />
+              <button
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                  isStageActive ? 'text-white bg-white/10' : 'text-white/60 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                Lifecycle Stages
+                <ChevronDown
+                  size={13}
+                  className={`transition-transform duration-200 ${stagesOpen ? 'rotate-180' : ''}`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {stagesOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -4, scale: 0.97 }}
+                    transition={{ duration: 0.15, ease: 'easeOut' }}
+                    className="absolute top-full left-0 mt-2 w-64 rounded-2xl shadow-2xl overflow-hidden"
+                    style={{
+                      background: 'rgba(22,28,54,0.97)',
+                      border: '1px solid rgba(255,255,255,0.10)',
+                      backdropFilter: 'blur(20px)',
+                    }}
+                    onMouseEnter={openStages}
+                    onMouseLeave={closeStages}
+                  >
+                    <div className="px-3 py-2.5 border-b border-white/[0.07]">
+                      <p className="text-white/35 text-[10px] font-semibold uppercase tracking-widest">
+                        6 Lifecycle Stages
+                      </p>
+                    </div>
+                    <div className="py-1.5">
+                      {LIFECYCLE_STAGES.map(({ num, label, path, Icon }) => (
+                        <Link
+                          key={num}
+                          href={path}
+                          onClick={() => setStagesOpen(false)}
+                          className="flex items-center gap-3 px-4 py-2.5 hover:bg-white/[0.07] transition-colors group"
+                        >
+                          <div className="w-6 h-6 rounded-lg bg-[#00338D]/40 flex items-center justify-center flex-shrink-0 group-hover:bg-[#0077C8]/25 transition-colors">
+                            <Icon size={12} className="text-white/55 group-hover:text-white/90" />
+                          </div>
+                          <div className="min-w-0">
+                            <span className="text-white/40 text-[9px] font-bold">0{num.replace('0','')}</span>
+                            <p className="text-white/75 text-xs font-medium group-hover:text-white transition-colors leading-snug truncate">
+                              {label}
+                            </p>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <NavLink href="/command-center" active={pathname?.startsWith('/command-center')}>
+              Command Centre
+            </NavLink>
+
+            <NavLink href="/wiki" active={pathname?.startsWith('/wiki')}>
               Knowledge Wiki
-            </Link>
+            </NavLink>
 
-          </div>
-
-          {/* Search */}
-          <div className={`flex-1 max-w-sm relative transition-all duration-200 ${searchFocused ? 'max-w-md' : ''}`}>
-            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
-            <input
-              type="text"
-              placeholder="Search infrastructure hubs..."
-              onFocus={() => setSearchFocused(true)}
-              onBlur={() => setSearchFocused(false)}
-              className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#0077C8]/60 focus:bg-white/[0.08] transition-all"
-            />
           </div>
 
           <div className="flex-1" />
 
-          {/* CTA */}
-          <Link
-            href="/stage/01"
-            className="flex items-center gap-2 px-4 py-2 bg-[#00338D] hover:bg-[#0044b8] text-white text-sm font-semibold rounded-lg transition-colors shadow-lg"
-          >
-            <Plus size={15} />
-            New Business Case
-          </Link>
-
-          {/* Avatar + user menu */}
+          {/* ── Avatar + user menu ── */}
           <div className="relative flex-shrink-0">
             <button
               onClick={() => setUserMenuOpen(!userMenuOpen)}
-              className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0077C8] to-[#00338D] flex items-center justify-center cursor-pointer"
+              className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0077C8] to-[#00338D] flex items-center justify-center cursor-pointer hover:ring-2 hover:ring-[#0077C8]/40 transition-all"
             >
               <span className="text-white text-xs font-bold">{userInitial}</span>
             </button>
-            {userMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="absolute top-full right-0 mt-2 w-52 bg-[#1A1F36] border border-white/10 rounded-xl shadow-2xl overflow-hidden"
-                onMouseLeave={() => setUserMenuOpen(false)}
-              >
-                {session?.user?.email && (
-                  <div className="px-4 py-2.5 text-xs text-white/40 truncate border-b border-white/10">
-                    {session.user.email}
-                  </div>
-                )}
-                <Link
-                  href="/user-dashboard"
-                  onClick={() => setUserMenuOpen(false)}
-                  className="flex items-center gap-2 w-full px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+
+            <AnimatePresence>
+              {userMenuOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute top-full right-0 mt-2 w-52 rounded-xl shadow-2xl overflow-hidden"
+                  style={{ background: '#1A1F36', border: '1px solid rgba(255,255,255,0.10)' }}
+                  onMouseLeave={() => setUserMenuOpen(false)}
                 >
-                  <User size={14} />
-                  My Dashboard
-                </Link>
-                <button
-                  onClick={handleSignOut}
-                  className="flex items-center gap-2 w-full px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
-                >
-                  <LogOut size={14} />
-                  Sign out
-                </button>
-              </motion.div>
-            )}
+                  {session?.user?.email && (
+                    <div className="px-4 py-2.5 text-xs text-white/40 truncate border-b border-white/[0.08]">
+                      {session.user.email}
+                    </div>
+                  )}
+                  <Link
+                    href="/user-dashboard"
+                    onClick={() => setUserMenuOpen(false)}
+                    className="flex items-center gap-2 w-full px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+                  >
+                    <User size={14} />
+                    My Dashboard
+                  </Link>
+                  <button
+                    onClick={handleSignOut}
+                    className="flex items-center gap-2 w-full px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+                  >
+                    <LogOut size={14} />
+                    Sign out
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
+
         </div>
       </div>
     </motion.nav>

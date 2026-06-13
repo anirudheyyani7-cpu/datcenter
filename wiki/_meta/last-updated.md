@@ -45,3 +45,11 @@ tags: [meta]
 - Event: cockpit
 - Files: clients/brookfield-asset-management/investment-strategy-india.md, clients/brookfield-asset-management/power-allocation-requirements.md, concepts/dc-lifecycle-investment-stages.md, concepts/institutional-investor-dc-strategies.md, market/india-dc-market-2030.md, patterns/power-as-moat.md
 
+## 2026-06-11T23:44:01.544Z
+- Event: cockpit
+- Files: clients/blackstone-credit/investment-mandate.md, clients/blackstone-credit/deployment-targets.md, clients/blackstone-credit/profile-overview.md, concepts/secondary-transactions.md, market/india-dc-investment-landscape.md
+
+## 2026-06-11T23:44:29.748Z
+- Event: cockpit
+- Files: clients/blackstone-credit/india-dc-investment-mandate.md, clients/blackstone-credit/target-portfolio-companies.md, concepts/minority-stakes-strategy.md, concepts/proprietary-deal-sourcing.md, market/india-dc-market.md
+
