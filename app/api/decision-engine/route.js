@@ -1,4 +1,4 @@
-import { MODULE_REGISTRY } from '@/data/decisionModules';
+import { MODULE_REGISTRY, buildEvaluationSummary, buildTradeoffInsights } from '@/data/decisionModules';
 import { computeDecisionData } from '@/lib/decisionEngine';
 import { prioritizeModules } from '@/lib/decisionPrioritization';
 
@@ -39,8 +39,15 @@ export async function POST(request) {
   for (const key of selected_modules) modules[key] = computedData[key];
 
   const insights = priority_order
-    .filter(key => reasoning[key])
-    .map(key => reasoning[key]);
+    .filter(key => reasoning[key]?.summary)
+    .map(key => reasoning[key].summary);
+
+  // Portfolio-wide view (all computed modules) for the Evaluation Summary
+  // radar — deliberately broader than the cards above it. Trade-off tiles
+  // are derived from the same selection/reasoning the LLM already produced.
+  const evaluationSummary = buildEvaluationSummary(computedData);
+  const tradeoffs = buildTradeoffInsights(selected_modules, reasoning, computedData);
+  const dataSourcesAnalyzed = selected_modules.length * 2 + (computedData.candidate_locations?.ranked?.length || 0);
 
   return Response.json({
     decision_type,
@@ -55,6 +62,9 @@ export async function POST(request) {
     reasoning,
     modules,
     insights,
+    evaluation_summary: evaluationSummary,
+    tradeoffs,
+    data_sources_analyzed: dataSourcesAnalyzed,
     prioritization_source: source,
   });
 }

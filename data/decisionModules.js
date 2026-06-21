@@ -91,16 +91,176 @@ export const MODULE_LABELS = {
   connectivity: 'Connectivity',
 };
 
-// module → card component key (Part 6)
-export const CARD_MAPPING = {
-  final_recommendation: 'HeroCard',
-  candidate_locations: 'TopLocationsCard',
-  power_analysis: 'PowerCard',
-  risk_analysis: 'RiskCard',
-  cost_estimation: 'CostCard',
-  connectivity: 'ConnectivityCard',
-  feasibility: 'FeasibilityCard',
+// module → card TYPE (Part 6). This is intrinsic to each module's data shape
+// (a ranked list is always a ranking, a risk score is always a score) — it is
+// NOT chosen by the LLM and not baked into the compute engine. final_recommendation
+// is excluded: it always renders as the dedicated Hero card, outside this system.
+export const CARD_TYPE_MAPPING = {
+  candidate_locations: 'ranking',
+  power_analysis: 'metric',
+  cost_estimation: 'metric',
+  connectivity: 'metric',
+  risk_analysis: 'score',
+  feasibility: 'score',
 };
+
+// module → accent color key, purely cosmetic (resolved to a hex value by
+// components/decision-cockpit/cards/Card.jsx's ACCENTS map).
+export const ACCENT_BY_MODULE = {
+  candidate_locations: 'navy',
+  power_analysis: 'amber',
+  cost_estimation: 'success',
+  connectivity: 'accent',
+  risk_analysis: 'danger',
+  feasibility: 'navy',
+};
+
+// Tiny string hash used only for deterministic, purely-cosmetic placement
+// (map pin coordinates) — never for scoring/ranking.
+function hash01(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
+  return (h % 1000) / 1000;
+}
+
+// Derives a 5-point illustrative trend leading up to today's computed value.
+// Purely a presentational derivation of an already-deterministic number —
+// no new randomness, no LLM involvement.
+function buildTrend(currentValue) {
+  return [0.55, 0.7, 0.82, 0.92, 1].map((f, i) => ({
+    period: `Y${i + 1}`,
+    value: Math.round(currentValue * f),
+  }));
+}
+
+/**
+ * Normalizes a module's bespoke computed fields (lib/decisionEngine.js)
+ * into the generic props its card type needs. This is the one place that
+ * knows both "what a module computed" and "what a generic card renders" —
+ * adding a new module later means adding one case here, not a new component.
+ */
+export function shapeForCardType(moduleKey, data) {
+  if (!data) return null;
+  const type = CARD_TYPE_MAPPING[moduleKey] || 'insight';
+
+  if (type === 'ranking') {
+    return {
+      type,
+      items: (data.ranked || []).map(loc => {
+        const h = hash01(loc.name);
+        return {
+          name: loc.name,
+          score: loc.score,
+          tag: loc.risk_tag,
+          // Deterministic, illustrative position only — not real geo-coordinates.
+          pin: { x: 20 + h * 60, y: 20 + hash01(loc.name + '|y') * 55 },
+          meta: [
+            { label: 'Land cost/acre', value: `$${Math.round(loc.land_cost_per_acre_usd / 1000)}K` },
+            { label: 'Grid distance', value: `${loc.power_grid_distance_km} km` },
+          ],
+        };
+      }),
+    };
+  }
+
+  if (type === 'metric') {
+    if (moduleKey === 'power_analysis') {
+      return {
+        type, score: data.score, verdict: data.verdict,
+        primary: { label: 'Grid capacity', value: data.grid_capacity_mw, unit: 'MW' },
+        metrics: [
+          { label: 'Substation distance', value: `${data.substation_distance_km} km` },
+          { label: 'Renewable mix', value: `${data.renewable_mix_pct}%` },
+        ],
+        trend: buildTrend(data.grid_capacity_mw),
+        trendLabel: 'Grid capacity outlook (MW)',
+      };
+    }
+    if (moduleKey === 'cost_estimation') {
+      return {
+        type, score: data.score, verdict: data.verdict,
+        primary: { label: 'CapEx', value: data.capex_usd_m, unit: '$M' },
+        metrics: [
+          { label: 'OpEx / year', value: `$${data.opex_usd_m_per_year}M` },
+          { label: 'Payback', value: `${data.payback_years} yrs` },
+        ],
+        trend: buildTrend(data.opex_usd_m_per_year),
+        trendLabel: 'OpEx outlook ($M/yr)',
+      };
+    }
+    if (moduleKey === 'connectivity') {
+      return {
+        type, score: data.score, verdict: data.verdict,
+        primary: { label: 'Fiber routes', value: data.fiber_routes, unit: 'routes' },
+        metrics: [
+          { label: 'Latency to hub', value: `${data.latency_ms_to_hub} ms` },
+          { label: 'Carrier density', value: data.carrier_density },
+        ],
+        trend: buildTrend(data.fiber_routes),
+        trendLabel: 'Fiber route growth',
+      };
+    }
+  }
+
+  if (type === 'score') {
+    return { type, score: data.score, verdict: data.verdict, factors: data.factors, flags: data.flags };
+  }
+
+  return { type: 'insight', summary: data.headline || data.verdict || '' };
+}
+
+/**
+ * Radar-ready summary across EVERY computed module (not just the ones the
+ * LLM selected) — this is the "Evaluation Summary" portfolio view, so it
+ * intentionally shows the full picture regardless of what's foregrounded
+ * in the main cards.
+ */
+export function buildEvaluationSummary(computedData) {
+  return Object.entries(computedData)
+    .filter(([key, val]) => key !== 'final_recommendation' && typeof val?.score === 'number')
+    .map(([key, val]) => ({ subject: MODULE_LABELS[key] || key, score: val.score }));
+}
+
+/**
+ * Derives 3 trade-off insight tiles from already-computed data — no new
+ * LLM call. The strongest selected module becomes the "strength" tile, the
+ * weakest becomes the "caution" tile, and final_recommendation anchors the
+ * "balanced" tile.
+ */
+export function buildTradeoffInsights(selectedModules, reasoning, computedData) {
+  const candidates = selectedModules
+    .filter(k => k !== 'final_recommendation')
+    .map(k => ({ key: k, score: computedData[k]?.score }))
+    .filter(c => typeof c.score === 'number');
+
+  if (!candidates.length) return [];
+
+  const strongest = candidates.reduce((a, b) => (b.score > a.score ? b : a));
+  const weakest = candidates.reduce((a, b) => (b.score < a.score ? b : a));
+  const hero = computedData.final_recommendation;
+
+  const tiles = [
+    {
+      tone: 'strength',
+      title: `Strong ${MODULE_LABELS[strongest.key]} advantage`,
+      body: reasoning?.[strongest.key]?.why_this_value || reasoning?.[strongest.key]?.summary || '',
+    },
+  ];
+  if (weakest.key !== strongest.key) {
+    tiles.push({
+      tone: 'caution',
+      title: `${MODULE_LABELS[weakest.key]} needs mitigation`,
+      body: reasoning?.[weakest.key]?.why_this_value || reasoning?.[weakest.key]?.summary || '',
+    });
+  }
+  tiles.push({
+    tone: 'balanced',
+    title: 'Balanced trade-off',
+    body: hero?.headline ? `${hero.headline}. Confidence ${hero.confidence ?? '—'}%.` : '',
+  });
+
+  return tiles.slice(0, 3);
+}
 
 // Deterministic lookup — used by the coastal/flood hard constraint.
 // Plain string match, no LLM, no geocoding API.

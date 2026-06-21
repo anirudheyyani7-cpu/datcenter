@@ -2,21 +2,27 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { X, Cpu } from 'lucide-react';
-import { DECISION_QUICK_STARTS, CARD_MAPPING } from '@/data/decisionModules';
+import { X, Cpu, Lightbulb } from 'lucide-react';
+import { DECISION_QUICK_STARTS, CARD_TYPE_MAPPING, ACCENT_BY_MODULE, MODULE_LABELS, shapeForCardType } from '@/data/decisionModules';
 
 import HeroCard from '@/components/decision-cockpit/cards/HeroCard';
-import TopLocationsCard from '@/components/decision-cockpit/cards/TopLocationsCard';
-import PowerCard from '@/components/decision-cockpit/cards/PowerCard';
-import RiskCard from '@/components/decision-cockpit/cards/RiskCard';
-import CostCard from '@/components/decision-cockpit/cards/CostCard';
-import ConnectivityCard from '@/components/decision-cockpit/cards/ConnectivityCard';
-import FeasibilityCard from '@/components/decision-cockpit/cards/FeasibilityCard';
+import RankingCard from '@/components/decision-cockpit/cards/RankingCard';
+import MetricCard from '@/components/decision-cockpit/cards/MetricCard';
+import ScoreCard from '@/components/decision-cockpit/cards/ScoreCard';
+import InsightCard from '@/components/decision-cockpit/cards/InsightCard';
+import EvaluationSummaryCard from '@/components/decision-cockpit/cards/EvaluationSummaryCard';
+import TradeoffTile from '@/components/decision-cockpit/cards/TradeoffTile';
 import InsightStrip from '@/components/decision-cockpit/cards/InsightStrip';
-import DrillDownModal from '@/components/decision-cockpit/cards/DrillDownModal';
+import ExplanationPanel from '@/components/decision-cockpit/cards/ExplanationPanel';
 
+// Keyed by card TYPE, not by module name — this is the whole point of the
+// abstraction: any module that produces ranking/metric/score/insight-shaped
+// data renders through one of these 4 templates, no bespoke component needed.
 const CARD_COMPONENTS = {
-  HeroCard, TopLocationsCard, PowerCard, RiskCard, CostCard, ConnectivityCard, FeasibilityCard,
+  ranking: RankingCard,
+  metric: MetricCard,
+  score: ScoreCard,
+  insight: InsightCard,
 };
 
 export default function DecisionCockpitPage() {
@@ -24,7 +30,7 @@ export default function DecisionCockpitPage() {
   const searchParams = useSearchParams();
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
-  const [drillDown, setDrillDown] = useState(null); // module key or null
+  const [explainKey, setExplainKey] = useState(null); // module key or null
 
   const decisionType = searchParams.get('decision_type');
   const mode = searchParams.get('mode') || 'exploratory';
@@ -97,8 +103,8 @@ export default function DecisionCockpitPage() {
         )}
       </motion.div>
 
-      {/* Body */}
-      <div className="flex-1 min-h-0 overflow-hidden px-5 py-4 flex flex-col gap-3">
+      {/* Body — scrolls if content exceeds the viewport, header stays fixed */}
+      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-4 flex flex-col gap-3">
         {error && (
           <div className="flex-1 flex items-center justify-center">
             <p className="text-sm text-danger font-medium">{error}</p>
@@ -117,7 +123,13 @@ export default function DecisionCockpitPage() {
         {result && (
           <>
             <div className="grid grid-cols-4 gap-3 flex-shrink-0">
-              <HeroCard data={result.modules[heroKey]} reason={result.reasoning[heroKey]} onClick={() => setDrillDown(heroKey)} />
+              <HeroCard
+                data={result.modules[heroKey]}
+                reason={result.reasoning[heroKey]?.summary}
+                moduleCount={result.selected_modules.length}
+                dataSourcesAnalyzed={result.data_sources_analyzed}
+                onDoubleClick={() => setExplainKey(heroKey)}
+              />
             </div>
 
             <div
@@ -125,12 +137,38 @@ export default function DecisionCockpitPage() {
               style={{ gridTemplateColumns: `repeat(${Math.max(supportingKeys.length, 1)}, minmax(0, 1fr))` }}
             >
               {supportingKeys.map(key => {
-                const Comp = CARD_COMPONENTS[CARD_MAPPING[key]];
-                if (!Comp) return null;
+                const cardType = CARD_TYPE_MAPPING[key] || 'insight';
+                const Comp = CARD_COMPONENTS[cardType];
+                const shaped = shapeForCardType(key, result.modules[key]);
+                if (!Comp || !shaped) return null;
                 return (
-                  <Comp key={key} data={result.modules[key]} reason={result.reasoning[key]} onClick={() => setDrillDown(key)} />
+                  <Comp
+                    key={key}
+                    title={MODULE_LABELS[key] || key}
+                    shaped={shaped}
+                    accent={ACCENT_BY_MODULE[key]}
+                    reason={result.reasoning[key]?.summary}
+                    onDoubleClick={() => setExplainKey(key)}
+                  />
                 );
               })}
+            </div>
+
+            {/* Evaluation Summary (portfolio-wide radar) + Key Insights & Trade-offs */}
+            <div className="grid gap-3 flex-shrink-0" style={{ gridTemplateColumns: 'minmax(280px, 1fr) 2fr' }}>
+              <EvaluationSummaryCard evaluationSummary={result.evaluation_summary} />
+
+              <div className="bg-white rounded-2xl border border-grey-border p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <Lightbulb size={13} className="text-amber" />
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-text-muted">Key Insights & Trade-offs</p>
+                </div>
+                <div className="grid grid-cols-3 gap-3 h-full">
+                  {(result.tradeoffs || []).map((t, i) => (
+                    <TradeoffTile key={i} tone={t.tone} title={t.title} body={t.body} />
+                  ))}
+                </div>
+              </div>
             </div>
 
             <InsightStrip insights={result.insights} />
@@ -138,11 +176,10 @@ export default function DecisionCockpitPage() {
         )}
       </div>
 
-      <DrillDownModal
-        moduleKey={drillDown}
-        data={drillDown ? result?.modules[drillDown] : null}
-        reason={drillDown ? result?.reasoning[drillDown] : null}
-        onClose={() => setDrillDown(null)}
+      <ExplanationPanel
+        moduleKey={explainKey}
+        reasoning={explainKey ? result?.reasoning[explainKey] : null}
+        onClose={() => setExplainKey(null)}
       />
     </div>
   );

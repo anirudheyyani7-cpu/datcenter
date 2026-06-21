@@ -8,12 +8,12 @@ function verdictMeta(verdict = '') {
   return { Icon: AlertTriangle, color: ACCENTS.amber };
 }
 
-export default function HeroCard({ data, reason, onClick }) {
+export default function HeroCard({ data, reason, moduleCount, dataSourcesAnalyzed, onDoubleClick }) {
   if (!data) return null;
   const { Icon, color } = verdictMeta(data.verdict);
 
   return (
-    <Card accent={color} onClick={onClick} className="md:col-span-4">
+    <Card accent={color} onDoubleClick={onDoubleClick} className="md:col-span-4">
       <div className="p-5 flex items-center gap-5 flex-wrap">
         <div className="flex items-center gap-3 flex-shrink-0">
           <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: color + '15' }}>
@@ -40,7 +40,28 @@ export default function HeroCard({ data, reason, onClick }) {
           </div>
         </div>
       </div>
-      {reason && <p className="px-5 pb-3 -mt-1 text-[10.5px] text-text-secondary">{reason}</p>}
+      {reason && <p className="px-5 pb-2 -mt-1 text-[10.5px] text-text-secondary">{reason}</p>}
+
+      <div className="px-5 py-2.5 border-t border-grey-border flex items-center gap-4 flex-wrap">
+        {typeof moduleCount === 'number' && (
+          <span className="text-[9.5px] text-text-secondary">{moduleCount} modules selected</span>
+        )}
+        {typeof dataSourcesAnalyzed === 'number' && (
+          <>
+            <span className="text-grey-border">•</span>
+            <span className="text-[9.5px] text-text-secondary">{dataSourcesAnalyzed} data points analyzed</span>
+          </>
+        )}
+        {typeof data.confidence === 'number' && (
+          <div className="flex items-center gap-2 ml-auto">
+            <span className="text-[9px] text-text-muted uppercase tracking-wide">Confidence</span>
+            <div className="w-24 h-1.5 rounded-full bg-grey-bg overflow-hidden">
+              <div className="h-full rounded-full" style={{ width: `${data.confidence}%`, background: color }} />
+            </div>
+            <span className="text-[10px] font-bold text-text-primary">{data.confidence}%</span>
+          </div>
+        )}
+      </div>
     </Card>
   );
 }
