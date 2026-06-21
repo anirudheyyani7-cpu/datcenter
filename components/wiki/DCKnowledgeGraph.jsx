@@ -116,6 +116,10 @@ export default function DCKnowledgeGraph({ activeCategory = 'all' }) {
       ctx.strokeStyle = '#ffffff';
       ctx.lineWidth = 1.5 / globalScale;
       ctx.stroke();
+    } else {
+      ctx.strokeStyle = 'rgba(26,31,54,0.15)';
+      ctx.lineWidth = 1 / globalScale;
+      ctx.stroke();
     }
 
     ctx.shadowBlur = 0;
@@ -127,7 +131,7 @@ export default function DCKnowledgeGraph({ activeCategory = 'all' }) {
       ctx.font = `${node.size >= 12 ? '600 ' : ''}${fontSize}px Inter, system-ui, sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'top';
-      ctx.fillStyle = isDimmed ? 'rgba(255,255,255,0.2)' : isSelected || isHovered ? '#ffffff' : 'rgba(226,232,240,0.85)';
+      ctx.fillStyle = isDimmed ? 'rgba(26,31,54,0.15)' : isSelected || isHovered ? '#1A1F36' : 'rgba(26,31,54,0.65)';
       ctx.fillText(node.label, x, y + r + 2 / globalScale);
     }
 
@@ -144,7 +148,7 @@ export default function DCKnowledgeGraph({ activeCategory = 'all' }) {
     const tgtId = tgt.id ?? tgt;
     const isRelevant = !hasSelection || (neighborSet.has(srcId) && neighborSet.has(tgtId));
 
-    ctx.globalAlpha = isRelevant ? (hasSelection ? 0.45 : 0.2) : 0.04;
+    ctx.globalAlpha = isRelevant ? (hasSelection ? 0.5 : 0.3) : 0.04;
     ctx.strokeStyle = '#94a3b8';
     ctx.lineWidth = 0.7 / Math.max(1, globalScale);
     ctx.beginPath();
@@ -176,14 +180,14 @@ export default function DCKnowledgeGraph({ activeCategory = 'all' }) {
   const activeNode = selectedNode ?? hoveredNode;
 
   return (
-    <div ref={containerRef} className="relative w-full h-full bg-[#0a0f1a]">
+    <div ref={containerRef} className="relative w-full h-full bg-white">
       {mounted && ForceGraph2D && (
         <ForceGraph2D
           ref={fgRef}
           graphData={graphData}
           width={dimensions.w}
           height={dimensions.h}
-          backgroundColor="#0a0f1a"
+          backgroundColor="#ffffff"
           nodeCanvasObject={nodeCanvasObject}
           nodeCanvasObjectMode={() => 'replace'}
           linkCanvasObject={linkCanvasObject}
@@ -212,26 +216,26 @@ export default function DCKnowledgeGraph({ activeCategory = 'all' }) {
             top: Math.max(8, Math.min(hoverPos.y - 10, dimensions.h - 160)),
           }}
         >
-          <div className="bg-[#111827]/95 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl p-3.5">
+          <div className="bg-white/97 backdrop-blur-sm rounded-xl border border-grey-border shadow-2xl p-3.5">
             <div className="flex items-center gap-2 mb-2">
               <div
                 className="w-3 h-3 rounded-full flex-shrink-0"
                 style={{ background: catColor(activeNode.category) }}
               />
-              <span className="font-bold text-white text-sm leading-tight">{activeNode.label}</span>
+              <span className="font-bold text-text-primary text-sm leading-tight">{activeNode.label}</span>
             </div>
             <span
               className="inline-block text-[9px] px-2 py-0.5 rounded-full font-semibold mb-2"
               style={{
-                background: catColor(activeNode.category) + '25',
+                background: catColor(activeNode.category) + '18',
                 color: catColor(activeNode.category),
               }}
             >
               {catLabel(activeNode.category)}
             </span>
-            <p className="text-[10px] text-slate-400 leading-relaxed">{activeNode.description}</p>
+            <p className="text-[10px] text-text-secondary leading-relaxed">{activeNode.description}</p>
             {selectedNode?.id === activeNode.id && (
-              <p className="text-[9px] text-white/30 mt-2">Click again to deselect</p>
+              <p className="text-[9px] text-text-muted mt-2">Click again to deselect</p>
             )}
           </div>
         </div>
@@ -247,7 +251,7 @@ export default function DCKnowledgeGraph({ activeCategory = 'all' }) {
           <button
             key={i}
             onClick={btn.action}
-            className="w-8 h-8 bg-[#1e293b]/90 border border-white/10 rounded-lg shadow-lg text-white/60 flex items-center justify-center hover:bg-white/10 hover:text-white transition-colors"
+            className="w-8 h-8 bg-white border border-grey-border rounded-lg shadow-md text-text-secondary flex items-center justify-center hover:bg-grey-bg hover:text-text-primary transition-colors"
           >
             {btn.icon}
           </button>
@@ -256,7 +260,7 @@ export default function DCKnowledgeGraph({ activeCategory = 'all' }) {
 
       {/* Click-outside hint */}
       {!selectedNode && !hoveredNode && (
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-[10px] text-white/20 pointer-events-none select-none">
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-[10px] text-text-muted pointer-events-none select-none">
           Drag to explore · Scroll to zoom · Click a node to highlight connections
         </div>
       )}

@@ -6,12 +6,12 @@ import {
   Sparkles, Send, ChevronRight, X, Paperclip, FileText,
   LayoutDashboard, FileSearch, Download, Zap, Building2,
   TrendingUp, Wrench, DollarSign, Package, Shield, Activity,
-  ArrowRight, MessageSquare,
 } from 'lucide-react';
 import { LoadingDots } from '@/components/shared/LoadingDots';
 import { callClaude } from '@/lib/claude-api';
 import { writeToWiki } from '@/lib/wiki';
 import { researchClientLight } from '@/lib/research';
+import DecisionQuickStarts from '@/components/decision-cockpit/DecisionQuickStarts';
 
 // ── Stage directory ──────────────────────────────────────────────────────────
 const STAGE_DIRECTORY = [
@@ -22,15 +22,6 @@ const STAGE_DIRECTORY = [
   { num: '05', path: '/stage/05', label: 'Operations',              keywords: ['operate','operations','dcim','monitoring','uptime','sla','efficiency'] },
   { num: '06', path: '/stage/06', label: 'Monetization',            keywords: ['monetize','revenue','colocation','pricing','ebitda','profit'] },
 ];
-
-// ── Idle state — quick-start prompts ─────────────────────────────────────────
-const QUICK_STARTS = [
-  { label: 'Build a new datacenter in India', text: 'I want to build a new datacenter in India. Where should I start?' },
-  { label: 'Assess a DC acquisition target', text: 'Help me assess an existing datacenter acquisition target — what should I evaluate?' },
-  { label: 'Improve operations efficiency', text: 'I want to improve the operational efficiency of my existing datacenters. What are the key levers?' },
-  { label: 'Evaluate DC investment returns', text: 'As a PE investor, how do I evaluate IRR and returns for a datacenter investment in Asia?' },
-];
-
 
 // ── Personas ─────────────────────────────────────────────────────────────────
 const PERSONAS = [
@@ -244,7 +235,7 @@ function buildFileContext(files, fileTexts) {
 }
 
 // ── Idle state panel ──────────────────────────────────────────────────────────
-function IdleStatePanel({ onQuickStart }) {
+function IdleStatePanel() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}
@@ -253,27 +244,7 @@ function IdleStatePanel({ onQuickStart }) {
       transition={{ duration: 0.3 }}
       className="mt-3 space-y-4"
     >
-      {/* Quick-start prompts */}
-      <div>
-        <p className="text-[9px] text-[#9CA3AF] font-bold uppercase tracking-widest mb-2 flex items-center gap-1.5">
-          <MessageSquare size={9} /> Quick starts
-        </p>
-        <div className="flex flex-col gap-1.5">
-          {QUICK_STARTS.map((qs, i) => (
-            <button
-              key={i}
-              onClick={() => onQuickStart(qs.text)}
-              className="w-full text-left px-3 py-2.5 rounded-xl border border-[#E8EDF5] bg-[#F8FAFF] hover:bg-[#EEF4FF] hover:border-[#00338D]/25 transition-all text-xs text-[#374151] group"
-            >
-              <div className="flex items-center justify-between gap-2">
-                <span className="leading-snug">{qs.label}</span>
-                <ArrowRight size={11} className="text-[#CBD5E1] group-hover:text-[#0077C8] flex-shrink-0 transition-colors" />
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
-
+      <DecisionQuickStarts />
     </motion.div>
   );
 }
@@ -511,7 +482,7 @@ export default function LandingChatPanel() {
 
         {/* ── Idle state — fills space before first user message ── */}
         <AnimatePresence>
-          {isIdle && <IdleStatePanel onQuickStart={(text) => sendMessage(text)} />}
+          {isIdle && <IdleStatePanel />}
         </AnimatePresence>
 
         {loading && (

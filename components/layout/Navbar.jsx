@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   LogOut, User, BookOpen, LayoutDashboard, ChevronDown,
-  TrendingUp, Package, Wrench, Shield, Activity, DollarSign, Globe,
+  TrendingUp, Package, Wrench, Shield, Activity, DollarSign, Globe, Route,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef } from 'react';
@@ -165,6 +165,13 @@ export default function Navbar() {
 
             <NavLink href="/wiki" active={pathname?.startsWith('/wiki')}>
               Knowledge Wiki
+            </NavLink>
+
+            <NavLink href="/services" active={pathname?.startsWith('/services')}>
+              <span className="flex items-center gap-1.5">
+                <Route size={12} />
+                Services
+              </span>
             </NavLink>
 
           </div>
