@@ -118,8 +118,31 @@ function LabelOverlay({ labelCanvasRef, hubs, selectedId }) {
       })
       .filter(Boolean);
 
-    visible.sort((a, b) => b.z - a.z);
-    const toShow = visible.slice(0, 12);
+    // Selected hub always wins placement; otherwise prefer whichever faces the camera most.
+    visible.sort((a, b) => {
+      const aSel = selectedId && a.hub.id === selectedId ? 1 : 0;
+      const bSel = selectedId && b.hub.id === selectedId ? 1 : 0;
+      if (aSel !== bSel) return bSel - aSel;
+      return b.z - a.z;
+    });
+
+    // Suppress labels whose anchor points are too close on-screen to one
+    // already placed, so dense clusters (e.g. nearby facilities) don't
+    // render overlapping text.
+    const MIN_LABEL_DIST = 46;
+    const placed = [];
+    const toShow = [];
+    for (const v of visible) {
+      const tooClose = placed.some(p => {
+        const ddx = p.sx - v.sx;
+        const ddy = p.sy - v.sy;
+        return Math.sqrt(ddx * ddx + ddy * ddy) < MIN_LABEL_DIST;
+      });
+      if (tooClose) continue;
+      placed.push(v);
+      toShow.push(v);
+      if (toShow.length >= 12) break;
+    }
 
     const cx = cssW / 2;
     const cy = cssH / 2;
@@ -159,7 +182,7 @@ function LabelOverlay({ labelCanvasRef, hubs, selectedId }) {
 }
 
 // Curated DC markers — individual meshes for click/hover
-function DCMarkers({ datacenters, selectedId, onMarkerClick, setHoveredDC, setHoverPos }) {
+function DCMarkers({ datacenters, selectedId, onMarkerClick, setHoveredDC, setHoverPos, getMarkerColor }) {
   const curatedGeo = useMemo(() => new THREE.SphereGeometry(0.038, 10, 10), []);
   const glowGeo    = useMemo(() => new THREE.SphereGeometry(0.038, 10, 10), []);
 
@@ -170,7 +193,7 @@ function DCMarkers({ datacenters, selectedId, onMarkerClick, setHoveredDC, setHo
       {datacenters.map((dc) => {
         if (!dc.coordinates?.latitude || !dc.coordinates?.longitude) return null;
         const pos = latLngToVector3(dc.coordinates.latitude, dc.coordinates.longitude, RADIUS + 0.045);
-        const color = getCountryColor(dc.country);
+        const color = getMarkerColor ? getMarkerColor(dc) : getCountryColor(dc.country);
         const isSelected = selectedId === dc.id;
 
         return (
@@ -314,7 +337,7 @@ function SceneController({ cameraControlsRef, selectedId, selectedCountry, datac
   return null;
 }
 
-function Scene({ labelCanvasRef, datacenters, peeringFacilities, selectedId, selectedCountry, onMarkerClick, setHoveredDC, setHoverPos }) {
+function Scene({ labelCanvasRef, datacenters, peeringFacilities, selectedId, selectedCountry, onMarkerClick, setHoveredDC, setHoverPos, getMarkerColor }) {
   const { camera } = useThree();
   const cameraControlsRef = useRef(null);
 
@@ -354,6 +377,7 @@ function Scene({ labelCanvasRef, datacenters, peeringFacilities, selectedId, sel
           onMarkerClick={onMarkerClick}
           setHoveredDC={setHoveredDC}
           setHoverPos={setHoverPos}
+          getMarkerColor={getMarkerColor}
         />
       )}
 
@@ -386,6 +410,7 @@ export default function GlobeViewer({
   dcData = null,
   onMarkerClick = null,
   showLink = true,
+  getMarkerColor = null,
 }) {
   const labelCanvasRef = useRef(null);
   const [hoveredDC, setHoveredDC] = useState(null);
@@ -410,6 +435,7 @@ export default function GlobeViewer({
           <Scene
             labelCanvasRef={labelCanvasRef}
             datacenters={datacenters}
+            getMarkerColor={getMarkerColor}
             peeringFacilities={peeringFacilities}
             selectedId={selectedId}
             selectedCountry={selectedCountry}

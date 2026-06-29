@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   LogOut, User, BookOpen, LayoutDashboard, ChevronDown,
-  TrendingUp, Package, Wrench, Shield, Activity, DollarSign, Globe, Route,
+  TrendingUp, Package, Wrench, Shield, Activity, DollarSign, Globe, Route, Building2,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef } from 'react';
@@ -158,6 +158,13 @@ export default function Navbar() {
                 )}
               </AnimatePresence>
             </div>
+
+            <NavLink href="/asset-portfolio" active={pathname?.startsWith('/asset-portfolio')}>
+              <span className="flex items-center gap-1.5">
+                <Building2 size={12} />
+                Asset Portfolio
+              </span>
+            </NavLink>
 
             <NavLink href="/command-center" active={pathname?.startsWith('/command-center')}>
               Command Centre

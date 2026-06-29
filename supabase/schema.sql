@@ -146,3 +146,91 @@ create policy "Users can read their own AI outputs"
 create policy "Users can insert their own AI outputs"
   on public.ai_outputs for insert to authenticated
   with check (auth.uid() = user_id);
+
+-- ============================================================
+-- Asset Portfolio module (per-user data center real estate register)
+-- ============================================================
+
+-- Asset register — one row per facility, scoped to the uploading user.
+create table public.asset_register (
+  id                      uuid primary key default gen_random_uuid(),
+  user_id                 uuid references auth.users(id) on delete cascade not null,
+  asset_id                text not null,
+  asset_name              text not null,
+  region                  text,
+  country                 text,
+  city                    text,
+  latitude                numeric,
+  longitude               numeric,
+  ownership_type          text,  -- 'Owned' | 'Leased' | 'Colo'
+  facility_status         text,  -- 'Active' | 'Under Construction' | 'Decommissioning'
+  tier_rating             text,  -- 'I' | 'II' | 'III' | 'IV'
+  total_area_sqft         numeric,
+  total_it_capacity_mw    numeric,
+  current_it_load_mw      numeric,
+  utilization_pct         numeric,
+  pue                     numeric,
+  acquisition_date        date,
+  acquisition_value_m     numeric,
+  current_valuation_m     numeric,
+  annual_depreciation_m   numeric,
+  capex_budget_m          numeric,
+  capex_spent_m           numeric,
+  capex_remaining_m       numeric,
+  lease_start_date        date,
+  lease_expiry_date       date,
+  break_clause_date       date,
+  annual_rent_m           numeric,
+  rent_escalation_pct     numeric,
+  renewal_option          boolean,
+  ppa_provider            text,
+  ppa_rate_usd_mwh        numeric,
+  ppa_expiry_date         date,
+  renewable_energy_pct    numeric,
+  risk_flag               text,  -- 'High' | 'Medium' | 'Low'
+  notes                   text,
+  created_at              timestamptz default now(),
+  updated_at              timestamptz default now(),
+  unique (user_id, asset_id)
+);
+alter table public.asset_register enable row level security;
+create policy "Users can manage their own asset register"
+  on public.asset_register for all to authenticated
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);
+
+-- Capex & events log — one row per Capex/Lease/PPA/Acquisition/Disposal event.
+create table public.asset_events (
+  id            uuid primary key default gen_random_uuid(),
+  user_id       uuid references auth.users(id) on delete cascade not null,
+  asset_id      text not null,  -- joins to asset_register on (user_id, asset_id); not a hard FK
+  event_type    text,  -- 'Capex' | 'Lease Renewal' | 'PPA Renewal' | 'Acquisition' | 'Disposal'
+  event_date    date,
+  amount_m      numeric,
+  status        text,  -- 'Planned' | 'Committed' | 'Completed'
+  notes         text,
+  created_at    timestamptz default now()
+);
+alter table public.asset_events enable row level security;
+create policy "Users can manage their own asset events"
+  on public.asset_events for all to authenticated
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);
+
+-- Intelligence feed — AI-scored disruption/risk events detected per asset.
+create table public.asset_intelligence (
+  id            uuid primary key default gen_random_uuid(),
+  user_id       uuid references auth.users(id) on delete cascade not null,
+  asset_id      text not null,
+  source_url    text,
+  headline      text,
+  summary       text,
+  severity      integer,  -- 0-10
+  category      text,     -- 'Natural Disaster' | 'Power Grid Event' | 'Geopolitical' | 'Connectivity' | 'Regulatory' | 'Climate'
+  detected_at   timestamptz default now()
+);
+alter table public.asset_intelligence enable row level security;
+create policy "Users can manage their own asset intelligence"
+  on public.asset_intelligence for all to authenticated
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);
