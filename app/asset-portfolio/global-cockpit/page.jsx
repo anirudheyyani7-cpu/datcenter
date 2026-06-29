@@ -92,11 +92,19 @@ export default function GlobalCockpitPage() {
         background: 'rgba(10,22,40,0.95)', flexWrap: 'wrap',
       }}>
         {/* Brand */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginRight: 8 }}>
-          <Globe size={15} color="#0077C8" />
-          <span style={{ fontSize: 12, fontWeight: 700, color: 'rgba(255,255,255,0.9)', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-            Global Cockpit
-          </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginRight: 8 }}>
+          <div style={{ display: 'flex', gap: 1.5 }}>
+            <div style={{ width: 3, height: 14, borderRadius: 2, background: '#4285F4' }} />
+            <div style={{ width: 3, height: 14, borderRadius: 2, background: '#EA4335' }} />
+            <div style={{ width: 3, height: 14, borderRadius: 2, background: '#FBBC05' }} />
+            <div style={{ width: 3, height: 14, borderRadius: 2, background: '#34A853' }} />
+          </div>
+          <Globe size={14} color="#0077C8" />
+          <div>
+            <span style={{ fontSize: 12, fontWeight: 700, color: 'rgba(255,255,255,0.9)', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+              Google DC &nbsp;·&nbsp; Global Cockpit
+            </span>
+          </div>
         </div>
 
         {/* Region Filters */}

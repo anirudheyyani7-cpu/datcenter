@@ -108,6 +108,37 @@ export default function GlobalDashboardPanel({ activeRegion }) {
 
   return (
     <div style={{ background: '#0B1929', padding: '20px 24px', overflowY: 'auto', maxHeight: 'calc(100vh - 420px)' }}>
+
+      {/* Google DC Source Header */}
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        marginBottom: 20, paddingBottom: 16, borderBottom: '1px solid rgba(255,255,255,0.08)',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ display: 'flex', gap: 2.5 }}>
+            <div style={{ width: 5, height: 22, borderRadius: 3, background: '#4285F4' }} />
+            <div style={{ width: 5, height: 22, borderRadius: 3, background: '#EA4335' }} />
+            <div style={{ width: 5, height: 22, borderRadius: 3, background: '#FBBC05' }} />
+            <div style={{ width: 5, height: 22, borderRadius: 3, background: '#34A853' }} />
+          </div>
+          <div>
+            <p style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.9)', fontFamily: "'Plus Jakarta Sans', sans-serif", margin: 0 }}>
+              Google Data Center Infrastructure
+            </p>
+            <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.38)', margin: '2px 0 0' }}>
+              Source: datacenters.google &nbsp;·&nbsp; {dcs.length} campus{dcs.length !== 1 ? 'es' : ''} in view &nbsp;·&nbsp; GSRS Regional Taxonomy
+            </p>
+          </div>
+        </div>
+        <div style={{
+          padding: '4px 10px', borderRadius: 6,
+          background: 'rgba(66,133,244,0.10)', border: '1px solid rgba(66,133,244,0.22)',
+          fontSize: 9, fontWeight: 700, color: '#4285F4', letterSpacing: '0.08em', textTransform: 'uppercase',
+        }}>
+          Google · DC Only
+        </div>
+      </div>
+
       {/* Row 1 — KPI Cards */}
       <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 20 }}>
         <KPI label="Total DCs" value={stats.total} sub={`${stats.countries} Countries`} color={C.blue} />
