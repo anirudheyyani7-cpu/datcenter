@@ -8,9 +8,9 @@ import DCCommandCenter from '@/components/asset-portfolio/global-cockpit/DCComma
 
 const GlobeViewer = dynamic(() => import('@/components/globe/GlobeViewer'), { ssr: false });
 
-const REGIONS = ['All', 'AMER', 'EMEA', 'APAC', 'LATAM'];
+const REGIONS = ['All', 'ASPAC', 'EMEA', 'Americas', 'LA', 'Sahara', 'CASA'];
 
-const REGION_COLORS = { All: '#0077C8', AMER: '#0077C8', EMEA: '#00A36C', APAC: '#D4A017', LATAM: '#7C3AED' };
+const REGION_COLORS = { All: '#0077C8', ASPAC: '#D4A017', EMEA: '#00A36C', Americas: '#0077C8', LA: '#7C3AED', Sahara: '#F97316', CASA: '#06B6D4' };
 
 const STATUS_COLORS = {
   Active: '#00A36C',
