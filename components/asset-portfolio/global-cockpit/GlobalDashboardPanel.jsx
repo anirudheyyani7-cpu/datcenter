@@ -135,7 +135,7 @@ export default function GlobalDashboardPanel({ activeRegion }) {
           background: 'rgba(66,133,244,0.10)', border: '1px solid rgba(66,133,244,0.22)',
           fontSize: 9, fontWeight: 700, color: '#4285F4', letterSpacing: '0.08em', textTransform: 'uppercase',
         }}>
-          Google · DC Only
+          Google · DC
         </div>
       </div>
 
