@@ -1,13 +1,14 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Globe2, Table2, Upload, Building2 } from 'lucide-react';
+import { Globe2, Table2, Boxes, Building2, LayoutDashboard } from 'lucide-react';
 import PortfolioAgentPanel from '@/components/asset-portfolio/PortfolioAgentPanel';
 
 const TABS = [
   { href: '/asset-portfolio', label: 'Globe', Icon: Globe2 },
   { href: '/asset-portfolio/assets', label: 'Assets', Icon: Table2 },
-  { href: '/asset-portfolio/upload', label: 'Upload', Icon: Upload },
+  { href: '/asset-portfolio/asset-management', label: 'Asset Management', Icon: Boxes },
+  { href: '/asset-portfolio/dashboards', label: 'Dashboards', Icon: LayoutDashboard },
 ];
 
 export default function AssetPortfolioLayout({ children }) {
