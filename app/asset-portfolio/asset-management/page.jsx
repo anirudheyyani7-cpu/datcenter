@@ -1,30 +1,30 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import {
-  PackageCheck,
-  PackageOpen,
+  PackageSearch,
+  Send,
   Landmark,
-  ArrowRightLeft,
-  Warehouse,
+  Repeat2,
+  Building2,
   FileBarChart2,
-  ClipboardList,
-  Trash2,
-  UserCog,
+  ClipboardCheck,
+  ServerOff,
+  Settings2,
 } from 'lucide-react';
 
 const STEPS = [
-  { label: 'In Bound',       Icon: PackageCheck,    href: '/asset-portfolio/asset-management/inbound' },
-  { label: 'Out Bound',      Icon: PackageOpen,     href: '/asset-portfolio/asset-management/outbound' },
-  { label: 'Capitalization', Icon: Landmark,        href: '/asset-portfolio/asset-management/capitalization' },
-  { label: 'Asset Movement', Icon: ArrowRightLeft,  href: '/asset-portfolio/asset-management/asset-movement' },
-  { label: 'WH to WH',       Icon: Warehouse,       href: '/asset-portfolio/asset-management/wh-to-wh' },
-  { label: 'Reports',        Icon: FileBarChart2,   href: '/asset-portfolio/asset-management/reports' },
-  { label: 'Physical Audit', Icon: ClipboardList,   href: '/asset-portfolio/asset-management/physical-audit' },
-  { label: 'Disposal',       Icon: Trash2,          href: '/asset-portfolio/asset-management/disposal' },
-  { label: 'Admin',          Icon: UserCog,         href: '/asset-portfolio/asset-management/admin' },
+  { label: 'Asset Receiving\n(GRN)',        Icon: PackageSearch,  href: '/asset-portfolio/asset-management/grn' },
+  { label: 'Asset Dispatch',                Icon: Send,           href: '/asset-portfolio/asset-management/dispatch' },
+  { label: 'FA Capitalization',             Icon: Landmark,       href: '/asset-portfolio/asset-management/capitalization' },
+  { label: 'IMAC',                          Icon: Repeat2,        href: '/asset-portfolio/asset-management/imac' },
+  { label: 'DC-to-DC\nTransfer',            Icon: Building2,      href: '/asset-portfolio/asset-management/dc-transfer' },
+  { label: 'MIS & Reports',                 Icon: FileBarChart2,  href: '/asset-portfolio/asset-management/reports' },
+  { label: 'Physical\nVerification (PV)',   Icon: ClipboardCheck, href: '/asset-portfolio/asset-management/pv' },
+  { label: 'Decommission\n& Disposal',      Icon: ServerOff,      href: '/asset-portfolio/asset-management/decommission' },
+  { label: 'Config & Admin',                Icon: Settings2,      href: '/asset-portfolio/asset-management/admin' },
 ];
 
-export default function AssetManagementPage() {
+export default function AssetLifecyclePage() {
   const router = useRouter();
 
   return (
@@ -40,7 +40,6 @@ export default function AssetManagementPage() {
               onClick={() => router.push(href)}
               className="group relative flex flex-col items-center justify-center gap-4 aspect-square rounded-2xl border border-white/10 transition-all duration-200 hover:scale-105 hover:border-white/30 hover:shadow-2xl"
               style={{
-                background: 'linear-gradient(145deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 100%)',
                 backgroundImage: `
                   linear-gradient(145deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 100%),
                   repeating-linear-gradient(
@@ -53,7 +52,6 @@ export default function AssetManagementPage() {
                 `,
               }}
             >
-              {/* Step number badge */}
               <span
                 className="absolute top-3 left-3 text-[10px] font-bold text-white/30"
                 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
@@ -68,7 +66,7 @@ export default function AssetManagementPage() {
               />
 
               <span
-                className="text-white/80 group-hover:text-white text-sm font-semibold text-center leading-tight transition-colors px-2"
+                className="text-white/80 group-hover:text-white text-sm font-semibold text-center leading-tight transition-colors px-2 whitespace-pre-line"
                 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
               >
                 {label}

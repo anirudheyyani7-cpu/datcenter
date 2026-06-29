@@ -7,7 +7,7 @@ import PortfolioAgentPanel from '@/components/asset-portfolio/PortfolioAgentPane
 const TABS = [
   { href: '/asset-portfolio', label: 'Globe', Icon: Globe2 },
   { href: '/asset-portfolio/assets', label: 'Assets', Icon: Table2 },
-  { href: '/asset-portfolio/asset-management', label: 'Asset Management', Icon: Boxes },
+  { href: '/asset-portfolio/asset-management', label: 'Asset Lifecycle', Icon: Boxes },
   { href: '/asset-portfolio/dashboards', label: 'Dashboards', Icon: LayoutDashboard },
 ];
 
