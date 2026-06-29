@@ -4,6 +4,12 @@ import { NextResponse } from 'next/server';
 const PUBLIC_PATHS = ['/login', '/api', '/dashboard'];
 
 export async function middleware(request) {
+  // If Supabase env vars aren't configured (local dev without .env.local),
+  // skip auth entirely and allow all routes through.
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return NextResponse.next({ request });
+  }
+
   let supabaseResponse = NextResponse.next({ request });
 
   const supabase = createServerClient(

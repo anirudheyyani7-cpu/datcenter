@@ -9,8 +9,16 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const supabase = await createClient();
-  const { data: { session } } = await supabase.auth.getSession();
+  let session = null;
+  try {
+    const supabase = await createClient();
+    if (supabase) {
+      const { data } = await supabase.auth.getSession();
+      session = data.session;
+    }
+  } catch {
+    // Supabase not configured — run without auth session
+  }
 
   return (
     <html lang="en">
