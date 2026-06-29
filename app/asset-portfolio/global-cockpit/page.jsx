@@ -3,8 +3,10 @@ import { useState, useMemo, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { Globe, BarChart2, AlertTriangle, Zap, Server, CheckCircle2, Construction } from 'lucide-react';
 import { GOOGLE_DC_MASTER, DC_STATS } from '@/data/googleDCMasterData';
+import { getWarZonesForRegion } from '@/data/warZoneData';
 import GlobalDashboardPanel from '@/components/asset-portfolio/global-cockpit/GlobalDashboardPanel';
 import DCCommandCenter from '@/components/asset-portfolio/global-cockpit/DCCommandCenter';
+import WarZoneModal from '@/components/asset-portfolio/global-cockpit/WarZoneModal';
 
 const GlobeViewer = dynamic(() => import('@/components/globe/GlobeViewer'), { ssr: false });
 
@@ -27,6 +29,7 @@ export default function GlobalCockpitPage() {
   const [activeRegion, setActiveRegion] = useState('All');
   const [showGlobalDashboard, setShowGlobalDashboard] = useState(false);
   const [selectedDC, setSelectedDC] = useState(null);
+  const [warZoneModal, setWarZoneModal] = useState(null);
 
   // Filter DCs by region
   const filteredDCs = useMemo(() => {
@@ -70,6 +73,8 @@ export default function GlobalCockpitPage() {
     setActiveRegion(region);
     setSelectedDC(null);
     setShowGlobalDashboard(false);
+    const alerts = getWarZonesForRegion(region);
+    if (alerts.length > 0) setWarZoneModal({ region, alerts });
   };
 
   const regionStats = useMemo(() => ({
@@ -213,6 +218,14 @@ export default function GlobalCockpitPage() {
             <DCCommandCenter dc={selectedDC} onClose={() => setSelectedDC(null)} />
           ) : null}
         </div>
+      )}
+
+      {warZoneModal && (
+        <WarZoneModal
+          region={warZoneModal.region}
+          alerts={warZoneModal.alerts}
+          onDismiss={() => setWarZoneModal(null)}
+        />
       )}
     </div>
   );
