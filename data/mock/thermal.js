@@ -2,6 +2,9 @@
 // Each datacenter has an 8×4 grid (columns A-H, rows 1-4) of tile temperature readings
 // Tiles represent 1m² floor sections. CRAH units cool from the rear (row 4).
 // Cold aisle: rows 1 & 3 (front of racks), Hot aisle: rows 2 & 4 (rear of racks)
+import { GOOGLE_DC_MASTER } from '@/data/googleDCMasterData';
+
+const COLS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
 function generateThermalGrid(avgTemp, hotSpots = [], chahPositions = []) {
   const cols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
@@ -24,6 +27,91 @@ function generateThermalGrid(avgTemp, hotSpots = [], chahPositions = []) {
   });
   return tiles;
 }
+
+// ─── Google DC campus thermal generation ───────────────────────────────────
+// Derives a plausible CFD-style floor heatmap for every Active GOOGLE_DC_MASTER
+// campus from its real attributes (PUE, utilization, tier, risk_flag, alarm
+// counts) rather than pure random noise, so hotter/riskier campuses visibly
+// run hotter with more CRAH units offline and more hotspot tiles.
+
+function hashId(id) {
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+
+function spreadColumns(n) {
+  if (n <= 0) return [];
+  if (n === 1) return [COLS[0]];
+  const cols = [];
+  for (let i = 0; i < n; i++) {
+    cols.push(COLS[Math.round((i * (COLS.length - 1)) / (n - 1))]);
+  }
+  return cols;
+}
+
+function pickDistinctColumns(n, seed, exclude = []) {
+  const picked = [];
+  let i = 0;
+  while (picked.length < n && i < 20) {
+    const col = COLS[(seed + i * 5) % COLS.length];
+    if (!exclude.includes(col) && !picked.includes(col)) picked.push(col);
+    i++;
+  }
+  return picked;
+}
+
+const HOTSPOT_MESSAGE_TEMPLATES = [
+  (dc, col, crahOffline) =>
+    `Row ${col} hot aisle trending high — ${dc.market} campus running ${dc.utilization_pct}% utilization${crahOffline > 0 ? ', one CRAH unit degraded' : ''}.`,
+  (dc, col) =>
+    `Rear row ${col} elevated above setpoint — PUE ${dc.pue.toFixed(2)} indicates reduced cooling headroom, recommend load rebalance.`,
+  (dc, col) =>
+    `Row ${col} approaching thermal threshold — ${dc.risk_flag} risk flag, monitor rack density in this aisle.`,
+  (dc, col) =>
+    `Hot spot detected in row ${col} — Tier ${dc.tier} facility at ${dc.utilization_pct}% load, schedule CRAH inspection.`,
+];
+
+function generateCampusThermal(dc) {
+  const seed = hashId(dc.id);
+
+  const avgTempC = Math.max(18, Math.min(32, Math.round(
+    16 + (dc.pue - 1.08) * 45 + (dc.utilization_pct / 100) * 7
+  )));
+  const targetTempC = dc.tier === 'IV' ? 21 : dc.tier === 'III' ? 22 : 23;
+
+  const crahUnits = Math.max(2, Math.min(8, Math.round(dc.capacity_mw / 35)));
+  const crahOffline = dc.risk_flag === 'High' ? 2 : dc.risk_flag === 'Medium' ? 1 : 0;
+  const crahOnline = Math.max(1, crahUnits - crahOffline);
+  const crahCols = spreadColumns(crahUnits);
+  const crahPositions = crahCols.map(col => ({ col, row: 4 }));
+
+  const hotspotCount = Math.max(0, Math.min(4, dc.alarm_critical * 2 + dc.alarm_high));
+  const hotspotCols = pickDistinctColumns(hotspotCount, seed + 7, crahCols);
+  const hotSpots = hotspotCols.map(col => ({ col, row: 2 }));
+
+  const hotspotAlerts = hotSpots.map((h, i) => ({
+    col: h.col,
+    row: h.row,
+    message: HOTSPOT_MESSAGE_TEMPLATES[i % HOTSPOT_MESSAGE_TEMPLATES.length](dc, h.col, crahOffline),
+  }));
+
+  return {
+    avgTempC,
+    targetTempC,
+    crahUnits,
+    crahOnline,
+    tiles: generateThermalGrid(avgTempC, hotSpots, crahPositions),
+    airflowDirection: 'front-to-back',
+    hotspotAlerts,
+  };
+}
+
+const googleDCThermalEntries = Object.fromEntries(
+  GOOGLE_DC_MASTER
+    .filter(dc => dc.status === 'Active')
+    .map(dc => [dc.id, generateCampusThermal(dc)])
+);
 
 export const mockThermalData = {
   'mum-1': {
@@ -159,4 +247,5 @@ export const mockThermalData = {
     airflowDirection: 'front-to-back',
     hotspotAlerts: [],
   },
+  ...googleDCThermalEntries,
 };
