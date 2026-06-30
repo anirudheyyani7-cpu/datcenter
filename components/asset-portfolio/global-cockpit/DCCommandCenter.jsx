@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { X, Server, Cpu, Layers, Zap, Leaf, AlertTriangle, MapPin, Boxes } from 'lucide-react';
+import { X, Server, Cpu, Layers, Zap, Leaf, AlertTriangle, MapPin, Boxes, Sparkles } from 'lucide-react';
 
 const C = {
   card: '#0d1f3c',
@@ -44,17 +44,61 @@ function KPI({ label, value, icon: Icon, color = C.blue }) {
   );
 }
 
+function AIBadge() {
+  return (
+    <span style={{
+      display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 9, fontWeight: 700,
+      padding: '2px 7px', borderRadius: 20, color: C.cyan,
+      background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.25)',
+    }}>
+      <Sparkles size={9} /> AI Elaborated
+    </span>
+  );
+}
+
 const MOCK_ALARMS = [
-  { severity: 'HIGH',   message: 'UPS module B2 — battery health below threshold',   time: '2h ago' },
-  { severity: 'MEDIUM', message: 'CRAC unit 14 — supply air temperature deviation +2°C', time: '5h ago' },
-  { severity: 'LOW',    message: 'PDU branch circuit 07 load at 78% — approaching limit', time: '8h ago' },
-  { severity: 'INFO',   message: 'Scheduled maintenance window confirmed — Sunday 02:00', time: '1d ago' },
+  {
+    severity: 'HIGH',
+    message: 'UPS module B2 — battery health below threshold',
+    time: '2h ago',
+    elaboration: 'Battery cell impedance has drifted 14% beyond baseline over the past 30 days, consistent with accelerated degradation from elevated power-room ambient temperature. If left unaddressed, ride-through runtime during a utility outage could fall below the 10-minute SLA. Recommend scheduling cell replacement within the next maintenance window.',
+  },
+  {
+    severity: 'MEDIUM',
+    message: 'CRAC unit 14 — supply air temperature deviation +2°C',
+    time: '5h ago',
+    elaboration: 'The deviation correlates with a partially restricted condenser coil, reducing heat rejection efficiency by an estimated 8%. Adjacent racks remain within the ASHRAE thermal envelope, so this is not yet rack-critical, but sustained drift could push hot-aisle containment past threshold within 48 hours. Filter and coil cleaning is recommended ahead of the next PM cycle.',
+  },
+  {
+    severity: 'LOW',
+    message: 'PDU branch circuit 07 load at 78% — approaching limit',
+    time: '8h ago',
+    elaboration: 'Load on this circuit has grown roughly 1.2% per week over the trailing quarter, consistent with new GPU rack provisioning in this zone. At the current trajectory it will breach its 80% derated capacity threshold within about three weeks. Rebalancing a portion of load to circuit 09, currently at 52%, is the lowest-risk mitigation.',
+  },
+  {
+    severity: 'INFO',
+    message: 'Scheduled maintenance window confirmed — Sunday 02:00',
+    time: '1d ago',
+    elaboration: 'This is a planned 90-minute window for generator load-bank testing and UPS firmware updates, with no expected impact to IT load given dual-path redundancy. Facilities has confirmed N+1 coverage is maintained throughout. Customers with single-corded equipment in this zone should be notified per standard change protocol.',
+  },
 ];
 
 const MOCK_INTEL = [
-  { tag: 'Power Grid', text: 'Regional utility upgrade expanding capacity by 200 MW by Q3' },
-  { tag: 'Sustainability', text: 'PPA signed for new wind farm — renewable % rising 12pts' },
-  { tag: 'Network', text: 'New 400G backbone ring reduces regional latency by 18%' },
+  {
+    tag: 'Power Grid',
+    text: 'Regional utility upgrade expanding capacity by 200 MW by Q3',
+    elaboration: 'The local transmission operator has approved a substation expansion adding 200 MW of firm capacity to the grid interconnect serving this campus, targeted for energization in Q3. This supports planned IT load growth without requiring additional on-site generation investment and should ease interconnection-queue pressure for adjacent expansion phases.',
+  },
+  {
+    tag: 'Sustainability',
+    text: 'PPA signed for new wind farm — renewable % rising 12pts',
+    elaboration: 'A 15-year power purchase agreement was executed for output from a 180 MW wind farm roughly 60 miles from this site, expected to lift the campus renewable energy mix by approximately 12 percentage points once delivery begins. This advances progress toward the regional 24/7 carbon-free energy target and reduces exposure to wholesale price volatility.',
+  },
+  {
+    tag: 'Network',
+    text: 'New 400G backbone ring reduces regional latency by 18%',
+    elaboration: 'A new 400G optical ring connecting this campus to two adjacent regional hubs entered service, cutting median inter-site latency by 18% and adding a second diverse path for disaster-recovery traffic. This materially improves resilience for latency-sensitive workloads and removes a single point of failure from the prior ring topology.',
+  },
 ];
 
 const ALARM_COLOR = { HIGH: C.red, MEDIUM: C.amber, LOW: '#F59E0B', INFO: C.muted };
@@ -140,9 +184,12 @@ export default function DCCommandCenter({ dc, onClose }) {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
         {/* Alarms */}
         <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 14 }}>
-          <p style={{ fontSize: 10, fontWeight: 700, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 10 }}>
-            Active Alarms
-          </p>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+            <p style={{ fontSize: 10, fontWeight: 700, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.07em', margin: 0 }}>
+              Active Alarms
+            </p>
+            <AIBadge />
+          </div>
           <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
             {[
               { label: 'Crit', val: dc.alarm_critical, color: C.red },
@@ -157,11 +204,14 @@ export default function DCCommandCenter({ dc, onClose }) {
             ))}
           </div>
           {MOCK_ALARMS.slice(0, dc.alarm_high + dc.alarm_critical > 0 ? 3 : 1).map((al, i) => (
-            <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start', marginBottom: 6 }}>
-              <div style={{ width: 6, height: 6, borderRadius: '50%', background: ALARM_COLOR[al.severity], marginTop: 4, flexShrink: 0 }} />
+            <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start', marginBottom: 12, paddingBottom: 12, borderBottom: i < (dc.alarm_high + dc.alarm_critical > 0 ? 2 : 0) ? `1px solid ${C.border}` : 'none' }}>
+              <div style={{ width: 6, height: 6, borderRadius: '50%', background: ALARM_COLOR[al.severity], marginTop: 5, flexShrink: 0 }} />
               <div>
-                <p style={{ fontSize: 11, color: C.text }}>{al.message}</p>
-                <p style={{ fontSize: 9, color: C.muted }}>{al.time}</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 3 }}>
+                  <p style={{ fontSize: 11, fontWeight: 700, color: C.text, margin: 0 }}>{al.message}</p>
+                  <span style={{ fontSize: 9, color: C.muted, flexShrink: 0 }}>· {al.time}</span>
+                </div>
+                <p style={{ fontSize: 10.5, color: C.muted, lineHeight: 1.55, margin: 0 }}>{al.elaboration}</p>
               </div>
             </div>
           ))}
@@ -169,19 +219,23 @@ export default function DCCommandCenter({ dc, onClose }) {
 
         {/* Intelligence Feed */}
         <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 14 }}>
-          <p style={{ fontSize: 10, fontWeight: 700, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 10 }}>
-            DC Intelligence
-          </p>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+            <p style={{ fontSize: 10, fontWeight: 700, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.07em', margin: 0 }}>
+              DC Intelligence
+            </p>
+            <AIBadge />
+          </div>
           {MOCK_INTEL.map((item, i) => (
-            <div key={i} style={{ marginBottom: 10 }}>
+            <div key={i} style={{ marginBottom: 12, paddingBottom: 12, borderBottom: i < MOCK_INTEL.length - 1 ? `1px solid ${C.border}` : 'none' }}>
               <span style={{
-                fontSize: 9, fontWeight: 700, padding: '2px 7px', borderRadius: 20, marginBottom: 4, display: 'inline-block',
+                fontSize: 9, fontWeight: 700, padding: '2px 7px', borderRadius: 20, marginBottom: 5, display: 'inline-block',
                 background: 'rgba(0,119,200,0.12)', color: C.blue, border: '1px solid rgba(0,119,200,0.25)',
               }}>{item.tag}</span>
-              <p style={{ fontSize: 11, color: C.text, lineHeight: 1.5 }}>{item.text}</p>
+              <p style={{ fontSize: 11, fontWeight: 700, color: C.text, marginBottom: 3 }}>{item.text}</p>
+              <p style={{ fontSize: 10.5, color: C.muted, lineHeight: 1.55, margin: 0 }}>{item.elaboration}</p>
             </div>
           ))}
-          <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: 8, marginTop: 4 }}>
+          <div style={{ paddingTop: 2 }}>
             <p style={{ fontSize: 10, color: C.muted }}>
               Lat {dc.lat.toFixed(4)}°, Lng {dc.lng.toFixed(4)}° · ID: {dc.id}
             </p>
