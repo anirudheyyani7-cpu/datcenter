@@ -20,7 +20,7 @@ const C = {
   muted:  '#9CA3AF',
 };
 
-const REGION_COLORS = { ASPAC: '#D4A017', EMEA: '#00A36C', Americas: '#0077C8', LA: '#7C3AED', Sahara: '#F97316', CASA: '#06B6D4' };
+const REGION_COLORS = { 'North America': '#0077C8', Europe: '#00A36C', Asia: '#D4A017', 'South America': '#7C3AED' };
 
 function KPI({ label, value, sub, color = C.blue }) {
   return (
@@ -81,7 +81,7 @@ export default function GlobalDashboardPanel({ activeRegion }) {
   }), [dcs]);
 
   const regionBarData = useMemo(() => {
-    return ['ASPAC', 'EMEA', 'Americas', 'LA', 'Sahara', 'CASA'].map(r => ({
+    return ['North America', 'Europe', 'Asia', 'South America'].map(r => ({
       region: r,
       Active: GOOGLE_DC_MASTER.filter(d => d.region === r && d.status === 'Active').length,
       'Under Construction': GOOGLE_DC_MASTER.filter(d => d.region === r && d.status === 'Under Construction').length,
@@ -102,7 +102,7 @@ export default function GlobalDashboardPanel({ activeRegion }) {
     return order[a.risk_flag] - order[b.risk_flag];
   }).slice(0, 6), [dcs]);
 
-  const mwByRegion = useMemo(() => ['ASPAC', 'EMEA', 'Americas', 'LA', 'Sahara', 'CASA'].map(r => ({
+  const mwByRegion = useMemo(() => ['North America', 'Europe', 'Asia', 'South America'].map(r => ({
     region: r,
     MW: Math.round(dcs.filter(d => d.region === r).reduce((s, d) => s + d.capacity_mw, 0)),
   })), [dcs]);

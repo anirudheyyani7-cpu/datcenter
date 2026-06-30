@@ -13,10 +13,10 @@ import IntelligenceFeedPanel from '@/components/asset-portfolio/IntelligenceFeed
 
 const GlobeViewer = dynamic(() => import('@/components/globe/GlobeViewer'), { ssr: false });
 
-const REGIONS = ['All', 'ASPAC', 'EMEA', 'Americas', 'LA', 'Sahara', 'CASA'];
+const REGIONS = ['All', 'North America', 'Europe', 'Asia', 'South America'];
 const POLL_INTERVAL_MS = 15 * 60 * 1000;
 
-const REGION_COLORS = { All: '#0077C8', ASPAC: '#D4A017', EMEA: '#00A36C', Americas: '#0077C8', LA: '#7C3AED', Sahara: '#F97316', CASA: '#06B6D4' };
+const REGION_COLORS = { All: '#0077C8', 'North America': '#0077C8', Europe: '#00A36C', Asia: '#D4A017', 'South America': '#7C3AED' };
 
 const STATUS_COLORS = {
   Active: '#00A36C',
