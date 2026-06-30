@@ -308,3 +308,77 @@ export const mockCapitalizations = [
     ],
   },
 ];
+
+export const mockDispatches = [
+  { dispatchId: 'DSP-0001', assetIds: ['AST-013'], fromSite: 'Mumbai DC-2', toSite: 'Hyderabad Hyperscale-1', dispatchDate: '2026-05-06', carrier: 'Blue Dart Logistics', trackingNo: 'BD-774521', status: 'Delivered', dispatchedBy: 'Priya Sharma', notes: 'Spare PDU units for Hall B refresh.' },
+  { dispatchId: 'DSP-0002', assetIds: ['AST-007', 'AST-008'], fromSite: 'Ashburn VA Campus', toSite: 'Chennai Edge Facility', dispatchDate: '2026-05-15', carrier: 'FedEx Freight', trackingNo: 'FX-991042', status: 'In Transit', dispatchedBy: 'Jessica Park', notes: 'Decommissioned switches for redeployment.' },
+  { dispatchId: 'DSP-0003', assetIds: ['AST-019'], fromSite: 'Singapore Colo Hub', toSite: 'Hong Kong DC-1', dispatchDate: '2026-05-22', carrier: 'DHL Express', trackingNo: 'DH-220871', status: 'Pending', dispatchedBy: 'David Chen', notes: 'Awaiting export clearance.' },
+];
+
+export const mockIMACs = [
+  { imacId: 'IMAC-0001', assetId: 'AST-004', type: 'Move', fromLocation: 'Hall A, Rack 12', toLocation: 'Hall B, Rack 04', requestedBy: 'Vikram Iyer', requestedDate: '2026-05-04', scheduledDate: '2026-05-09', completedDate: '2026-05-09', status: 'Completed' },
+  { imacId: 'IMAC-0002', assetId: 'AST-011', type: 'Add', fromLocation: null, toLocation: 'Hall C, Rack 21', requestedBy: 'Aisha Khan', requestedDate: '2026-05-12', scheduledDate: '2026-05-18', completedDate: null, status: 'In Progress' },
+  { imacId: 'IMAC-0003', assetId: 'AST-016', type: 'Change', fromLocation: 'Hall A, Rack 02', toLocation: 'Hall A, Rack 02', requestedBy: 'James Wright', requestedDate: '2026-05-19', scheduledDate: '2026-05-25', completedDate: null, status: 'Scheduled' },
+  { imacId: 'IMAC-0004', assetId: 'AST-022', type: 'Install', fromLocation: null, toLocation: 'Hall D, Rack 09', requestedBy: 'Ahmed Al-Rashid', requestedDate: '2026-05-26', scheduledDate: null, completedDate: null, status: 'Requested' },
+];
+
+export const mockTransfers = [
+  {
+    transferId: 'XFR-0001', assetId: 'AST-009', fromDC: 'Mumbai DC-2', toDC: 'Hyderabad Hyperscale-1',
+    reason: 'Capacity rebalancing ahead of tenant onboarding.', transferDate: '2026-05-07', logisticsPartner: 'Blue Dart Logistics', status: 'Received',
+    approvalLog: [
+      { action: 'Transfer Initiated', by: 'Priya Sharma', date: '2026-05-07', note: 'Approved at site level.' },
+      { action: 'In Transit', by: 'Blue Dart Logistics', date: '2026-05-08', note: 'Picked up from Mumbai DC-2.' },
+      { action: 'Received', by: 'Aisha Khan', date: '2026-05-10', note: 'Asset verified on arrival, no damage.' },
+    ],
+  },
+  {
+    transferId: 'XFR-0002', assetId: 'AST-014', fromDC: 'Frankfurt DC-West', toDC: 'London Docklands',
+    reason: 'NIS2 compliance — consolidating sensitive workloads.', transferDate: '2026-05-21', logisticsPartner: 'DB Schenker', status: 'In Transit',
+    approvalLog: [
+      { action: 'Transfer Initiated', by: 'James Wright', date: '2026-05-21', note: 'Approved by regional compliance lead.' },
+      { action: 'In Transit', by: 'DB Schenker', date: '2026-05-22', note: 'Customs cleared, en route.' },
+    ],
+  },
+  {
+    transferId: 'XFR-0003', assetId: 'AST-020', fromDC: 'Hong Kong DC-1', toDC: 'Singapore Colo Hub',
+    reason: 'Asset redeployment to support DBS Bank expansion.', transferDate: '2026-05-28', logisticsPartner: 'DHL Express', status: 'Initiated',
+    approvalLog: [
+      { action: 'Transfer Initiated', by: 'David Chen', date: '2026-05-28', note: 'Pending logistics partner pickup confirmation.' },
+    ],
+  },
+];
+
+export const mockPVRecords = [
+  { pvId: 'PV-0001', site: 'Mumbai DC-2', scheduledDate: '2026-04-15', completedDate: '2026-04-17', assetsExpected: 142, assetsFound: 142, discrepancies: 0, auditedBy: 'Priya Sharma', status: 'Completed' },
+  { pvId: 'PV-0002', site: 'Ashburn VA Campus', scheduledDate: '2026-04-22', completedDate: '2026-04-24', assetsExpected: 268, assetsFound: 264, discrepancies: 4, auditedBy: 'Jessica Park', status: 'Discrepancy Found' },
+  { pvId: 'PV-0003', site: 'Hong Kong DC-1', scheduledDate: '2026-05-20', completedDate: null, assetsExpected: 96, assetsFound: null, discrepancies: 0, auditedBy: 'David Chen', status: 'In Progress' },
+  { pvId: 'PV-0004', site: 'Dubai Edge Node', scheduledDate: '2026-06-10', completedDate: null, assetsExpected: 54, assetsFound: null, discrepancies: 0, auditedBy: 'Omar Khalil', status: 'Scheduled' },
+];
+
+export const mockDecommissions = [
+  {
+    decomId: 'DEC-0001', assetId: 'AST-002', reason: 'EOL', decommissionDate: '2026-05-11',
+    disposalMethod: 'Recycled', certificateNo: 'CERT-44210', status: 'Disposed',
+    approvalLog: [
+      { action: 'Decommission Requested', by: 'Vikram Iyer', date: '2026-05-02', note: 'Asset past 7-year service life.' },
+      { action: 'Approved', by: 'Arjun Mehta', date: '2026-05-06', note: 'Approved for e-waste recycling.' },
+      { action: 'Disposed', by: 'Vikram Iyer', date: '2026-05-11', note: 'Certificate issued by approved e-waste vendor.' },
+    ],
+  },
+  {
+    decomId: 'DEC-0002', assetId: 'AST-017', reason: 'Damaged', decommissionDate: null,
+    disposalMethod: 'Scrapped', certificateNo: null, status: 'Approved',
+    approvalLog: [
+      { action: 'Decommission Requested', by: 'James Wright', date: '2026-05-18', note: 'Damaged beyond repair in PDU fault event.' },
+      { action: 'Approved', by: 'Arjun Mehta', date: '2026-05-23', note: 'Approved pending scrap vendor pickup.' },
+    ],
+  },
+  {
+    decomId: 'DEC-0003', assetId: 'AST-024', reason: 'Upgrade', decommissionDate: null,
+    disposalMethod: 'Resold', certificateNo: null, status: 'Pending',
+    approvalLog: [
+      { action: 'Decommission Requested', by: 'Ahmed Al-Rashid', date: '2026-05-27', note: 'Superseded by newer compute refresh batch.' },
+    ],
+  },
+];
