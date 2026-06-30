@@ -1,5 +1,8 @@
 'use client';
+import { useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { ASSET_PORTFOLIO_SEED } from '@/data/assetPortfolioSeed';
+import { mockAssets, mockGRNs, mockCapitalizations } from '@/data/mock/index';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer,
   LineChart, Line, PieChart, Pie, Cell, RadarChart, Radar,
@@ -139,6 +142,87 @@ const riskData = [
   { name: 'High',   value: assets.filter(a => a.risk_flag === 'High').length,   color: C.red },
 ];
 
+// ─── Asset Composition (equipment-level, from mockAssets) ─────────────────────
+const physicalVirtualData = [
+  { name: 'Physical', value: mockAssets.filter(a => a.assetType === 'Physical').length, color: C.blue },
+  { name: 'Virtual',  value: mockAssets.filter(a => a.assetType === 'Virtual').length,  color: C.purple },
+];
+
+const GROUP_FIELDS = { Make: 'make', Model: 'model', Class: 'class' };
+const LIMIT_OPTIONS = ['Top 5', 'Top 10', 'All'];
+
+function buildCompositionData(groupKey, limit) {
+  const field = GROUP_FIELDS[groupKey];
+  const counts = {};
+  mockAssets.forEach(a => {
+    const key = a[field] || 'Unknown';
+    counts[key] = (counts[key] || 0) + 1;
+  });
+  let rows = Object.entries(counts)
+    .map(([name, value]) => ({ name, value }))
+    .sort((a, b) => b.value - a.value);
+  if (limit === 'Top 5') rows = rows.slice(0, 5);
+  else if (limit === 'Top 10') rows = rows.slice(0, 10);
+  return rows;
+}
+
+function AssetCompositionCard() {
+  const router = useRouter();
+  const [groupKey, setGroupKey] = useState('Make');
+  const [limit, setLimit] = useState('Top 10');
+
+  const data = useMemo(() => buildCompositionData(groupKey, limit), [groupKey, limit]);
+
+  const handleBarClick = (entry) => {
+    if (!entry?.name) return;
+    const field = GROUP_FIELDS[groupKey];
+    router.push(`/asset-portfolio/asset-drilldown?${field}=${encodeURIComponent(entry.name)}`);
+  };
+
+  return (
+    <Card>
+      <div className="flex items-center justify-between mb-3">
+        <CardLabel>Asset Composition by {groupKey}</CardLabel>
+        <div className="flex items-center gap-2">
+          <div className="flex rounded-lg overflow-hidden border" style={{ borderColor: C.border }}>
+            {Object.keys(GROUP_FIELDS).map(g => (
+              <button
+                key={g}
+                onClick={() => setGroupKey(g)}
+                className="px-2.5 py-1 text-[10px] font-semibold transition-colors"
+                style={{
+                  background: groupKey === g ? C.blue : 'transparent',
+                  color: groupKey === g ? '#fff' : 'rgba(255,255,255,0.5)',
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                }}
+              >
+                {g}
+              </button>
+            ))}
+          </div>
+          <select
+            value={limit}
+            onChange={e => setLimit(e.target.value)}
+            className="text-[10px] rounded-md px-2 py-1 outline-none"
+            style={{ background: C.card2, color: 'rgba(255,255,255,0.7)', border: `1px solid ${C.border}` }}
+          >
+            {LIMIT_OPTIONS.map(o => <option key={o} value={o} style={{ background: C.card }}>{o}</option>)}
+          </select>
+        </div>
+      </div>
+      <ResponsiveContainer width="100%" height={230}>
+        <BarChart data={data} layout="vertical" margin={{ top: 0, right: 16, bottom: 0, left: 8 }}>
+          <XAxis type="number" allowDecimals={false} tick={{ fontSize: 9, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
+          <YAxis type="category" dataKey="name" tick={{ fontSize: 9, fill: '#9CA3AF' }} axisLine={false} tickLine={false} width={120} />
+          <Tooltip content={<DarkTooltip />} />
+          <Bar dataKey="value" name="Count" fill={C.cyan} radius={[0, 3, 3, 0]} cursor="pointer" onClick={handleBarClick} />
+        </BarChart>
+      </ResponsiveContainer>
+      <p className="text-[9px] text-white/25 mt-1">Click a bar to view underlying assets</p>
+    </Card>
+  );
+}
+
 // ─── EAM static data (from reference images) ───────────────────────────────────
 const EXEC_SCORECARD = [
   { label: 'Total Asset Base',       value: '₹40,576M',  sub: '33,645 assets',     trend: '+5.2%',  pos: true,  Icon: DollarSign,    color: C.blue   },
@@ -254,7 +338,24 @@ const DATA_ISSUES = [
 ];
 
 // ─── Page ──────────────────────────────────────────────────────────────────────
+function computeAvgGrnToFaDays() {
+  const capitalized = mockCapitalizations.filter(r => r.status === 'Capitalized' && r.capitalizationDate);
+  if (!capitalized.length) return null;
+  const totalDays = capitalized.reduce((sum, r) => {
+    const grn = mockGRNs.find(g => g.grnId === r.grnId);
+    if (!grn) return sum;
+    return sum + Math.round((new Date(r.capitalizationDate) - new Date(grn.receivedDate)) / 86400000);
+  }, 0);
+  return Math.round(totalDays / capitalized.length);
+}
+
 export default function DashboardsPage() {
+  const router = useRouter();
+  const avgGrnToFaDays = useMemo(computeAvgGrnToFaDays, []);
+  const financialPills = useMemo(
+    () => FINANCIAL_PILLS.map(p => (p.label === 'Avg GRN→FA (Days)' && avgGrnToFaDays != null ? { ...p, value: String(avgGrnToFaDays) } : p)),
+    [avgGrnToFaDays]
+  );
   return (
     <div style={{ background: C.bg, minHeight: '100vh', padding: '28px 36px' }}>
 
@@ -373,6 +474,55 @@ export default function DashboardsPage() {
       </div>
 
       {/* ═══════════════════════════════════════════════════════════════════════
+          BLOCK 2b – Asset Composition (equipment-level)
+         ═══════════════════════════════════════════════════════════════════════ */}
+      <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="col-span-2">
+          <AssetCompositionCard />
+        </div>
+
+        {/* Physical vs Virtual */}
+        <Card className="flex flex-col">
+          <CardLabel>Physical vs Virtual</CardLabel>
+          <div className="flex items-center justify-center gap-8 flex-1 py-4">
+            <PieChart width={120} height={120}>
+              <Pie
+                data={physicalVirtualData}
+                innerRadius={36}
+                outerRadius={56}
+                dataKey="value"
+                strokeWidth={0}
+                cursor="pointer"
+                onClick={(entry) => router.push(`/asset-portfolio/asset-drilldown?assetType=${encodeURIComponent(entry.name)}`)}
+              >
+                {physicalVirtualData.map((e, i) => <Cell key={i} fill={e.color} />)}
+              </Pie>
+            </PieChart>
+            <div className="flex flex-col gap-4">
+              {physicalVirtualData.map(d => {
+                const total = physicalVirtualData.reduce((s, x) => s + x.value, 0);
+                const pct = total ? Math.round((d.value / total) * 100) : 0;
+                return (
+                  <button
+                    key={d.name}
+                    onClick={() => router.push(`/asset-portfolio/asset-drilldown?assetType=${encodeURIComponent(d.name)}`)}
+                    className="flex items-center gap-3 text-left hover:opacity-80 transition-opacity"
+                  >
+                    <div className="w-3 h-3 rounded-full" style={{ background: d.color }} />
+                    <div>
+                      <p className="text-[10px] text-white/45">{d.name} ({pct}%)</p>
+                      <Mono size="text-xl" color={d.color}>{d.value}</Mono>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          <p className="text-[9px] text-white/25">Click a segment to view underlying assets</p>
+        </Card>
+      </div>
+
+      {/* ═══════════════════════════════════════════════════════════════════════
           BLOCK 3 – DC Charts Row 2
          ═══════════════════════════════════════════════════════════════════════ */}
       <div className="grid grid-cols-3 gap-4 mb-8">
@@ -458,7 +608,7 @@ export default function DashboardsPage() {
          ═══════════════════════════════════════════════════════════════════════ */}
       <SectionTitle>Financial Governance</SectionTitle>
       <div className="grid grid-cols-6 gap-3 mb-4">
-        {FINANCIAL_PILLS.map(({ label, value }) => (
+        {financialPills.map(({ label, value }) => (
           <Card key={label} className="text-center py-3">
             <p className="text-[9px] text-white/40 uppercase tracking-wider mb-1.5"
               style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{label}</p>
