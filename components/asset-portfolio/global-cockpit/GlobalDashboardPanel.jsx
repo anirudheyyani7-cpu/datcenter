@@ -7,23 +7,24 @@ import {
 import { GOOGLE_DC_MASTER, DC_STATS } from '@/data/googleDCMasterData';
 
 const C = {
-  card: '#0d1f3c',
-  border: 'rgba(255,255,255,0.09)',
-  blue: '#0077C8',
-  green: '#00A36C',
-  amber: '#D4A017',
-  red: '#DC2626',
-  cyan: '#06B6D4',
+  bg:     '#F4F6F9',
+  card:   '#FFFFFF',
+  border: '#E2E8F0',
+  blue:   '#0077C8',
+  green:  '#00A36C',
+  amber:  '#D4A017',
+  red:    '#DC2626',
+  cyan:   '#06B6D4',
   purple: '#7C3AED',
-  text: 'rgba(255,255,255,0.85)',
-  muted: 'rgba(255,255,255,0.45)',
+  text:   '#1A1F36',
+  muted:  '#9CA3AF',
 };
 
 const REGION_COLORS = { ASPAC: '#D4A017', EMEA: '#00A36C', Americas: '#0077C8', LA: '#7C3AED', Sahara: '#F97316', CASA: '#06B6D4' };
 
 function KPI({ label, value, sub, color = C.blue }) {
   return (
-    <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: '14px 18px', flex: 1, minWidth: 120 }}>
+    <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: '14px 18px', flex: 1, minWidth: 120, boxShadow: '0 1px 2px rgba(16,24,40,0.04)' }}>
       <p style={{ fontSize: 10, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>{label}</p>
       <p style={{ fontSize: 22, fontWeight: 700, color, fontFamily: "'JetBrains Mono', monospace", lineHeight: 1 }}>{value}</p>
       {sub && <p style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>{sub}</p>}
@@ -42,10 +43,10 @@ function SectionTitle({ children }) {
 const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
-    <div style={{ background: '#0d1f3c', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 8, padding: '8px 12px' }}>
-      <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 11, marginBottom: 4 }}>{label}</p>
+    <div style={{ background: '#FFFFFF', border: `1px solid ${C.border}`, borderRadius: 8, padding: '8px 12px', boxShadow: '0 4px 12px rgba(16,24,40,0.08)' }}>
+      <p style={{ color: C.muted, fontSize: 11, marginBottom: 4 }}>{label}</p>
       {payload.map(p => (
-        <p key={p.name} style={{ color: p.color || '#fff', fontSize: 12, fontWeight: 600 }}>
+        <p key={p.name} style={{ color: p.color || C.text, fontSize: 12, fontWeight: 600 }}>
           {p.name}: {p.value}
         </p>
       ))}
@@ -107,12 +108,12 @@ export default function GlobalDashboardPanel({ activeRegion }) {
   })), [dcs]);
 
   return (
-    <div style={{ background: '#0B1929', padding: '20px 24px', overflowY: 'auto', maxHeight: 'calc(100vh - 420px)' }}>
+    <div style={{ background: C.bg, padding: '20px 24px', overflowY: 'auto', maxHeight: 'calc(100vh - 420px)' }}>
 
       {/* Google DC Source Header */}
       <div style={{
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        marginBottom: 20, paddingBottom: 16, borderBottom: '1px solid rgba(255,255,255,0.08)',
+        marginBottom: 20, paddingBottom: 16, borderBottom: `1px solid ${C.border}`,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <div style={{ display: 'flex', gap: 2.5 }}>
@@ -122,10 +123,10 @@ export default function GlobalDashboardPanel({ activeRegion }) {
             <div style={{ width: 5, height: 22, borderRadius: 3, background: '#34A853' }} />
           </div>
           <div>
-            <p style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.9)', fontFamily: "'Plus Jakarta Sans', sans-serif", margin: 0 }}>
+            <p style={{ fontSize: 13, fontWeight: 700, color: C.text, fontFamily: "'Plus Jakarta Sans', sans-serif", margin: 0 }}>
               Google Data Center Infrastructure
             </p>
-            <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.38)', margin: '2px 0 0' }}>
+            <p style={{ fontSize: 10, color: C.muted, margin: '2px 0 0' }}>
               Source: datacenters.google &nbsp;·&nbsp; {dcs.length} campus{dcs.length !== 1 ? 'es' : ''} in view &nbsp;·&nbsp; GSRS Regional Taxonomy
             </p>
           </div>
@@ -162,7 +163,7 @@ export default function GlobalDashboardPanel({ activeRegion }) {
       {/* Row 3 — Charts */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16, marginBottom: 20 }}>
         {/* Regional DC Count */}
-        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 16 }}>
+        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 16, boxShadow: '0 1px 2px rgba(16,24,40,0.04)' }}>
           <SectionTitle>DCs by Region</SectionTitle>
           <ResponsiveContainer width="100%" height={160}>
             <BarChart data={regionBarData} barSize={14}>
@@ -176,7 +177,7 @@ export default function GlobalDashboardPanel({ activeRegion }) {
         </div>
 
         {/* MW by Region */}
-        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 16 }}>
+        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 16, boxShadow: '0 1px 2px rgba(16,24,40,0.04)' }}>
           <SectionTitle>Capacity MW by Region</SectionTitle>
           <ResponsiveContainer width="100%" height={160}>
             <BarChart data={mwByRegion} barSize={20}>
@@ -193,7 +194,7 @@ export default function GlobalDashboardPanel({ activeRegion }) {
         </div>
 
         {/* Tier Donut */}
-        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 16 }}>
+        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 16, boxShadow: '0 1px 2px rgba(16,24,40,0.04)' }}>
           <SectionTitle>Tier Distribution</SectionTitle>
           <ResponsiveContainer width="100%" height={160}>
             <PieChart>
@@ -210,7 +211,7 @@ export default function GlobalDashboardPanel({ activeRegion }) {
       {/* Row 4 — Alarms + At Risk */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 20 }}>
         {/* Alarm Summary */}
-        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 16 }}>
+        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 16, boxShadow: '0 1px 2px rgba(16,24,40,0.04)' }}>
           <SectionTitle>Alarm Summary</SectionTitle>
           {[
             { label: 'Critical', count: stats.critAlarms, color: C.red },
@@ -235,7 +236,7 @@ export default function GlobalDashboardPanel({ activeRegion }) {
         </div>
 
         {/* At Risk DCs */}
-        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 16 }}>
+        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 16, boxShadow: '0 1px 2px rgba(16,24,40,0.04)' }}>
           <SectionTitle>At Risk DCs</SectionTitle>
           {topRisk.length === 0 ? (
             <p style={{ fontSize: 12, color: C.green }}>No at-risk DCs in this region</p>
@@ -259,7 +260,7 @@ export default function GlobalDashboardPanel({ activeRegion }) {
       </div>
 
       {/* Row 5 — ESG */}
-      <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 16 }}>
+      <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 16, boxShadow: '0 1px 2px rgba(16,24,40,0.04)' }}>
         <SectionTitle>ESG Snapshot</SectionTitle>
         <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
           {[

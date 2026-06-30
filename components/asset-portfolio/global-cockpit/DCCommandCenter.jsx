@@ -1,5 +1,6 @@
 'use client';
-import { X, Server, Cpu, Layers, Zap, Leaf, AlertTriangle, MapPin } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { X, Server, Cpu, Layers, Zap, Leaf, AlertTriangle, MapPin, Boxes } from 'lucide-react';
 
 const C = {
   card: '#0d1f3c',
@@ -59,6 +60,7 @@ const MOCK_INTEL = [
 const ALARM_COLOR = { HIGH: C.red, MEDIUM: C.amber, LOW: '#F59E0B', INFO: C.muted };
 
 export default function DCCommandCenter({ dc, onClose }) {
+  const router = useRouter();
   if (!dc) return null;
 
   const flag = FLAG_EMOJI[dc.country] || '🌐';
@@ -99,9 +101,21 @@ export default function DCCommandCenter({ dc, onClose }) {
             <span style={{ fontSize: 11, color: '#0077C8' }}>{dc.region}</span>
           </div>
         </div>
-        <button onClick={onClose} style={{ color: C.muted, cursor: 'pointer', background: 'none', border: 'none', padding: 4 }}>
-          <X size={16} />
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <button
+            onClick={() => router.push(`/asset-portfolio/${dc.id}/twin`)}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, fontWeight: 600,
+              color: C.cyan, background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)',
+              borderRadius: 8, padding: '6px 12px', cursor: 'pointer',
+            }}
+          >
+            <Boxes size={13} /> Open Digital Twin
+          </button>
+          <button onClick={onClose} style={{ color: C.muted, cursor: 'pointer', background: 'none', border: 'none', padding: 4 }}>
+            <X size={16} />
+          </button>
+        </div>
       </div>
 
       {/* KPI Row 1 — Capacity & Operations */}

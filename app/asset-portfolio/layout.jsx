@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Globe2, Table2, Boxes, Building2, LayoutDashboard, Radar } from 'lucide-react';
+import { Globe2, Table2, Boxes, Building2, LayoutDashboard, Radar, Layers, Home } from 'lucide-react';
 import PortfolioAgentPanel from '@/components/asset-portfolio/PortfolioAgentPanel';
 
 const TABS = [
@@ -9,6 +9,7 @@ const TABS = [
   { href: '/asset-portfolio/assets', label: 'Assets', Icon: Table2 },
   { href: '/asset-portfolio/asset-management', label: 'Asset Lifecycle', Icon: Boxes },
   { href: '/asset-portfolio/dashboards', label: 'Dashboards', Icon: LayoutDashboard },
+  { href: '/asset-portfolio/asset-drilldown', label: 'Asset Drilldown', Icon: Layers },
   { href: '/asset-portfolio/global-cockpit', label: 'Global Cockpit', Icon: Radar },
 ];
 
@@ -18,6 +19,13 @@ export default function AssetPortfolioLayout({ children }) {
   return (
     <div className="min-h-screen bg-white">
       <div className="border-b border-grey-border bg-white px-6 py-3 flex items-center gap-6 sticky top-0 z-30">
+        <Link
+          href="/"
+          className="flex items-center justify-center w-7 h-7 rounded-lg text-text-secondary hover:bg-grey-bg hover:text-navy transition-colors"
+          title="Home"
+        >
+          <Home size={14} />
+        </Link>
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-lg bg-navy/10 flex items-center justify-center">
             <Building2 size={14} className="text-navy" />

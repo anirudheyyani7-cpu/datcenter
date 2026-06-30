@@ -6,7 +6,8 @@ import { ArrowLeft } from 'lucide-react';
 import { createClient } from '@/lib/supabase';
 import { fetchAssetRegisterClient, fetchGoogleLocations } from '@/lib/assetPortfolio';
 import { ASSET_PORTFOLIO_SEED } from '@/data/assetPortfolioSeed';
-import { assetToDigitalTwinDC } from '@/lib/assetPortfolioCalc';
+import { GOOGLE_DC_MASTER } from '@/data/googleDCMasterData';
+import { assetToDigitalTwinDC, googleDCToDigitalTwinDC } from '@/lib/assetPortfolioCalc';
 
 const DigitalTwinViewer = dynamic(() => import('@/components/datacenters/DigitalTwinViewer'), { ssr: false });
 
@@ -14,11 +15,17 @@ export default function AssetTwinPage({ params }) {
   const { assetId } = use(params);
   const router = useRouter();
   const [asset, setAsset] = useState(null);
+  const [googleDC, setGoogleDC] = useState(null);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     let active = true;
     (async () => {
+      const fromGoogleMaster = GOOGLE_DC_MASTER.find(d => d.id === assetId);
+      if (fromGoogleMaster) {
+        if (active) { setGoogleDC(fromGoogleMaster); setLoaded(true); }
+        return;
+      }
       const supabase = createClient();
       const register = await fetchAssetRegisterClient(supabase);
       let pool = register;
@@ -32,7 +39,7 @@ export default function AssetTwinPage({ params }) {
     return () => { active = false; };
   }, [assetId]);
 
-  if (loaded && !asset) {
+  if (loaded && !asset && !googleDC) {
     return (
       <div className="flex items-center justify-center h-[60vh] text-text-secondary text-sm">
         Asset not found.
@@ -40,16 +47,18 @@ export default function AssetTwinPage({ params }) {
     );
   }
 
-  const dc = asset ? assetToDigitalTwinDC(asset) : null;
+  const dc = googleDC ? googleDCToDigitalTwinDC(googleDC) : asset ? assetToDigitalTwinDC(asset) : null;
+  const backHref = googleDC ? '/asset-portfolio/global-cockpit' : '/asset-portfolio';
+  const backLabel = googleDC ? 'Back to Global Cockpit' : 'Back to Globe';
 
   return (
     <div className="relative" style={{ height: 'calc(100vh - 49px)' }}>
       <div className="absolute top-0 left-0 right-0 z-10 flex items-center gap-2 px-3 py-2 bg-white/90 backdrop-blur-sm border-b border-grey-border">
         <button
-          onClick={() => router.push('/asset-portfolio')}
+          onClick={() => router.push(backHref)}
           className="flex items-center gap-1.5 text-[10px] text-text-secondary hover:text-accent transition-colors"
         >
-          <ArrowLeft size={11} /> Back to Globe
+          <ArrowLeft size={11} /> {backLabel}
         </button>
         {dc && (
           <>
