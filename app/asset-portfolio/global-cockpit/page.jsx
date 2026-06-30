@@ -1,16 +1,20 @@
 'use client';
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { Globe, BarChart2, AlertTriangle, Zap, Server, CheckCircle2, Construction } from 'lucide-react';
+import { createClient } from '@/lib/supabase';
+import { fetchAssetIntelligenceClient } from '@/lib/assetPortfolio';
 import { GOOGLE_DC_MASTER, DC_STATS } from '@/data/googleDCMasterData';
 import { getWarZonesForRegion } from '@/data/warZoneData';
 import GlobalDashboardPanel from '@/components/asset-portfolio/global-cockpit/GlobalDashboardPanel';
 import DCCommandCenter from '@/components/asset-portfolio/global-cockpit/DCCommandCenter';
 import WarZoneModal from '@/components/asset-portfolio/global-cockpit/WarZoneModal';
+import IntelligenceFeedPanel from '@/components/asset-portfolio/IntelligenceFeedPanel';
 
 const GlobeViewer = dynamic(() => import('@/components/globe/GlobeViewer'), { ssr: false });
 
 const REGIONS = ['All', 'ASPAC', 'EMEA', 'Americas', 'LA', 'Sahara', 'CASA'];
+const POLL_INTERVAL_MS = 15 * 60 * 1000;
 
 const REGION_COLORS = { All: '#0077C8', ASPAC: '#D4A017', EMEA: '#00A36C', Americas: '#0077C8', LA: '#7C3AED', Sahara: '#F97316', CASA: '#06B6D4' };
 
@@ -26,10 +30,48 @@ const RISK_COLORS = {
 };
 
 export default function GlobalCockpitPage() {
+  const supabase = useMemo(() => createClient(), []);
   const [activeRegion, setActiveRegion] = useState('All');
   const [showGlobalDashboard, setShowGlobalDashboard] = useState(false);
   const [selectedDC, setSelectedDC] = useState(null);
   const [warZoneModal, setWarZoneModal] = useState(null);
+  const [intelligence, setIntelligence] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const intervalRef = useRef(null);
+
+  // GOOGLE_DC_MASTER ids are always prefixed 'GDC-', so this filters out any
+  // intelligence rows that belong to a user's uploaded asset_register (Globe
+  // tab) rather than this Global Cockpit campus list.
+  const assetsById = useMemo(
+    () => Object.fromEntries(GOOGLE_DC_MASTER.map(d => [d.id, { asset_name: d.name }])),
+    []
+  );
+
+  const loadIntelligence = useCallback(async () => {
+    const rows = await fetchAssetIntelligenceClient(supabase);
+    setIntelligence(rows.filter(r => r.asset_id?.startsWith('GDC-')));
+  }, [supabase]);
+
+  useEffect(() => { loadIntelligence(); }, [loadIntelligence]);
+
+  const refreshIntelligence = useCallback(async () => {
+    setRefreshing(true);
+    try {
+      await fetch('/api/asset-portfolio/global-intelligence', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ region: activeRegion }),
+      });
+      await loadIntelligence();
+    } finally {
+      setRefreshing(false);
+    }
+  }, [activeRegion, loadIntelligence]);
+
+  useEffect(() => {
+    intervalRef.current = setInterval(() => { refreshIntelligence(); }, POLL_INTERVAL_MS);
+    return () => clearInterval(intervalRef.current);
+  }, [refreshIntelligence]);
 
   // Filter DCs by region
   const filteredDCs = useMemo(() => {
@@ -207,6 +249,13 @@ export default function GlobalCockpitPage() {
             Click a pin to open DC Command Center
           </div>
         )}
+
+        <IntelligenceFeedPanel
+          feed={intelligence}
+          assetsById={assetsById}
+          onRefresh={refreshIntelligence}
+          refreshing={refreshing}
+        />
       </div>
 
       {/* ── Dashboard Panel ──────────────────────────────────────────────────── */}
