@@ -5,9 +5,9 @@ import { Boxes, Building2, LayoutDashboard, Radar, Layers, Home } from 'lucide-r
 import PortfolioAgentPanel from '@/components/asset-portfolio/PortfolioAgentPanel';
 
 const TABS = [
-  { href: '/asset-portfolio/asset-management', label: 'Asset Lifecycle', Icon: Boxes },
-  { href: '/asset-portfolio/dashboards', label: 'Dashboards', Icon: LayoutDashboard },
-  { href: '/asset-portfolio/asset-drilldown', label: 'Asset Drilldown', Icon: Layers },
+  // { href: '/asset-portfolio/asset-management', label: 'Asset Lifecycle', Icon: Boxes },
+  // { href: '/asset-portfolio/dashboards', label: 'Dashboards', Icon: LayoutDashboard },
+  // { href: '/asset-portfolio/asset-drilldown', label: 'Asset Drilldown', Icon: Layers },
   { href: '/asset-portfolio/global-cockpit', label: 'Global Cockpit', Icon: Radar },
 ];
 
