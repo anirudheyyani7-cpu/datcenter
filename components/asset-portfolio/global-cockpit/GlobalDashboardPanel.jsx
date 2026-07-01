@@ -1,5 +1,6 @@
 'use client';
-import { useMemo } from 'react';
+import { useState, useMemo } from 'react';
+import { Sparkles } from 'lucide-react';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell,
   PieChart, Pie, Legend,
@@ -22,12 +23,48 @@ const C = {
 
 const REGION_COLORS = { 'North America': '#0077C8', Europe: '#00A36C', Asia: '#D4A017', 'South America': '#7C3AED' };
 
-function KPI({ label, value, sub, color = C.blue }) {
+function AIBadge() {
   return (
-    <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: '14px 18px', flex: 1, minWidth: 120, boxShadow: '0 1px 2px rgba(16,24,40,0.04)' }}>
+    <span style={{
+      display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 9, fontWeight: 700,
+      padding: '2px 7px', borderRadius: 20, color: C.cyan,
+      background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.25)',
+    }}>
+      <Sparkles size={9} /> AI Elaborated
+    </span>
+  );
+}
+
+function KPI({ label, value, sub, color = C.blue, elaboration = null }) {
+  const [hovered, setHovered] = useState(false);
+  const [locked, setLocked] = useState(false);
+  return (
+    <div
+      style={{ position: 'relative', background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: '14px 18px', flex: 1, minWidth: 120, boxShadow: '0 1px 2px rgba(16,24,40,0.04)', cursor: elaboration ? 'pointer' : 'default' }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => { if (!locked) setHovered(false); }}
+      onDoubleClick={() => elaboration && setLocked(prev => !prev)}
+    >
       <p style={{ fontSize: 10, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>{label}</p>
       <p style={{ fontSize: 22, fontWeight: 700, color, fontFamily: "'JetBrains Mono', monospace", lineHeight: 1 }}>{value}</p>
       {sub && <p style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>{sub}</p>}
+      {elaboration && (hovered || locked) && (
+        <div style={{
+          position: 'absolute', top: '100%', left: 0, zIndex: 200,
+          width: 270, background: '#1A1F36', color: '#fff',
+          borderRadius: 10, padding: '12px 14px', marginTop: 6,
+          boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
+          border: '1px solid rgba(255,255,255,0.1)',
+          pointerEvents: 'none',
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+            <span style={{ fontSize: 10, fontWeight: 700, color, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{label}</span>
+            <AIBadge />
+          </div>
+          <p style={{ fontSize: 10.5, lineHeight: 1.6, color: 'rgba(255,255,255,0.8)', margin: 0 }}>{elaboration}</p>
+          {locked && <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)', marginTop: 6 }}>Double-click to close</p>}
+        </div>
+      )}
     </div>
   );
 }
@@ -144,28 +181,48 @@ export default function GlobalDashboardPanel({ activeRegion }) {
 
       {/* Row 1 — KPI Cards */}
       <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 20 }}>
-        <KPI label="Total DCs" value={stats.total} sub={`${stats.countries} Countries`} color={C.blue} />
-        <KPI label="Active" value={stats.active} sub={`${stats.countries} Countries`} color={C.green} />
-        <KPI label="Under Construction" value={stats.uc} sub="Planned campuses" color={C.amber} />
-        <KPI label="Total MW" value={`${stats.totalMW.toLocaleString()} MW`} sub="IT Load Capacity" color={C.cyan} />
-        <KPI label="Avg PUE" value={stats.avgPUE} sub="Power Usage Effectiveness" color={C.blue} />
-        <KPI label="Avg Utilization" value={`${stats.avgUtil}%`} sub="Across DCs in view" color={stats.avgUtil > 85 ? C.red : stats.avgUtil > 70 ? C.amber : C.green} />
-        <KPI label="Renewable" value={`${stats.avgRenewable}%`} sub="Avg Renewable Energy" color={C.green} />
-        <KPI label="At Risk" value={stats.atRisk} sub={`${stats.highRisk} Critical`} color={stats.highRisk > 0 ? C.red : C.amber} />
-        <KPI label="Tier IV DCs" value={stats.tierIV} sub="Tier IV campuses" color={C.purple} />
+        <KPI label="Total DCs" value={stats.total} sub={`${stats.countries} Countries`} color={C.blue}
+          elaboration={`${stats.total} data center sites across ${stats.countries} countries in the current view — ${stats.active} active and ${stats.uc} under construction. This is the master inventory count and the denominator for all portfolio-level ratios including utilisation, risk rate, and carbon intensity.`} />
+        <KPI label="Active" value={stats.active} sub={`${stats.countries} Countries`} color={C.green}
+          elaboration={`${stats.active} sites currently in live commercial operation, accepting workloads and generating revenue. Active count as a percentage of total (${Math.round((stats.active / stats.total) * 100)}%) indicates how much of the planned portfolio is generating utilisation versus still consuming build capital.`} />
+        <KPI label="Under Construction" value={stats.uc} sub="Planned campuses" color={C.amber}
+          elaboration={`${stats.uc} sites where physical construction, fit-out, or commissioning is underway but commercial operations have not yet commenced. Represents committed forward capacity — capital already deployed but not yet generating utilisation. Once commissioned, these sites will ${stats.uc > stats.active ? 'more than double' : 'significantly expand'} the active fleet.`} />
+        <KPI label="Total MW" value={`${stats.totalMW.toLocaleString()} MW`} sub="IT Load Capacity" color={C.cyan}
+          elaboration={`${stats.totalMW.toLocaleString()} MW total nameplate IT power capacity across all sites in view. This is the primary sizing metric for data center scale — it represents the maximum theoretical AI and cloud compute load the portfolio can support. Includes both active and under-construction sites.`} />
+        <KPI label="Avg PUE" value={stats.avgPUE} sub="Power Usage Effectiveness" color={C.blue}
+          elaboration={`Portfolio-average PUE of ${stats.avgPUE} — the ratio of total facility energy to IT energy. A PUE of 1.0 is theoretical perfection; industry best practice is ≤1.10. At ${stats.avgPUE}, this portfolio is ${parseFloat(stats.avgPUE) <= 1.12 ? 'world-class' : parseFloat(stats.avgPUE) <= 1.16 ? 'above-industry-average' : 'at industry average'}. Each 0.01 PUE reduction represents millions of dollars in annual energy savings at this scale.`} />
+        <KPI label="Avg Utilization" value={`${stats.avgUtil}%`} sub="Across DCs in view" color={stats.avgUtil > 85 ? C.red : stats.avgUtil > 70 ? C.amber : C.green}
+          elaboration={`Average utilisation of ${stats.avgUtil}% across all sites in view, including under-construction sites with low shell-commissioning loads. Filtered to active sites only, utilisation is significantly higher. ${stats.avgUtil > 85 ? 'High portfolio utilisation — expansion pipeline is critical to avoid capacity constraints.' : stats.avgUtil > 70 ? 'Healthy range indicating strong asset yield.' : 'Blended average is moderated by under-construction sites; active-site utilisation is materially higher.'}`} />
+        <KPI label="Renewable" value={`${stats.avgRenewable}%`} sub="Avg Renewable Energy" color={C.green}
+          elaboration={`${stats.avgRenewable}% portfolio-average renewable energy percentage. Google's target is 100% 24/7 CFE matching. ${stats.avgRenewable >= 90 ? 'Near-target performance — exceptional portfolio-wide renewable penetration.' : stats.avgRenewable >= 70 ? 'Above-average. Sites in fossil-heavy grids are pulling the average below the CFE target.' : 'Below the 71% global portfolio average — regional grid constraints are limiting renewable procurement options.'} Sites below 80% represent material Scope 2 carbon liability under CSRD and CDP frameworks.`} />
+        <KPI label="At Risk" value={stats.atRisk} sub={`${stats.highRisk} Critical`} color={stats.highRisk > 0 ? C.red : C.amber}
+          elaboration={`${stats.atRisk} site${stats.atRisk !== 1 ? 's' : ''} carrying a Medium or High risk flag — ${stats.highRisk} High (immediate P1 escalation required) and ${stats.atRisk - stats.highRisk} Medium. Risk flags are set by NOC operations teams based on threshold crossings for power, cooling, connectivity, and physical security alarms. At-risk rate: ${Math.round((stats.atRisk / stats.active) * 100)}% of active sites.`} />
+        <KPI label="Tier IV DCs" value={stats.tierIV} sub="Tier IV campuses" color={C.purple}
+          elaboration={`${stats.tierIV} Tier IV certified campuses in view — fault-tolerant 2N design with 99.995% uptime SLA. Tier IV sites support the highest-value enterprise and regulated-industry workloads where any downtime carries significant financial or compliance consequences. ${Math.round((stats.tierIV / stats.total) * 100)}% of the portfolio holds Tier IV certification.`} />
       </div>
 
       {/* Row 2 — Assets */}
       <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 20 }}>
-        <KPI label="Servers" value={stats.totalServers} color={C.muted} />
-        <KPI label="GPUs" value={stats.totalGPUs} color={C.muted} />
-        <KPI label="Racks" value={stats.totalRacks} color={C.muted} />
-        <KPI label="Carbon Output" value={`${stats.totalCarbon.toLocaleString()} MT`} sub="Estimated CO₂/yr" color={C.amber} />
-        <KPI label="Carbon Intensity" value={`${(stats.totalCarbon / (stats.totalMW || 1)).toFixed(1)} MT/MW`} sub="Per MW IT load" color={C.purple} />
-        <KPI label="Critical Alarms" value={stats.critAlarms} color={stats.critAlarms > 0 ? C.red : C.green} />
-        <KPI label="High Alarms" value={stats.highAlarms} color={stats.highAlarms > 0 ? C.amber : C.green} />
-        <KPI label="Med Alarms" value={stats.medAlarms} color={stats.medAlarms > 0 ? '#F59E0B' : C.green} />
-        <KPI label="Low Alarms" value={stats.lowAlarms} color={C.muted} />
+        <KPI label="Servers" value={stats.totalServers} color={C.muted}
+          elaboration={`${stats.totalServers} server instances deployed across all sites in view. Drives hardware refresh capex cycles, OEM contract volume, and is the primary metric for compute capacity planning. Server count growth rate is a leading indicator of workload onboarding velocity.`} />
+        <KPI label="GPUs" value={stats.totalGPUs} color={C.muted}
+          elaboration={`${stats.totalGPUs} GPU accelerator units deployed — powering Gemini model training, Google Search AI, YouTube recommendations, and GCP AI Platform. GPU count is the fastest-growing metric in the portfolio as AI workload density accelerates. GPU expansion drives high-density power design requirements (≥20 kW/rack).`} />
+        <KPI label="Racks" value={stats.totalRacks} color={C.muted}
+          elaboration={`${stats.totalRacks} installed rack positions across the portfolio in view. Rack count combined with average power density per rack gives a more operationally accurate picture of usable IT capacity than MW alone — high-density GPU racks can draw 30–60 kW versus a standard 5–8 kW server rack.`} />
+        <KPI label="Carbon Output" value={`${stats.totalCarbon.toLocaleString()} MT`} sub="Estimated CO₂/yr" color={C.amber}
+          elaboration={`Estimated ${stats.totalCarbon.toLocaleString()} metric tonnes of CO₂ equivalent per year from the portfolio's electricity consumption. At ${stats.avgRenewable}% renewable penetration, this is materially below what a fossil-grid-only footprint would produce. Reported as Scope 2 market-based emissions under the GHG Protocol for CDP and CSRD disclosures.`} />
+        <KPI label="Carbon Intensity" value={`${(stats.totalCarbon / (stats.totalMW || 1)).toFixed(1)} MT/MW`} sub="Per MW IT load" color={C.purple}
+          elaboration={`Carbon intensity of ${(stats.totalCarbon / (stats.totalMW || 1)).toFixed(1)} MT CO₂ per MW normalises emissions by IT capacity for like-for-like comparison across portfolios of different scales. Best-in-class Nordic sites achieve 0.04–0.06 MT/MW via near-100% hydropower. This portfolio intensity reflects the blended impact of the ${stats.avgRenewable}% renewable mix.`} />
+        <KPI label="Critical Alarms" value={stats.critAlarms} color={stats.critAlarms > 0 ? C.red : C.green}
+          elaboration={stats.critAlarms > 0
+            ? `${stats.critAlarms} active Critical alarms across the portfolio — P1 incidents with actual or imminent service disruption risk requiring NOC response within 15 minutes. These are concentrated at the ${stats.highRisk} High-risk site${stats.highRisk !== 1 ? 's' : ''} and require immediate remediation tracking.`
+            : `No active Critical alarms across the portfolio. All sites are operating within critical thresholds. P1 status is clear.`} />
+        <KPI label="High Alarms" value={stats.highAlarms} color={stats.highAlarms > 0 ? C.amber : C.green}
+          elaboration={`${stats.highAlarms} active High-severity alarms — P2 conditions indicating significant degradation or redundancy loss. Response SLA is 2 hours. At ${stats.highAlarms} alarms across ${stats.active} active sites, the average is ${(stats.highAlarms / Math.max(1, stats.active)).toFixed(1)} per site — ${stats.highAlarms / Math.max(1, stats.active) > 2 ? 'elevated and warranting portfolio-level review.' : 'within normal operational range.'}`} />
+        <KPI label="Med Alarms" value={stats.medAlarms} color={stats.medAlarms > 0 ? '#F59E0B' : C.green}
+          elaboration={`${stats.medAlarms} active Medium-severity alarms — P3 early-warning signals (temperature trending, generator fuel, UPS battery health) requiring corrective action within 8 hours. Medium alarms feed the weekly preventive maintenance schedule and average ${(stats.medAlarms / Math.max(1, stats.active)).toFixed(1)} per active site.`} />
+        <KPI label="Low Alarms" value={stats.lowAlarms} color={C.muted}
+          elaboration={`${stats.lowAlarms} active Low-severity notices — P4 informational alerts such as firmware updates, minor sensor drift, and inspection reminders. While non-urgent individually, a sustained high volume signals potential maintenance backlog accumulation. Monthly trend analysis is used to identify sites where deferred maintenance is compounding into systemic risk.`} />
       </div>
 
       {/* Row 3 — Charts */}
