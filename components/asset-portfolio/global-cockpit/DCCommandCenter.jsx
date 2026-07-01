@@ -1,6 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { X, MapPin, Boxes, Sparkles } from 'lucide-react';
+import { GOOGLE_DC_MASTER } from '@/data/googleDCMasterData';
 
 const C = {
   bg:     '#F4F6F9',
@@ -106,6 +107,14 @@ export default function DCCommandCenter({ dc, onClose }) {
   const router = useRouter();
   if (!dc) return null;
 
+  const regionDCs = GOOGLE_DC_MASTER.filter(d => d.region === dc.region);
+  const regionCtx = {
+    total:  regionDCs.length,
+    active: regionDCs.filter(d => d.status === 'Active').length,
+    uc:     regionDCs.filter(d => d.status === 'Under Construction').length,
+    atRisk: regionDCs.filter(d => d.risk_flag !== 'Low').length,
+  };
+
   const flag = FLAG_EMOJI[dc.country] || '🌐';
   const statusColor = dc.status === 'Active' ? C.green : C.amber;
   const riskColor = { High: C.red, Medium: C.amber, Low: C.green }[dc.risk_flag];
@@ -158,6 +167,14 @@ export default function DCCommandCenter({ dc, onClose }) {
             <X size={16} />
           </button>
         </div>
+      </div>
+
+      {/* Region Context */}
+      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 12 }}>
+        <KPI label="DCs in Region"     value={regionCtx.total}  sub={dc.region}            color={C.blue}  />
+        <KPI label="Active in Region"  value={regionCtx.active} sub="Operational"           color={C.green} />
+        <KPI label="UC in Region"      value={regionCtx.uc}     sub="Under Construction"    color={C.amber} />
+        <KPI label="At Risk in Region" value={regionCtx.atRisk} sub="Medium + High risk"    color={regionCtx.atRisk > 0 ? C.red : C.green} />
       </div>
 
       {/* KPI Row 1 — Capacity & Operations */}

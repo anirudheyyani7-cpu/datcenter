@@ -79,6 +79,7 @@ export default function GlobalDashboardPanel({ activeRegion }) {
     lowAlarms: dcs.reduce((s, d) => s + d.alarm_low, 0),
     countries: [...new Set(dcs.map(d => d.country))].length,
     avgUtil: Math.round(dcs.reduce((s, d) => s + d.utilization_pct, 0) / (dcs.length || 1)),
+    tierIV: dcs.filter(d => d.tier === 'IV').length,
   }), [dcs]);
 
   const regionBarData = useMemo(() => {
@@ -151,6 +152,7 @@ export default function GlobalDashboardPanel({ activeRegion }) {
         <KPI label="Avg Utilization" value={`${stats.avgUtil}%`} sub="Across DCs in view" color={stats.avgUtil > 85 ? C.red : stats.avgUtil > 70 ? C.amber : C.green} />
         <KPI label="Renewable" value={`${stats.avgRenewable}%`} sub="Avg Renewable Energy" color={C.green} />
         <KPI label="At Risk" value={stats.atRisk} sub={`${stats.highRisk} Critical`} color={stats.highRisk > 0 ? C.red : C.amber} />
+        <KPI label="Tier IV DCs" value={stats.tierIV} sub="Tier IV campuses" color={C.purple} />
       </div>
 
       {/* Row 2 — Assets */}
@@ -159,6 +161,7 @@ export default function GlobalDashboardPanel({ activeRegion }) {
         <KPI label="GPUs" value={stats.totalGPUs} color={C.muted} />
         <KPI label="Racks" value={stats.totalRacks} color={C.muted} />
         <KPI label="Carbon Output" value={`${stats.totalCarbon.toLocaleString()} MT`} sub="Estimated CO₂/yr" color={C.amber} />
+        <KPI label="Carbon Intensity" value={`${(stats.totalCarbon / (stats.totalMW || 1)).toFixed(1)} MT/MW`} sub="Per MW IT load" color={C.purple} />
         <KPI label="Critical Alarms" value={stats.critAlarms} color={stats.critAlarms > 0 ? C.red : C.green} />
         <KPI label="High Alarms" value={stats.highAlarms} color={stats.highAlarms > 0 ? C.amber : C.green} />
         <KPI label="Med Alarms" value={stats.medAlarms} color={stats.medAlarms > 0 ? '#F59E0B' : C.green} />
