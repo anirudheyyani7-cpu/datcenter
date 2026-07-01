@@ -148,7 +148,7 @@ export default function GlobalCockpitPage() {
 
       {/* ── Top Nav ─────────────────────────────────────────────────────────── */}
       <div style={{
-        display: 'flex', alignItems: 'center', gap: 10, padding: '10px 20px',
+        display: 'flex', alignItems: 'center', gap: 10, padding: '16px 20px',
         borderBottom: '1px solid rgba(255,255,255,0.12)',
         background: '#00338D', flexWrap: 'wrap',
       }}>
@@ -177,7 +177,7 @@ export default function GlobalCockpitPage() {
                 key={r}
                 onClick={() => handleRegion(r)}
                 style={{
-                  padding: '5px 12px', borderRadius: 20, fontSize: 11, fontWeight: 600, cursor: 'pointer',
+                  padding: '7px 16px', borderRadius: 20, fontSize: 13, fontWeight: 600, cursor: 'pointer',
                   border: `1px solid ${active ? '#FFFFFF' : 'rgba(255,255,255,0.3)'}`,
                   background: active ? '#FFFFFF' : 'transparent',
                   color: active ? '#00338D' : 'rgba(255,255,255,0.85)',
@@ -194,7 +194,7 @@ export default function GlobalCockpitPage() {
 
         {/* Stat Chips */}
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          <Chip icon={<Server size={10} />} label={`${regionStats.total} DCs`} color="rgba(255,255,255,0.5)"
+          <Chip icon={<Server size={10} />} label={`${regionStats.total} DCs`} color="#FFFFFF"
             tooltip={`${regionStats.total} data centers across ${regionStats.regions} region${regionStats.regions !== 1 ? 's' : ''} — ${regionStats.active} active, ${regionStats.uc} under construction`}
             onDoubleClick={() => setDetailChip('dcs')} />
           <Chip icon={<CheckCircle2 size={10} color="#00A36C" />} label={`${regionStats.active} Active`} color="#00A36C"
@@ -216,10 +216,10 @@ export default function GlobalCockpitPage() {
           onClick={handleGlobalDashboard}
           style={{
             display: 'flex', alignItems: 'center', gap: 6,
-            padding: '6px 16px', borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: 'pointer',
-            background: showGlobalDashboard ? '#0077C8' : 'rgba(0,119,200,0.15)',
-            border: `1px solid ${showGlobalDashboard ? '#0077C8' : 'rgba(0,119,200,0.4)'}`,
-            color: showGlobalDashboard ? '#fff' : '#0077C8',
+            padding: '8px 18px', borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: 'pointer',
+            background: showGlobalDashboard ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.1)',
+            border: '1px solid rgba(255,255,255,0.4)',
+            color: '#FFFFFF',
             transition: 'all 0.15s',
           }}
         >
@@ -232,10 +232,10 @@ export default function GlobalCockpitPage() {
           onClick={() => setIngestOpen(true)}
           style={{
             display: 'flex', alignItems: 'center', gap: 6,
-            padding: '6px 14px', borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: 'pointer',
-            background: 'rgba(124,58,237,0.15)',
-            border: '1px solid rgba(124,58,237,0.4)',
-            color: '#7C3AED',
+            padding: '8px 16px', borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: 'pointer',
+            background: 'rgba(255,255,255,0.1)',
+            border: '1px solid rgba(255,255,255,0.4)',
+            color: '#FFFFFF',
             transition: 'all 0.15s',
           }}
         >
@@ -344,10 +344,10 @@ function Chip({ icon, label, color, tooltip, onDoubleClick }) {
     >
       <div style={{
         display: 'flex', alignItems: 'center', gap: 4,
-        padding: '3px 10px', borderRadius: 20,
-        background: hovered ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)',
-        border: '1px solid rgba(255,255,255,0.08)',
-        fontSize: 10, fontWeight: 600, color,
+        padding: '5px 12px', borderRadius: 20,
+        background: hovered ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.08)',
+        border: '1px solid rgba(255,255,255,0.2)',
+        fontSize: 12, fontWeight: 600, color,
         transition: 'background 0.15s',
         userSelect: 'none',
       }}>
