@@ -1,6 +1,5 @@
 'use client';
 import { useState, useMemo } from 'react';
-import { Sparkles } from 'lucide-react';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell,
   PieChart, Pie, Legend,
@@ -22,18 +21,6 @@ const C = {
 };
 
 const REGION_COLORS = { 'North America': '#0077C8', Europe: '#00A36C', Asia: '#D4A017', 'South America': '#7C3AED' };
-
-function AIBadge() {
-  return (
-    <span style={{
-      display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 9, fontWeight: 700,
-      padding: '2px 7px', borderRadius: 20, color: C.cyan,
-      background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.25)',
-    }}>
-      <Sparkles size={9} /> AI Elaborated
-    </span>
-  );
-}
 
 function KPI({ label, value, sub, color = C.blue, elaboration = null }) {
   const [hovered, setHovered] = useState(false);
@@ -57,9 +44,8 @@ function KPI({ label, value, sub, color = C.blue, elaboration = null }) {
           border: '1px solid rgba(255,255,255,0.1)',
           pointerEvents: 'none',
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+          <div style={{ marginBottom: 6 }}>
             <span style={{ fontSize: 10, fontWeight: 700, color, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{label}</span>
-            <AIBadge />
           </div>
           <p style={{ fontSize: 10.5, lineHeight: 1.6, color: 'rgba(255,255,255,0.8)', margin: 0 }}>{elaboration}</p>
           {locked && <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)', marginTop: 6 }}>Double-click to close</p>}

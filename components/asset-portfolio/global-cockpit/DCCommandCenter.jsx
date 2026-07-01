@@ -49,9 +49,8 @@ function KPI({ label, value, sub, color = C.blue, elaboration = null }) {
           border: '1px solid rgba(255,255,255,0.1)',
           pointerEvents: 'none',
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+          <div style={{ marginBottom: 6 }}>
             <span style={{ fontSize: 10, fontWeight: 700, color, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{label}</span>
-            <AIBadge />
           </div>
           <p style={{ fontSize: 10.5, lineHeight: 1.6, color: 'rgba(255,255,255,0.8)', margin: 0 }}>{elaboration}</p>
           {locked && <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)', marginTop: 6 }}>Double-click to close</p>}
@@ -358,9 +357,8 @@ export default function DCCommandCenter({ dc, onClose }) {
         {/* Active Alarms (Active DCs) / Construction Progress (UC DCs) */}
         {!isUC ? (
           <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 14, boxShadow: '0 1px 2px rgba(16,24,40,0.04)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+            <div style={{ marginBottom: 10 }}>
               <SectionTitle>Active Alarms</SectionTitle>
-              <AIBadge />
             </div>
             <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
               {[
@@ -390,9 +388,8 @@ export default function DCCommandCenter({ dc, onClose }) {
           </div>
         ) : (
           <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 14, boxShadow: '0 1px 2px rgba(16,24,40,0.04)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+            <div style={{ marginBottom: 10 }}>
               <SectionTitle>Construction Progress</SectionTitle>
-              <AIBadge />
             </div>
             {/* Completion bar */}
             <div style={{ marginBottom: 14 }}>
@@ -419,9 +416,8 @@ export default function DCCommandCenter({ dc, onClose }) {
 
         {/* DC Intelligence */}
         <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 14, boxShadow: '0 1px 2px rgba(16,24,40,0.04)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+          <div style={{ marginBottom: 10 }}>
             <SectionTitle>DC Intelligence</SectionTitle>
-            <AIBadge />
           </div>
           {MOCK_INTEL.map((item, i) => (
             <div key={i} style={{ marginBottom: 12, paddingBottom: 12, borderBottom: i < MOCK_INTEL.length - 1 ? `1px solid ${C.border}` : 'none' }}>
