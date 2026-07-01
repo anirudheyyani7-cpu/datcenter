@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { X, MapPin, Boxes, Sparkles } from 'lucide-react';
+import { X, MapPin, Boxes } from 'lucide-react';
 import { GOOGLE_DC_MASTER } from '@/data/googleDCMasterData';
 
 const C = {
@@ -65,18 +65,6 @@ function SectionTitle({ children }) {
     <p style={{ fontSize: 10, fontWeight: 700, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.07em', margin: 0 }}>
       {children}
     </p>
-  );
-}
-
-function AIBadge() {
-  return (
-    <span style={{
-      display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 9, fontWeight: 700,
-      padding: '2px 7px', borderRadius: 20, color: C.cyan,
-      background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.25)',
-    }}>
-      <Sparkles size={9} /> AI Elaborated
-    </span>
   );
 }
 
