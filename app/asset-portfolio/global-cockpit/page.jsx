@@ -37,6 +37,7 @@ export default function GlobalCockpitPage() {
   const [warZoneModal, setWarZoneModal] = useState(null);
   const [detailChip, setDetailChip] = useState(null);
   const [ingestOpen, setIngestOpen] = useState(false);
+  const [uploadedDCs, setUploadedDCs] = useState(null);
   const [intelligence, setIntelligence] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const intervalRef = useRef(null);
@@ -75,11 +76,12 @@ export default function GlobalCockpitPage() {
     return () => clearInterval(intervalRef.current);
   }, [refreshIntelligence]);
 
-  // Filter DCs by region
+  // Filter DCs by region — uses uploaded dataset if present, else default
   const filteredDCs = useMemo(() => {
-    if (activeRegion === 'All') return GOOGLE_DC_MASTER;
-    return GOOGLE_DC_MASTER.filter(d => d.region === activeRegion);
-  }, [activeRegion]);
+    const base = uploadedDCs ?? GOOGLE_DC_MASTER;
+    if (activeRegion === 'All') return base;
+    return base.filter(d => d.region === activeRegion);
+  }, [activeRegion, uploadedDCs]);
 
   // Map DC data to GlobeViewer shape
   const globeDCs = useMemo(() => filteredDCs.map(d => ({
@@ -211,6 +213,17 @@ export default function GlobalCockpitPage() {
             onDoubleClick={() => setDetailChip('mw')} />
         </div>
 
+        {/* Uploaded Dataset Indicator */}
+        {uploadedDCs && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 10px', borderRadius: 8, background: 'rgba(74,222,128,0.15)', border: '1px solid rgba(74,222,128,0.35)' }}>
+            <CheckCircle size={11} color="#4ADE80" />
+            <span style={{ fontSize: 11, fontWeight: 600, color: '#4ADE80' }}>Custom Dataset · {uploadedDCs.length} DCs</span>
+            <button onClick={() => setUploadedDCs(null)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.4)', padding: 0, display: 'flex', alignItems: 'center' }} title="Remove uploaded dataset">
+              <X size={11} />
+            </button>
+          </div>
+        )}
+
         {/* Global Dashboard Button */}
         <button
           onClick={handleGlobalDashboard}
@@ -327,7 +340,12 @@ export default function GlobalCockpitPage() {
       )}
 
       {ingestOpen && (
-        <IngestDataModal onClose={() => setIngestOpen(false)} />
+        <IngestDataModal
+          onClose={() => setIngestOpen(false)}
+          onImport={(rows) => { setUploadedDCs(rows); setIngestOpen(false); }}
+          hasUploadedData={!!uploadedDCs}
+          onRemovePrevious={() => setUploadedDCs(null)}
+        />
       )}
     </div>
   );
@@ -620,47 +638,81 @@ function ChipDetailModal({ type, filteredDCs, regionStats, onClose }) {
   );
 }
 
-function IngestDataModal({ onClose }) {
+// Maps raw Excel/CSV header strings to internal DC field names
+const FIELD_MAP = {
+  id: 'id', name: 'name',
+  lat: 'lat', latitude: 'lat',
+  lng: 'lng', lon: 'lng', longitude: 'lng',
+  region: 'region', country: 'country', city: 'city', address: 'address',
+  status: 'status', tier: 'tier',
+  capacity_mw: 'capacity_mw', capacity: 'capacity_mw', it_capacity_mw: 'capacity_mw',
+  utilization_pct: 'utilization_pct', utilization: 'utilization_pct', util_pct: 'utilization_pct',
+  pue: 'pue',
+  renewable_pct: 'renewable_pct', renewable: 'renewable_pct',
+  carbon_mt_yr: 'carbon_mt_yr', carbon: 'carbon_mt_yr',
+  carbon_intensity: 'carbon_intensity',
+  risk_flag: 'risk_flag', risk: 'risk_flag',
+  alarm_critical: 'alarm_critical', alarm_high: 'alarm_high',
+  alarm_med: 'alarm_med', alarm_low: 'alarm_low',
+  racks: 'racks', servers: 'servers', gpus: 'gpus',
+};
+
+function normalizeHeader(h) {
+  return h.toLowerCase().trim()
+    .replace(/\s*\(.*?\)\s*/g, '')
+    .replace(/%/g, '_pct')
+    .replace(/[\s\-\/]+/g, '_')
+    .replace(/[^a-z0-9_]/g, '');
+}
+
+function mapRow(headers, rawRow) {
+  const obj = {};
+  headers.forEach((h, i) => {
+    const key = FIELD_MAP[normalizeHeader(h)] ?? normalizeHeader(h);
+    let val = rawRow[i] ?? '';
+    const numFields = ['lat','lng','capacity_mw','utilization_pct','pue','renewable_pct','carbon_mt_yr','carbon_intensity','alarm_critical','alarm_high','alarm_med','alarm_low','racks','servers','gpus'];
+    if (numFields.includes(key)) val = parseFloat(val) || 0;
+    obj[key] = val;
+  });
+  if (!obj.id) obj.id = `UPL-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+  return obj;
+}
+
+function IngestDataModal({ onClose, onImport, hasUploadedData, onRemovePrevious }) {
   const [dragging, setDragging] = useState(false);
   const [file, setFile]         = useState(null);
-  const [status, setStatus]     = useState('idle'); // 'idle' | 'parsing' | 'done' | 'error'
-  const [preview, setPreview]   = useState(null);   // { headers, rows, totalRows }
+  const [status, setStatus]     = useState('idle');
+  const [preview, setPreview]   = useState(null);
+  const [allRows, setAllRows]   = useState(null);
   const fileRef = useRef(null);
-
-  const ACCEPTED = ['.xlsx', '.xls', '.csv'];
 
   async function processFile(f) {
     if (!f) return;
     const ext = f.name.split('.').pop().toLowerCase();
-    if (!['xlsx', 'xls', 'csv'].includes(ext)) {
-      setStatus('error');
-      return;
-    }
+    if (!['xlsx', 'xls', 'csv'].includes(ext)) { setStatus('error'); return; }
     setFile(f);
     setStatus('parsing');
-
     try {
+      let headers = [], rawRows = [];
       if (ext === 'csv') {
         const text = await f.text();
         const lines = text.split('\n').filter(l => l.trim());
-        const headers = lines[0].split(',').map(h => h.replace(/^"|"$/g, '').trim());
-        const rows = lines.slice(1, 6).map(l => l.split(',').map(c => c.replace(/^"|"$/g, '').trim()));
-        setPreview({ headers, rows, totalRows: lines.length - 1 });
+        headers = lines[0].split(',').map(h => h.replace(/^"|"$/g, '').trim());
+        rawRows = lines.slice(1).map(l => l.split(',').map(c => c.replace(/^"|"$/g, '').trim()));
       } else {
-        // xlsx — dynamic import to keep bundle lean
         const XLSX = await import('xlsx');
         const buf  = await f.arrayBuffer();
         const wb   = XLSX.read(buf, { type: 'array' });
         const ws   = wb.Sheets[wb.SheetNames[0]];
         const data = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
-        const headers  = data[0] ? data[0].map(String) : [];
-        const rows     = data.slice(1, 6).map(r => headers.map((_, i) => String(r[i] ?? '')));
-        setPreview({ headers: headers.slice(0, 8), rows: rows.map(r => r.slice(0, 8)), totalRows: data.length - 1 });
+        headers  = data[0] ? data[0].map(String) : [];
+        rawRows  = data.slice(1).map(r => headers.map((_, i) => String(r[i] ?? '')));
       }
+      const mapped = rawRows.filter(r => r.some(c => c !== '')).map(r => mapRow(headers, r));
+      setAllRows(mapped);
+      setPreview({ headers: headers.slice(0, 8), rows: rawRows.slice(0, 5).map(r => r.slice(0, 8)), totalRows: mapped.length });
       setStatus('done');
-    } catch {
-      setStatus('error');
-    }
+    } catch { setStatus('error'); }
   }
 
   function onDrop(e) {
@@ -670,18 +722,16 @@ function IngestDataModal({ onClose }) {
     if (f) processFile(f);
   }
 
+  function reset() { setFile(null); setStatus('idle'); setPreview(null); setAllRows(null); }
+
   return (
     <>
       <div onClick={onClose} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.65)', zIndex: 9998 }} />
       <div style={{
-        position: 'fixed', top: '50%', left: '50%',
-        transform: 'translate(-50%, -50%)',
-        zIndex: 9999, width: '100%', maxWidth: 620,
-        maxHeight: '80vh', overflowY: 'auto',
-        background: '#0d1e35',
-        border: '1px solid rgba(255,255,255,0.12)',
-        borderRadius: 14, padding: 24,
-        boxShadow: '0 24px 64px rgba(0,0,0,0.6)',
+        position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+        zIndex: 9999, width: '100%', maxWidth: 620, maxHeight: '80vh', overflowY: 'auto',
+        background: '#0d1e35', border: '1px solid rgba(255,255,255,0.12)',
+        borderRadius: 14, padding: 24, boxShadow: '0 24px 64px rgba(0,0,0,0.6)',
       }}>
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
@@ -694,10 +744,24 @@ function IngestDataModal({ onClose }) {
               <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', margin: '2px 0 0' }}>Upload Excel or CSV dataset to the Global Cockpit</p>
             </div>
           </div>
-          <button onClick={onClose} style={{ color: 'rgba(255,255,255,0.4)', background: 'none', border: 'none', cursor: 'pointer', padding: 4 }}>
-            <X size={16} />
-          </button>
+          <button onClick={onClose} style={{ color: 'rgba(255,255,255,0.4)', background: 'none', border: 'none', cursor: 'pointer', padding: 4 }}><X size={16} /></button>
         </div>
+
+        {/* Remove Previous Dataset banner */}
+        {hasUploadedData && (
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: 'rgba(220,38,38,0.08)', border: '1px solid rgba(220,38,38,0.25)', borderRadius: 10, marginBottom: 14 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <AlertTriangle size={14} color="#F87171" />
+              <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>A custom dataset is currently active in the cockpit.</span>
+            </div>
+            <button
+              onClick={() => { onRemovePrevious(); onClose(); }}
+              style={{ padding: '5px 12px', borderRadius: 7, fontSize: 11, fontWeight: 700, cursor: 'pointer', background: 'rgba(220,38,38,0.15)', border: '1px solid rgba(220,38,38,0.4)', color: '#F87171', whiteSpace: 'nowrap' }}
+            >
+              Remove Previous Dataset
+            </button>
+          </div>
+        )}
 
         {/* Drop Zone */}
         {status !== 'done' && (
@@ -718,24 +782,16 @@ function IngestDataModal({ onClose }) {
               {status === 'parsing' ? 'Parsing file…' : 'Drop your file here or click to browse'}
             </p>
             <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', margin: 0 }}>Supports .xlsx, .xls, .csv</p>
-            <input
-              ref={fileRef}
-              type="file"
-              accept=".xlsx,.xls,.csv"
-              style={{ display: 'none' }}
-              onChange={e => processFile(e.target.files?.[0])}
-            />
+            <input ref={fileRef} type="file" accept=".xlsx,.xls,.csv" style={{ display: 'none' }} onChange={e => processFile(e.target.files?.[0])} />
           </div>
         )}
 
-        {/* Error */}
         {status === 'error' && (
           <div style={{ padding: '12px 16px', background: 'rgba(220,38,38,0.1)', border: '1px solid rgba(220,38,38,0.25)', borderRadius: 10, marginBottom: 14 }}>
             <p style={{ fontSize: 12, color: '#DC2626', margin: 0 }}>Unsupported file type. Please upload a .xlsx, .xls, or .csv file.</p>
           </div>
         )}
 
-        {/* Preview */}
         {status === 'done' && preview && (
           <>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14, padding: '10px 14px', background: 'rgba(0,163,108,0.08)', border: '1px solid rgba(0,163,108,0.2)', borderRadius: 10 }}>
@@ -744,44 +800,32 @@ function IngestDataModal({ onClose }) {
                 <p style={{ fontSize: 12, fontWeight: 600, color: '#00A36C', margin: 0 }}>{file.name}</p>
                 <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', margin: '2px 0 0' }}>{preview.totalRows.toLocaleString()} rows · {preview.headers.length} columns detected</p>
               </div>
-              <button onClick={() => { setFile(null); setStatus('idle'); setPreview(null); }} style={{ marginLeft: 'auto', color: 'rgba(255,255,255,0.3)', background: 'none', border: 'none', cursor: 'pointer', fontSize: 10 }}>
-                Change file
-              </button>
+              <button onClick={reset} style={{ marginLeft: 'auto', color: 'rgba(255,255,255,0.3)', background: 'none', border: 'none', cursor: 'pointer', fontSize: 10 }}>Change file</button>
             </div>
 
-            {/* Column headers */}
             <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>Preview — first 5 rows</p>
             <div style={{ overflowX: 'auto', marginBottom: 16 }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 11, minWidth: 400 }}>
                 <thead>
-                  <tr>
-                    {preview.headers.map((h, i) => (
-                      <th key={i} style={{ textAlign: 'left', padding: '6px 8px', color: 'rgba(255,255,255,0.45)', fontSize: 9, textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid rgba(255,255,255,0.08)', whiteSpace: 'nowrap' }}>{h || `Col ${i + 1}`}</th>
-                    ))}
-                  </tr>
+                  <tr>{preview.headers.map((h, i) => <th key={i} style={{ textAlign: 'left', padding: '6px 8px', color: 'rgba(255,255,255,0.45)', fontSize: 9, textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid rgba(255,255,255,0.08)', whiteSpace: 'nowrap' }}>{h || `Col ${i+1}`}</th>)}</tr>
                 </thead>
                 <tbody>
                   {preview.rows.map((row, i) => (
                     <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
-                      {row.map((cell, j) => (
-                        <td key={j} style={{ padding: '6px 8px', color: 'rgba(255,255,255,0.65)', whiteSpace: 'nowrap', maxWidth: 140, overflow: 'hidden', textOverflow: 'ellipsis' }}>{cell}</td>
-                      ))}
+                      {row.map((cell, j) => <td key={j} style={{ padding: '6px 8px', color: 'rgba(255,255,255,0.65)', whiteSpace: 'nowrap', maxWidth: 140, overflow: 'hidden', textOverflow: 'ellipsis' }}>{cell}</td>)}
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
 
-            {/* Actions */}
             <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
-              <button onClick={() => { setFile(null); setStatus('idle'); setPreview(null); }} style={{ padding: '8px 16px', borderRadius: 8, fontSize: 11, fontWeight: 600, cursor: 'pointer', background: 'transparent', border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.5)' }}>
-                Cancel
-              </button>
+              <button onClick={reset} style={{ padding: '8px 16px', borderRadius: 8, fontSize: 11, fontWeight: 600, cursor: 'pointer', background: 'transparent', border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.5)' }}>Cancel</button>
               <button
-                onClick={onClose}
+                onClick={() => onImport(allRows)}
                 style={{ padding: '8px 20px', borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: 'pointer', background: '#7C3AED', border: '1px solid rgba(124,58,237,0.6)', color: '#fff' }}
               >
-                Confirm Import
+                Confirm Import — {preview.totalRows} DCs
               </button>
             </div>
           </>
