@@ -213,17 +213,6 @@ export default function GlobalCockpitPage() {
             onDoubleClick={() => setDetailChip('mw')} />
         </div>
 
-        {/* Uploaded Dataset Indicator */}
-        {uploadedDCs && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 10px', borderRadius: 8, background: 'rgba(74,222,128,0.15)', border: '1px solid rgba(74,222,128,0.35)' }}>
-            <CheckCircle size={11} color="#4ADE80" />
-            <span style={{ fontSize: 11, fontWeight: 600, color: '#4ADE80' }}>Custom Dataset · {uploadedDCs.length} DCs</span>
-            <button onClick={() => setUploadedDCs(null)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.4)', padding: 0, display: 'flex', alignItems: 'center' }} title="Remove uploaded dataset">
-              <X size={11} />
-            </button>
-          </div>
-        )}
-
         {/* Global Dashboard Button */}
         <button
           onClick={handleGlobalDashboard}
