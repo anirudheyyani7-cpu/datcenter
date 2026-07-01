@@ -216,10 +216,10 @@ export default function GlobalCockpitPage() {
           onClick={handleGlobalDashboard}
           style={{
             display: 'flex', alignItems: 'center', gap: 6,
-            padding: '6px 16px', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer',
-            background: showGlobalDashboard ? '#001F5B' : '#FFFFFF',
-            border: '1px solid rgba(255,255,255,0.3)',
-            color: showGlobalDashboard ? '#FFFFFF' : '#0077C8',
+            padding: '6px 16px', borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: 'pointer',
+            background: showGlobalDashboard ? '#0077C8' : 'rgba(0,119,200,0.15)',
+            border: `1px solid ${showGlobalDashboard ? '#0077C8' : 'rgba(0,119,200,0.4)'}`,
+            color: showGlobalDashboard ? '#fff' : '#0077C8',
             transition: 'all 0.15s',
           }}
         >
@@ -232,9 +232,9 @@ export default function GlobalCockpitPage() {
           onClick={() => setIngestOpen(true)}
           style={{
             display: 'flex', alignItems: 'center', gap: 6,
-            padding: '6px 14px', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer',
-            background: '#FFFFFF',
-            border: '1px solid rgba(255,255,255,0.3)',
+            padding: '6px 14px', borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: 'pointer',
+            background: 'rgba(124,58,237,0.15)',
+            border: '1px solid rgba(124,58,237,0.4)',
             color: '#7C3AED',
             transition: 'all 0.15s',
           }}
@@ -345,9 +345,9 @@ function Chip({ icon, label, color, tooltip, onDoubleClick }) {
       <div style={{
         display: 'flex', alignItems: 'center', gap: 4,
         padding: '3px 10px', borderRadius: 20,
-        background: hovered ? '#001F5B' : '#FFFFFF',
-        border: '1px solid rgba(255,255,255,0.3)',
-        fontSize: 11, fontWeight: 600, color,
+        background: hovered ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        fontSize: 10, fontWeight: 600, color,
         transition: 'background 0.15s',
         userSelect: 'none',
       }}>
