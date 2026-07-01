@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Boxes, Building2, LayoutDashboard, Radar, Layers, Home } from 'lucide-react';
+import { Boxes, Building2, LayoutDashboard, Radar, Layers, Home, ExternalLink } from 'lucide-react';
 import PortfolioAgentPanel from '@/components/asset-portfolio/PortfolioAgentPanel';
 
 const TABS = [
@@ -48,6 +48,16 @@ export default function AssetPortfolioLayout({ children }) {
               </Link>
             );
           })}
+          <a
+            href="https://web.eam.tecorelabs.com/PYUAPSAM/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Enterprise Asset Management"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors text-text-secondary hover:bg-grey-bg"
+          >
+            <ExternalLink size={13} />
+            EAM
+          </a>
         </div>
       </div>
 
