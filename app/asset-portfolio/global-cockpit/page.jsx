@@ -149,8 +149,8 @@ export default function GlobalCockpitPage() {
       {/* ── Top Nav ─────────────────────────────────────────────────────────── */}
       <div style={{
         display: 'flex', alignItems: 'center', gap: 10, padding: '10px 20px',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
-        background: 'rgba(10,22,40,0.95)', flexWrap: 'wrap',
+        borderBottom: '1px solid rgba(255,255,255,0.12)',
+        background: '#00338D', flexWrap: 'wrap',
       }}>
         {/* Brand */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginRight: 8 }}>
@@ -178,9 +178,9 @@ export default function GlobalCockpitPage() {
                 onClick={() => handleRegion(r)}
                 style={{
                   padding: '5px 12px', borderRadius: 20, fontSize: 11, fontWeight: 600, cursor: 'pointer',
-                  border: `1px solid ${active ? REGION_COLORS[r] : 'rgba(255,255,255,0.12)'}`,
-                  background: active ? `${REGION_COLORS[r]}22` : 'transparent',
-                  color: active ? REGION_COLORS[r] : 'rgba(255,255,255,0.5)',
+                  border: `1px solid ${active ? '#FFFFFF' : 'rgba(255,255,255,0.3)'}`,
+                  background: active ? '#FFFFFF' : 'transparent',
+                  color: active ? '#00338D' : 'rgba(255,255,255,0.85)',
                   transition: 'all 0.15s',
                 }}
               >
