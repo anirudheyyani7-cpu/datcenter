@@ -197,16 +197,16 @@ export default function GlobalCockpitPage() {
           <Chip icon={<Server size={10} />} label={`${regionStats.total} DCs`} color="#FFFFFF"
             tooltip={`${regionStats.total} data centers across ${regionStats.regions} region${regionStats.regions !== 1 ? 's' : ''} — ${regionStats.active} active, ${regionStats.uc} under construction`}
             onDoubleClick={() => setDetailChip('dcs')} />
-          <Chip icon={<CheckCircle2 size={10} color="#00A36C" />} label={`${regionStats.active} Active`} color="#00A36C"
+          <Chip icon={<CheckCircle2 size={10} color="#4ADE80" />} label={`${regionStats.active} Active`} color="#4ADE80"
             tooltip={`${regionStats.active} sites in live commercial operation — ${regionStats.activeMW.toLocaleString()} MW total capacity, avg ${regionStats.avgUtil}% utilisation`}
             onDoubleClick={() => setDetailChip('active')} />
-          <Chip icon={<Construction size={10} color="#D4A017" />} label={`${regionStats.uc} In Build`} color="#D4A017"
+          <Chip icon={<Construction size={10} color="#FCD34D" />} label={`${regionStats.uc} In Build`} color="#FCD34D"
             tooltip={`${regionStats.uc} sites under active construction — ${regionStats.ucMW.toLocaleString()} MW planned capacity in pipeline`}
             onDoubleClick={() => setDetailChip('build')} />
-          <Chip icon={<AlertTriangle size={10} color="#DC2626" />} label={`${regionStats.atRisk} At Risk`} color="#DC2626"
+          <Chip icon={<AlertTriangle size={10} color="#F87171" />} label={`${regionStats.atRisk} At Risk`} color="#F87171"
             tooltip={`${regionStats.atRisk} sites with Medium or High risk flags — ${regionStats.highRisk} High, ${regionStats.medRisk} Medium`}
             onDoubleClick={() => setDetailChip('risk')} />
-          <Chip icon={<Zap size={10} color="#06B6D4" />} label={`${regionStats.totalMW.toLocaleString()} MW`} color="#06B6D4"
+          <Chip icon={<Zap size={10} color="#38BDF8" />} label={`${regionStats.totalMW.toLocaleString()} MW`} color="#38BDF8"
             tooltip={`${regionStats.totalMW.toLocaleString()} MW total IT capacity — ${regionStats.activeMW.toLocaleString()} MW active, ${regionStats.ucMW.toLocaleString()} MW pipeline`}
             onDoubleClick={() => setDetailChip('mw')} />
         </div>
