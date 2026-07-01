@@ -1,19 +1,19 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { X, Server, Cpu, Layers, Zap, Leaf, AlertTriangle, MapPin, Boxes, Sparkles } from 'lucide-react';
+import { X, MapPin, Boxes, Sparkles } from 'lucide-react';
 
 const C = {
-  card: '#0d1f3c',
-  cardInner: '#0a1628',
-  border: 'rgba(255,255,255,0.09)',
-  blue: '#0077C8',
-  green: '#00A36C',
-  amber: '#D4A017',
-  red: '#DC2626',
-  cyan: '#06B6D4',
+  bg:     '#F4F6F9',
+  card:   '#FFFFFF',
+  border: '#E2E8F0',
+  blue:   '#0077C8',
+  green:  '#00A36C',
+  amber:  '#D4A017',
+  red:    '#DC2626',
+  cyan:   '#06B6D4',
   purple: '#7C3AED',
-  text: 'rgba(255,255,255,0.9)',
-  muted: 'rgba(255,255,255,0.45)',
+  text:   '#1A1F36',
+  muted:  '#9CA3AF',
 };
 
 const FLAG_EMOJI = {
@@ -25,22 +25,21 @@ const FLAG_EMOJI = {
   'Taiwan': '🇹🇼',
 };
 
-function KPI({ label, value, icon: Icon, color = C.blue }) {
+function KPI({ label, value, sub, color = C.blue }) {
   return (
-    <div style={{
-      background: C.cardInner, border: `1px solid ${C.border}`, borderRadius: 10,
-      padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 10, flex: 1, minWidth: 110
-    }}>
-      {Icon && (
-        <div style={{ width: 28, height: 28, borderRadius: 8, background: 'rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Icon size={13} color={color} />
-        </div>
-      )}
-      <div>
-        <p style={{ fontSize: 9, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 2 }}>{label}</p>
-        <p style={{ fontSize: 14, fontWeight: 700, color, fontFamily: "'JetBrains Mono', monospace", lineHeight: 1 }}>{value}</p>
-      </div>
+    <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: '14px 18px', flex: 1, minWidth: 110, boxShadow: '0 1px 2px rgba(16,24,40,0.04)' }}>
+      <p style={{ fontSize: 10, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>{label}</p>
+      <p style={{ fontSize: 22, fontWeight: 700, color, fontFamily: "'JetBrains Mono', monospace", lineHeight: 1 }}>{value}</p>
+      {sub && <p style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>{sub}</p>}
     </div>
+  );
+}
+
+function SectionTitle({ children }) {
+  return (
+    <p style={{ fontSize: 10, fontWeight: 700, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.07em', margin: 0 }}>
+      {children}
+    </p>
   );
 }
 
@@ -113,10 +112,9 @@ export default function DCCommandCenter({ dc, onClose }) {
   const utilPct = Math.round(dc.utilization_pct);
   const utilColor = utilPct > 90 ? C.red : utilPct > 75 ? C.amber : C.green;
 
-  const totalAlarms = dc.alarm_critical + dc.alarm_high + dc.alarm_medium + dc.alarm_low;
-
   return (
-    <div style={{ background: '#0B1929', padding: '20px 24px', overflowY: 'auto', maxHeight: 'calc(100vh - 420px)' }}>
+    <div style={{ background: C.bg, padding: '20px 24px', overflowY: 'auto', maxHeight: 'calc(100vh - 420px)' }}>
+
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 16 }}>
         <div>
@@ -142,7 +140,7 @@ export default function DCCommandCenter({ dc, onClose }) {
             <span style={{ opacity: 0.4 }}>·</span>
             <span style={{ fontSize: 11 }}>{dc.country}</span>
             <span style={{ opacity: 0.4 }}>·</span>
-            <span style={{ fontSize: 11, color: '#0077C8' }}>{dc.region}</span>
+            <span style={{ fontSize: 11, color: C.blue }}>{dc.region}</span>
           </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -163,41 +161,44 @@ export default function DCCommandCenter({ dc, onClose }) {
       </div>
 
       {/* KPI Row 1 — Capacity & Operations */}
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>
-        <KPI label="IT Capacity" value={`${dc.capacity_mw} MW`} icon={Zap} color={C.cyan} />
-        <KPI label="Utilization" value={`${utilPct}%`} icon={Layers} color={utilColor} />
-        <KPI label="PUE" value={dc.pue.toFixed(2)} icon={Zap} color={C.blue} />
-        <KPI label="Tier" value={`Tier ${dc.tier}`} icon={Server} color={C.purple} />
-        <KPI label="Renewable" value={`${dc.renewable_pct}%`} icon={Leaf} color={C.green} />
-        <KPI label="Carbon/yr" value={`${dc.carbon_mt} MT`} icon={AlertTriangle} color={dc.carbon_mt > 80 ? C.amber : C.muted} />
+      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 12 }}>
+        <KPI label="IT Capacity" value={`${dc.capacity_mw} MW`} sub="Total IT Load" color={C.cyan} />
+        <KPI label="Utilization" value={`${utilPct}%`} sub="Current Load" color={utilColor} />
+        <KPI label="PUE" value={dc.pue.toFixed(2)} sub="Power Efficiency" color={C.blue} />
+        <KPI label="Tier" value={`Tier ${dc.tier}`} sub="Facility Rating" color={C.purple} />
+        <KPI label="Renewable" value={`${dc.renewable_pct}%`} sub="Energy Mix" color={C.green} />
+        <KPI label="Carbon/yr" value={`${dc.carbon_mt} MT`} sub="Estimated CO₂" color={dc.carbon_mt > 80 ? C.amber : C.muted} />
+        <KPI label="Carbon Intensity" value={`${(dc.carbon_mt / (dc.capacity_mw || 1)).toFixed(2)} MT/MW`} sub="Per MW IT Load" color={C.purple} />
       </div>
 
-      {/* KPI Row 2 — Assets */}
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>
-        <KPI label="Racks" value={dc.asset_racks.toLocaleString()} icon={Layers} color={C.muted} />
-        <KPI label="Servers" value={dc.asset_servers.toLocaleString()} icon={Server} color={C.muted} />
-        <KPI label="GPUs" value={dc.asset_gpus.toLocaleString()} icon={Cpu} color={C.muted} />
-        <KPI label="Active Alarms" value={totalAlarms} icon={AlertTriangle} color={dc.alarm_critical > 0 ? C.red : dc.alarm_high > 0 ? C.amber : C.green} />
+      {/* KPI Row 2 — Assets & Alarms */}
+      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 16 }}>
+        <KPI label="Racks" value={dc.asset_racks.toLocaleString()} color={C.muted} />
+        <KPI label="Servers" value={dc.asset_servers.toLocaleString()} color={C.muted} />
+        <KPI label="GPUs" value={dc.asset_gpus.toLocaleString()} color={C.muted} />
+        <KPI label="Critical Alarms" value={dc.alarm_critical} color={dc.alarm_critical > 0 ? C.red : C.green} />
+        <KPI label="High Alarms" value={dc.alarm_high} color={dc.alarm_high > 0 ? C.amber : C.green} />
+        <KPI label="Med Alarms" value={dc.alarm_medium} color={dc.alarm_medium > 0 ? '#F59E0B' : C.green} />
+        <KPI label="Low Alarms" value={dc.alarm_low} color={C.muted} />
       </div>
 
       {/* Bottom Grid — Alarms + Intel */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-        {/* Alarms */}
-        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 14 }}>
+
+        {/* Active Alarms */}
+        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 14, boxShadow: '0 1px 2px rgba(16,24,40,0.04)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-            <p style={{ fontSize: 10, fontWeight: 700, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.07em', margin: 0 }}>
-              Active Alarms
-            </p>
+            <SectionTitle>Active Alarms</SectionTitle>
             <AIBadge />
           </div>
           <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
             {[
               { label: 'Crit', val: dc.alarm_critical, color: C.red },
               { label: 'High', val: dc.alarm_high, color: C.amber },
-              { label: 'Med', val: dc.alarm_medium, color: '#F59E0B' },
-              { label: 'Low', val: dc.alarm_low, color: C.muted },
+              { label: 'Med',  val: dc.alarm_medium,  color: '#F59E0B' },
+              { label: 'Low',  val: dc.alarm_low,     color: C.muted },
             ].map(a => (
-              <div key={a.label} style={{ flex: 1, background: C.cardInner, borderRadius: 8, padding: '6px 8px', textAlign: 'center' }}>
+              <div key={a.label} style={{ flex: 1, background: 'rgba(0,0,0,0.04)', borderRadius: 8, padding: '6px 8px', textAlign: 'center' }}>
                 <p style={{ fontSize: 14, fontWeight: 700, color: a.color, fontFamily: "'JetBrains Mono', monospace" }}>{a.val}</p>
                 <p style={{ fontSize: 9, color: C.muted, textTransform: 'uppercase' }}>{a.label}</p>
               </div>
@@ -217,12 +218,10 @@ export default function DCCommandCenter({ dc, onClose }) {
           ))}
         </div>
 
-        {/* Intelligence Feed */}
-        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 14 }}>
+        {/* DC Intelligence */}
+        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 14, boxShadow: '0 1px 2px rgba(16,24,40,0.04)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-            <p style={{ fontSize: 10, fontWeight: 700, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.07em', margin: 0 }}>
-              DC Intelligence
-            </p>
+            <SectionTitle>DC Intelligence</SectionTitle>
             <AIBadge />
           </div>
           {MOCK_INTEL.map((item, i) => (
@@ -241,6 +240,7 @@ export default function DCCommandCenter({ dc, onClose }) {
             </p>
           </div>
         </div>
+
       </div>
     </div>
   );

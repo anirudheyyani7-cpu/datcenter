@@ -78,6 +78,7 @@ export default function GlobalDashboardPanel({ activeRegion }) {
     medAlarms: dcs.reduce((s, d) => s + d.alarm_medium, 0),
     lowAlarms: dcs.reduce((s, d) => s + d.alarm_low, 0),
     countries: [...new Set(dcs.map(d => d.country))].length,
+    avgUtil: Math.round(dcs.reduce((s, d) => s + d.utilization_pct, 0) / (dcs.length || 1)),
   }), [dcs]);
 
   const regionBarData = useMemo(() => {
@@ -143,9 +144,11 @@ export default function GlobalDashboardPanel({ activeRegion }) {
       {/* Row 1 — KPI Cards */}
       <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 20 }}>
         <KPI label="Total DCs" value={stats.total} sub={`${stats.countries} Countries`} color={C.blue} />
-        <KPI label="Active" value={stats.active} sub={`${stats.uc} Under Construction`} color={C.green} />
+        <KPI label="Active" value={stats.active} sub={`${stats.countries} Countries`} color={C.green} />
+        <KPI label="Under Construction" value={stats.uc} sub="Planned campuses" color={C.amber} />
         <KPI label="Total MW" value={`${stats.totalMW.toLocaleString()} MW`} sub="IT Load Capacity" color={C.cyan} />
         <KPI label="Avg PUE" value={stats.avgPUE} sub="Power Usage Effectiveness" color={C.blue} />
+        <KPI label="Avg Utilization" value={`${stats.avgUtil}%`} sub="Across DCs in view" color={stats.avgUtil > 85 ? C.red : stats.avgUtil > 70 ? C.amber : C.green} />
         <KPI label="Renewable" value={`${stats.avgRenewable}%`} sub="Avg Renewable Energy" color={C.green} />
         <KPI label="At Risk" value={stats.atRisk} sub={`${stats.highRisk} Critical`} color={stats.highRisk > 0 ? C.red : C.amber} />
       </div>
@@ -158,6 +161,8 @@ export default function GlobalDashboardPanel({ activeRegion }) {
         <KPI label="Carbon Output" value={`${stats.totalCarbon.toLocaleString()} MT`} sub="Estimated CO₂/yr" color={C.amber} />
         <KPI label="Critical Alarms" value={stats.critAlarms} color={stats.critAlarms > 0 ? C.red : C.green} />
         <KPI label="High Alarms" value={stats.highAlarms} color={stats.highAlarms > 0 ? C.amber : C.green} />
+        <KPI label="Med Alarms" value={stats.medAlarms} color={stats.medAlarms > 0 ? '#F59E0B' : C.green} />
+        <KPI label="Low Alarms" value={stats.lowAlarms} color={C.muted} />
       </div>
 
       {/* Row 3 — Charts */}
