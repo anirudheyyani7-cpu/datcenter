@@ -390,7 +390,10 @@ export default function DCCommandCenter({ dc, onClose, allDCs = GOOGLE_DC_MASTER
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
           <button
-            onClick={() => router.push(`/asset-portfolio/${dc.id}/twin`)}
+            onClick={() => {
+              try { sessionStorage.setItem('cockpitTwinDC', JSON.stringify(dc)); } catch {}
+              router.push(`/asset-portfolio/${dc.id}/twin`);
+            }}
             style={{
               display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, fontWeight: 600,
               color: C.cyan, background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)',

@@ -26,6 +26,18 @@ export default function AssetTwinPage({ params }) {
         if (active) { setGoogleDC(fromGoogleMaster); setLoaded(true); }
         return;
       }
+      // Check sessionStorage for a DC stashed by the Global Cockpit
+      // (uploaded/ingested DCs are not in Supabase or GOOGLE_DC_MASTER)
+      try {
+        const stashed = sessionStorage.getItem('cockpitTwinDC');
+        if (stashed) {
+          const parsed = JSON.parse(stashed);
+          if (parsed.id === assetId) {
+            if (active) { setGoogleDC(parsed); setLoaded(true); }
+            return;
+          }
+        }
+      } catch {}
       const supabase = createClient();
       const register = await fetchAssetRegisterClient(supabase);
       let pool = register;
