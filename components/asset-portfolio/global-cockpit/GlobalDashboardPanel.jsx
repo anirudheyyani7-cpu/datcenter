@@ -1,5 +1,5 @@
 'use client';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell,
   PieChart, Pie, Legend,
@@ -23,27 +23,35 @@ const C = {
 const REGION_COLORS = { 'North America': '#0077C8', Europe: '#00A36C', Asia: '#D4A017', 'South America': '#7C3AED' };
 
 function KPI({ label, value, sub, color = C.blue, elaboration = null }) {
-  const [hovered, setHovered] = useState(false);
+  const [shown, setShown]   = useState(false);
   const [locked, setLocked] = useState(false);
+  const timer = useRef(null);
+
+  const show = () => { clearTimeout(timer.current); setShown(true); };
+  const hide = () => { timer.current = setTimeout(() => setShown(false), 180); };
+
   return (
     <div
       style={{ position: 'relative', background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: '14px 18px', flex: 1, minWidth: 120, boxShadow: '0 1px 2px rgba(16,24,40,0.04)', cursor: elaboration ? 'pointer' : 'default' }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => { if (!locked) setHovered(false); }}
+      onMouseEnter={show}
+      onMouseLeave={() => { if (!locked) hide(); }}
       onDoubleClick={() => elaboration && setLocked(prev => !prev)}
     >
       <p style={{ fontSize: 10, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>{label}</p>
       <p style={{ fontSize: 22, fontWeight: 700, color, fontFamily: "'JetBrains Mono', monospace", lineHeight: 1 }}>{value}</p>
       {sub && <p style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>{sub}</p>}
-      {elaboration && (hovered || locked) && (
-        <div style={{
-          position: 'absolute', top: '100%', left: 0, zIndex: 200,
-          width: 270, background: '#1A1F36', color: '#fff',
-          borderRadius: 10, padding: '12px 14px', marginTop: 6,
-          boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
-          border: '1px solid rgba(255,255,255,0.1)',
-          pointerEvents: 'none',
-        }}>
+      {elaboration && (shown || locked) && (
+        <div
+          style={{
+            position: 'absolute', top: '100%', left: 0, zIndex: 200,
+            width: 270, background: '#1A1F36', color: '#fff',
+            borderRadius: 10, padding: '12px 14px', marginTop: 4,
+            boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
+            border: '1px solid rgba(255,255,255,0.1)',
+          }}
+          onMouseEnter={show}
+          onMouseLeave={() => { if (!locked) hide(); }}
+        >
           <div style={{ marginBottom: 6 }}>
             <span style={{ fontSize: 10, fontWeight: 700, color, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{label}</span>
           </div>
