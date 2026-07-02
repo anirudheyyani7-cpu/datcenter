@@ -324,7 +324,7 @@ export default function DCCommandCenter({ dc, onClose, allDCs = GOOGLE_DC_MASTER
   const dcIntel     = getDCIntel(dc);
 
   return (
-    <div style={{ background: C.bg, padding: '20px 24px', overflowY: 'auto', maxHeight: 'calc(100vh - 420px)' }}>
+    <div style={{ background: C.bg, padding: '20px 24px', minHeight: '100%' }}>
 
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 16 }}>

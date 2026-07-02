@@ -209,7 +209,7 @@ export default function GlobalDashboardPanel({ activeRegion, dataSource = 'Googl
   })), [dcs]);
 
   return (
-    <div style={{ background: C.bg, padding: '20px 24px', overflowY: 'auto', maxHeight: 'calc(100vh - 420px)' }}>
+    <div style={{ background: C.bg, padding: '20px 24px', minHeight: '100%' }}>
 
       {/* Google DC Source Header */}
       <div style={{
