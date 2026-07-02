@@ -1,7 +1,7 @@
 'use client';
 import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
-import { Globe, BarChart2, AlertTriangle, Zap, Server, CheckCircle2, Construction, Upload, FileSpreadsheet, X, CheckCircle } from 'lucide-react';
+import { Globe, BarChart2, AlertTriangle, Zap, Server, CheckCircle2, Construction, Upload, FileSpreadsheet, X, CheckCircle, Search } from 'lucide-react';
 import { createClient } from '@/lib/supabase';
 import { fetchAssetIntelligenceClient } from '@/lib/assetPortfolio';
 import { GOOGLE_DC_MASTER, DC_STATS } from '@/data/googleDCMasterData';
@@ -41,6 +41,9 @@ export default function GlobalCockpitPage() {
   const [dataSourceName, setDataSourceName] = useState('Google DC');
   const [intelligence, setIntelligence] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [globeVisible, setGlobeVisible] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchFocused, setSearchFocused] = useState(false);
   const intervalRef = useRef(null);
 
   // GOOGLE_DC_MASTER ids are always prefixed 'GDC-', so this filters out any
@@ -109,13 +112,21 @@ export default function GlobalCockpitPage() {
     if (src) {
       setSelectedDC(src);
       setShowGlobalDashboard(false);
+      setGlobeVisible(false);
     }
   }, [uploadedDCs]);
 
   const handleGlobalDashboard = () => {
-    setShowGlobalDashboard(prev => !prev);
+    const next = !showGlobalDashboard;
+    setShowGlobalDashboard(next);
     setSelectedDC(null);
+    if (next) setGlobeVisible(false);
   };
+
+  // Reset globe visibility when panel fully closes
+  useEffect(() => {
+    if (!showGlobalDashboard && !selectedDC) setGlobeVisible(true);
+  }, [showGlobalDashboard, selectedDC]);
 
   const handleRegion = (region) => {
     setActiveRegion(region);
@@ -145,7 +156,19 @@ export default function GlobalCockpitPage() {
   }, [filteredDCs]);
 
   const panelOpen = showGlobalDashboard || !!selectedDC;
-  const globeHeight = panelOpen ? 'calc(50vh - 49px)' : 'calc(100vh - 110px)';
+  const globeHeight = !panelOpen
+    ? 'calc(100vh - 110px)'
+    : globeVisible
+      ? 'calc(50vh - 49px)'
+      : '0px';
+
+  const allDCsForSearch = uploadedDCs ?? GOOGLE_DC_MASTER;
+  const searchResults = searchQuery.length > 1
+    ? allDCsForSearch.filter(dc =>
+        [dc.name, dc.market, dc.city, dc.country, dc.region]
+          .some(f => f?.toLowerCase().includes(searchQuery.toLowerCase()))
+      ).slice(0, 8)
+    : [];
 
   return (
     <div style={{ background: '#0B1929', minHeight: 'calc(100vh - 49px)', display: 'flex', flexDirection: 'column' }}>
@@ -170,6 +193,54 @@ export default function GlobalCockpitPage() {
               {dataSourceName} &nbsp;·&nbsp; Global Cockpit
             </span>
           </div>
+        </div>
+
+        {/* Search Bar */}
+        <div style={{ position: 'relative', marginRight: 4 }}>
+          <Search size={11} style={{ position: 'absolute', left: 9, top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.4)', pointerEvents: 'none' }} />
+          <input
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            onFocus={() => setSearchFocused(true)}
+            onBlur={() => setTimeout(() => setSearchFocused(false), 160)}
+            placeholder="Search datacenter…"
+            style={{
+              paddingLeft: 28, paddingRight: 10, paddingTop: 6, paddingBottom: 6,
+              width: 188, background: 'rgba(255,255,255,0.08)',
+              border: '1px solid rgba(255,255,255,0.18)', borderRadius: 8,
+              color: '#fff', fontSize: 11, outline: 'none',
+            }}
+          />
+          {searchFocused && searchResults.length > 0 && (
+            <div style={{
+              position: 'absolute', top: 'calc(100% + 5px)', left: 0, zIndex: 60, width: 280,
+              background: '#0F1E35', borderRadius: 10,
+              border: '1px solid rgba(255,255,255,0.12)',
+              boxShadow: '0 8px 28px rgba(0,0,0,0.5)', overflow: 'hidden',
+            }}>
+              {searchResults.map((dc, i) => (
+                <button
+                  key={dc.id}
+                  onMouseDown={() => {
+                    setSelectedDC(dc);
+                    setShowGlobalDashboard(false);
+                    setGlobeVisible(false);
+                    setSearchQuery('');
+                  }}
+                  style={{
+                    display: 'block', width: '100%', padding: '9px 14px', textAlign: 'left',
+                    background: 'none', border: 'none', cursor: 'pointer',
+                    borderBottom: i < searchResults.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                  }}
+                >
+                  <p style={{ fontSize: 12, fontWeight: 600, color: '#fff', margin: 0 }}>{dc.name}</p>
+                  <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.45)', margin: '2px 0 0' }}>
+                    {[dc.market, dc.region, dc.status].filter(Boolean).join(' · ')}
+                  </p>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Region Filters */}
@@ -304,12 +375,35 @@ export default function GlobalCockpitPage() {
 
       {/* ── Dashboard Panel ──────────────────────────────────────────────────── */}
       {panelOpen && (
-        <div style={{ flex: 1, overflowY: 'auto', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-          {showGlobalDashboard ? (
-            <GlobalDashboardPanel activeRegion={activeRegion} dataSource={dataSourceName} dcsOverride={uploadedDCs} />
-          ) : selectedDC ? (
-            <DCCommandCenter dc={selectedDC} onClose={() => setSelectedDC(null)} allDCs={uploadedDCs ?? GOOGLE_DC_MASTER} />
-          ) : null}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+          {/* Globe toggle bar */}
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 8,
+            padding: '5px 16px', flexShrink: 0,
+            borderBottom: '1px solid rgba(255,255,255,0.07)',
+            background: '#081422',
+          }}>
+            <button
+              onClick={() => setGlobeVisible(v => !v)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 5,
+                padding: '4px 12px', borderRadius: 20, fontSize: 10, fontWeight: 600, cursor: 'pointer',
+                background: globeVisible ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.18)', color: 'rgba(255,255,255,0.7)',
+                transition: 'all 0.15s',
+              }}
+            >
+              <Globe size={11} />
+              {globeVisible ? 'Hide Globe' : 'Show Globe & Pins'}
+            </button>
+          </div>
+          <div style={{ flex: 1, overflowY: 'auto' }}>
+            {showGlobalDashboard ? (
+              <GlobalDashboardPanel activeRegion={activeRegion} dataSource={dataSourceName} dcsOverride={uploadedDCs} />
+            ) : selectedDC ? (
+              <DCCommandCenter dc={selectedDC} onClose={() => setSelectedDC(null)} allDCs={uploadedDCs ?? GOOGLE_DC_MASTER} />
+            ) : null}
+          </div>
         </div>
       )}
 
