@@ -77,11 +77,12 @@ const CustomTooltip = ({ active, payload, label }) => {
   );
 };
 
-export default function GlobalDashboardPanel({ activeRegion }) {
+export default function GlobalDashboardPanel({ activeRegion, dataSource = 'Google DC', dcsOverride = null }) {
+  const baseData = dcsOverride ?? GOOGLE_DC_MASTER;
   const dcs = useMemo(() => {
-    if (!activeRegion || activeRegion === 'All') return GOOGLE_DC_MASTER;
-    return GOOGLE_DC_MASTER.filter(d => d.region === activeRegion);
-  }, [activeRegion]);
+    if (!activeRegion || activeRegion === 'All') return baseData;
+    return baseData.filter(d => d.region === activeRegion);
+  }, [activeRegion, baseData]);
 
   const stats = useMemo(() => ({
     total: dcs.length,
@@ -108,11 +109,11 @@ export default function GlobalDashboardPanel({ activeRegion }) {
   const regionBarData = useMemo(() => {
     return ['North America', 'Europe', 'Asia', 'South America'].map(r => ({
       region: r,
-      Active: GOOGLE_DC_MASTER.filter(d => d.region === r && d.status === 'Active').length,
-      'Under Construction': GOOGLE_DC_MASTER.filter(d => d.region === r && d.status === 'Under Construction').length,
-      MW: Math.round(GOOGLE_DC_MASTER.filter(d => d.region === r).reduce((s, d) => s + d.capacity_mw, 0)),
+      Active: baseData.filter(d => d.region === r && d.status === 'Active').length,
+      'Under Construction': baseData.filter(d => d.region === r && d.status === 'Under Construction').length,
+      MW: Math.round(baseData.filter(d => d.region === r).reduce((s, d) => s + d.capacity_mw, 0)),
     }));
-  }, []);
+  }, [baseData]);
 
   const tierData = useMemo(() => {
     const map = {};
@@ -149,10 +150,10 @@ export default function GlobalDashboardPanel({ activeRegion }) {
           </div>
           <div>
             <p style={{ fontSize: 13, fontWeight: 700, color: C.text, fontFamily: "'Plus Jakarta Sans', sans-serif", margin: 0 }}>
-              Google Data Center Infrastructure
+              {dataSource} Data Center Infrastructure
             </p>
             <p style={{ fontSize: 10, color: C.muted, margin: '2px 0 0' }}>
-              Source: datacenters.google &nbsp;·&nbsp; {dcs.length} campus{dcs.length !== 1 ? 'es' : ''} in view &nbsp;·&nbsp; GSRS Regional Taxonomy
+              Source: {dataSource} &nbsp;·&nbsp; {dcs.length} campus{dcs.length !== 1 ? 'es' : ''} in view &nbsp;·&nbsp; GSRS Regional Taxonomy
             </p>
           </div>
         </div>
@@ -161,7 +162,7 @@ export default function GlobalDashboardPanel({ activeRegion }) {
           background: 'rgba(66,133,244,0.10)', border: '1px solid rgba(66,133,244,0.22)',
           fontSize: 9, fontWeight: 700, color: '#4285F4', letterSpacing: '0.08em', textTransform: 'uppercase',
         }}>
-          Google · DC
+          {dataSource.toUpperCase().slice(0, 12)}
         </div>
       </div>
 

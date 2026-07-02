@@ -38,6 +38,7 @@ export default function GlobalCockpitPage() {
   const [detailChip, setDetailChip] = useState(null);
   const [ingestOpen, setIngestOpen] = useState(false);
   const [uploadedDCs, setUploadedDCs] = useState(null);
+  const [dataSourceName, setDataSourceName] = useState('Google DC');
   const [intelligence, setIntelligence] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const intervalRef = useRef(null);
@@ -165,7 +166,7 @@ export default function GlobalCockpitPage() {
           <Globe size={14} color="#0077C8" />
           <div>
             <span style={{ fontSize: 12, fontWeight: 700, color: 'rgba(255,255,255,0.9)', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-              Google DC &nbsp;·&nbsp; Global Cockpit
+              {dataSourceName} &nbsp;·&nbsp; Global Cockpit
             </span>
           </div>
         </div>
@@ -304,7 +305,7 @@ export default function GlobalCockpitPage() {
       {panelOpen && (
         <div style={{ flex: 1, overflowY: 'auto', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
           {showGlobalDashboard ? (
-            <GlobalDashboardPanel activeRegion={activeRegion} />
+            <GlobalDashboardPanel activeRegion={activeRegion} dataSource={dataSourceName} dcsOverride={uploadedDCs} />
           ) : selectedDC ? (
             <DCCommandCenter dc={selectedDC} onClose={() => setSelectedDC(null)} />
           ) : null}
@@ -331,7 +332,7 @@ export default function GlobalCockpitPage() {
       {ingestOpen && (
         <IngestDataModal
           onClose={() => setIngestOpen(false)}
-          onImport={(rows) => { setUploadedDCs(rows); setIngestOpen(false); }}
+          onImport={(rows, sourceName) => { setUploadedDCs(rows); setDataSourceName(sourceName || 'Custom Dataset'); setIngestOpen(false); }}
           hasUploadedData={!!uploadedDCs}
           onRemovePrevious={() => setUploadedDCs(null)}
         />
@@ -668,11 +669,12 @@ function mapRow(headers, rawRow) {
 }
 
 function IngestDataModal({ onClose, onImport, hasUploadedData, onRemovePrevious }) {
-  const [dragging, setDragging] = useState(false);
-  const [file, setFile]         = useState(null);
-  const [status, setStatus]     = useState('idle');
-  const [preview, setPreview]   = useState(null);
-  const [allRows, setAllRows]   = useState(null);
+  const [dragging, setDragging]       = useState(false);
+  const [file, setFile]               = useState(null);
+  const [status, setStatus]           = useState('idle');
+  const [preview, setPreview]         = useState(null);
+  const [allRows, setAllRows]         = useState(null);
+  const [sourceName, setSourceName]   = useState('');
   const fileRef = useRef(null);
 
   async function processFile(f) {
@@ -734,6 +736,25 @@ function IngestDataModal({ onClose, onImport, hasUploadedData, onRemovePrevious 
             </div>
           </div>
           <button onClick={onClose} style={{ color: 'rgba(255,255,255,0.4)', background: 'none', border: 'none', cursor: 'pointer', padding: 4 }}><X size={16} /></button>
+        </div>
+
+        {/* Data Source Name Input */}
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ display: 'block', fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
+            Data Source Name
+          </label>
+          <input
+            type="text"
+            value={sourceName}
+            onChange={e => setSourceName(e.target.value)}
+            placeholder="e.g. Microsoft Azure, AWS, Equinix…"
+            style={{
+              width: '100%', padding: '9px 12px', borderRadius: 8, fontSize: 12, fontWeight: 500,
+              background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)',
+              color: '#fff', outline: 'none', boxSizing: 'border-box',
+            }}
+          />
+          <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', margin: '4px 0 0' }}>This label will appear across the cockpit replacing "Google DC"</p>
         </div>
 
         {/* Remove Previous Dataset banner */}
@@ -811,7 +832,7 @@ function IngestDataModal({ onClose, onImport, hasUploadedData, onRemovePrevious 
             <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
               <button onClick={reset} style={{ padding: '8px 16px', borderRadius: 8, fontSize: 11, fontWeight: 600, cursor: 'pointer', background: 'transparent', border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.5)' }}>Cancel</button>
               <button
-                onClick={() => onImport(allRows)}
+                onClick={() => onImport(allRows, sourceName.trim())}
                 style={{ padding: '8px 20px', borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: 'pointer', background: '#7C3AED', border: '1px solid rgba(124,58,237,0.6)', color: '#fff' }}
               >
                 Confirm Import — {preview.totalRows} DCs
