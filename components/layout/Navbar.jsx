@@ -159,7 +159,7 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            <NavLink href="/asset-portfolio" active={pathname?.startsWith('/asset-portfolio')}>
+            <NavLink href="/asset-portfolio/global-cockpit" active={pathname?.startsWith('/asset-portfolio')}>
               <span className="flex items-center gap-1.5">
                 <Building2 size={12} />
                 Asset Portfolio
