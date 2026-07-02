@@ -791,14 +791,45 @@ function IngestDataModal({ onClose, onImport, hasUploadedData, onRemovePrevious 
             type="text"
             value={sourceName}
             onChange={e => setSourceName(e.target.value)}
-            placeholder="e.g. Microsoft Azure, AWS, Equinix…"
+            placeholder="e.g. Google DC, Microsoft Azure, Equinix…"
             style={{
               width: '100%', padding: '9px 12px', borderRadius: 8, fontSize: 12, fontWeight: 500,
               background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)',
               color: '#fff', outline: 'none', boxSizing: 'border-box',
             }}
           />
-          <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', margin: '4px 0 0' }}>This label will appear across the cockpit replacing "Google DC"</p>
+          {/* Quick-select chips */}
+          <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
+            {[
+              { label: 'Google DC', colors: ['#4285F4','#EA4335','#FBBC05','#34A853'] },
+              { label: 'Microsoft Azure', colors: null },
+              { label: 'AWS', colors: null },
+              { label: 'Equinix', colors: null },
+            ].map(chip => (
+              <button
+                key={chip.label}
+                onClick={() => setSourceName(chip.label)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 5,
+                  padding: '4px 10px', borderRadius: 20, fontSize: 10, fontWeight: 600, cursor: 'pointer',
+                  background: sourceName === chip.label ? 'rgba(124,58,237,0.25)' : 'rgba(255,255,255,0.06)',
+                  border: `1px solid ${sourceName === chip.label ? 'rgba(124,58,237,0.5)' : 'rgba(255,255,255,0.12)'}`,
+                  color: sourceName === chip.label ? '#A78BFA' : 'rgba(255,255,255,0.5)',
+                  transition: 'all 0.15s',
+                }}
+              >
+                {chip.colors && (
+                  <span style={{ display: 'flex', gap: 1.5 }}>
+                    {chip.colors.map((c, i) => <span key={i} style={{ width: 4, height: 10, borderRadius: 2, background: c, display: 'block' }} />)}
+                  </span>
+                )}
+                {chip.label}
+              </button>
+            ))}
+          </div>
+          <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', margin: '6px 0 0' }}>
+            Select <span style={{ color: '#4285F4', fontWeight: 600 }}>Google DC</span> to restore Google branding · Otherwise this label replaces "Google DC" across the cockpit
+          </p>
         </div>
 
         {/* Remove Previous Dataset banner */}
