@@ -631,38 +631,70 @@ function ChipDetailModal({ type, filteredDCs, regionStats, onClose }) {
 
 // Maps raw Excel/CSV header strings to internal DC field names
 const FIELD_MAP = {
-  id: 'id', name: 'name',
+  // ID
+  id: 'id', dc_id: 'id', site_id: 'id',
+  // Name / operator
+  name: 'name', dc_name: 'name', site_name: 'name',
+  operator: 'operator',
+  // Location
   lat: 'lat', latitude: 'lat',
   lng: 'lng', lon: 'lng', longitude: 'lng',
-  region: 'region', country: 'country', city: 'city', address: 'address',
+  region: 'region', country: 'country', city: 'city', address: 'address', market: 'market',
+  // Status & tier
   status: 'status', tier: 'tier',
-  capacity_mw: 'capacity_mw', capacity: 'capacity_mw', it_capacity_mw: 'capacity_mw',
+  // Capacity (IT Capacity (MW) → normalises to it_capacity)
+  capacity_mw: 'capacity_mw', capacity: 'capacity_mw',
+  it_capacity: 'capacity_mw', it_capacity_mw: 'capacity_mw',
+  // Utilization
   utilization_pct: 'utilization_pct', utilization: 'utilization_pct', util_pct: 'utilization_pct',
+  // PUE
   pue: 'pue',
+  // Renewable (Renewable Energy (%) → renewable_energy)
   renewable_pct: 'renewable_pct', renewable: 'renewable_pct',
-  carbon_mt_yr: 'carbon_mt_yr', carbon: 'carbon_mt_yr',
+  renewable_energy: 'renewable_pct', renewable_energy_pct: 'renewable_pct',
+  // Carbon (Carbon Emissions (MT/yr) → carbon_emissions)
+  carbon_mt: 'carbon_mt', carbon: 'carbon_mt',
+  carbon_mt_yr: 'carbon_mt', carbon_emissions: 'carbon_mt',
+  // Carbon intensity
   carbon_intensity: 'carbon_intensity',
+  // Risk
   risk_flag: 'risk_flag', risk: 'risk_flag',
-  alarm_critical: 'alarm_critical', alarm_high: 'alarm_high',
-  alarm_med: 'alarm_med', alarm_low: 'alarm_low',
-  racks: 'racks', servers: 'servers', gpus: 'gpus',
+  // Alarms — map both old names and verbose Excel column names
+  alarm_critical: 'alarm_critical', critical_alarms: 'alarm_critical',
+  alarm_high: 'alarm_high',    high_alarms: 'alarm_high',
+  alarm_medium: 'alarm_medium', alarm_med: 'alarm_medium', medium_alarms: 'alarm_medium',
+  alarm_low: 'alarm_low',      low_alarms: 'alarm_low',
+  // Assets — GlobalDashboardPanel reads asset_racks / asset_servers / asset_gpus
+  racks: 'asset_racks', asset_racks: 'asset_racks',
+  servers: 'asset_servers', asset_servers: 'asset_servers',
+  gpus: 'asset_gpus', asset_gpus: 'asset_gpus',
 };
 
 function normalizeHeader(h) {
   return h.toLowerCase().trim()
-    .replace(/\s*\(.*?\)\s*/g, '')
+    .replace(/\s*\(.*?\)\s*/g, '')   // strip "(MW)", "(%)", "(MT/yr)" etc.
     .replace(/%/g, '_pct')
     .replace(/[\s\-\/]+/g, '_')
-    .replace(/[^a-z0-9_]/g, '');
+    .replace(/[^a-z0-9_]/g, '')
+    .replace(/_+/g, '_')             // collapse double-underscores
+    .replace(/^_|_$/g, '');          // strip leading/trailing underscores
 }
 
 function mapRow(headers, rawRow) {
   const obj = {};
   headers.forEach((h, i) => {
-    const key = FIELD_MAP[normalizeHeader(h)] ?? normalizeHeader(h);
+    const norm = normalizeHeader(h);
+    const key = FIELD_MAP[norm] ?? norm;
     let val = rawRow[i] ?? '';
-    const numFields = ['lat','lng','capacity_mw','utilization_pct','pue','renewable_pct','carbon_mt_yr','carbon_intensity','alarm_critical','alarm_high','alarm_med','alarm_low','racks','servers','gpus'];
+    const numFields = [
+      'lat','lng','capacity_mw','utilization_pct','pue',
+      'renewable_pct','carbon_mt','carbon_intensity',
+      'alarm_critical','alarm_high','alarm_medium','alarm_low',
+      'asset_racks','asset_servers','asset_gpus',
+    ];
     if (numFields.includes(key)) val = parseFloat(val) || 0;
+    // Normalise "Tier IV" → "IV", "Tier III" → "III", etc.
+    if (key === 'tier' && typeof val === 'string') val = val.replace(/^tier\s+/i, '').trim();
     obj[key] = val;
   });
   if (!obj.id) obj.id = `UPL-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
@@ -686,19 +718,30 @@ function IngestDataModal({ onClose, onImport, hasUploadedData, onRemovePrevious 
     setStatus('parsing');
     try {
       let headers = [], rawRows = [];
+      // Find the first row with at least 3 non-empty cells — that's the real header row,
+      // even when the file starts with title/description rows (like the non-google dataset).
+      function detectHeaderIdx(rows) {
+        for (let i = 0; i < Math.min(10, rows.length); i++) {
+          if (rows[i].filter(c => String(c).trim() !== '').length >= 3) return i;
+        }
+        return 0;
+      }
+
       if (ext === 'csv') {
         const text = await f.text();
-        const lines = text.split('\n').filter(l => l.trim());
-        headers = lines[0].split(',').map(h => h.replace(/^"|"$/g, '').trim());
-        rawRows = lines.slice(1).map(l => l.split(',').map(c => c.replace(/^"|"$/g, '').trim()));
+        const allLines = text.split('\n').map(l => l.split(',').map(c => c.replace(/^"|"$/g, '').trim()));
+        const hIdx = detectHeaderIdx(allLines);
+        headers = allLines[hIdx];
+        rawRows = allLines.slice(hIdx + 1).filter(r => r.some(c => c !== ''));
       } else {
         const XLSX = await import('xlsx');
         const buf  = await f.arrayBuffer();
         const wb   = XLSX.read(buf, { type: 'array' });
         const ws   = wb.Sheets[wb.SheetNames[0]];
         const data = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
-        headers  = data[0] ? data[0].map(String) : [];
-        rawRows  = data.slice(1).map(r => headers.map((_, i) => String(r[i] ?? '')));
+        const hIdx = detectHeaderIdx(data.map(r => r.map(String)));
+        headers  = data[hIdx] ? data[hIdx].map(String) : [];
+        rawRows  = data.slice(hIdx + 1).map(r => headers.map((_, i) => String(r[i] ?? '')));
       }
       const mapped = rawRows.filter(r => r.some(c => c !== '')).map(r => mapRow(headers, r));
       setAllRows(mapped);
