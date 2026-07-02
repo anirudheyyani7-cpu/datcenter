@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { X, MapPin, Boxes } from 'lucide-react';
@@ -70,32 +70,38 @@ function KPIModal({ label, value, sub, color, elaboration, impact, onClose }) {
 function KPI({ label, value, sub, color = C.blue, elaboration = null, impact = null }) {
   const [hovered, setHovered] = useState(false);
   const [modal, setModal]     = useState(false);
+  const [pos, setPos]         = useState({ top: 0, left: 0 });
+  const ref = useRef(null);
+
+  const onEnter = () => {
+    if (ref.current) {
+      const r = ref.current.getBoundingClientRect();
+      setPos({ top: r.bottom + 6, left: Math.min(r.left, window.innerWidth - 290) });
+    }
+    setHovered(true);
+  };
+
   return (
     <>
       <div
-        style={{ position: 'relative', background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: '14px 18px', flex: 1, minWidth: 110, boxShadow: '0 1px 2px rgba(16,24,40,0.04)', cursor: elaboration ? 'pointer' : 'default' }}
-        onMouseEnter={() => setHovered(true)}
+        ref={ref}
+        style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: '14px 18px', flex: 1, minWidth: 110, boxShadow: '0 1px 2px rgba(16,24,40,0.04)', cursor: elaboration ? 'pointer' : 'default' }}
+        onMouseEnter={onEnter}
         onMouseLeave={() => setHovered(false)}
         onDoubleClick={() => elaboration && setModal(true)}
       >
         <p style={{ fontSize: 10, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>{label}</p>
         <p style={{ fontSize: 22, fontWeight: 700, color, fontFamily: "'JetBrains Mono', monospace", lineHeight: 1 }}>{value}</p>
         {sub && <p style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>{sub}</p>}
-        {elaboration && hovered && (
-          <div style={{
-            position: 'absolute', top: '100%', left: 0, zIndex: 200,
-            width: 270, background: '#1A1F36', color: '#fff',
-            borderRadius: 10, padding: '12px 14px', marginTop: 6,
-            boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            pointerEvents: 'none',
-          }}>
-            <span style={{ fontSize: 10, fontWeight: 700, color, textTransform: 'uppercase', letterSpacing: '0.06em', display: 'block', marginBottom: 6 }}>{label}</span>
-            <p style={{ fontSize: 10.5, lineHeight: 1.6, color: 'rgba(255,255,255,0.8)', margin: '0 0 6px' }}>{elaboration}</p>
-            <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)', margin: 0 }}>Double-click for full analysis</p>
-          </div>
-        )}
       </div>
+      {elaboration && hovered && createPortal(
+        <div style={{ position: 'fixed', top: pos.top, left: pos.left, zIndex: 9990, width: 270, background: '#1A1F36', color: '#fff', borderRadius: 10, padding: '12px 14px', boxShadow: '0 8px 24px rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.1)', pointerEvents: 'none' }}>
+          <span style={{ fontSize: 10, fontWeight: 700, color, textTransform: 'uppercase', letterSpacing: '0.06em', display: 'block', marginBottom: 6 }}>{label}</span>
+          <p style={{ fontSize: 10.5, lineHeight: 1.6, color: 'rgba(255,255,255,0.8)', margin: '0 0 6px' }}>{elaboration}</p>
+          <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)', margin: 0 }}>Double-click for full analysis</p>
+        </div>,
+        document.body
+      )}
       {modal && <KPIModal label={label} value={value} sub={sub} color={color} elaboration={elaboration} impact={impact} onClose={() => setModal(false)} />}
     </>
   );
