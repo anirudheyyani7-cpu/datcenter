@@ -170,12 +170,14 @@ export default function GlobalDashboardPanel({ activeRegion, dataSource = 'Googl
         marginBottom: 20, paddingBottom: 16, borderBottom: `1px solid ${C.border}`,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div style={{ display: 'flex', gap: 2.5 }}>
-            <div style={{ width: 5, height: 22, borderRadius: 3, background: '#4285F4' }} />
-            <div style={{ width: 5, height: 22, borderRadius: 3, background: '#EA4335' }} />
-            <div style={{ width: 5, height: 22, borderRadius: 3, background: '#FBBC05' }} />
-            <div style={{ width: 5, height: 22, borderRadius: 3, background: '#34A853' }} />
-          </div>
+          {dataSource.toLowerCase().includes('google') && (
+            <div style={{ display: 'flex', gap: 2.5 }}>
+              <div style={{ width: 5, height: 22, borderRadius: 3, background: '#4285F4' }} />
+              <div style={{ width: 5, height: 22, borderRadius: 3, background: '#EA4335' }} />
+              <div style={{ width: 5, height: 22, borderRadius: 3, background: '#FBBC05' }} />
+              <div style={{ width: 5, height: 22, borderRadius: 3, background: '#34A853' }} />
+            </div>
+          )}
           <div>
             <p style={{ fontSize: 13, fontWeight: 700, color: C.text, fontFamily: "'Plus Jakarta Sans', sans-serif", margin: 0 }}>
               {dataSource} Data Center Infrastructure
@@ -187,8 +189,11 @@ export default function GlobalDashboardPanel({ activeRegion, dataSource = 'Googl
         </div>
         <div style={{
           padding: '4px 10px', borderRadius: 6,
-          background: 'rgba(66,133,244,0.10)', border: '1px solid rgba(66,133,244,0.22)',
-          fontSize: 9, fontWeight: 700, color: '#4285F4', letterSpacing: '0.08em', textTransform: 'uppercase',
+          background: dataSource.toLowerCase().includes('google') ? 'rgba(66,133,244,0.10)' : 'rgba(0,51,141,0.08)',
+          border: `1px solid ${dataSource.toLowerCase().includes('google') ? 'rgba(66,133,244,0.22)' : 'rgba(0,51,141,0.20)'}`,
+          fontSize: 9, fontWeight: 700,
+          color: dataSource.toLowerCase().includes('google') ? '#4285F4' : '#00338D',
+          letterSpacing: '0.08em', textTransform: 'uppercase',
         }}>
           {dataSource.toUpperCase().slice(0, 12)}
         </div>
