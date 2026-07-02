@@ -104,12 +104,13 @@ export default function GlobalCockpitPage() {
   }, [filteredDCs]);
 
   const handleMarkerClick = useCallback((dc) => {
-    const src = GOOGLE_DC_MASTER.find(d => d.id === dc.id);
+    const base = uploadedDCs ?? GOOGLE_DC_MASTER;
+    const src = base.find(d => d.id === dc.id);
     if (src) {
       setSelectedDC(src);
       setShowGlobalDashboard(false);
     }
-  }, []);
+  }, [uploadedDCs]);
 
   const handleGlobalDashboard = () => {
     setShowGlobalDashboard(prev => !prev);
@@ -307,7 +308,7 @@ export default function GlobalCockpitPage() {
           {showGlobalDashboard ? (
             <GlobalDashboardPanel activeRegion={activeRegion} dataSource={dataSourceName} dcsOverride={uploadedDCs} />
           ) : selectedDC ? (
-            <DCCommandCenter dc={selectedDC} onClose={() => setSelectedDC(null)} />
+            <DCCommandCenter dc={selectedDC} onClose={() => setSelectedDC(null)} allDCs={uploadedDCs ?? GOOGLE_DC_MASTER} />
           ) : null}
         </div>
       )}

@@ -175,11 +175,11 @@ function getConstructionIntel(dc, con) {
   ];
 }
 
-export default function DCCommandCenter({ dc, onClose }) {
+export default function DCCommandCenter({ dc, onClose, allDCs = GOOGLE_DC_MASTER }) {
   const router = useRouter();
   if (!dc) return null;
 
-  const regionDCs = GOOGLE_DC_MASTER.filter(d => d.region === dc.region);
+  const regionDCs = allDCs.filter(d => d.region === dc.region);
   const regionCtx = {
     total:  regionDCs.length,
     active: regionDCs.filter(d => d.status === 'Active').length,
