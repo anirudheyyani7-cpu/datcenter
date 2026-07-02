@@ -133,3 +133,34 @@ function generateRacks(dcId, avgUtil, tenants) {
   });
   return racks;
 }
+
+// Deterministic fallback for any DC not in mockRacks (Google DCs, uploaded datasets, etc.)
+export function generateDCRacks(dcId) {
+  let seed = 0;
+  const s = String(dcId || 'dc');
+  for (let i = 0; i < s.length; i++) seed = (seed * 31 + s.charCodeAt(i)) | 0;
+  seed = Math.abs(seed) || 1;
+  function rng() {
+    seed = (seed * 1664525 + 1013904223) | 0;
+    return (seed >>> 0) / 0xFFFFFFFF;
+  }
+
+  const avgUtil = 0.45 + rng() * 0.45;
+  const TENANTS = ['Google Cloud', 'AI/ML Infrastructure', 'Search & Ads', 'YouTube CDN', 'Cloud Operations', null];
+  const rows = ['A', 'B', 'C', 'D'];
+  const racks = [];
+  rows.forEach((row) => {
+    for (let i = 1; i <= 8; i++) {
+      const variance = (rng() - 0.5) * 0.3;
+      const util = Math.min(0.98, Math.max(0.1, avgUtil + variance));
+      const kw = Math.round(util * 40 * 10) / 10;
+      const spaceU = Math.round(util * 42);
+      const weightKg = Math.round(util * 500 * 0.9);
+      const portsUsed = Math.round(util * 48);
+      const baseTemp = 19 + Math.round(util * 18);
+      const tenant = TENANTS[Math.floor(rng() * TENANTS.length)];
+      racks.push(rack('', dcId, row, i, kw, 40, spaceU, 42, weightKg, 500, portsUsed, 48, baseTemp, tenant));
+    }
+  });
+  return racks;
+}

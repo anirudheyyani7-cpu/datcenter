@@ -1,7 +1,7 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Zap, Server, Weight, Network, Thermometer, AlertTriangle, CheckCircle, ChevronRight } from 'lucide-react';
-import { mockRacks } from '@/data/mock/racks';
+import { mockRacks, generateDCRacks } from '@/data/mock/racks';
 import { useRouter } from 'next/navigation';
 
 function ProgressBar({ value, max, color }) {
@@ -42,7 +42,7 @@ const STATUS_STYLES = {
 
 export default function RackDetailPanel({ rackId, dcId, onClose }) {
   const router = useRouter();
-  const dcRacks = mockRacks[dcId] || [];
+  const dcRacks = mockRacks[dcId] || generateDCRacks(dcId);
   const rack = dcRacks.find(r => r.id === rackId);
 
   if (!rack) return null;
