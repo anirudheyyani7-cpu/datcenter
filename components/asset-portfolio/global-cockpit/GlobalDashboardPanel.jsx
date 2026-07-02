@@ -214,8 +214,12 @@ export default function GlobalDashboardPanel({ activeRegion, dataSource = 'Googl
   }, [baseData]);
 
   const tierData = useMemo(() => {
+    const VALID = new Set(['I', 'II', 'III', 'IV']);
     const map = {};
-    dcs.forEach(d => { map[`Tier ${d.tier}`] = (map[`Tier ${d.tier}`] || 0) + 1; });
+    dcs.forEach(d => {
+      const t = VALID.has(d.tier) ? `Tier ${d.tier}` : 'Other / N/A';
+      map[t] = (map[t] || 0) + 1;
+    });
     return Object.entries(map).map(([name, value]) => ({ name, value }));
   }, [dcs]);
 

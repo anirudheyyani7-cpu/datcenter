@@ -801,8 +801,11 @@ function mapRow(headers, rawRow) {
       'asset_racks','asset_servers','asset_gpus',
     ];
     if (numFields.includes(key)) val = parseFloat(val) || 0;
-    // Normalise "Tier IV" → "IV", "Tier III" → "III", etc.
-    if (key === 'tier' && typeof val === 'string') val = val.replace(/^tier\s+/i, '').trim();
+    // Normalise "Tier IV" → "IV"; anything not a standard level → empty string
+    if (key === 'tier' && typeof val === 'string') {
+      const t = val.replace(/^tier\s+/i, '').trim().toUpperCase();
+      val = ['I', 'II', 'III', 'IV'].includes(t) ? t : '';
+    }
     obj[key] = val;
   });
   if (!obj.id) obj.id = `UPL-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
