@@ -269,7 +269,7 @@ export default function GlobalDashboardPanel({ activeRegion, dataSource = 'Googl
           color: dataSource.toLowerCase().includes('google') ? '#4285F4' : '#00338D',
           letterSpacing: '0.08em', textTransform: 'uppercase',
         }}>
-          {dataSource.toUpperCase().slice(0, 12)}
+          {dataSource.toUpperCase().slice(0, 20)}
         </div>
       </div>
 
