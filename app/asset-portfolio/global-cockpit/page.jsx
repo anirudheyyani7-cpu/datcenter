@@ -171,7 +171,7 @@ export default function GlobalCockpitPage() {
     : [];
 
   return (
-    <div style={{ background: '#0B1929', minHeight: 'calc(100vh - 49px)', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ background: '#0B1929', height: 'calc(100vh - 49px)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
       {/* ── Top Nav ─────────────────────────────────────────────────────────── */}
       <div style={{
@@ -396,6 +396,20 @@ export default function GlobalCockpitPage() {
               <Globe size={11} />
               {globeVisible ? 'Hide Globe' : 'Show Globe & Pins'}
             </button>
+            {/* Pin legend — always visible in this bar */}
+            <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginLeft: 8 }}>
+              {[
+                { color: '#00A36C', label: 'Active' },
+                { color: '#7C3AED', label: 'Under Construction' },
+                { color: '#D4A017', label: 'Medium Risk' },
+                { color: '#DC2626', label: 'High Risk' },
+              ].map(l => (
+                <div key={l.label} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <div style={{ width: 7, height: 7, borderRadius: '50%', background: l.color, flexShrink: 0 }} />
+                  <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.45)' }}>{l.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
           <div style={{ flex: 1, overflowY: 'auto' }}>
             {showGlobalDashboard ? (
