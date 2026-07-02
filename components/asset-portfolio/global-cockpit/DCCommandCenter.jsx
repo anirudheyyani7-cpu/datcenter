@@ -271,16 +271,27 @@ function getRE(dc) {
   return { acreage, buildings, ownership, expAcres };
 }
 
+function hashDCId(id) {
+  let h = 0;
+  const s = String(id || 'dc');
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+
 function getConstruction(dc) {
-  const pct        = Math.min(95, Math.round(40 + dc.utilization_pct * 2.5));
+  // Derive a deterministic completion % from the DC's ID so every UC site
+  // shows a different stage. UC sites have utilization_pct=0 so we can't
+  // use that field — the hash gives stable but varied values per campus.
+  const seed       = hashDCId(dc.id || dc.name);
+  const pct        = 15 + (seed % 76);                            // 15–90%
   const remaining  = 100 - pct;
-  const monthsLeft = Math.max(3, Math.round((remaining / 100) * (dc.capacity_mw / 25)));
+  const monthsLeft = Math.max(2, Math.round((remaining / 100) * Math.max(6, dc.capacity_mw / 20)));
   const handover   = new Date();
   handover.setMonth(handover.getMonth() + monthsLeft);
   const handoverStr = handover.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
-  const phase = pct < 50 ? 'Civil & Structural'
-              : pct < 70 ? 'MEP Installation'
-              : pct < 85 ? 'Fit-Out & Commissioning'
+  const phase = pct < 35 ? 'Civil & Structural'
+              : pct < 60 ? 'MEP Installation'
+              : pct < 80 ? 'Fit-Out & Commissioning'
               : 'Final Testing';
   const activity = dc.tier === 'IV' ? 'Tier IV Programme'
                  : dc.capacity_mw >= 120 ? 'Large Campus Build'
