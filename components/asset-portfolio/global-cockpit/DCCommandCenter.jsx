@@ -137,23 +137,107 @@ const MOCK_ALARMS = [
   },
 ];
 
-const MOCK_INTEL = [
-  {
-    tag: 'Power Grid',
-    text: 'Regional utility upgrade expanding capacity by 200 MW by Q3',
-    elaboration: 'The local transmission operator has approved a substation expansion adding 200 MW of firm capacity to the grid interconnect serving this campus, targeted for energization in Q3. This supports planned IT load growth without requiring additional on-site generation investment and should ease interconnection-queue pressure for adjacent expansion phases.',
-  },
-  {
-    tag: 'Sustainability',
-    text: 'PPA signed for new wind farm — renewable % rising 12pts',
-    elaboration: 'A 15-year power purchase agreement was executed for output from a 180 MW wind farm roughly 60 miles from this site, expected to lift the campus renewable energy mix by approximately 12 percentage points once delivery begins. This advances progress toward the regional 24/7 carbon-free energy target and reduces exposure to wholesale price volatility.',
-  },
-  {
-    tag: 'Network',
-    text: 'New 400G backbone ring reduces regional latency by 18%',
-    elaboration: 'A new 400G optical ring connecting this campus to two adjacent regional hubs entered service, cutting median inter-site latency by 18% and adding a second diverse path for disaster-recovery traffic. This materially improves resilience for latency-sensitive workloads and removes a single point of failure from the prior ring topology.',
-  },
-];
+function getDCIntel(dc) {
+  const utilPct   = Math.round(dc.utilization_pct);
+  const totalAlarms = (dc.alarm_critical ?? 0) + (dc.alarm_high ?? 0) + (dc.alarm_medium ?? 0) + (dc.alarm_low ?? 0);
+  const intensityMT = (dc.carbon_mt / (dc.capacity_mw || 1)).toFixed(2);
+  const isHighUtil  = utilPct > 80;
+  const isLowUtil   = utilPct < 45;
+  const isHighRisk  = dc.risk_flag === 'High';
+  const isMedRisk   = dc.risk_flag === 'Medium';
+  const isLowPUE    = dc.pue <= 1.12;
+  const isHighPUE   = dc.pue > 1.25;
+  const isLowRenew  = dc.renewable_pct < 60;
+  const isHighRenew = dc.renewable_pct >= 90;
+  const isHighCarbon = dc.carbon_mt > 80;
+  const isTierIV    = dc.tier === 'IV';
+  const isLargeCAMP = dc.capacity_mw >= 150;
+
+  const items = [];
+
+  // ── 1. CAPACITY / UTILISATION ──────────────────────────────────────────────
+  if (isHighUtil) {
+    items.push({
+      tag: 'Capacity Alert',
+      text: `${dc.name} at ${utilPct}% utilisation — expansion trigger breached`,
+      elaboration: `${dc.name} is operating at ${utilPct}% of its ${dc.capacity_mw} MW nameplate capacity, above the 80% sustained utilisation threshold that triggers expansion planning. Available headroom is ${(dc.capacity_mw * (1 - utilPct / 100)).toFixed(0)} MW — insufficient to absorb a full-site failover from an adjacent ${dc.region} campus. Initiate feasibility review for next-phase capacity or evaluate cross-site load migration to relieve pressure and restore emergency headroom.`,
+    });
+  } else if (isLowUtil) {
+    items.push({
+      tag: 'Asset Yield',
+      text: `${dc.name} at ${utilPct}% — below optimal yield threshold`,
+      elaboration: `${dc.name} is operating at ${utilPct}% utilisation, below the 60–80% optimal yield band for a ${dc.capacity_mw} MW campus. Idle capacity of ${(dc.capacity_mw * (1 - utilPct / 100)).toFixed(0)} MW represents overhead cost with no revenue contribution. Targeted outreach to hyperscale and enterprise AI tenants in ${dc.market} is recommended to accelerate workload onboarding and improve return on the ${isTierIV ? 'Tier IV' : 'Tier III'} infrastructure investment.`,
+    });
+  } else {
+    items.push({
+      tag: 'Capacity',
+      text: `${dc.name} utilisation healthy at ${utilPct}% — ${(dc.capacity_mw * (1 - utilPct / 100)).toFixed(0)} MW headroom`,
+      elaboration: `${dc.name} is in the optimal 60–80% utilisation band at ${utilPct}% of ${dc.capacity_mw} MW capacity, with ${(dc.capacity_mw * (1 - utilPct / 100)).toFixed(0)} MW of available headroom for new workload onboarding. This balance provides strong asset yield while maintaining sufficient emergency capacity to absorb load redistribution from adjacent ${dc.region} sites during a partial outage event. Monitor monthly for sustained upward trend that would require expansion planning initiation.`,
+    });
+  }
+
+  // ── 2. SUSTAINABILITY / ESG ────────────────────────────────────────────────
+  if (isLowRenew) {
+    items.push({
+      tag: 'Sustainability Gap',
+      text: `Renewable energy at ${dc.renewable_pct}% — PPA procurement required for ${dc.market}`,
+      elaboration: `${dc.name} sources only ${dc.renewable_pct}% of its electricity from renewable or carbon-free energy, significantly below the 100% 24/7 CFE target. This site contributes disproportionately to the portfolio's Scope 2 carbon liability at an intensity of ${intensityMT} MT/MW. The ${dc.market} grid has accessible renewable capacity — wind and solar PPAs or VPPAs should be evaluated immediately. Delay in execution will amplify CSRD and CDP disclosure risk as sustainability reporting requirements tighten through 2025–2026.`,
+    });
+  } else if (isHighRenew) {
+    items.push({
+      tag: 'Sustainability',
+      text: `${dc.name} at ${dc.renewable_pct}% renewable — near 24/7 CFE target`,
+      elaboration: `${dc.name} is among the portfolio's leading sites for renewable energy mix at ${dc.renewable_pct}%, approaching the 24/7 Carbon-Free Energy target. The remaining ${100 - dc.renewable_pct}% fossil-sourced consumption can be addressed through hourly matching instruments — battery storage, dispatchable hydro, or short-duration PPAs that fill off-peak renewable gaps. This site qualifies for green bond collateral designation and preferential ESG-linked financing at current renewable penetration levels.`,
+    });
+  } else if (isHighPUE) {
+    items.push({
+      tag: 'Energy Efficiency',
+      text: `PUE ${dc.pue.toFixed(2)} at ${dc.name} — cooling efficiency below target`,
+      elaboration: `${dc.name}'s PUE of ${dc.pue.toFixed(2)} sits above the hyperscale target of ≤1.15, meaning ${((dc.pue - 1) * 100).toFixed(0)}% of grid consumption is overhead rather than productive IT work. At ${dc.capacity_mw} MW IT load and ${utilPct}% utilisation, this represents ${((dc.pue - 1) * dc.capacity_mw * utilPct / 100).toFixed(0)} MW of avoidable energy draw annually. Cooling system audit recommended: assess economiser hours available in ${dc.market}, filter replacement schedule, and airflow containment integrity across hot-aisle zones.`,
+    });
+  } else if (isLowPUE) {
+    items.push({
+      tag: 'Efficiency Leader',
+      text: `${dc.name} PUE ${dc.pue.toFixed(2)} — world-class cooling efficiency`,
+      elaboration: `${dc.name} achieves a PUE of ${dc.pue.toFixed(2)}, placing it in the top global tier for data center energy efficiency. This means only ${((dc.pue - 1) * 100).toFixed(0)}% of grid draw is overhead — cooling, lighting, and power conversion losses. At ${dc.capacity_mw} MW scale, this efficiency advantage over the industry average (PUE 1.58) saves approximately ${((1.58 - dc.pue) * dc.capacity_mw * utilPct / 100 * 8760 / 1000).toFixed(0)} GWh per year. Promotes LEED Platinum eligibility and is a key differentiator in ESG-linked financing discussions.`,
+    });
+  } else {
+    items.push({
+      tag: 'Sustainability',
+      text: `${dc.name}: ${dc.renewable_pct}% renewable, PUE ${dc.pue.toFixed(2)}, ${dc.carbon_mt} MT CO₂/yr`,
+      elaboration: `${dc.name} combines ${dc.renewable_pct}% renewable energy sourcing with a PUE of ${dc.pue.toFixed(2)}, producing an estimated ${dc.carbon_mt} MT of CO₂ per year — an intensity of ${intensityMT} MT/MW. ${isHighCarbon ? `The carbon output is above the portfolio average, driven primarily by the ${100 - dc.renewable_pct}% fossil energy gap. PPA procurement in ${dc.market} is the highest-impact lever to reduce this figure.` : `Carbon performance is within the acceptable range for this site scale and market, but continued progress on renewable procurement and PUE reduction will be required to meet net-zero pathway milestones by 2030.`}`,
+    });
+  }
+
+  // ── 3. RISK / OPERATIONS / NETWORK ────────────────────────────────────────
+  if (isHighRisk || (dc.alarm_critical ?? 0) > 0) {
+    items.push({
+      tag: 'Operations Alert',
+      text: `${dc.name} HIGH risk — ${dc.alarm_critical ?? 0} critical · ${dc.alarm_high ?? 0} high alarms active`,
+      elaboration: `${dc.name} is currently rated HIGH risk with ${dc.alarm_critical ?? 0} active Critical and ${dc.alarm_high ?? 0} High alarms, signalling real or imminent service impact. The site requires P1 NOC escalation with a 15-minute response target for any Critical alarm. ${isTierIV ? 'Despite Tier IV 2N design, active Critical alarms indicate system redundancy has been breached in one or more subsystems.' : 'N+1 redundancy margins may be compromised — verify all backup power and cooling paths are fully functional.'} A site incident review should be convened within 24 hours, with corrective actions filed in the CMDB and tracked to resolution.`,
+    });
+  } else if (isMedRisk || totalAlarms > 8) {
+    items.push({
+      tag: 'Risk Watch',
+      text: `${dc.name} MEDIUM risk — ${totalAlarms} active alarms across ${dc.region}`,
+      elaboration: `${dc.name} carries a Medium risk flag with ${totalAlarms} active alarms (${dc.alarm_critical ?? 0} critical, ${dc.alarm_high ?? 0} high, ${dc.alarm_medium ?? 0} medium, ${dc.alarm_low ?? 0} low). While no service impact is currently reported, the alarm density warrants a scheduled site review within 90 days and accelerated preventive maintenance to reduce the probability of escalation to High risk. Focus maintenance resources on the ${(dc.alarm_high ?? 0) > 0 ? 'High alarms first — each represents degraded redundancy that could cascade to P1 if a second fault occurs' : 'Medium alarms, which represent early-warning signals before redundancy loss occurs'}.`,
+    });
+  } else if (isTierIV && isLargeCAMP) {
+    items.push({
+      tag: 'Infrastructure',
+      text: `${dc.name}: Tier IV · ${dc.capacity_mw} MW · ${dc.asset_gpus?.toLocaleString() ?? 'N/A'} GPUs deployed`,
+      elaboration: `${dc.name} is a ${dc.capacity_mw} MW Tier IV 2N fault-tolerant campus in ${dc.market}, ${dc.region}. With ${dc.asset_gpus?.toLocaleString() ?? 'significant'} GPU accelerators deployed, it is a primary AI and HPC compute campus. The 2N design guarantees 99.995% uptime — less than 26 minutes of permitted downtime per year — enabling regulated-industry SLA commitments that standard Tier III campuses cannot match. Low risk status (0 critical alarms) confirms the 2N redundancy margins are currently intact across all power, cooling, and network paths.`,
+    });
+  } else {
+    items.push({
+      tag: 'Network & Ops',
+      text: `${dc.name} low risk · ${dc.tier ? `Tier ${dc.tier}` : ''} · ${dc.region} region healthy`,
+      elaboration: `${dc.name} is operating at Low risk in ${dc.market}, ${dc.region}, with ${totalAlarms} total alarms — ${totalAlarms === 0 ? 'a clean alarm slate indicating all systems are within normal operating parameters.' : `a manageable alarm load with no Critical or High severity conditions active. ${totalAlarms > 0 ? `The ${dc.alarm_medium ?? 0} medium and ${dc.alarm_low ?? 0} low alarms are within the normal band for a ${dc.capacity_mw} MW campus and are being managed through the standard PM cycle.` : ''}`} Tier ${dc.tier} ${dc.tier === 'IV' ? '(2N fault-tolerant)' : dc.tier === 'III' ? '(N+1 concurrent maintainable)' : '(N+1)'} infrastructure is performing within design parameters. Network connectivity to ${dc.region} peer sites is healthy with no path degradation reported.`,
+    });
+  }
+
+  return items;
+}
 
 const ALARM_COLOR = { HIGH: C.red, MEDIUM: C.amber, LOW: '#F59E0B', INFO: C.muted };
 
@@ -238,6 +322,7 @@ export default function DCCommandCenter({ dc, onClose, allDCs = GOOGLE_DC_MASTER
   const isUC        = dc.status === 'Under Construction';
   const con         = isUC ? getConstruction(dc) : null;
   const conIntel    = isUC ? getConstructionIntel(dc, con) : null;
+  const dcIntel     = getDCIntel(dc);
 
   return (
     <div style={{ background: C.bg, padding: '20px 24px', overflowY: 'auto', maxHeight: 'calc(100vh - 420px)' }}>
@@ -619,8 +704,8 @@ export default function DCCommandCenter({ dc, onClose, allDCs = GOOGLE_DC_MASTER
           <div style={{ marginBottom: 10 }}>
             <SectionTitle>DC Intelligence</SectionTitle>
           </div>
-          {MOCK_INTEL.map((item, i) => (
-            <div key={i} style={{ marginBottom: 12, paddingBottom: 12, borderBottom: i < MOCK_INTEL.length - 1 ? `1px solid ${C.border}` : 'none' }}>
+          {dcIntel.map((item, i) => (
+            <div key={i} style={{ marginBottom: 12, paddingBottom: 12, borderBottom: i < dcIntel.length - 1 ? `1px solid ${C.border}` : 'none' }}>
               <span style={{
                 fontSize: 9, fontWeight: 700, padding: '2px 7px', borderRadius: 20, marginBottom: 5, display: 'inline-block',
                 background: 'rgba(0,119,200,0.12)', color: C.blue, border: '1px solid rgba(0,119,200,0.25)',
