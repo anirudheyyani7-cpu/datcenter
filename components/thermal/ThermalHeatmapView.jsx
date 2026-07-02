@@ -1,6 +1,6 @@
 'use client';
 import { useState, useMemo } from 'react';
-import { mockThermalData } from '@/data/mock/thermal';
+import { mockThermalData, generateCampusThermal } from '@/data/mock/thermal';
 import { Thermometer, Wind, AlertTriangle, CheckCircle, RefreshCw } from 'lucide-react';
 
 const COLS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
@@ -29,7 +29,24 @@ export default function ThermalHeatmapView({ dc }) {
   const [whatIfMode, setWhatIfMode] = useState(false);
   const [removedCrah, setRemovedCrah] = useState(null);
 
-  const thermalData = mockThermalData[dc?.id];
+  // Use stored thermal data if available, otherwise generate from DC attributes
+  const thermalData = useMemo(() => {
+    if (!dc) return null;
+    if (mockThermalData[dc.id]) return { ...mockThermalData[dc.id], isGenerated: false };
+    // Fabricate from DC fields — fall back to safe defaults for any missing field
+    const synth = generateCampusThermal({
+      id: dc.id ?? 'UPL-0',
+      pue: dc.pue ?? 1.5,
+      utilization_pct: dc.utilization_pct ?? 60,
+      capacity_mw: dc.capacity_mw ?? 50,
+      alarm_critical: dc.alarm_critical ?? 0,
+      alarm_high: dc.alarm_high ?? 0,
+      risk_flag: dc.risk_flag ?? 'Low',
+      tier: dc.tier ?? 'III',
+      market: dc.market ?? dc.city ?? dc.name ?? 'Facility',
+    });
+    return { ...synth, isGenerated: true };
+  }, [dc?.id]);
 
   const tiles = useMemo(() => {
     if (!thermalData) return [];
@@ -45,7 +62,7 @@ export default function ThermalHeatmapView({ dc }) {
   if (!thermalData) {
     return (
       <div className="w-full h-full flex items-center justify-center">
-        <p className="text-sm text-[#9CA3AF]">No thermal data available for this facility.</p>
+        <p className="text-sm text-[#9CA3AF]">No facility data available.</p>
       </div>
     );
   }
@@ -63,6 +80,11 @@ export default function ThermalHeatmapView({ dc }) {
           <span className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
             Thermal Heatmap — Floor Plan
           </span>
+          {thermalData.isGenerated && (
+            <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-[#EFF6FF] text-[#0077C8] border border-[#0077C8]/25">
+              ✦ AI-Synthesised
+            </span>
+          )}
           {whatIfMode && (
             <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FFFBEB] text-[#D4A017] border border-[#D4A017]/30">
               WHAT-IF MODE

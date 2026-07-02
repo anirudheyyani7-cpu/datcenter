@@ -72,7 +72,7 @@ const HOTSPOT_MESSAGE_TEMPLATES = [
     `Hot spot detected in row ${col} — Tier ${dc.tier} facility at ${dc.utilization_pct}% load, schedule CRAH inspection.`,
 ];
 
-function generateCampusThermal(dc) {
+export function generateCampusThermal(dc) {
   const seed = hashId(dc.id);
 
   const avgTempC = Math.max(18, Math.min(32, Math.round(
