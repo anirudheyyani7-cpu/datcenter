@@ -67,6 +67,25 @@ function KPIModal({ label, value, sub, color, elaboration, impact, onClose }) {
   );
 }
 
+function calcTooltipPos(rect, tooltipW = 270) {
+  const GAP = 8, MAX_H = 220;
+  const left = Math.min(Math.max(8, rect.left), window.innerWidth - tooltipW - 8);
+  const top = (window.innerHeight - rect.bottom) < MAX_H + GAP
+    ? Math.max(8, rect.top - MAX_H - GAP)
+    : rect.bottom + GAP;
+  return { top, left };
+}
+
+const TOOLTIP_STYLE = {
+  position: 'fixed', zIndex: 9990, width: 270,
+  background: '#1A1F36', color: '#fff',
+  borderRadius: 10, padding: '12px 14px',
+  boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
+  border: '1px solid rgba(255,255,255,0.12)',
+  maxHeight: 220, overflowY: 'auto',
+  pointerEvents: 'none',
+};
+
 function KPI({ label, value, sub, color = C.blue, elaboration = null, impact = null }) {
   const [hovered, setHovered] = useState(false);
   const [modal, setModal]     = useState(false);
@@ -74,10 +93,7 @@ function KPI({ label, value, sub, color = C.blue, elaboration = null, impact = n
   const ref = useRef(null);
 
   const onEnter = () => {
-    if (ref.current) {
-      const r = ref.current.getBoundingClientRect();
-      setPos({ top: r.bottom + 6, left: Math.min(r.left, window.innerWidth - 290) });
-    }
+    if (ref.current) setPos(calcTooltipPos(ref.current.getBoundingClientRect()));
     setHovered(true);
   };
 
@@ -95,7 +111,7 @@ function KPI({ label, value, sub, color = C.blue, elaboration = null, impact = n
         {sub && <p style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>{sub}</p>}
       </div>
       {elaboration && hovered && createPortal(
-        <div style={{ position: 'fixed', top: pos.top, left: pos.left, zIndex: 9990, width: 270, background: '#1A1F36', color: '#fff', borderRadius: 10, padding: '12px 14px', boxShadow: '0 8px 24px rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.1)', pointerEvents: 'none' }}>
+        <div style={{ ...TOOLTIP_STYLE, top: pos.top, left: pos.left }}>
           <span style={{ fontSize: 10, fontWeight: 700, color, textTransform: 'uppercase', letterSpacing: '0.06em', display: 'block', marginBottom: 6 }}>{label}</span>
           <p style={{ fontSize: 10.5, lineHeight: 1.6, color: 'rgba(255,255,255,0.8)', margin: '0 0 6px' }}>{elaboration}</p>
           <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)', margin: 0 }}>Double-click for full analysis</p>
