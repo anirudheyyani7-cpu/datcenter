@@ -17,6 +17,7 @@ const C = {
   purple: '#7C3AED',
   text:   '#1A1F36',
   muted:  '#9CA3AF',
+  label:  '#4B5563',
 };
 
 const FLAG_EMOJI = {
@@ -106,7 +107,7 @@ function KPI({ label, value, sub, color = C.blue, elaboration = null, impact = n
         onMouseLeave={() => setHovered(false)}
         onDoubleClick={() => elaboration && setModal(true)}
       >
-        <p style={{ fontSize: 10, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>{label}</p>
+        <p style={{ fontSize: 10, color: C.label, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>{label}</p>
         <p style={{ fontSize: 22, fontWeight: 700, color, fontFamily: "'JetBrains Mono', monospace", lineHeight: 1 }}>{value}</p>
         {sub && <p style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>{sub}</p>}
       </div>
@@ -125,7 +126,7 @@ function KPI({ label, value, sub, color = C.blue, elaboration = null, impact = n
 
 function SectionTitle({ children }) {
   return (
-    <p style={{ fontSize: 10, fontWeight: 700, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.07em', margin: 0 }}>
+    <p style={{ fontSize: 10, fontWeight: 700, color: C.label, textTransform: 'uppercase', letterSpacing: '0.07em', margin: 0 }}>
       {children}
     </p>
   );

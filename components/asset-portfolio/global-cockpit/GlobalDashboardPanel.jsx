@@ -19,6 +19,7 @@ const C = {
   purple: '#7C3AED',
   text:   '#1A1F36',
   muted:  '#9CA3AF',
+  label:  '#4B5563',
 };
 
 const REGION_COLORS = { 'North America': '#0077C8', Europe: '#00A36C', Asia: '#D4A017', 'South America': '#7C3AED' };
@@ -116,7 +117,7 @@ function KPI({ label, value, sub, color = C.blue, elaboration = null, impact = n
         onMouseLeave={hide}
         onDoubleClick={() => elaboration && setModal(true)}
       >
-        <p style={{ fontSize: 10, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>{label}</p>
+        <p style={{ fontSize: 10, color: C.label, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>{label}</p>
         <p style={{ fontSize: 22, fontWeight: 700, color, fontFamily: "'JetBrains Mono', monospace", lineHeight: 1 }}>{value}</p>
         {sub && <p style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>{sub}</p>}
       </div>
@@ -170,7 +171,7 @@ function WithElab({ children, label, value = null, elaboration, color = '#60A5FA
 
 function SectionTitle({ children }) {
   return (
-    <p style={{ fontSize: 11, fontWeight: 700, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10 }}>
+    <p style={{ fontSize: 11, fontWeight: 700, color: C.label, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10 }}>
       {children}
     </p>
   );
