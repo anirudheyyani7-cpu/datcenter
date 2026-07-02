@@ -64,7 +64,6 @@ function KPIModal({ label, value, sub, color, elaboration, impact, onClose }) {
           </div>
         )}
 
-        <p style={{ fontSize: 10, color: '#D1D5DB', textAlign: 'center', margin: '24px 0 0' }}>Powered by Claude Intelligence · Double-click any KPI tile to open</p>
       </div>
     </>,
     document.body
