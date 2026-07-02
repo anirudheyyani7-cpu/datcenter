@@ -55,6 +55,34 @@ function KPI({ label, value, sub, color = C.blue, elaboration = null }) {
   );
 }
 
+function WithElab({ children, label, elaboration, color = '#60A5FA' }) {
+  const [hovered, setHovered] = useState(false);
+  const [locked, setLocked]   = useState(false);
+  return (
+    <div style={{ position: 'relative', cursor: elaboration ? 'pointer' : 'default' }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => { if (!locked) setHovered(false); }}
+      onDoubleClick={() => elaboration && setLocked(p => !p)}
+    >
+      {children}
+      {elaboration && (hovered || locked) && (
+        <div style={{
+          position: 'absolute', top: '100%', left: 0, zIndex: 300,
+          width: 280, background: '#1A1F36', color: '#fff',
+          borderRadius: 10, padding: '12px 14px', marginTop: 6,
+          boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
+          border: '1px solid rgba(255,255,255,0.1)',
+          pointerEvents: 'none',
+        }}>
+          <p style={{ fontSize: 10, fontWeight: 700, color, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6, margin: '0 0 6px' }}>{label}</p>
+          <p style={{ fontSize: 10.5, lineHeight: 1.6, color: 'rgba(255,255,255,0.8)', margin: 0 }}>{elaboration}</p>
+          {locked && <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)', marginTop: 6, marginBottom: 0 }}>Double-click to close</p>}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function SectionTitle({ children }) {
   return (
     <p style={{ fontSize: 11, fontWeight: 700, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10 }}>
@@ -266,25 +294,29 @@ export default function GlobalDashboardPanel({ activeRegion, dataSource = 'Googl
         <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 16, boxShadow: '0 1px 2px rgba(16,24,40,0.04)' }}>
           <SectionTitle>Alarm Summary</SectionTitle>
           {[
-            { label: 'Critical', count: stats.critAlarms, color: C.red },
-            { label: 'High', count: stats.highAlarms, color: C.amber },
-            { label: 'Medium', count: stats.medAlarms, color: '#F59E0B' },
-            { label: 'Low', count: stats.lowAlarms, color: C.muted },
+            { label: 'Critical', count: stats.critAlarms, color: C.red,     elab: 'Critical alarms require immediate remediation — typically power, cooling, or network failures affecting service availability. A count above 0 triggers P1 incident response protocols with a 15-minute NOC response SLA. Industry target: 0 critical alarms per 100 MW of installed capacity.' },
+            { label: 'High',     count: stats.highAlarms, color: C.amber,   elab: 'High-severity alarms signal degraded redundancy or imminent failure risk — A/B-feed imbalance, cooling unit failures, or generator test failures. Response SLA is 2 hours. Each high alarm must be resolved before fault-tolerance margins can be considered restored.' },
+            { label: 'Medium',   count: stats.medAlarms,  color: '#F59E0B', elab: 'Medium alarms flag conditions that reduce fault-tolerance margins without yet impacting uptime. Common causes: elevated temperatures, UPS battery health alerts, or partial network path degradation. Corrective action required within 8 hours.' },
+            { label: 'Low',      count: stats.lowAlarms,  color: C.muted,   elab: 'Low-severity alarms are informational and typically auto-resolve. Represent minor threshold breaches, routine maintenance notifications, or monitoring health checks. A sustained high volume signals potential maintenance backlog accumulation.' },
           ].map(a => (
-            <div key={a.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <div style={{ width: 8, height: 8, borderRadius: '50%', background: a.color }} />
-                <span style={{ fontSize: 12, color: C.text }}>{a.label}</span>
+            <WithElab key={a.label} label={a.label} elaboration={a.elab} color={a.color}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <div style={{ width: 8, height: 8, borderRadius: '50%', background: a.color }} />
+                  <span style={{ fontSize: 12, color: C.text }}>{a.label}</span>
+                </div>
+                <span style={{ fontSize: 13, fontWeight: 700, color: a.color, fontFamily: "'JetBrains Mono', monospace" }}>{a.count}</span>
               </div>
-              <span style={{ fontSize: 13, fontWeight: 700, color: a.color, fontFamily: "'JetBrains Mono', monospace" }}>{a.count}</span>
-            </div>
+            </WithElab>
           ))}
-          <div style={{ borderTop: `1px solid ${C.border}`, marginTop: 8, paddingTop: 8, display: 'flex', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: 11, color: C.muted }}>Total Alarms</span>
-            <span style={{ fontSize: 13, fontWeight: 700, color: C.text, fontFamily: "'JetBrains Mono', monospace" }}>
-              {stats.critAlarms + stats.highAlarms + stats.medAlarms + stats.lowAlarms}
-            </span>
-          </div>
+          <WithElab label="Total Alarms" color={C.text} elaboration="Aggregate alarm load across all severity tiers in the selected region. A healthy portfolio targets fewer than 5 critical and fewer than 20 high alarms per 100 MW of installed capacity. Use this number as a trend indicator — a rising total warrants portfolio-level review.">
+            <div style={{ borderTop: `1px solid ${C.border}`, marginTop: 8, paddingTop: 8, display: 'flex', justifyContent: 'space-between' }}>
+              <span style={{ fontSize: 11, color: C.muted }}>Total Alarms</span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: C.text, fontFamily: "'JetBrains Mono', monospace" }}>
+                {stats.critAlarms + stats.highAlarms + stats.medAlarms + stats.lowAlarms}
+              </span>
+            </div>
+          </WithElab>
         </div>
 
         {/* At Risk DCs */}
@@ -293,20 +325,27 @@ export default function GlobalDashboardPanel({ activeRegion, dataSource = 'Googl
           {topRisk.length === 0 ? (
             <p style={{ fontSize: 12, color: C.green }}>No at-risk DCs in this region</p>
           ) : topRisk.map(d => (
-            <div key={d.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 7 }}>
-              <div>
-                <p style={{ fontSize: 12, color: C.text, fontWeight: 600 }}>{d.name}</p>
-                <p style={{ fontSize: 10, color: C.muted }}>{d.market} · {d.region}</p>
+            <WithElab
+              key={d.id}
+              label={d.name}
+              color={d.risk_flag === 'High' ? C.red : C.amber}
+              elaboration={`${d.name} is rated ${d.risk_flag} risk based on alarm density, utilisation headroom, and infrastructure health indicators. ${d.risk_flag === 'High' ? 'High risk sites require a site assessment within 30 days and may be subject to capacity restrictions pending remediation.' : 'Medium risk sites are flagged for monitoring and scheduled review within 90 days. No immediate service impact expected.'} Alarm load: ${d.alarm_critical ?? 0} critical · ${d.alarm_high ?? 0} high · ${d.alarm_medium ?? 0} medium.`}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 7 }}>
+                <div>
+                  <p style={{ fontSize: 12, color: C.text, fontWeight: 600 }}>{d.name}</p>
+                  <p style={{ fontSize: 10, color: C.muted }}>{d.market} · {d.region}</p>
+                </div>
+                <span style={{
+                  fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20,
+                  background: d.risk_flag === 'High' ? 'rgba(220,38,38,0.15)' : 'rgba(212,160,23,0.15)',
+                  color: d.risk_flag === 'High' ? C.red : C.amber,
+                  border: `1px solid ${d.risk_flag === 'High' ? 'rgba(220,38,38,0.3)' : 'rgba(212,160,23,0.3)'}`,
+                }}>
+                  {d.risk_flag}
+                </span>
               </div>
-              <span style={{
-                fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20,
-                background: d.risk_flag === 'High' ? 'rgba(220,38,38,0.15)' : 'rgba(212,160,23,0.15)',
-                color: d.risk_flag === 'High' ? C.red : C.amber,
-                border: `1px solid ${d.risk_flag === 'High' ? 'rgba(220,38,38,0.3)' : 'rgba(212,160,23,0.3)'}`,
-              }}>
-                {d.risk_flag}
-              </span>
-            </div>
+            </WithElab>
           ))}
         </div>
       </div>
@@ -314,19 +353,15 @@ export default function GlobalDashboardPanel({ activeRegion, dataSource = 'Googl
       {/* Row 5 — ESG */}
       <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 16, boxShadow: '0 1px 2px rgba(16,24,40,0.04)' }}>
         <SectionTitle>ESG Snapshot</SectionTitle>
-        <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
-          {[
-            { label: 'Avg PUE', value: stats.avgPUE, note: 'Power Efficiency', color: C.blue },
-            { label: 'Avg Renewable', value: `${stats.avgRenewable}%`, note: 'Renewable Energy Mix', color: C.green },
-            { label: 'Total Carbon', value: `${stats.totalCarbon.toLocaleString()} MT/yr`, note: 'Est. CO₂ emissions', color: C.amber },
-            { label: 'Carbon Intensity', value: `${(stats.totalCarbon / (stats.totalMW || 1)).toFixed(1)} MT/MW`, note: 'Per MW of IT Load', color: C.purple },
-          ].map(e => (
-            <div key={e.label} style={{ flex: 1, minWidth: 140 }}>
-              <p style={{ fontSize: 10, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{e.label}</p>
-              <p style={{ fontSize: 18, fontWeight: 700, color: e.color, fontFamily: "'JetBrains Mono', monospace" }}>{e.value}</p>
-              <p style={{ fontSize: 10, color: C.muted }}>{e.note}</p>
-            </div>
-          ))}
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+          <KPI label="Avg PUE" value={stats.avgPUE} sub="Power Efficiency" color={C.blue}
+            elaboration={`Power Usage Effectiveness: total facility power ÷ IT equipment power. Industry average is 1.58; hyperscaler best-in-class is below 1.10. A PUE of ${stats.avgPUE} means every watt of compute draws ${stats.avgPUE}W from the grid — the overhead above 1.0 is cooling, lighting, and power conversion losses. Each 0.01 PUE reduction saves millions in annual energy cost at this portfolio scale.`} />
+          <KPI label="Avg Renewable" value={`${stats.avgRenewable}%`} sub="Renewable Energy Mix" color={C.green}
+            elaboration={`${stats.avgRenewable}% of energy consumption is matched by renewable energy certificates (RECs) or direct power purchase agreements (PPAs) with wind, solar, or hydro generators. Google's target is 24/7 carbon-free energy (CFE) across all campuses — meaning every hour of operation matched by zero-carbon generation, not just annual averages.`} />
+          <KPI label="Total Carbon" value={`${stats.totalCarbon.toLocaleString()} MT/yr`} sub="Est. CO₂ emissions" color={C.amber}
+            elaboration={`Estimated Scope 1 + Scope 2 CO₂-equivalent emissions across all facilities in scope, measured in metric tonnes per year. Includes grid electricity carbon intensity adjusted for renewable coverage, plus direct diesel generator emissions during outage events. Reported under the GHG Protocol for CDP and CSRD compliance disclosures.`} />
+          <KPI label="Carbon Intensity" value={`${(stats.totalCarbon / (stats.totalMW || 1)).toFixed(1)} MT/MW`} sub="Per MW of IT Load" color={C.purple}
+            elaboration={`Carbon intensity normalises emissions against installed IT capacity, enabling fair cross-portfolio comparison regardless of campus size. Industry benchmark is 0.4–0.6 MT/MW; best-in-class Nordic hydro sites achieve 0.04–0.06 MT/MW. Values below 0.3 indicate a leading ESG position. Calculated as total carbon ÷ total installed MW across the current region filter.`} />
         </div>
       </div>
     </div>
