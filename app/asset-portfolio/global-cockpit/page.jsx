@@ -37,14 +37,35 @@ export default function GlobalCockpitPage() {
   const [warZoneModal, setWarZoneModal] = useState(null);
   const [detailChip, setDetailChip] = useState(null);
   const [ingestOpen, setIngestOpen] = useState(false);
-  const [uploadedDCs, setUploadedDCs] = useState(null);
-  const [dataSourceName, setDataSourceName] = useState('Google DC');
+  const [uploadedDCs, setUploadedDCs] = useState(() => {
+    try {
+      const s = typeof window !== 'undefined' && sessionStorage.getItem('cockpitUploadedDCs');
+      return s ? JSON.parse(s) : null;
+    } catch { return null; }
+  });
+  const [dataSourceName, setDataSourceName] = useState(() => {
+    try {
+      return (typeof window !== 'undefined' && sessionStorage.getItem('cockpitDataSourceName')) || 'Google DC';
+    } catch { return 'Google DC'; }
+  });
   const [intelligence, setIntelligence] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [globeVisible, setGlobeVisible] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchFocused, setSearchFocused] = useState(false);
   const intervalRef = useRef(null);
+
+  useEffect(() => {
+    try {
+      if (uploadedDCs) {
+        sessionStorage.setItem('cockpitUploadedDCs', JSON.stringify(uploadedDCs));
+        sessionStorage.setItem('cockpitDataSourceName', dataSourceName);
+      } else {
+        sessionStorage.removeItem('cockpitUploadedDCs');
+        sessionStorage.removeItem('cockpitDataSourceName');
+      }
+    } catch {}
+  }, [uploadedDCs, dataSourceName]);
 
   // GOOGLE_DC_MASTER ids are always prefixed 'GDC-', so this filters out any
   // intelligence rows that belong to a user's uploaded asset_register (Globe
