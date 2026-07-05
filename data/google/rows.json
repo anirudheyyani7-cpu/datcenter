@@ -1,0 +1,2747 @@
+[
+  {
+    "id": "ROW-00001",
+    "roomId": "RM-00001",
+    "floorId": "FLR-00001",
+    "buildingId": "BLD-00001",
+    "dataCenterId": "DC-00001",
+    "rowLabel": "Row-1",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00002",
+    "roomId": "RM-00002",
+    "floorId": "FLR-00002",
+    "buildingId": "BLD-00001",
+    "dataCenterId": "DC-00001",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00003",
+    "roomId": "RM-00003",
+    "floorId": "FLR-00002",
+    "buildingId": "BLD-00001",
+    "dataCenterId": "DC-00001",
+    "rowLabel": "Row-2",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00004",
+    "roomId": "RM-00004",
+    "floorId": "FLR-00003",
+    "buildingId": "BLD-00001",
+    "dataCenterId": "DC-00001",
+    "rowLabel": "Row-1",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00005",
+    "roomId": "RM-00005",
+    "floorId": "FLR-00003",
+    "buildingId": "BLD-00001",
+    "dataCenterId": "DC-00001",
+    "rowLabel": "Row-2",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00006",
+    "roomId": "RM-00006",
+    "floorId": "FLR-00003",
+    "buildingId": "BLD-00001",
+    "dataCenterId": "DC-00001",
+    "rowLabel": "Row-3",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00007",
+    "roomId": "RM-00007",
+    "floorId": "FLR-00004",
+    "buildingId": "BLD-00002",
+    "dataCenterId": "DC-00001",
+    "rowLabel": "Row-1",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00008",
+    "roomId": "RM-00008",
+    "floorId": "FLR-00004",
+    "buildingId": "BLD-00002",
+    "dataCenterId": "DC-00001",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00009",
+    "roomId": "RM-00009",
+    "floorId": "FLR-00004",
+    "buildingId": "BLD-00002",
+    "dataCenterId": "DC-00001",
+    "rowLabel": "Row-3",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00010",
+    "roomId": "RM-00010",
+    "floorId": "FLR-00005",
+    "buildingId": "BLD-00002",
+    "dataCenterId": "DC-00001",
+    "rowLabel": "Row-1",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00011",
+    "roomId": "RM-00011",
+    "floorId": "FLR-00006",
+    "buildingId": "BLD-00002",
+    "dataCenterId": "DC-00001",
+    "rowLabel": "Row-1",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00012",
+    "roomId": "RM-00012",
+    "floorId": "FLR-00006",
+    "buildingId": "BLD-00002",
+    "dataCenterId": "DC-00001",
+    "rowLabel": "Row-2",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00013",
+    "roomId": "RM-00013",
+    "floorId": "FLR-00007",
+    "buildingId": "BLD-00003",
+    "dataCenterId": "DC-00002",
+    "rowLabel": "Row-1",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00014",
+    "roomId": "RM-00014",
+    "floorId": "FLR-00007",
+    "buildingId": "BLD-00003",
+    "dataCenterId": "DC-00002",
+    "rowLabel": "Row-2",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00015",
+    "roomId": "RM-00015",
+    "floorId": "FLR-00008",
+    "buildingId": "BLD-00003",
+    "dataCenterId": "DC-00002",
+    "rowLabel": "Row-1",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00016",
+    "roomId": "RM-00016",
+    "floorId": "FLR-00008",
+    "buildingId": "BLD-00003",
+    "dataCenterId": "DC-00002",
+    "rowLabel": "Row-2",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00017",
+    "roomId": "RM-00017",
+    "floorId": "FLR-00009",
+    "buildingId": "BLD-00003",
+    "dataCenterId": "DC-00002",
+    "rowLabel": "Row-1",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00018",
+    "roomId": "RM-00018",
+    "floorId": "FLR-00009",
+    "buildingId": "BLD-00003",
+    "dataCenterId": "DC-00002",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00019",
+    "roomId": "RM-00019",
+    "floorId": "FLR-00009",
+    "buildingId": "BLD-00003",
+    "dataCenterId": "DC-00002",
+    "rowLabel": "Row-3",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00020",
+    "roomId": "RM-00020",
+    "floorId": "FLR-00010",
+    "buildingId": "BLD-00004",
+    "dataCenterId": "DC-00002",
+    "rowLabel": "Row-1",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00021",
+    "roomId": "RM-00021",
+    "floorId": "FLR-00010",
+    "buildingId": "BLD-00004",
+    "dataCenterId": "DC-00002",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00022",
+    "roomId": "RM-00022",
+    "floorId": "FLR-00010",
+    "buildingId": "BLD-00004",
+    "dataCenterId": "DC-00002",
+    "rowLabel": "Row-3",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00023",
+    "roomId": "RM-00023",
+    "floorId": "FLR-00011",
+    "buildingId": "BLD-00004",
+    "dataCenterId": "DC-00002",
+    "rowLabel": "Row-1",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00024",
+    "roomId": "RM-00024",
+    "floorId": "FLR-00011",
+    "buildingId": "BLD-00004",
+    "dataCenterId": "DC-00002",
+    "rowLabel": "Row-2",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00025",
+    "roomId": "RM-00025",
+    "floorId": "FLR-00011",
+    "buildingId": "BLD-00004",
+    "dataCenterId": "DC-00002",
+    "rowLabel": "Row-3",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00026",
+    "roomId": "RM-00026",
+    "floorId": "FLR-00012",
+    "buildingId": "BLD-00005",
+    "dataCenterId": "DC-00002",
+    "rowLabel": "Row-1",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00027",
+    "roomId": "RM-00027",
+    "floorId": "FLR-00012",
+    "buildingId": "BLD-00005",
+    "dataCenterId": "DC-00002",
+    "rowLabel": "Row-2",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00028",
+    "roomId": "RM-00028",
+    "floorId": "FLR-00013",
+    "buildingId": "BLD-00005",
+    "dataCenterId": "DC-00002",
+    "rowLabel": "Row-1",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00029",
+    "roomId": "RM-00029",
+    "floorId": "FLR-00013",
+    "buildingId": "BLD-00005",
+    "dataCenterId": "DC-00002",
+    "rowLabel": "Row-2",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00030",
+    "roomId": "RM-00030",
+    "floorId": "FLR-00013",
+    "buildingId": "BLD-00005",
+    "dataCenterId": "DC-00002",
+    "rowLabel": "Row-3",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00031",
+    "roomId": "RM-00031",
+    "floorId": "FLR-00014",
+    "buildingId": "BLD-00006",
+    "dataCenterId": "DC-00003",
+    "rowLabel": "Row-1",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00032",
+    "roomId": "RM-00032",
+    "floorId": "FLR-00015",
+    "buildingId": "BLD-00006",
+    "dataCenterId": "DC-00003",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00033",
+    "roomId": "RM-00033",
+    "floorId": "FLR-00015",
+    "buildingId": "BLD-00006",
+    "dataCenterId": "DC-00003",
+    "rowLabel": "Row-2",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00034",
+    "roomId": "RM-00034",
+    "floorId": "FLR-00016",
+    "buildingId": "BLD-00007",
+    "dataCenterId": "DC-00004",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00035",
+    "roomId": "RM-00035",
+    "floorId": "FLR-00016",
+    "buildingId": "BLD-00007",
+    "dataCenterId": "DC-00004",
+    "rowLabel": "Row-2",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00036",
+    "roomId": "RM-00036",
+    "floorId": "FLR-00016",
+    "buildingId": "BLD-00007",
+    "dataCenterId": "DC-00004",
+    "rowLabel": "Row-3",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00037",
+    "roomId": "RM-00037",
+    "floorId": "FLR-00017",
+    "buildingId": "BLD-00007",
+    "dataCenterId": "DC-00004",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00038",
+    "roomId": "RM-00038",
+    "floorId": "FLR-00017",
+    "buildingId": "BLD-00007",
+    "dataCenterId": "DC-00004",
+    "rowLabel": "Row-2",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00039",
+    "roomId": "RM-00039",
+    "floorId": "FLR-00018",
+    "buildingId": "BLD-00007",
+    "dataCenterId": "DC-00004",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00040",
+    "roomId": "RM-00040",
+    "floorId": "FLR-00018",
+    "buildingId": "BLD-00007",
+    "dataCenterId": "DC-00004",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00041",
+    "roomId": "RM-00041",
+    "floorId": "FLR-00018",
+    "buildingId": "BLD-00007",
+    "dataCenterId": "DC-00004",
+    "rowLabel": "Row-3",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00042",
+    "roomId": "RM-00042",
+    "floorId": "FLR-00019",
+    "buildingId": "BLD-00008",
+    "dataCenterId": "DC-00004",
+    "rowLabel": "Row-1",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00043",
+    "roomId": "RM-00043",
+    "floorId": "FLR-00020",
+    "buildingId": "BLD-00008",
+    "dataCenterId": "DC-00004",
+    "rowLabel": "Row-1",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00044",
+    "roomId": "RM-00044",
+    "floorId": "FLR-00020",
+    "buildingId": "BLD-00008",
+    "dataCenterId": "DC-00004",
+    "rowLabel": "Row-2",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00045",
+    "roomId": "RM-00045",
+    "floorId": "FLR-00021",
+    "buildingId": "BLD-00008",
+    "dataCenterId": "DC-00004",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00046",
+    "roomId": "RM-00046",
+    "floorId": "FLR-00022",
+    "buildingId": "BLD-00009",
+    "dataCenterId": "DC-00004",
+    "rowLabel": "Row-1",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00047",
+    "roomId": "RM-00047",
+    "floorId": "FLR-00022",
+    "buildingId": "BLD-00009",
+    "dataCenterId": "DC-00004",
+    "rowLabel": "Row-2",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00048",
+    "roomId": "RM-00048",
+    "floorId": "FLR-00022",
+    "buildingId": "BLD-00009",
+    "dataCenterId": "DC-00004",
+    "rowLabel": "Row-3",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00049",
+    "roomId": "RM-00049",
+    "floorId": "FLR-00023",
+    "buildingId": "BLD-00009",
+    "dataCenterId": "DC-00004",
+    "rowLabel": "Row-1",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00050",
+    "roomId": "RM-00050",
+    "floorId": "FLR-00024",
+    "buildingId": "BLD-00010",
+    "dataCenterId": "DC-00005",
+    "rowLabel": "Row-1",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00051",
+    "roomId": "RM-00051",
+    "floorId": "FLR-00024",
+    "buildingId": "BLD-00010",
+    "dataCenterId": "DC-00005",
+    "rowLabel": "Row-2",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00052",
+    "roomId": "RM-00052",
+    "floorId": "FLR-00025",
+    "buildingId": "BLD-00010",
+    "dataCenterId": "DC-00005",
+    "rowLabel": "Row-1",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00053",
+    "roomId": "RM-00053",
+    "floorId": "FLR-00025",
+    "buildingId": "BLD-00010",
+    "dataCenterId": "DC-00005",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00054",
+    "roomId": "RM-00054",
+    "floorId": "FLR-00026",
+    "buildingId": "BLD-00011",
+    "dataCenterId": "DC-00005",
+    "rowLabel": "Row-1",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00055",
+    "roomId": "RM-00055",
+    "floorId": "FLR-00026",
+    "buildingId": "BLD-00011",
+    "dataCenterId": "DC-00005",
+    "rowLabel": "Row-2",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00056",
+    "roomId": "RM-00056",
+    "floorId": "FLR-00027",
+    "buildingId": "BLD-00011",
+    "dataCenterId": "DC-00005",
+    "rowLabel": "Row-1",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00057",
+    "roomId": "RM-00057",
+    "floorId": "FLR-00027",
+    "buildingId": "BLD-00011",
+    "dataCenterId": "DC-00005",
+    "rowLabel": "Row-2",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00058",
+    "roomId": "RM-00058",
+    "floorId": "FLR-00028",
+    "buildingId": "BLD-00012",
+    "dataCenterId": "DC-00006",
+    "rowLabel": "Row-1",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00059",
+    "roomId": "RM-00059",
+    "floorId": "FLR-00029",
+    "buildingId": "BLD-00012",
+    "dataCenterId": "DC-00006",
+    "rowLabel": "Row-1",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00060",
+    "roomId": "RM-00060",
+    "floorId": "FLR-00029",
+    "buildingId": "BLD-00012",
+    "dataCenterId": "DC-00006",
+    "rowLabel": "Row-2",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00061",
+    "roomId": "RM-00061",
+    "floorId": "FLR-00029",
+    "buildingId": "BLD-00012",
+    "dataCenterId": "DC-00006",
+    "rowLabel": "Row-3",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00062",
+    "roomId": "RM-00062",
+    "floorId": "FLR-00030",
+    "buildingId": "BLD-00013",
+    "dataCenterId": "DC-00007",
+    "rowLabel": "Row-1",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00063",
+    "roomId": "RM-00063",
+    "floorId": "FLR-00030",
+    "buildingId": "BLD-00013",
+    "dataCenterId": "DC-00007",
+    "rowLabel": "Row-2",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00064",
+    "roomId": "RM-00064",
+    "floorId": "FLR-00030",
+    "buildingId": "BLD-00013",
+    "dataCenterId": "DC-00007",
+    "rowLabel": "Row-3",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00065",
+    "roomId": "RM-00065",
+    "floorId": "FLR-00031",
+    "buildingId": "BLD-00013",
+    "dataCenterId": "DC-00007",
+    "rowLabel": "Row-1",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00066",
+    "roomId": "RM-00066",
+    "floorId": "FLR-00032",
+    "buildingId": "BLD-00014",
+    "dataCenterId": "DC-00008",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00067",
+    "roomId": "RM-00067",
+    "floorId": "FLR-00032",
+    "buildingId": "BLD-00014",
+    "dataCenterId": "DC-00008",
+    "rowLabel": "Row-2",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00068",
+    "roomId": "RM-00068",
+    "floorId": "FLR-00032",
+    "buildingId": "BLD-00014",
+    "dataCenterId": "DC-00008",
+    "rowLabel": "Row-3",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00069",
+    "roomId": "RM-00069",
+    "floorId": "FLR-00033",
+    "buildingId": "BLD-00014",
+    "dataCenterId": "DC-00008",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00070",
+    "roomId": "RM-00070",
+    "floorId": "FLR-00033",
+    "buildingId": "BLD-00014",
+    "dataCenterId": "DC-00008",
+    "rowLabel": "Row-2",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00071",
+    "roomId": "RM-00071",
+    "floorId": "FLR-00034",
+    "buildingId": "BLD-00014",
+    "dataCenterId": "DC-00008",
+    "rowLabel": "Row-1",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00072",
+    "roomId": "RM-00072",
+    "floorId": "FLR-00034",
+    "buildingId": "BLD-00014",
+    "dataCenterId": "DC-00008",
+    "rowLabel": "Row-2",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00073",
+    "roomId": "RM-00073",
+    "floorId": "FLR-00035",
+    "buildingId": "BLD-00015",
+    "dataCenterId": "DC-00008",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00074",
+    "roomId": "RM-00074",
+    "floorId": "FLR-00035",
+    "buildingId": "BLD-00015",
+    "dataCenterId": "DC-00008",
+    "rowLabel": "Row-2",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00075",
+    "roomId": "RM-00075",
+    "floorId": "FLR-00036",
+    "buildingId": "BLD-00015",
+    "dataCenterId": "DC-00008",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00076",
+    "roomId": "RM-00076",
+    "floorId": "FLR-00036",
+    "buildingId": "BLD-00015",
+    "dataCenterId": "DC-00008",
+    "rowLabel": "Row-2",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00077",
+    "roomId": "RM-00077",
+    "floorId": "FLR-00037",
+    "buildingId": "BLD-00016",
+    "dataCenterId": "DC-00008",
+    "rowLabel": "Row-1",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00078",
+    "roomId": "RM-00078",
+    "floorId": "FLR-00038",
+    "buildingId": "BLD-00016",
+    "dataCenterId": "DC-00008",
+    "rowLabel": "Row-1",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00079",
+    "roomId": "RM-00079",
+    "floorId": "FLR-00038",
+    "buildingId": "BLD-00016",
+    "dataCenterId": "DC-00008",
+    "rowLabel": "Row-2",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00080",
+    "roomId": "RM-00080",
+    "floorId": "FLR-00039",
+    "buildingId": "BLD-00016",
+    "dataCenterId": "DC-00008",
+    "rowLabel": "Row-1",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00081",
+    "roomId": "RM-00081",
+    "floorId": "FLR-00039",
+    "buildingId": "BLD-00016",
+    "dataCenterId": "DC-00008",
+    "rowLabel": "Row-2",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00082",
+    "roomId": "RM-00082",
+    "floorId": "FLR-00040",
+    "buildingId": "BLD-00017",
+    "dataCenterId": "DC-00009",
+    "rowLabel": "Row-1",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00083",
+    "roomId": "RM-00083",
+    "floorId": "FLR-00040",
+    "buildingId": "BLD-00017",
+    "dataCenterId": "DC-00009",
+    "rowLabel": "Row-2",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00084",
+    "roomId": "RM-00084",
+    "floorId": "FLR-00041",
+    "buildingId": "BLD-00017",
+    "dataCenterId": "DC-00009",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00085",
+    "roomId": "RM-00085",
+    "floorId": "FLR-00042",
+    "buildingId": "BLD-00017",
+    "dataCenterId": "DC-00009",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00086",
+    "roomId": "RM-00086",
+    "floorId": "FLR-00042",
+    "buildingId": "BLD-00017",
+    "dataCenterId": "DC-00009",
+    "rowLabel": "Row-2",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00087",
+    "roomId": "RM-00087",
+    "floorId": "FLR-00042",
+    "buildingId": "BLD-00017",
+    "dataCenterId": "DC-00009",
+    "rowLabel": "Row-3",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00088",
+    "roomId": "RM-00088",
+    "floorId": "FLR-00043",
+    "buildingId": "BLD-00018",
+    "dataCenterId": "DC-00010",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00089",
+    "roomId": "RM-00089",
+    "floorId": "FLR-00044",
+    "buildingId": "BLD-00018",
+    "dataCenterId": "DC-00010",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00090",
+    "roomId": "RM-00090",
+    "floorId": "FLR-00045",
+    "buildingId": "BLD-00018",
+    "dataCenterId": "DC-00010",
+    "rowLabel": "Row-1",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00091",
+    "roomId": "RM-00091",
+    "floorId": "FLR-00045",
+    "buildingId": "BLD-00018",
+    "dataCenterId": "DC-00010",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00092",
+    "roomId": "RM-00092",
+    "floorId": "FLR-00045",
+    "buildingId": "BLD-00018",
+    "dataCenterId": "DC-00010",
+    "rowLabel": "Row-3",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00093",
+    "roomId": "RM-00093",
+    "floorId": "FLR-00046",
+    "buildingId": "BLD-00019",
+    "dataCenterId": "DC-00011",
+    "rowLabel": "Row-1",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00094",
+    "roomId": "RM-00094",
+    "floorId": "FLR-00046",
+    "buildingId": "BLD-00019",
+    "dataCenterId": "DC-00011",
+    "rowLabel": "Row-2",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00095",
+    "roomId": "RM-00095",
+    "floorId": "FLR-00046",
+    "buildingId": "BLD-00019",
+    "dataCenterId": "DC-00011",
+    "rowLabel": "Row-3",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00096",
+    "roomId": "RM-00096",
+    "floorId": "FLR-00047",
+    "buildingId": "BLD-00019",
+    "dataCenterId": "DC-00011",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00097",
+    "roomId": "RM-00097",
+    "floorId": "FLR-00047",
+    "buildingId": "BLD-00019",
+    "dataCenterId": "DC-00011",
+    "rowLabel": "Row-2",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00098",
+    "roomId": "RM-00098",
+    "floorId": "FLR-00048",
+    "buildingId": "BLD-00019",
+    "dataCenterId": "DC-00011",
+    "rowLabel": "Row-1",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00099",
+    "roomId": "RM-00099",
+    "floorId": "FLR-00049",
+    "buildingId": "BLD-00020",
+    "dataCenterId": "DC-00011",
+    "rowLabel": "Row-1",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00100",
+    "roomId": "RM-00100",
+    "floorId": "FLR-00049",
+    "buildingId": "BLD-00020",
+    "dataCenterId": "DC-00011",
+    "rowLabel": "Row-2",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00101",
+    "roomId": "RM-00101",
+    "floorId": "FLR-00049",
+    "buildingId": "BLD-00020",
+    "dataCenterId": "DC-00011",
+    "rowLabel": "Row-3",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00102",
+    "roomId": "RM-00102",
+    "floorId": "FLR-00050",
+    "buildingId": "BLD-00020",
+    "dataCenterId": "DC-00011",
+    "rowLabel": "Row-1",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00103",
+    "roomId": "RM-00103",
+    "floorId": "FLR-00050",
+    "buildingId": "BLD-00020",
+    "dataCenterId": "DC-00011",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00104",
+    "roomId": "RM-00104",
+    "floorId": "FLR-00051",
+    "buildingId": "BLD-00021",
+    "dataCenterId": "DC-00011",
+    "rowLabel": "Row-1",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00105",
+    "roomId": "RM-00105",
+    "floorId": "FLR-00052",
+    "buildingId": "BLD-00021",
+    "dataCenterId": "DC-00011",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00106",
+    "roomId": "RM-00106",
+    "floorId": "FLR-00052",
+    "buildingId": "BLD-00021",
+    "dataCenterId": "DC-00011",
+    "rowLabel": "Row-2",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00107",
+    "roomId": "RM-00107",
+    "floorId": "FLR-00053",
+    "buildingId": "BLD-00021",
+    "dataCenterId": "DC-00011",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00108",
+    "roomId": "RM-00108",
+    "floorId": "FLR-00053",
+    "buildingId": "BLD-00021",
+    "dataCenterId": "DC-00011",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00109",
+    "roomId": "RM-00109",
+    "floorId": "FLR-00053",
+    "buildingId": "BLD-00021",
+    "dataCenterId": "DC-00011",
+    "rowLabel": "Row-3",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00110",
+    "roomId": "RM-00110",
+    "floorId": "FLR-00054",
+    "buildingId": "BLD-00022",
+    "dataCenterId": "DC-00012",
+    "rowLabel": "Row-1",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00111",
+    "roomId": "RM-00111",
+    "floorId": "FLR-00055",
+    "buildingId": "BLD-00022",
+    "dataCenterId": "DC-00012",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00112",
+    "roomId": "RM-00112",
+    "floorId": "FLR-00056",
+    "buildingId": "BLD-00023",
+    "dataCenterId": "DC-00013",
+    "rowLabel": "Row-1",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00113",
+    "roomId": "RM-00113",
+    "floorId": "FLR-00057",
+    "buildingId": "BLD-00023",
+    "dataCenterId": "DC-00013",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00114",
+    "roomId": "RM-00114",
+    "floorId": "FLR-00057",
+    "buildingId": "BLD-00023",
+    "dataCenterId": "DC-00013",
+    "rowLabel": "Row-2",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00115",
+    "roomId": "RM-00115",
+    "floorId": "FLR-00057",
+    "buildingId": "BLD-00023",
+    "dataCenterId": "DC-00013",
+    "rowLabel": "Row-3",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00116",
+    "roomId": "RM-00116",
+    "floorId": "FLR-00058",
+    "buildingId": "BLD-00023",
+    "dataCenterId": "DC-00013",
+    "rowLabel": "Row-1",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00117",
+    "roomId": "RM-00117",
+    "floorId": "FLR-00059",
+    "buildingId": "BLD-00024",
+    "dataCenterId": "DC-00013",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00118",
+    "roomId": "RM-00118",
+    "floorId": "FLR-00060",
+    "buildingId": "BLD-00024",
+    "dataCenterId": "DC-00013",
+    "rowLabel": "Row-1",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00119",
+    "roomId": "RM-00119",
+    "floorId": "FLR-00060",
+    "buildingId": "BLD-00024",
+    "dataCenterId": "DC-00013",
+    "rowLabel": "Row-2",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00120",
+    "roomId": "RM-00120",
+    "floorId": "FLR-00061",
+    "buildingId": "BLD-00024",
+    "dataCenterId": "DC-00013",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00121",
+    "roomId": "RM-00121",
+    "floorId": "FLR-00061",
+    "buildingId": "BLD-00024",
+    "dataCenterId": "DC-00013",
+    "rowLabel": "Row-2",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00122",
+    "roomId": "RM-00122",
+    "floorId": "FLR-00061",
+    "buildingId": "BLD-00024",
+    "dataCenterId": "DC-00013",
+    "rowLabel": "Row-3",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00123",
+    "roomId": "RM-00123",
+    "floorId": "FLR-00062",
+    "buildingId": "BLD-00025",
+    "dataCenterId": "DC-00013",
+    "rowLabel": "Row-1",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00124",
+    "roomId": "RM-00124",
+    "floorId": "FLR-00062",
+    "buildingId": "BLD-00025",
+    "dataCenterId": "DC-00013",
+    "rowLabel": "Row-2",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00125",
+    "roomId": "RM-00125",
+    "floorId": "FLR-00062",
+    "buildingId": "BLD-00025",
+    "dataCenterId": "DC-00013",
+    "rowLabel": "Row-3",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00126",
+    "roomId": "RM-00126",
+    "floorId": "FLR-00063",
+    "buildingId": "BLD-00025",
+    "dataCenterId": "DC-00013",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00127",
+    "roomId": "RM-00127",
+    "floorId": "FLR-00064",
+    "buildingId": "BLD-00026",
+    "dataCenterId": "DC-00014",
+    "rowLabel": "Row-1",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00128",
+    "roomId": "RM-00128",
+    "floorId": "FLR-00064",
+    "buildingId": "BLD-00026",
+    "dataCenterId": "DC-00014",
+    "rowLabel": "Row-2",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00129",
+    "roomId": "RM-00129",
+    "floorId": "FLR-00064",
+    "buildingId": "BLD-00026",
+    "dataCenterId": "DC-00014",
+    "rowLabel": "Row-3",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00130",
+    "roomId": "RM-00130",
+    "floorId": "FLR-00065",
+    "buildingId": "BLD-00026",
+    "dataCenterId": "DC-00014",
+    "rowLabel": "Row-1",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00131",
+    "roomId": "RM-00131",
+    "floorId": "FLR-00066",
+    "buildingId": "BLD-00026",
+    "dataCenterId": "DC-00014",
+    "rowLabel": "Row-1",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00132",
+    "roomId": "RM-00132",
+    "floorId": "FLR-00066",
+    "buildingId": "BLD-00026",
+    "dataCenterId": "DC-00014",
+    "rowLabel": "Row-2",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00133",
+    "roomId": "RM-00133",
+    "floorId": "FLR-00067",
+    "buildingId": "BLD-00027",
+    "dataCenterId": "DC-00014",
+    "rowLabel": "Row-1",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00134",
+    "roomId": "RM-00134",
+    "floorId": "FLR-00067",
+    "buildingId": "BLD-00027",
+    "dataCenterId": "DC-00014",
+    "rowLabel": "Row-2",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00135",
+    "roomId": "RM-00135",
+    "floorId": "FLR-00068",
+    "buildingId": "BLD-00027",
+    "dataCenterId": "DC-00014",
+    "rowLabel": "Row-1",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00136",
+    "roomId": "RM-00136",
+    "floorId": "FLR-00068",
+    "buildingId": "BLD-00027",
+    "dataCenterId": "DC-00014",
+    "rowLabel": "Row-2",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00137",
+    "roomId": "RM-00137",
+    "floorId": "FLR-00069",
+    "buildingId": "BLD-00028",
+    "dataCenterId": "DC-00014",
+    "rowLabel": "Row-1",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00138",
+    "roomId": "RM-00138",
+    "floorId": "FLR-00070",
+    "buildingId": "BLD-00028",
+    "dataCenterId": "DC-00014",
+    "rowLabel": "Row-1",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00139",
+    "roomId": "RM-00139",
+    "floorId": "FLR-00070",
+    "buildingId": "BLD-00028",
+    "dataCenterId": "DC-00014",
+    "rowLabel": "Row-2",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00140",
+    "roomId": "RM-00140",
+    "floorId": "FLR-00071",
+    "buildingId": "BLD-00028",
+    "dataCenterId": "DC-00014",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00141",
+    "roomId": "RM-00141",
+    "floorId": "FLR-00071",
+    "buildingId": "BLD-00028",
+    "dataCenterId": "DC-00014",
+    "rowLabel": "Row-2",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00142",
+    "roomId": "RM-00142",
+    "floorId": "FLR-00072",
+    "buildingId": "BLD-00029",
+    "dataCenterId": "DC-00015",
+    "rowLabel": "Row-1",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00143",
+    "roomId": "RM-00143",
+    "floorId": "FLR-00073",
+    "buildingId": "BLD-00029",
+    "dataCenterId": "DC-00015",
+    "rowLabel": "Row-1",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00144",
+    "roomId": "RM-00144",
+    "floorId": "FLR-00074",
+    "buildingId": "BLD-00030",
+    "dataCenterId": "DC-00015",
+    "rowLabel": "Row-1",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00145",
+    "roomId": "RM-00145",
+    "floorId": "FLR-00074",
+    "buildingId": "BLD-00030",
+    "dataCenterId": "DC-00015",
+    "rowLabel": "Row-2",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00146",
+    "roomId": "RM-00146",
+    "floorId": "FLR-00074",
+    "buildingId": "BLD-00030",
+    "dataCenterId": "DC-00015",
+    "rowLabel": "Row-3",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00147",
+    "roomId": "RM-00147",
+    "floorId": "FLR-00075",
+    "buildingId": "BLD-00030",
+    "dataCenterId": "DC-00015",
+    "rowLabel": "Row-1",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00148",
+    "roomId": "RM-00148",
+    "floorId": "FLR-00075",
+    "buildingId": "BLD-00030",
+    "dataCenterId": "DC-00015",
+    "rowLabel": "Row-2",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00149",
+    "roomId": "RM-00149",
+    "floorId": "FLR-00076",
+    "buildingId": "BLD-00030",
+    "dataCenterId": "DC-00015",
+    "rowLabel": "Row-1",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00150",
+    "roomId": "RM-00150",
+    "floorId": "FLR-00076",
+    "buildingId": "BLD-00030",
+    "dataCenterId": "DC-00015",
+    "rowLabel": "Row-2",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00151",
+    "roomId": "RM-00151",
+    "floorId": "FLR-00076",
+    "buildingId": "BLD-00030",
+    "dataCenterId": "DC-00015",
+    "rowLabel": "Row-3",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00152",
+    "roomId": "RM-00152",
+    "floorId": "FLR-00077",
+    "buildingId": "BLD-00031",
+    "dataCenterId": "DC-00015",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00153",
+    "roomId": "RM-00153",
+    "floorId": "FLR-00078",
+    "buildingId": "BLD-00031",
+    "dataCenterId": "DC-00015",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00154",
+    "roomId": "RM-00154",
+    "floorId": "FLR-00078",
+    "buildingId": "BLD-00031",
+    "dataCenterId": "DC-00015",
+    "rowLabel": "Row-2",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00155",
+    "roomId": "RM-00155",
+    "floorId": "FLR-00078",
+    "buildingId": "BLD-00031",
+    "dataCenterId": "DC-00015",
+    "rowLabel": "Row-3",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00156",
+    "roomId": "RM-00156",
+    "floorId": "FLR-00079",
+    "buildingId": "BLD-00031",
+    "dataCenterId": "DC-00015",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00157",
+    "roomId": "RM-00157",
+    "floorId": "FLR-00079",
+    "buildingId": "BLD-00031",
+    "dataCenterId": "DC-00015",
+    "rowLabel": "Row-2",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00158",
+    "roomId": "RM-00158",
+    "floorId": "FLR-00080",
+    "buildingId": "BLD-00032",
+    "dataCenterId": "DC-00016",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00159",
+    "roomId": "RM-00159",
+    "floorId": "FLR-00080",
+    "buildingId": "BLD-00032",
+    "dataCenterId": "DC-00016",
+    "rowLabel": "Row-2",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00160",
+    "roomId": "RM-00160",
+    "floorId": "FLR-00081",
+    "buildingId": "BLD-00032",
+    "dataCenterId": "DC-00016",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00161",
+    "roomId": "RM-00161",
+    "floorId": "FLR-00081",
+    "buildingId": "BLD-00032",
+    "dataCenterId": "DC-00016",
+    "rowLabel": "Row-2",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00162",
+    "roomId": "RM-00162",
+    "floorId": "FLR-00082",
+    "buildingId": "BLD-00033",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-1",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00163",
+    "roomId": "RM-00163",
+    "floorId": "FLR-00082",
+    "buildingId": "BLD-00033",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-2",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00164",
+    "roomId": "RM-00164",
+    "floorId": "FLR-00083",
+    "buildingId": "BLD-00033",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-1",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00165",
+    "roomId": "RM-00165",
+    "floorId": "FLR-00083",
+    "buildingId": "BLD-00033",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00166",
+    "roomId": "RM-00166",
+    "floorId": "FLR-00084",
+    "buildingId": "BLD-00034",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00167",
+    "roomId": "RM-00167",
+    "floorId": "FLR-00084",
+    "buildingId": "BLD-00034",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-2",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00168",
+    "roomId": "RM-00168",
+    "floorId": "FLR-00084",
+    "buildingId": "BLD-00034",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-3",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00169",
+    "roomId": "RM-00169",
+    "floorId": "FLR-00085",
+    "buildingId": "BLD-00034",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00170",
+    "roomId": "RM-00170",
+    "floorId": "FLR-00085",
+    "buildingId": "BLD-00034",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00171",
+    "roomId": "RM-00171",
+    "floorId": "FLR-00085",
+    "buildingId": "BLD-00034",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-3",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00172",
+    "roomId": "RM-00172",
+    "floorId": "FLR-00086",
+    "buildingId": "BLD-00034",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-1",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00173",
+    "roomId": "RM-00173",
+    "floorId": "FLR-00086",
+    "buildingId": "BLD-00034",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-2",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00174",
+    "roomId": "RM-00174",
+    "floorId": "FLR-00087",
+    "buildingId": "BLD-00035",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-1",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00175",
+    "roomId": "RM-00175",
+    "floorId": "FLR-00087",
+    "buildingId": "BLD-00035",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-2",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00176",
+    "roomId": "RM-00176",
+    "floorId": "FLR-00087",
+    "buildingId": "BLD-00035",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-3",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00177",
+    "roomId": "RM-00177",
+    "floorId": "FLR-00088",
+    "buildingId": "BLD-00035",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-1",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00178",
+    "roomId": "RM-00178",
+    "floorId": "FLR-00088",
+    "buildingId": "BLD-00035",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-2",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00179",
+    "roomId": "RM-00179",
+    "floorId": "FLR-00089",
+    "buildingId": "BLD-00035",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-1",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00180",
+    "roomId": "RM-00180",
+    "floorId": "FLR-00089",
+    "buildingId": "BLD-00035",
+    "dataCenterId": "DC-00017",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00181",
+    "roomId": "RM-00181",
+    "floorId": "FLR-00090",
+    "buildingId": "BLD-00036",
+    "dataCenterId": "DC-00018",
+    "rowLabel": "Row-1",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00182",
+    "roomId": "RM-00182",
+    "floorId": "FLR-00090",
+    "buildingId": "BLD-00036",
+    "dataCenterId": "DC-00018",
+    "rowLabel": "Row-2",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00183",
+    "roomId": "RM-00183",
+    "floorId": "FLR-00090",
+    "buildingId": "BLD-00036",
+    "dataCenterId": "DC-00018",
+    "rowLabel": "Row-3",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00184",
+    "roomId": "RM-00184",
+    "floorId": "FLR-00091",
+    "buildingId": "BLD-00036",
+    "dataCenterId": "DC-00018",
+    "rowLabel": "Row-1",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00185",
+    "roomId": "RM-00185",
+    "floorId": "FLR-00091",
+    "buildingId": "BLD-00036",
+    "dataCenterId": "DC-00018",
+    "rowLabel": "Row-2",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00186",
+    "roomId": "RM-00186",
+    "floorId": "FLR-00092",
+    "buildingId": "BLD-00036",
+    "dataCenterId": "DC-00018",
+    "rowLabel": "Row-1",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00187",
+    "roomId": "RM-00187",
+    "floorId": "FLR-00093",
+    "buildingId": "BLD-00037",
+    "dataCenterId": "DC-00018",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00188",
+    "roomId": "RM-00188",
+    "floorId": "FLR-00094",
+    "buildingId": "BLD-00037",
+    "dataCenterId": "DC-00018",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00189",
+    "roomId": "RM-00189",
+    "floorId": "FLR-00094",
+    "buildingId": "BLD-00037",
+    "dataCenterId": "DC-00018",
+    "rowLabel": "Row-2",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00190",
+    "roomId": "RM-00190",
+    "floorId": "FLR-00094",
+    "buildingId": "BLD-00037",
+    "dataCenterId": "DC-00018",
+    "rowLabel": "Row-3",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00191",
+    "roomId": "RM-00191",
+    "floorId": "FLR-00095",
+    "buildingId": "BLD-00038",
+    "dataCenterId": "DC-00019",
+    "rowLabel": "Row-1",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00192",
+    "roomId": "RM-00192",
+    "floorId": "FLR-00095",
+    "buildingId": "BLD-00038",
+    "dataCenterId": "DC-00019",
+    "rowLabel": "Row-2",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00193",
+    "roomId": "RM-00193",
+    "floorId": "FLR-00095",
+    "buildingId": "BLD-00038",
+    "dataCenterId": "DC-00019",
+    "rowLabel": "Row-3",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00194",
+    "roomId": "RM-00194",
+    "floorId": "FLR-00096",
+    "buildingId": "BLD-00038",
+    "dataCenterId": "DC-00019",
+    "rowLabel": "Row-1",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00195",
+    "roomId": "RM-00195",
+    "floorId": "FLR-00096",
+    "buildingId": "BLD-00038",
+    "dataCenterId": "DC-00019",
+    "rowLabel": "Row-2",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00196",
+    "roomId": "RM-00196",
+    "floorId": "FLR-00096",
+    "buildingId": "BLD-00038",
+    "dataCenterId": "DC-00019",
+    "rowLabel": "Row-3",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00197",
+    "roomId": "RM-00197",
+    "floorId": "FLR-00097",
+    "buildingId": "BLD-00038",
+    "dataCenterId": "DC-00019",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00198",
+    "roomId": "RM-00198",
+    "floorId": "FLR-00097",
+    "buildingId": "BLD-00038",
+    "dataCenterId": "DC-00019",
+    "rowLabel": "Row-2",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00199",
+    "roomId": "RM-00199",
+    "floorId": "FLR-00098",
+    "buildingId": "BLD-00039",
+    "dataCenterId": "DC-00019",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00200",
+    "roomId": "RM-00200",
+    "floorId": "FLR-00098",
+    "buildingId": "BLD-00039",
+    "dataCenterId": "DC-00019",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00201",
+    "roomId": "RM-00201",
+    "floorId": "FLR-00099",
+    "buildingId": "BLD-00039",
+    "dataCenterId": "DC-00019",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00202",
+    "roomId": "RM-00202",
+    "floorId": "FLR-00099",
+    "buildingId": "BLD-00039",
+    "dataCenterId": "DC-00019",
+    "rowLabel": "Row-2",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00203",
+    "roomId": "RM-00203",
+    "floorId": "FLR-00100",
+    "buildingId": "BLD-00039",
+    "dataCenterId": "DC-00019",
+    "rowLabel": "Row-1",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00204",
+    "roomId": "RM-00204",
+    "floorId": "FLR-00100",
+    "buildingId": "BLD-00039",
+    "dataCenterId": "DC-00019",
+    "rowLabel": "Row-2",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00205",
+    "roomId": "RM-00205",
+    "floorId": "FLR-00101",
+    "buildingId": "BLD-00040",
+    "dataCenterId": "DC-00020",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00206",
+    "roomId": "RM-00206",
+    "floorId": "FLR-00101",
+    "buildingId": "BLD-00040",
+    "dataCenterId": "DC-00020",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00207",
+    "roomId": "RM-00207",
+    "floorId": "FLR-00102",
+    "buildingId": "BLD-00040",
+    "dataCenterId": "DC-00020",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00208",
+    "roomId": "RM-00208",
+    "floorId": "FLR-00103",
+    "buildingId": "BLD-00040",
+    "dataCenterId": "DC-00020",
+    "rowLabel": "Row-1",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00209",
+    "roomId": "RM-00209",
+    "floorId": "FLR-00104",
+    "buildingId": "BLD-00041",
+    "dataCenterId": "DC-00021",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00210",
+    "roomId": "RM-00210",
+    "floorId": "FLR-00104",
+    "buildingId": "BLD-00041",
+    "dataCenterId": "DC-00021",
+    "rowLabel": "Row-2",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00211",
+    "roomId": "RM-00211",
+    "floorId": "FLR-00104",
+    "buildingId": "BLD-00041",
+    "dataCenterId": "DC-00021",
+    "rowLabel": "Row-3",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00212",
+    "roomId": "RM-00212",
+    "floorId": "FLR-00105",
+    "buildingId": "BLD-00041",
+    "dataCenterId": "DC-00021",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00213",
+    "roomId": "RM-00213",
+    "floorId": "FLR-00105",
+    "buildingId": "BLD-00041",
+    "dataCenterId": "DC-00021",
+    "rowLabel": "Row-2",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00214",
+    "roomId": "RM-00214",
+    "floorId": "FLR-00105",
+    "buildingId": "BLD-00041",
+    "dataCenterId": "DC-00021",
+    "rowLabel": "Row-3",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00215",
+    "roomId": "RM-00215",
+    "floorId": "FLR-00106",
+    "buildingId": "BLD-00042",
+    "dataCenterId": "DC-00021",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00216",
+    "roomId": "RM-00216",
+    "floorId": "FLR-00106",
+    "buildingId": "BLD-00042",
+    "dataCenterId": "DC-00021",
+    "rowLabel": "Row-2",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00217",
+    "roomId": "RM-00217",
+    "floorId": "FLR-00106",
+    "buildingId": "BLD-00042",
+    "dataCenterId": "DC-00021",
+    "rowLabel": "Row-3",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00218",
+    "roomId": "RM-00218",
+    "floorId": "FLR-00107",
+    "buildingId": "BLD-00042",
+    "dataCenterId": "DC-00021",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00219",
+    "roomId": "RM-00219",
+    "floorId": "FLR-00108",
+    "buildingId": "BLD-00042",
+    "dataCenterId": "DC-00021",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00220",
+    "roomId": "RM-00220",
+    "floorId": "FLR-00108",
+    "buildingId": "BLD-00042",
+    "dataCenterId": "DC-00021",
+    "rowLabel": "Row-2",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00221",
+    "roomId": "RM-00221",
+    "floorId": "FLR-00109",
+    "buildingId": "BLD-00043",
+    "dataCenterId": "DC-00021",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00222",
+    "roomId": "RM-00222",
+    "floorId": "FLR-00110",
+    "buildingId": "BLD-00043",
+    "dataCenterId": "DC-00021",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00223",
+    "roomId": "RM-00223",
+    "floorId": "FLR-00110",
+    "buildingId": "BLD-00043",
+    "dataCenterId": "DC-00021",
+    "rowLabel": "Row-2",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00224",
+    "roomId": "RM-00224",
+    "floorId": "FLR-00110",
+    "buildingId": "BLD-00043",
+    "dataCenterId": "DC-00021",
+    "rowLabel": "Row-3",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00225",
+    "roomId": "RM-00225",
+    "floorId": "FLR-00111",
+    "buildingId": "BLD-00044",
+    "dataCenterId": "DC-00022",
+    "rowLabel": "Row-1",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00226",
+    "roomId": "RM-00226",
+    "floorId": "FLR-00112",
+    "buildingId": "BLD-00044",
+    "dataCenterId": "DC-00022",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00227",
+    "roomId": "RM-00227",
+    "floorId": "FLR-00113",
+    "buildingId": "BLD-00044",
+    "dataCenterId": "DC-00022",
+    "rowLabel": "Row-1",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00228",
+    "roomId": "RM-00228",
+    "floorId": "FLR-00113",
+    "buildingId": "BLD-00044",
+    "dataCenterId": "DC-00022",
+    "rowLabel": "Row-2",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00229",
+    "roomId": "RM-00229",
+    "floorId": "FLR-00113",
+    "buildingId": "BLD-00044",
+    "dataCenterId": "DC-00022",
+    "rowLabel": "Row-3",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00230",
+    "roomId": "RM-00230",
+    "floorId": "FLR-00114",
+    "buildingId": "BLD-00045",
+    "dataCenterId": "DC-00022",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00231",
+    "roomId": "RM-00231",
+    "floorId": "FLR-00114",
+    "buildingId": "BLD-00045",
+    "dataCenterId": "DC-00022",
+    "rowLabel": "Row-2",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00232",
+    "roomId": "RM-00232",
+    "floorId": "FLR-00114",
+    "buildingId": "BLD-00045",
+    "dataCenterId": "DC-00022",
+    "rowLabel": "Row-3",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00233",
+    "roomId": "RM-00233",
+    "floorId": "FLR-00115",
+    "buildingId": "BLD-00045",
+    "dataCenterId": "DC-00022",
+    "rowLabel": "Row-1",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00234",
+    "roomId": "RM-00234",
+    "floorId": "FLR-00115",
+    "buildingId": "BLD-00045",
+    "dataCenterId": "DC-00022",
+    "rowLabel": "Row-2",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00235",
+    "roomId": "RM-00235",
+    "floorId": "FLR-00116",
+    "buildingId": "BLD-00046",
+    "dataCenterId": "DC-00022",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00236",
+    "roomId": "RM-00236",
+    "floorId": "FLR-00116",
+    "buildingId": "BLD-00046",
+    "dataCenterId": "DC-00022",
+    "rowLabel": "Row-2",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00237",
+    "roomId": "RM-00237",
+    "floorId": "FLR-00117",
+    "buildingId": "BLD-00046",
+    "dataCenterId": "DC-00022",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00238",
+    "roomId": "RM-00238",
+    "floorId": "FLR-00117",
+    "buildingId": "BLD-00046",
+    "dataCenterId": "DC-00022",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00239",
+    "roomId": "RM-00239",
+    "floorId": "FLR-00117",
+    "buildingId": "BLD-00046",
+    "dataCenterId": "DC-00022",
+    "rowLabel": "Row-3",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00240",
+    "roomId": "RM-00240",
+    "floorId": "FLR-00118",
+    "buildingId": "BLD-00047",
+    "dataCenterId": "DC-00023",
+    "rowLabel": "Row-1",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00241",
+    "roomId": "RM-00241",
+    "floorId": "FLR-00118",
+    "buildingId": "BLD-00047",
+    "dataCenterId": "DC-00023",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00242",
+    "roomId": "RM-00242",
+    "floorId": "FLR-00119",
+    "buildingId": "BLD-00047",
+    "dataCenterId": "DC-00023",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00243",
+    "roomId": "RM-00243",
+    "floorId": "FLR-00119",
+    "buildingId": "BLD-00047",
+    "dataCenterId": "DC-00023",
+    "rowLabel": "Row-2",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00244",
+    "roomId": "RM-00244",
+    "floorId": "FLR-00119",
+    "buildingId": "BLD-00047",
+    "dataCenterId": "DC-00023",
+    "rowLabel": "Row-3",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00245",
+    "roomId": "RM-00245",
+    "floorId": "FLR-00120",
+    "buildingId": "BLD-00047",
+    "dataCenterId": "DC-00023",
+    "rowLabel": "Row-1",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00246",
+    "roomId": "RM-00246",
+    "floorId": "FLR-00120",
+    "buildingId": "BLD-00047",
+    "dataCenterId": "DC-00023",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00247",
+    "roomId": "RM-00247",
+    "floorId": "FLR-00121",
+    "buildingId": "BLD-00048",
+    "dataCenterId": "DC-00024",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00248",
+    "roomId": "RM-00248",
+    "floorId": "FLR-00121",
+    "buildingId": "BLD-00048",
+    "dataCenterId": "DC-00024",
+    "rowLabel": "Row-2",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00249",
+    "roomId": "RM-00249",
+    "floorId": "FLR-00122",
+    "buildingId": "BLD-00048",
+    "dataCenterId": "DC-00024",
+    "rowLabel": "Row-1",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00250",
+    "roomId": "RM-00250",
+    "floorId": "FLR-00122",
+    "buildingId": "BLD-00048",
+    "dataCenterId": "DC-00024",
+    "rowLabel": "Row-2",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00251",
+    "roomId": "RM-00251",
+    "floorId": "FLR-00122",
+    "buildingId": "BLD-00048",
+    "dataCenterId": "DC-00024",
+    "rowLabel": "Row-3",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00252",
+    "roomId": "RM-00252",
+    "floorId": "FLR-00123",
+    "buildingId": "BLD-00048",
+    "dataCenterId": "DC-00024",
+    "rowLabel": "Row-1",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00253",
+    "roomId": "RM-00253",
+    "floorId": "FLR-00124",
+    "buildingId": "BLD-00049",
+    "dataCenterId": "DC-00024",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00254",
+    "roomId": "RM-00254",
+    "floorId": "FLR-00124",
+    "buildingId": "BLD-00049",
+    "dataCenterId": "DC-00024",
+    "rowLabel": "Row-2",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00255",
+    "roomId": "RM-00255",
+    "floorId": "FLR-00125",
+    "buildingId": "BLD-00049",
+    "dataCenterId": "DC-00024",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00256",
+    "roomId": "RM-00256",
+    "floorId": "FLR-00126",
+    "buildingId": "BLD-00049",
+    "dataCenterId": "DC-00024",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00257",
+    "roomId": "RM-00257",
+    "floorId": "FLR-00127",
+    "buildingId": "BLD-00050",
+    "dataCenterId": "DC-00025",
+    "rowLabel": "Row-1",
+    "rackCount": 12
+  },
+  {
+    "id": "ROW-00258",
+    "roomId": "RM-00258",
+    "floorId": "FLR-00127",
+    "buildingId": "BLD-00050",
+    "dataCenterId": "DC-00025",
+    "rowLabel": "Row-2",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00259",
+    "roomId": "RM-00259",
+    "floorId": "FLR-00128",
+    "buildingId": "BLD-00050",
+    "dataCenterId": "DC-00025",
+    "rowLabel": "Row-1",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00260",
+    "roomId": "RM-00260",
+    "floorId": "FLR-00128",
+    "buildingId": "BLD-00050",
+    "dataCenterId": "DC-00025",
+    "rowLabel": "Row-2",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00261",
+    "roomId": "RM-00261",
+    "floorId": "FLR-00128",
+    "buildingId": "BLD-00050",
+    "dataCenterId": "DC-00025",
+    "rowLabel": "Row-3",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00262",
+    "roomId": "RM-00262",
+    "floorId": "FLR-00129",
+    "buildingId": "BLD-00050",
+    "dataCenterId": "DC-00025",
+    "rowLabel": "Row-1",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00263",
+    "roomId": "RM-00263",
+    "floorId": "FLR-00130",
+    "buildingId": "BLD-00051",
+    "dataCenterId": "DC-00025",
+    "rowLabel": "Row-1",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00264",
+    "roomId": "RM-00264",
+    "floorId": "FLR-00130",
+    "buildingId": "BLD-00051",
+    "dataCenterId": "DC-00025",
+    "rowLabel": "Row-2",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00265",
+    "roomId": "RM-00265",
+    "floorId": "FLR-00130",
+    "buildingId": "BLD-00051",
+    "dataCenterId": "DC-00025",
+    "rowLabel": "Row-3",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00266",
+    "roomId": "RM-00266",
+    "floorId": "FLR-00131",
+    "buildingId": "BLD-00051",
+    "dataCenterId": "DC-00025",
+    "rowLabel": "Row-1",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00267",
+    "roomId": "RM-00267",
+    "floorId": "FLR-00131",
+    "buildingId": "BLD-00051",
+    "dataCenterId": "DC-00025",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00268",
+    "roomId": "RM-00268",
+    "floorId": "FLR-00131",
+    "buildingId": "BLD-00051",
+    "dataCenterId": "DC-00025",
+    "rowLabel": "Row-3",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00269",
+    "roomId": "RM-00269",
+    "floorId": "FLR-00132",
+    "buildingId": "BLD-00051",
+    "dataCenterId": "DC-00025",
+    "rowLabel": "Row-1",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00270",
+    "roomId": "RM-00270",
+    "floorId": "FLR-00133",
+    "buildingId": "BLD-00052",
+    "dataCenterId": "DC-00025",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00271",
+    "roomId": "RM-00271",
+    "floorId": "FLR-00134",
+    "buildingId": "BLD-00052",
+    "dataCenterId": "DC-00025",
+    "rowLabel": "Row-1",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00272",
+    "roomId": "RM-00272",
+    "floorId": "FLR-00135",
+    "buildingId": "BLD-00053",
+    "dataCenterId": "DC-00026",
+    "rowLabel": "Row-1",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00273",
+    "roomId": "RM-00273",
+    "floorId": "FLR-00136",
+    "buildingId": "BLD-00053",
+    "dataCenterId": "DC-00026",
+    "rowLabel": "Row-1",
+    "rackCount": 13
+  },
+  {
+    "id": "ROW-00274",
+    "roomId": "RM-00274",
+    "floorId": "FLR-00136",
+    "buildingId": "BLD-00053",
+    "dataCenterId": "DC-00026",
+    "rowLabel": "Row-2",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00275",
+    "roomId": "RM-00275",
+    "floorId": "FLR-00136",
+    "buildingId": "BLD-00053",
+    "dataCenterId": "DC-00026",
+    "rowLabel": "Row-3",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00276",
+    "roomId": "RM-00276",
+    "floorId": "FLR-00137",
+    "buildingId": "BLD-00054",
+    "dataCenterId": "DC-00026",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00277",
+    "roomId": "RM-00277",
+    "floorId": "FLR-00137",
+    "buildingId": "BLD-00054",
+    "dataCenterId": "DC-00026",
+    "rowLabel": "Row-2",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00278",
+    "roomId": "RM-00278",
+    "floorId": "FLR-00137",
+    "buildingId": "BLD-00054",
+    "dataCenterId": "DC-00026",
+    "rowLabel": "Row-3",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00279",
+    "roomId": "RM-00279",
+    "floorId": "FLR-00138",
+    "buildingId": "BLD-00054",
+    "dataCenterId": "DC-00026",
+    "rowLabel": "Row-1",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00280",
+    "roomId": "RM-00280",
+    "floorId": "FLR-00138",
+    "buildingId": "BLD-00054",
+    "dataCenterId": "DC-00026",
+    "rowLabel": "Row-2",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00281",
+    "roomId": "RM-00281",
+    "floorId": "FLR-00139",
+    "buildingId": "BLD-00054",
+    "dataCenterId": "DC-00026",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00282",
+    "roomId": "RM-00282",
+    "floorId": "FLR-00139",
+    "buildingId": "BLD-00054",
+    "dataCenterId": "DC-00026",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00283",
+    "roomId": "RM-00283",
+    "floorId": "FLR-00140",
+    "buildingId": "BLD-00055",
+    "dataCenterId": "DC-00027",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00284",
+    "roomId": "RM-00284",
+    "floorId": "FLR-00140",
+    "buildingId": "BLD-00055",
+    "dataCenterId": "DC-00027",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00285",
+    "roomId": "RM-00285",
+    "floorId": "FLR-00140",
+    "buildingId": "BLD-00055",
+    "dataCenterId": "DC-00027",
+    "rowLabel": "Row-3",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00286",
+    "roomId": "RM-00286",
+    "floorId": "FLR-00141",
+    "buildingId": "BLD-00055",
+    "dataCenterId": "DC-00027",
+    "rowLabel": "Row-1",
+    "rackCount": 7
+  },
+  {
+    "id": "ROW-00287",
+    "roomId": "RM-00287",
+    "floorId": "FLR-00141",
+    "buildingId": "BLD-00055",
+    "dataCenterId": "DC-00027",
+    "rowLabel": "Row-2",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00288",
+    "roomId": "RM-00288",
+    "floorId": "FLR-00142",
+    "buildingId": "BLD-00056",
+    "dataCenterId": "DC-00027",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00289",
+    "roomId": "RM-00289",
+    "floorId": "FLR-00143",
+    "buildingId": "BLD-00056",
+    "dataCenterId": "DC-00027",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00290",
+    "roomId": "RM-00290",
+    "floorId": "FLR-00143",
+    "buildingId": "BLD-00056",
+    "dataCenterId": "DC-00027",
+    "rowLabel": "Row-2",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00291",
+    "roomId": "RM-00291",
+    "floorId": "FLR-00144",
+    "buildingId": "BLD-00057",
+    "dataCenterId": "DC-00027",
+    "rowLabel": "Row-1",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00292",
+    "roomId": "RM-00292",
+    "floorId": "FLR-00145",
+    "buildingId": "BLD-00057",
+    "dataCenterId": "DC-00027",
+    "rowLabel": "Row-1",
+    "rackCount": 14
+  },
+  {
+    "id": "ROW-00293",
+    "roomId": "RM-00293",
+    "floorId": "FLR-00145",
+    "buildingId": "BLD-00057",
+    "dataCenterId": "DC-00027",
+    "rowLabel": "Row-2",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00294",
+    "roomId": "RM-00294",
+    "floorId": "FLR-00146",
+    "buildingId": "BLD-00057",
+    "dataCenterId": "DC-00027",
+    "rowLabel": "Row-1",
+    "rackCount": 10
+  },
+  {
+    "id": "ROW-00295",
+    "roomId": "RM-00295",
+    "floorId": "FLR-00146",
+    "buildingId": "BLD-00057",
+    "dataCenterId": "DC-00027",
+    "rowLabel": "Row-2",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00296",
+    "roomId": "RM-00296",
+    "floorId": "FLR-00147",
+    "buildingId": "BLD-00058",
+    "dataCenterId": "DC-00028",
+    "rowLabel": "Row-1",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00297",
+    "roomId": "RM-00297",
+    "floorId": "FLR-00148",
+    "buildingId": "BLD-00058",
+    "dataCenterId": "DC-00028",
+    "rowLabel": "Row-1",
+    "rackCount": 11
+  },
+  {
+    "id": "ROW-00298",
+    "roomId": "RM-00298",
+    "floorId": "FLR-00148",
+    "buildingId": "BLD-00058",
+    "dataCenterId": "DC-00028",
+    "rowLabel": "Row-2",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00299",
+    "roomId": "RM-00299",
+    "floorId": "FLR-00149",
+    "buildingId": "BLD-00058",
+    "dataCenterId": "DC-00028",
+    "rowLabel": "Row-1",
+    "rackCount": 6
+  },
+  {
+    "id": "ROW-00300",
+    "roomId": "RM-00300",
+    "floorId": "FLR-00149",
+    "buildingId": "BLD-00058",
+    "dataCenterId": "DC-00028",
+    "rowLabel": "Row-2",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00301",
+    "roomId": "RM-00301",
+    "floorId": "FLR-00150",
+    "buildingId": "BLD-00059",
+    "dataCenterId": "DC-00029",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00302",
+    "roomId": "RM-00302",
+    "floorId": "FLR-00150",
+    "buildingId": "BLD-00059",
+    "dataCenterId": "DC-00029",
+    "rowLabel": "Row-2",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00303",
+    "roomId": "RM-00303",
+    "floorId": "FLR-00151",
+    "buildingId": "BLD-00059",
+    "dataCenterId": "DC-00029",
+    "rowLabel": "Row-1",
+    "rackCount": 8
+  },
+  {
+    "id": "ROW-00304",
+    "roomId": "RM-00304",
+    "floorId": "FLR-00152",
+    "buildingId": "BLD-00059",
+    "dataCenterId": "DC-00029",
+    "rowLabel": "Row-1",
+    "rackCount": 9
+  },
+  {
+    "id": "ROW-00305",
+    "roomId": "RM-00305",
+    "floorId": "FLR-00152",
+    "buildingId": "BLD-00059",
+    "dataCenterId": "DC-00029",
+    "rowLabel": "Row-2",
+    "rackCount": 9
+  }
+]

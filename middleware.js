@@ -1,7 +1,11 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse } from 'next/server';
 
-const PUBLIC_PATHS = ['/login', '/api', '/dashboard'];
+const PUBLIC_PATHS = [
+  '/login', '/api', '/dashboard',
+  '/global-infrastructure',
+  '/command-center',
+];
 
 export async function middleware(request) {
   // If Supabase env vars aren't configured (local dev without .env.local),

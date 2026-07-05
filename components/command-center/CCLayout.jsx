@@ -7,7 +7,7 @@ import {
   LayoutDashboard, Building2, Server, Cpu, Users, Leaf, Brain,
   AlertTriangle, Wrench, FileText, Settings, Bell, ChevronLeft,
   ChevronRight, Search, Sparkles, Layers, Home,
-  Package, Shield, Plug,
+  Package, Shield, Plug, Globe,
 } from 'lucide-react';
 import AICopilotPanel from './AICopilotPanel';
 
@@ -16,6 +16,7 @@ const NAV_GROUPS = [
     label: 'Core',
     items: [
       { id: 'command-center', label: 'Command Center', icon: LayoutDashboard, href: '/command-center' },
+      { id: 'global-infrastructure', label: 'Global Infrastructure Intelligence', icon: Globe, href: '/global-infrastructure' },
       { id: 'portfolio',      label: 'Portfolio Explorer', icon: Building2,      href: '/portfolio' },
       { id: 'datacenters',    label: 'Datacenters',        icon: Server,          href: '/datacenters' },
       { id: 'assets',         label: 'Asset Intelligence', icon: Cpu,             href: '/assets' },

@@ -1,0 +1,50 @@
+{
+  "generatedAt": "2026-06-30T04:49:08.140Z",
+  "generator": "scripts/generateGoogleBackend.mjs",
+  "seed": 20260630,
+  "density": {
+    "buildingsPerDc": [
+      1,
+      3
+    ],
+    "floorsPerBuilding": [
+      2,
+      3
+    ],
+    "roomsPerFloor": [
+      1,
+      3
+    ],
+    "racksPerRoom": [
+      6,
+      14
+    ],
+    "assetsPerRack": [
+      4,
+      9
+    ]
+  },
+  "recordCounts": {
+    "regions": 4,
+    "countries": 20,
+    "campuses": 29,
+    "dataCenters": 29,
+    "buildings": 59,
+    "floors": 152,
+    "rooms": 305,
+    "rows": 305,
+    "racks": 3096,
+    "assets": 20098,
+    "esg": 348,
+    "weather": 29,
+    "news": 87,
+    "risks": 203,
+    "maintenance": 116,
+    "incidents": 85,
+    "aiInsights": 29,
+    "documents": 68,
+    "relationships": 24131,
+    "searchIndex": 23276
+  },
+  "disclaimer": "Facility names, cities, countries, regions, and coordinates are modeled on publicly available information about Google's data center footprint. All capacity, power, cooling, ESG, risk, financial, and asset-level figures are synthetic demo values for this platform and do not represent real Google operational data."
+}

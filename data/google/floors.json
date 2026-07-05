@@ -1,0 +1,1218 @@
+[
+  {
+    "id": "FLR-00001",
+    "buildingId": "BLD-00001",
+    "dataCenterId": "DC-00001",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00002",
+    "buildingId": "BLD-00001",
+    "dataCenterId": "DC-00001",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00003",
+    "buildingId": "BLD-00001",
+    "dataCenterId": "DC-00001",
+    "level": 3,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00004",
+    "buildingId": "BLD-00002",
+    "dataCenterId": "DC-00001",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00005",
+    "buildingId": "BLD-00002",
+    "dataCenterId": "DC-00001",
+    "level": 2,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00006",
+    "buildingId": "BLD-00002",
+    "dataCenterId": "DC-00001",
+    "level": 3,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00007",
+    "buildingId": "BLD-00003",
+    "dataCenterId": "DC-00002",
+    "level": 1,
+    "roomCount": 2,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00008",
+    "buildingId": "BLD-00003",
+    "dataCenterId": "DC-00002",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00009",
+    "buildingId": "BLD-00003",
+    "dataCenterId": "DC-00002",
+    "level": 3,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00010",
+    "buildingId": "BLD-00004",
+    "dataCenterId": "DC-00002",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00011",
+    "buildingId": "BLD-00004",
+    "dataCenterId": "DC-00002",
+    "level": 2,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00012",
+    "buildingId": "BLD-00005",
+    "dataCenterId": "DC-00002",
+    "level": 1,
+    "roomCount": 2,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00013",
+    "buildingId": "BLD-00005",
+    "dataCenterId": "DC-00002",
+    "level": 2,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00014",
+    "buildingId": "BLD-00006",
+    "dataCenterId": "DC-00003",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00015",
+    "buildingId": "BLD-00006",
+    "dataCenterId": "DC-00003",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00016",
+    "buildingId": "BLD-00007",
+    "dataCenterId": "DC-00004",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00017",
+    "buildingId": "BLD-00007",
+    "dataCenterId": "DC-00004",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00018",
+    "buildingId": "BLD-00007",
+    "dataCenterId": "DC-00004",
+    "level": 3,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00019",
+    "buildingId": "BLD-00008",
+    "dataCenterId": "DC-00004",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00020",
+    "buildingId": "BLD-00008",
+    "dataCenterId": "DC-00004",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00021",
+    "buildingId": "BLD-00008",
+    "dataCenterId": "DC-00004",
+    "level": 3,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00022",
+    "buildingId": "BLD-00009",
+    "dataCenterId": "DC-00004",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00023",
+    "buildingId": "BLD-00009",
+    "dataCenterId": "DC-00004",
+    "level": 2,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00024",
+    "buildingId": "BLD-00010",
+    "dataCenterId": "DC-00005",
+    "level": 1,
+    "roomCount": 2,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00025",
+    "buildingId": "BLD-00010",
+    "dataCenterId": "DC-00005",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00026",
+    "buildingId": "BLD-00011",
+    "dataCenterId": "DC-00005",
+    "level": 1,
+    "roomCount": 2,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00027",
+    "buildingId": "BLD-00011",
+    "dataCenterId": "DC-00005",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00028",
+    "buildingId": "BLD-00012",
+    "dataCenterId": "DC-00006",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00029",
+    "buildingId": "BLD-00012",
+    "dataCenterId": "DC-00006",
+    "level": 2,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00030",
+    "buildingId": "BLD-00013",
+    "dataCenterId": "DC-00007",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00031",
+    "buildingId": "BLD-00013",
+    "dataCenterId": "DC-00007",
+    "level": 2,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00032",
+    "buildingId": "BLD-00014",
+    "dataCenterId": "DC-00008",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00033",
+    "buildingId": "BLD-00014",
+    "dataCenterId": "DC-00008",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00034",
+    "buildingId": "BLD-00014",
+    "dataCenterId": "DC-00008",
+    "level": 3,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00035",
+    "buildingId": "BLD-00015",
+    "dataCenterId": "DC-00008",
+    "level": 1,
+    "roomCount": 2,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00036",
+    "buildingId": "BLD-00015",
+    "dataCenterId": "DC-00008",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00037",
+    "buildingId": "BLD-00016",
+    "dataCenterId": "DC-00008",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00038",
+    "buildingId": "BLD-00016",
+    "dataCenterId": "DC-00008",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00039",
+    "buildingId": "BLD-00016",
+    "dataCenterId": "DC-00008",
+    "level": 3,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00040",
+    "buildingId": "BLD-00017",
+    "dataCenterId": "DC-00009",
+    "level": 1,
+    "roomCount": 2,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00041",
+    "buildingId": "BLD-00017",
+    "dataCenterId": "DC-00009",
+    "level": 2,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00042",
+    "buildingId": "BLD-00017",
+    "dataCenterId": "DC-00009",
+    "level": 3,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00043",
+    "buildingId": "BLD-00018",
+    "dataCenterId": "DC-00010",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00044",
+    "buildingId": "BLD-00018",
+    "dataCenterId": "DC-00010",
+    "level": 2,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00045",
+    "buildingId": "BLD-00018",
+    "dataCenterId": "DC-00010",
+    "level": 3,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00046",
+    "buildingId": "BLD-00019",
+    "dataCenterId": "DC-00011",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00047",
+    "buildingId": "BLD-00019",
+    "dataCenterId": "DC-00011",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00048",
+    "buildingId": "BLD-00019",
+    "dataCenterId": "DC-00011",
+    "level": 3,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00049",
+    "buildingId": "BLD-00020",
+    "dataCenterId": "DC-00011",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00050",
+    "buildingId": "BLD-00020",
+    "dataCenterId": "DC-00011",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00051",
+    "buildingId": "BLD-00021",
+    "dataCenterId": "DC-00011",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00052",
+    "buildingId": "BLD-00021",
+    "dataCenterId": "DC-00011",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00053",
+    "buildingId": "BLD-00021",
+    "dataCenterId": "DC-00011",
+    "level": 3,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00054",
+    "buildingId": "BLD-00022",
+    "dataCenterId": "DC-00012",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00055",
+    "buildingId": "BLD-00022",
+    "dataCenterId": "DC-00012",
+    "level": 2,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00056",
+    "buildingId": "BLD-00023",
+    "dataCenterId": "DC-00013",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00057",
+    "buildingId": "BLD-00023",
+    "dataCenterId": "DC-00013",
+    "level": 2,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00058",
+    "buildingId": "BLD-00023",
+    "dataCenterId": "DC-00013",
+    "level": 3,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00059",
+    "buildingId": "BLD-00024",
+    "dataCenterId": "DC-00013",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00060",
+    "buildingId": "BLD-00024",
+    "dataCenterId": "DC-00013",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00061",
+    "buildingId": "BLD-00024",
+    "dataCenterId": "DC-00013",
+    "level": 3,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00062",
+    "buildingId": "BLD-00025",
+    "dataCenterId": "DC-00013",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00063",
+    "buildingId": "BLD-00025",
+    "dataCenterId": "DC-00013",
+    "level": 2,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00064",
+    "buildingId": "BLD-00026",
+    "dataCenterId": "DC-00014",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00065",
+    "buildingId": "BLD-00026",
+    "dataCenterId": "DC-00014",
+    "level": 2,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00066",
+    "buildingId": "BLD-00026",
+    "dataCenterId": "DC-00014",
+    "level": 3,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00067",
+    "buildingId": "BLD-00027",
+    "dataCenterId": "DC-00014",
+    "level": 1,
+    "roomCount": 2,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00068",
+    "buildingId": "BLD-00027",
+    "dataCenterId": "DC-00014",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00069",
+    "buildingId": "BLD-00028",
+    "dataCenterId": "DC-00014",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00070",
+    "buildingId": "BLD-00028",
+    "dataCenterId": "DC-00014",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00071",
+    "buildingId": "BLD-00028",
+    "dataCenterId": "DC-00014",
+    "level": 3,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00072",
+    "buildingId": "BLD-00029",
+    "dataCenterId": "DC-00015",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00073",
+    "buildingId": "BLD-00029",
+    "dataCenterId": "DC-00015",
+    "level": 2,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00074",
+    "buildingId": "BLD-00030",
+    "dataCenterId": "DC-00015",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00075",
+    "buildingId": "BLD-00030",
+    "dataCenterId": "DC-00015",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00076",
+    "buildingId": "BLD-00030",
+    "dataCenterId": "DC-00015",
+    "level": 3,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00077",
+    "buildingId": "BLD-00031",
+    "dataCenterId": "DC-00015",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00078",
+    "buildingId": "BLD-00031",
+    "dataCenterId": "DC-00015",
+    "level": 2,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00079",
+    "buildingId": "BLD-00031",
+    "dataCenterId": "DC-00015",
+    "level": 3,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00080",
+    "buildingId": "BLD-00032",
+    "dataCenterId": "DC-00016",
+    "level": 1,
+    "roomCount": 2,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00081",
+    "buildingId": "BLD-00032",
+    "dataCenterId": "DC-00016",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00082",
+    "buildingId": "BLD-00033",
+    "dataCenterId": "DC-00017",
+    "level": 1,
+    "roomCount": 2,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00083",
+    "buildingId": "BLD-00033",
+    "dataCenterId": "DC-00017",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00084",
+    "buildingId": "BLD-00034",
+    "dataCenterId": "DC-00017",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00085",
+    "buildingId": "BLD-00034",
+    "dataCenterId": "DC-00017",
+    "level": 2,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00086",
+    "buildingId": "BLD-00034",
+    "dataCenterId": "DC-00017",
+    "level": 3,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00087",
+    "buildingId": "BLD-00035",
+    "dataCenterId": "DC-00017",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00088",
+    "buildingId": "BLD-00035",
+    "dataCenterId": "DC-00017",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00089",
+    "buildingId": "BLD-00035",
+    "dataCenterId": "DC-00017",
+    "level": 3,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00090",
+    "buildingId": "BLD-00036",
+    "dataCenterId": "DC-00018",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00091",
+    "buildingId": "BLD-00036",
+    "dataCenterId": "DC-00018",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00092",
+    "buildingId": "BLD-00036",
+    "dataCenterId": "DC-00018",
+    "level": 3,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00093",
+    "buildingId": "BLD-00037",
+    "dataCenterId": "DC-00018",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00094",
+    "buildingId": "BLD-00037",
+    "dataCenterId": "DC-00018",
+    "level": 2,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00095",
+    "buildingId": "BLD-00038",
+    "dataCenterId": "DC-00019",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00096",
+    "buildingId": "BLD-00038",
+    "dataCenterId": "DC-00019",
+    "level": 2,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00097",
+    "buildingId": "BLD-00038",
+    "dataCenterId": "DC-00019",
+    "level": 3,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00098",
+    "buildingId": "BLD-00039",
+    "dataCenterId": "DC-00019",
+    "level": 1,
+    "roomCount": 2,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00099",
+    "buildingId": "BLD-00039",
+    "dataCenterId": "DC-00019",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00100",
+    "buildingId": "BLD-00039",
+    "dataCenterId": "DC-00019",
+    "level": 3,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00101",
+    "buildingId": "BLD-00040",
+    "dataCenterId": "DC-00020",
+    "level": 1,
+    "roomCount": 2,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00102",
+    "buildingId": "BLD-00040",
+    "dataCenterId": "DC-00020",
+    "level": 2,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00103",
+    "buildingId": "BLD-00040",
+    "dataCenterId": "DC-00020",
+    "level": 3,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00104",
+    "buildingId": "BLD-00041",
+    "dataCenterId": "DC-00021",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00105",
+    "buildingId": "BLD-00041",
+    "dataCenterId": "DC-00021",
+    "level": 2,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00106",
+    "buildingId": "BLD-00042",
+    "dataCenterId": "DC-00021",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00107",
+    "buildingId": "BLD-00042",
+    "dataCenterId": "DC-00021",
+    "level": 2,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00108",
+    "buildingId": "BLD-00042",
+    "dataCenterId": "DC-00021",
+    "level": 3,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00109",
+    "buildingId": "BLD-00043",
+    "dataCenterId": "DC-00021",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00110",
+    "buildingId": "BLD-00043",
+    "dataCenterId": "DC-00021",
+    "level": 2,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00111",
+    "buildingId": "BLD-00044",
+    "dataCenterId": "DC-00022",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00112",
+    "buildingId": "BLD-00044",
+    "dataCenterId": "DC-00022",
+    "level": 2,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00113",
+    "buildingId": "BLD-00044",
+    "dataCenterId": "DC-00022",
+    "level": 3,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00114",
+    "buildingId": "BLD-00045",
+    "dataCenterId": "DC-00022",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00115",
+    "buildingId": "BLD-00045",
+    "dataCenterId": "DC-00022",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00116",
+    "buildingId": "BLD-00046",
+    "dataCenterId": "DC-00022",
+    "level": 1,
+    "roomCount": 2,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00117",
+    "buildingId": "BLD-00046",
+    "dataCenterId": "DC-00022",
+    "level": 2,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00118",
+    "buildingId": "BLD-00047",
+    "dataCenterId": "DC-00023",
+    "level": 1,
+    "roomCount": 2,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00119",
+    "buildingId": "BLD-00047",
+    "dataCenterId": "DC-00023",
+    "level": 2,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00120",
+    "buildingId": "BLD-00047",
+    "dataCenterId": "DC-00023",
+    "level": 3,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00121",
+    "buildingId": "BLD-00048",
+    "dataCenterId": "DC-00024",
+    "level": 1,
+    "roomCount": 2,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00122",
+    "buildingId": "BLD-00048",
+    "dataCenterId": "DC-00024",
+    "level": 2,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00123",
+    "buildingId": "BLD-00048",
+    "dataCenterId": "DC-00024",
+    "level": 3,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00124",
+    "buildingId": "BLD-00049",
+    "dataCenterId": "DC-00024",
+    "level": 1,
+    "roomCount": 2,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00125",
+    "buildingId": "BLD-00049",
+    "dataCenterId": "DC-00024",
+    "level": 2,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00126",
+    "buildingId": "BLD-00049",
+    "dataCenterId": "DC-00024",
+    "level": 3,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00127",
+    "buildingId": "BLD-00050",
+    "dataCenterId": "DC-00025",
+    "level": 1,
+    "roomCount": 2,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00128",
+    "buildingId": "BLD-00050",
+    "dataCenterId": "DC-00025",
+    "level": 2,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00129",
+    "buildingId": "BLD-00050",
+    "dataCenterId": "DC-00025",
+    "level": 3,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00130",
+    "buildingId": "BLD-00051",
+    "dataCenterId": "DC-00025",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00131",
+    "buildingId": "BLD-00051",
+    "dataCenterId": "DC-00025",
+    "level": 2,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00132",
+    "buildingId": "BLD-00051",
+    "dataCenterId": "DC-00025",
+    "level": 3,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00133",
+    "buildingId": "BLD-00052",
+    "dataCenterId": "DC-00025",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00134",
+    "buildingId": "BLD-00052",
+    "dataCenterId": "DC-00025",
+    "level": 2,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00135",
+    "buildingId": "BLD-00053",
+    "dataCenterId": "DC-00026",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00136",
+    "buildingId": "BLD-00053",
+    "dataCenterId": "DC-00026",
+    "level": 2,
+    "roomCount": 3,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00137",
+    "buildingId": "BLD-00054",
+    "dataCenterId": "DC-00026",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00138",
+    "buildingId": "BLD-00054",
+    "dataCenterId": "DC-00026",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00139",
+    "buildingId": "BLD-00054",
+    "dataCenterId": "DC-00026",
+    "level": 3,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00140",
+    "buildingId": "BLD-00055",
+    "dataCenterId": "DC-00027",
+    "level": 1,
+    "roomCount": 3,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00141",
+    "buildingId": "BLD-00055",
+    "dataCenterId": "DC-00027",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00142",
+    "buildingId": "BLD-00056",
+    "dataCenterId": "DC-00027",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00143",
+    "buildingId": "BLD-00056",
+    "dataCenterId": "DC-00027",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00144",
+    "buildingId": "BLD-00057",
+    "dataCenterId": "DC-00027",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00145",
+    "buildingId": "BLD-00057",
+    "dataCenterId": "DC-00027",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00146",
+    "buildingId": "BLD-00057",
+    "dataCenterId": "DC-00027",
+    "level": 3,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00147",
+    "buildingId": "BLD-00058",
+    "dataCenterId": "DC-00028",
+    "level": 1,
+    "roomCount": 1,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00148",
+    "buildingId": "BLD-00058",
+    "dataCenterId": "DC-00028",
+    "level": 2,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00149",
+    "buildingId": "BLD-00058",
+    "dataCenterId": "DC-00028",
+    "level": 3,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00150",
+    "buildingId": "BLD-00059",
+    "dataCenterId": "DC-00029",
+    "level": 1,
+    "roomCount": 2,
+    "purpose": "Server Hall + MEP"
+  },
+  {
+    "id": "FLR-00151",
+    "buildingId": "BLD-00059",
+    "dataCenterId": "DC-00029",
+    "level": 2,
+    "roomCount": 1,
+    "purpose": "Server Hall"
+  },
+  {
+    "id": "FLR-00152",
+    "buildingId": "BLD-00059",
+    "dataCenterId": "DC-00029",
+    "level": 3,
+    "roomCount": 2,
+    "purpose": "Server Hall"
+  }
+]

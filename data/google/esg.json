@@ -1,0 +1,4526 @@
+[
+  {
+    "id": "ESG-00001",
+    "dataCenterId": "DC-00001",
+    "month": "2025-01",
+    "renewablePct": 91,
+    "carbonIntensityKgPerMwh": 247.7,
+    "pue": 1.054,
+    "wue": 0.079,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00002",
+    "dataCenterId": "DC-00001",
+    "month": "2025-02",
+    "renewablePct": 99,
+    "carbonIntensityKgPerMwh": 235.1,
+    "pue": 1.0490000000000002,
+    "wue": 0.079,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00003",
+    "dataCenterId": "DC-00001",
+    "month": "2025-03",
+    "renewablePct": 98,
+    "carbonIntensityKgPerMwh": 243.6,
+    "pue": 1.071,
+    "wue": 0.079,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00004",
+    "dataCenterId": "DC-00001",
+    "month": "2025-04",
+    "renewablePct": 97,
+    "carbonIntensityKgPerMwh": 245.9,
+    "pue": 1.09,
+    "wue": 0.079,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00005",
+    "dataCenterId": "DC-00001",
+    "month": "2025-05",
+    "renewablePct": 96,
+    "carbonIntensityKgPerMwh": 237.6,
+    "pue": 1.084,
+    "wue": 0.079,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00006",
+    "dataCenterId": "DC-00001",
+    "month": "2025-06",
+    "renewablePct": 98,
+    "carbonIntensityKgPerMwh": 240,
+    "pue": 1.044,
+    "wue": 0.079,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00007",
+    "dataCenterId": "DC-00001",
+    "month": "2025-07",
+    "renewablePct": 93,
+    "carbonIntensityKgPerMwh": 254.2,
+    "pue": 1.052,
+    "wue": 0.079,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00008",
+    "dataCenterId": "DC-00001",
+    "month": "2025-08",
+    "renewablePct": 94,
+    "carbonIntensityKgPerMwh": 249.8,
+    "pue": 1.098,
+    "wue": 0.079,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00009",
+    "dataCenterId": "DC-00001",
+    "month": "2025-09",
+    "renewablePct": 97,
+    "carbonIntensityKgPerMwh": 243.4,
+    "pue": 1.0450000000000002,
+    "wue": 0.079,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00010",
+    "dataCenterId": "DC-00001",
+    "month": "2025-10",
+    "renewablePct": 97,
+    "carbonIntensityKgPerMwh": 237.4,
+    "pue": 1.099,
+    "wue": 0.079,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00011",
+    "dataCenterId": "DC-00001",
+    "month": "2025-11",
+    "renewablePct": 91,
+    "carbonIntensityKgPerMwh": 232.6,
+    "pue": 1.098,
+    "wue": 0.079,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00012",
+    "dataCenterId": "DC-00001",
+    "month": "2025-12",
+    "renewablePct": 99,
+    "carbonIntensityKgPerMwh": 235.8,
+    "pue": 1.089,
+    "wue": 0.079,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00013",
+    "dataCenterId": "DC-00002",
+    "month": "2025-01",
+    "renewablePct": 24,
+    "carbonIntensityKgPerMwh": 393.7,
+    "pue": 1.1460000000000001,
+    "wue": 0.15891666666666665,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00014",
+    "dataCenterId": "DC-00002",
+    "month": "2025-02",
+    "renewablePct": 22,
+    "carbonIntensityKgPerMwh": 411.2,
+    "pue": 1.133,
+    "wue": 0.15891666666666665,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00015",
+    "dataCenterId": "DC-00002",
+    "month": "2025-03",
+    "renewablePct": 20,
+    "carbonIntensityKgPerMwh": 414.1,
+    "pue": 1.1460000000000001,
+    "wue": 0.15891666666666665,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00016",
+    "dataCenterId": "DC-00002",
+    "month": "2025-04",
+    "renewablePct": 20,
+    "carbonIntensityKgPerMwh": 403.2,
+    "pue": 1.125,
+    "wue": 0.15891666666666665,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00017",
+    "dataCenterId": "DC-00002",
+    "month": "2025-05",
+    "renewablePct": 17,
+    "carbonIntensityKgPerMwh": 402.8,
+    "pue": 1.1300000000000001,
+    "wue": 0.15891666666666665,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00018",
+    "dataCenterId": "DC-00002",
+    "month": "2025-06",
+    "renewablePct": 18,
+    "carbonIntensityKgPerMwh": 407.2,
+    "pue": 1.1030000000000002,
+    "wue": 0.15891666666666665,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00019",
+    "dataCenterId": "DC-00002",
+    "month": "2025-07",
+    "renewablePct": 23,
+    "carbonIntensityKgPerMwh": 390.90000000000003,
+    "pue": 1.12,
+    "wue": 0.15891666666666665,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00020",
+    "dataCenterId": "DC-00002",
+    "month": "2025-08",
+    "renewablePct": 21,
+    "carbonIntensityKgPerMwh": 414,
+    "pue": 1.1320000000000001,
+    "wue": 0.15891666666666665,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00021",
+    "dataCenterId": "DC-00002",
+    "month": "2025-09",
+    "renewablePct": 13,
+    "carbonIntensityKgPerMwh": 395.1,
+    "pue": 1.1320000000000001,
+    "wue": 0.15891666666666665,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00022",
+    "dataCenterId": "DC-00002",
+    "month": "2025-10",
+    "renewablePct": 23,
+    "carbonIntensityKgPerMwh": 404.1,
+    "pue": 1.135,
+    "wue": 0.15891666666666665,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00023",
+    "dataCenterId": "DC-00002",
+    "month": "2025-11",
+    "renewablePct": 15,
+    "carbonIntensityKgPerMwh": 389.8,
+    "pue": 1.11,
+    "wue": 0.15891666666666665,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00024",
+    "dataCenterId": "DC-00002",
+    "month": "2025-12",
+    "renewablePct": 13,
+    "carbonIntensityKgPerMwh": 415.3,
+    "pue": 1.1170000000000002,
+    "wue": 0.15891666666666665,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00025",
+    "dataCenterId": "DC-00003",
+    "month": "2025-01",
+    "renewablePct": 23,
+    "carbonIntensityKgPerMwh": 302.6,
+    "pue": 1.1529999999999998,
+    "wue": 0.09325000000000001,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00026",
+    "dataCenterId": "DC-00003",
+    "month": "2025-02",
+    "renewablePct": 18,
+    "carbonIntensityKgPerMwh": 321.1,
+    "pue": 1.123,
+    "wue": 0.09325000000000001,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00027",
+    "dataCenterId": "DC-00003",
+    "month": "2025-03",
+    "renewablePct": 18,
+    "carbonIntensityKgPerMwh": 309.5,
+    "pue": 1.1239999999999999,
+    "wue": 0.09325000000000001,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00028",
+    "dataCenterId": "DC-00003",
+    "month": "2025-04",
+    "renewablePct": 14,
+    "carbonIntensityKgPerMwh": 297.4,
+    "pue": 1.1549999999999998,
+    "wue": 0.09325000000000001,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00029",
+    "dataCenterId": "DC-00003",
+    "month": "2025-05",
+    "renewablePct": 13,
+    "carbonIntensityKgPerMwh": 294.8,
+    "pue": 1.1709999999999998,
+    "wue": 0.09325000000000001,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00030",
+    "dataCenterId": "DC-00003",
+    "month": "2025-06",
+    "renewablePct": 13,
+    "carbonIntensityKgPerMwh": 294.6,
+    "pue": 1.127,
+    "wue": 0.09325000000000001,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00031",
+    "dataCenterId": "DC-00003",
+    "month": "2025-07",
+    "renewablePct": 22,
+    "carbonIntensityKgPerMwh": 317.7,
+    "pue": 1.127,
+    "wue": 0.09325000000000001,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00032",
+    "dataCenterId": "DC-00003",
+    "month": "2025-08",
+    "renewablePct": 21,
+    "carbonIntensityKgPerMwh": 316.8,
+    "pue": 1.1789999999999998,
+    "wue": 0.09325000000000001,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00033",
+    "dataCenterId": "DC-00003",
+    "month": "2025-09",
+    "renewablePct": 17,
+    "carbonIntensityKgPerMwh": 300.5,
+    "pue": 1.123,
+    "wue": 0.09325000000000001,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00034",
+    "dataCenterId": "DC-00003",
+    "month": "2025-10",
+    "renewablePct": 19,
+    "carbonIntensityKgPerMwh": 302.1,
+    "pue": 1.14,
+    "wue": 0.09325000000000001,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00035",
+    "dataCenterId": "DC-00003",
+    "month": "2025-11",
+    "renewablePct": 24,
+    "carbonIntensityKgPerMwh": 323.4,
+    "pue": 1.154,
+    "wue": 0.09325000000000001,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00036",
+    "dataCenterId": "DC-00003",
+    "month": "2025-12",
+    "renewablePct": 14,
+    "carbonIntensityKgPerMwh": 324.4,
+    "pue": 1.133,
+    "wue": 0.09325000000000001,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00037",
+    "dataCenterId": "DC-00004",
+    "month": "2025-01",
+    "renewablePct": 99,
+    "carbonIntensityKgPerMwh": 116.5,
+    "pue": 1.145,
+    "wue": 0.24516666666666664,
+    "energyMix": {
+      "renewable": 100,
+      "gridMix": 0
+    }
+  },
+  {
+    "id": "ESG-00038",
+    "dataCenterId": "DC-00004",
+    "month": "2025-02",
+    "renewablePct": 100,
+    "carbonIntensityKgPerMwh": 117.39999999999999,
+    "pue": 1.145,
+    "wue": 0.24516666666666664,
+    "energyMix": {
+      "renewable": 100,
+      "gridMix": 0
+    }
+  },
+  {
+    "id": "ESG-00039",
+    "dataCenterId": "DC-00004",
+    "month": "2025-03",
+    "renewablePct": 100,
+    "carbonIntensityKgPerMwh": 111.8,
+    "pue": 1.1400000000000001,
+    "wue": 0.24516666666666664,
+    "energyMix": {
+      "renewable": 100,
+      "gridMix": 0
+    }
+  },
+  {
+    "id": "ESG-00040",
+    "dataCenterId": "DC-00004",
+    "month": "2025-04",
+    "renewablePct": 100,
+    "carbonIntensityKgPerMwh": 98.5,
+    "pue": 1.147,
+    "wue": 0.24516666666666664,
+    "energyMix": {
+      "renewable": 100,
+      "gridMix": 0
+    }
+  },
+  {
+    "id": "ESG-00041",
+    "dataCenterId": "DC-00004",
+    "month": "2025-05",
+    "renewablePct": 98,
+    "carbonIntensityKgPerMwh": 91.3,
+    "pue": 1.0970000000000002,
+    "wue": 0.24516666666666664,
+    "energyMix": {
+      "renewable": 100,
+      "gridMix": 0
+    }
+  },
+  {
+    "id": "ESG-00042",
+    "dataCenterId": "DC-00004",
+    "month": "2025-06",
+    "renewablePct": 98,
+    "carbonIntensityKgPerMwh": 110.69999999999999,
+    "pue": 1.1010000000000002,
+    "wue": 0.24516666666666664,
+    "energyMix": {
+      "renewable": 100,
+      "gridMix": 0
+    }
+  },
+  {
+    "id": "ESG-00043",
+    "dataCenterId": "DC-00004",
+    "month": "2025-07",
+    "renewablePct": 100,
+    "carbonIntensityKgPerMwh": 93.39999999999999,
+    "pue": 1.108,
+    "wue": 0.24516666666666664,
+    "energyMix": {
+      "renewable": 100,
+      "gridMix": 0
+    }
+  },
+  {
+    "id": "ESG-00044",
+    "dataCenterId": "DC-00004",
+    "month": "2025-08",
+    "renewablePct": 100,
+    "carbonIntensityKgPerMwh": 110.19999999999999,
+    "pue": 1.09,
+    "wue": 0.24516666666666664,
+    "energyMix": {
+      "renewable": 100,
+      "gridMix": 0
+    }
+  },
+  {
+    "id": "ESG-00045",
+    "dataCenterId": "DC-00004",
+    "month": "2025-09",
+    "renewablePct": 100,
+    "carbonIntensityKgPerMwh": 98.6,
+    "pue": 1.141,
+    "wue": 0.24516666666666664,
+    "energyMix": {
+      "renewable": 100,
+      "gridMix": 0
+    }
+  },
+  {
+    "id": "ESG-00046",
+    "dataCenterId": "DC-00004",
+    "month": "2025-10",
+    "renewablePct": 99,
+    "carbonIntensityKgPerMwh": 112.89999999999999,
+    "pue": 1.102,
+    "wue": 0.24516666666666664,
+    "energyMix": {
+      "renewable": 100,
+      "gridMix": 0
+    }
+  },
+  {
+    "id": "ESG-00047",
+    "dataCenterId": "DC-00004",
+    "month": "2025-11",
+    "renewablePct": 97,
+    "carbonIntensityKgPerMwh": 93.39999999999999,
+    "pue": 1.137,
+    "wue": 0.24516666666666664,
+    "energyMix": {
+      "renewable": 100,
+      "gridMix": 0
+    }
+  },
+  {
+    "id": "ESG-00048",
+    "dataCenterId": "DC-00004",
+    "month": "2025-12",
+    "renewablePct": 100,
+    "carbonIntensityKgPerMwh": 102.8,
+    "pue": 1.11,
+    "wue": 0.24516666666666664,
+    "energyMix": {
+      "renewable": 100,
+      "gridMix": 0
+    }
+  },
+  {
+    "id": "ESG-00049",
+    "dataCenterId": "DC-00005",
+    "month": "2025-01",
+    "renewablePct": 71,
+    "carbonIntensityKgPerMwh": 127.5,
+    "pue": 1.122,
+    "wue": 0.20383333333333334,
+    "energyMix": {
+      "renewable": 72,
+      "gridMix": 28
+    }
+  },
+  {
+    "id": "ESG-00050",
+    "dataCenterId": "DC-00005",
+    "month": "2025-02",
+    "renewablePct": 72,
+    "carbonIntensityKgPerMwh": 117.1,
+    "pue": 1.129,
+    "wue": 0.20383333333333334,
+    "energyMix": {
+      "renewable": 72,
+      "gridMix": 28
+    }
+  },
+  {
+    "id": "ESG-00051",
+    "dataCenterId": "DC-00005",
+    "month": "2025-03",
+    "renewablePct": 69,
+    "carbonIntensityKgPerMwh": 136.5,
+    "pue": 1.112,
+    "wue": 0.20383333333333334,
+    "energyMix": {
+      "renewable": 72,
+      "gridMix": 28
+    }
+  },
+  {
+    "id": "ESG-00052",
+    "dataCenterId": "DC-00005",
+    "month": "2025-04",
+    "renewablePct": 75,
+    "carbonIntensityKgPerMwh": 130,
+    "pue": 1.0750000000000002,
+    "wue": 0.20383333333333334,
+    "energyMix": {
+      "renewable": 72,
+      "gridMix": 28
+    }
+  },
+  {
+    "id": "ESG-00053",
+    "dataCenterId": "DC-00005",
+    "month": "2025-05",
+    "renewablePct": 75,
+    "carbonIntensityKgPerMwh": 110.89999999999999,
+    "pue": 1.096,
+    "wue": 0.20383333333333334,
+    "energyMix": {
+      "renewable": 72,
+      "gridMix": 28
+    }
+  },
+  {
+    "id": "ESG-00054",
+    "dataCenterId": "DC-00005",
+    "month": "2025-06",
+    "renewablePct": 77,
+    "carbonIntensityKgPerMwh": 137.29999999999998,
+    "pue": 1.124,
+    "wue": 0.20383333333333334,
+    "energyMix": {
+      "renewable": 72,
+      "gridMix": 28
+    }
+  },
+  {
+    "id": "ESG-00055",
+    "dataCenterId": "DC-00005",
+    "month": "2025-07",
+    "renewablePct": 76,
+    "carbonIntensityKgPerMwh": 115.5,
+    "pue": 1.115,
+    "wue": 0.20383333333333334,
+    "energyMix": {
+      "renewable": 72,
+      "gridMix": 28
+    }
+  },
+  {
+    "id": "ESG-00056",
+    "dataCenterId": "DC-00005",
+    "month": "2025-08",
+    "renewablePct": 69,
+    "carbonIntensityKgPerMwh": 138.29999999999998,
+    "pue": 1.108,
+    "wue": 0.20383333333333334,
+    "energyMix": {
+      "renewable": 72,
+      "gridMix": 28
+    }
+  },
+  {
+    "id": "ESG-00057",
+    "dataCenterId": "DC-00005",
+    "month": "2025-09",
+    "renewablePct": 66,
+    "carbonIntensityKgPerMwh": 133.6,
+    "pue": 1.109,
+    "wue": 0.20383333333333334,
+    "energyMix": {
+      "renewable": 72,
+      "gridMix": 28
+    }
+  },
+  {
+    "id": "ESG-00058",
+    "dataCenterId": "DC-00005",
+    "month": "2025-10",
+    "renewablePct": 77,
+    "carbonIntensityKgPerMwh": 127.5,
+    "pue": 1.082,
+    "wue": 0.20383333333333334,
+    "energyMix": {
+      "renewable": 72,
+      "gridMix": 28
+    }
+  },
+  {
+    "id": "ESG-00059",
+    "dataCenterId": "DC-00005",
+    "month": "2025-11",
+    "renewablePct": 71,
+    "carbonIntensityKgPerMwh": 133.5,
+    "pue": 1.12,
+    "wue": 0.20383333333333334,
+    "energyMix": {
+      "renewable": 72,
+      "gridMix": 28
+    }
+  },
+  {
+    "id": "ESG-00060",
+    "dataCenterId": "DC-00005",
+    "month": "2025-12",
+    "renewablePct": 69,
+    "carbonIntensityKgPerMwh": 117,
+    "pue": 1.103,
+    "wue": 0.20383333333333334,
+    "energyMix": {
+      "renewable": 72,
+      "gridMix": 28
+    }
+  },
+  {
+    "id": "ESG-00061",
+    "dataCenterId": "DC-00006",
+    "month": "2025-01",
+    "renewablePct": 78,
+    "carbonIntensityKgPerMwh": 297.29999999999995,
+    "pue": 1.11,
+    "wue": 0.17216666666666666,
+    "energyMix": {
+      "renewable": 83,
+      "gridMix": 17
+    }
+  },
+  {
+    "id": "ESG-00062",
+    "dataCenterId": "DC-00006",
+    "month": "2025-02",
+    "renewablePct": 82,
+    "carbonIntensityKgPerMwh": 285.2,
+    "pue": 1.103,
+    "wue": 0.17216666666666666,
+    "energyMix": {
+      "renewable": 83,
+      "gridMix": 17
+    }
+  },
+  {
+    "id": "ESG-00063",
+    "dataCenterId": "DC-00006",
+    "month": "2025-03",
+    "renewablePct": 80,
+    "carbonIntensityKgPerMwh": 282.4,
+    "pue": 1.102,
+    "wue": 0.17216666666666666,
+    "energyMix": {
+      "renewable": 83,
+      "gridMix": 17
+    }
+  },
+  {
+    "id": "ESG-00064",
+    "dataCenterId": "DC-00006",
+    "month": "2025-04",
+    "renewablePct": 83,
+    "carbonIntensityKgPerMwh": 279.4,
+    "pue": 1.121,
+    "wue": 0.17216666666666666,
+    "energyMix": {
+      "renewable": 83,
+      "gridMix": 17
+    }
+  },
+  {
+    "id": "ESG-00065",
+    "dataCenterId": "DC-00006",
+    "month": "2025-05",
+    "renewablePct": 88,
+    "carbonIntensityKgPerMwh": 276.5,
+    "pue": 1.098,
+    "wue": 0.17216666666666666,
+    "energyMix": {
+      "renewable": 83,
+      "gridMix": 17
+    }
+  },
+  {
+    "id": "ESG-00066",
+    "dataCenterId": "DC-00006",
+    "month": "2025-06",
+    "renewablePct": 86,
+    "carbonIntensityKgPerMwh": 281.79999999999995,
+    "pue": 1.117,
+    "wue": 0.17216666666666666,
+    "energyMix": {
+      "renewable": 83,
+      "gridMix": 17
+    }
+  },
+  {
+    "id": "ESG-00067",
+    "dataCenterId": "DC-00006",
+    "month": "2025-07",
+    "renewablePct": 78,
+    "carbonIntensityKgPerMwh": 289.29999999999995,
+    "pue": 1.1260000000000001,
+    "wue": 0.17216666666666666,
+    "energyMix": {
+      "renewable": 83,
+      "gridMix": 17
+    }
+  },
+  {
+    "id": "ESG-00068",
+    "dataCenterId": "DC-00006",
+    "month": "2025-08",
+    "renewablePct": 77,
+    "carbonIntensityKgPerMwh": 275.7,
+    "pue": 1.1260000000000001,
+    "wue": 0.17216666666666666,
+    "energyMix": {
+      "renewable": 83,
+      "gridMix": 17
+    }
+  },
+  {
+    "id": "ESG-00069",
+    "dataCenterId": "DC-00006",
+    "month": "2025-09",
+    "renewablePct": 82,
+    "carbonIntensityKgPerMwh": 298.9,
+    "pue": 1.108,
+    "wue": 0.17216666666666666,
+    "energyMix": {
+      "renewable": 83,
+      "gridMix": 17
+    }
+  },
+  {
+    "id": "ESG-00070",
+    "dataCenterId": "DC-00006",
+    "month": "2025-10",
+    "renewablePct": 80,
+    "carbonIntensityKgPerMwh": 302.29999999999995,
+    "pue": 1.116,
+    "wue": 0.17216666666666666,
+    "energyMix": {
+      "renewable": 83,
+      "gridMix": 17
+    }
+  },
+  {
+    "id": "ESG-00071",
+    "dataCenterId": "DC-00006",
+    "month": "2025-11",
+    "renewablePct": 84,
+    "carbonIntensityKgPerMwh": 296.59999999999997,
+    "pue": 1.118,
+    "wue": 0.17216666666666666,
+    "energyMix": {
+      "renewable": 83,
+      "gridMix": 17
+    }
+  },
+  {
+    "id": "ESG-00072",
+    "dataCenterId": "DC-00006",
+    "month": "2025-12",
+    "renewablePct": 89,
+    "carbonIntensityKgPerMwh": 304.2,
+    "pue": 1.072,
+    "wue": 0.17216666666666666,
+    "energyMix": {
+      "renewable": 83,
+      "gridMix": 17
+    }
+  },
+  {
+    "id": "ESG-00073",
+    "dataCenterId": "DC-00007",
+    "month": "2025-01",
+    "renewablePct": 57,
+    "carbonIntensityKgPerMwh": 360.59999999999997,
+    "pue": 1.163,
+    "wue": 0.15083333333333335,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00074",
+    "dataCenterId": "DC-00007",
+    "month": "2025-02",
+    "renewablePct": 64,
+    "carbonIntensityKgPerMwh": 348.7,
+    "pue": 1.202,
+    "wue": 0.15083333333333335,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00075",
+    "dataCenterId": "DC-00007",
+    "month": "2025-03",
+    "renewablePct": 55,
+    "carbonIntensityKgPerMwh": 348.5,
+    "pue": 1.208,
+    "wue": 0.15083333333333335,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00076",
+    "dataCenterId": "DC-00007",
+    "month": "2025-04",
+    "renewablePct": 61,
+    "carbonIntensityKgPerMwh": 343.59999999999997,
+    "pue": 1.175,
+    "wue": 0.15083333333333335,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00077",
+    "dataCenterId": "DC-00007",
+    "month": "2025-05",
+    "renewablePct": 55,
+    "carbonIntensityKgPerMwh": 350.09999999999997,
+    "pue": 1.2,
+    "wue": 0.15083333333333335,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00078",
+    "dataCenterId": "DC-00007",
+    "month": "2025-06",
+    "renewablePct": 63,
+    "carbonIntensityKgPerMwh": 343.5,
+    "pue": 1.184,
+    "wue": 0.15083333333333335,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00079",
+    "dataCenterId": "DC-00007",
+    "month": "2025-07",
+    "renewablePct": 52,
+    "carbonIntensityKgPerMwh": 362.09999999999997,
+    "pue": 1.174,
+    "wue": 0.15083333333333335,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00080",
+    "dataCenterId": "DC-00007",
+    "month": "2025-08",
+    "renewablePct": 63,
+    "carbonIntensityKgPerMwh": 369.29999999999995,
+    "pue": 1.158,
+    "wue": 0.15083333333333335,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00081",
+    "dataCenterId": "DC-00007",
+    "month": "2025-09",
+    "renewablePct": 64,
+    "carbonIntensityKgPerMwh": 350.9,
+    "pue": 1.159,
+    "wue": 0.15083333333333335,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00082",
+    "dataCenterId": "DC-00007",
+    "month": "2025-10",
+    "renewablePct": 56,
+    "carbonIntensityKgPerMwh": 368.5,
+    "pue": 1.172,
+    "wue": 0.15083333333333335,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00083",
+    "dataCenterId": "DC-00007",
+    "month": "2025-11",
+    "renewablePct": 57,
+    "carbonIntensityKgPerMwh": 344,
+    "pue": 1.198,
+    "wue": 0.15083333333333335,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00084",
+    "dataCenterId": "DC-00007",
+    "month": "2025-12",
+    "renewablePct": 56,
+    "carbonIntensityKgPerMwh": 355.59999999999997,
+    "pue": 1.167,
+    "wue": 0.15083333333333335,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00085",
+    "dataCenterId": "DC-00008",
+    "month": "2025-01",
+    "renewablePct": 52,
+    "carbonIntensityKgPerMwh": 238.1,
+    "pue": 1.1609999999999998,
+    "wue": 0.23650000000000002,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00086",
+    "dataCenterId": "DC-00008",
+    "month": "2025-02",
+    "renewablePct": 53,
+    "carbonIntensityKgPerMwh": 240.39999999999998,
+    "pue": 1.172,
+    "wue": 0.23650000000000002,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00087",
+    "dataCenterId": "DC-00008",
+    "month": "2025-03",
+    "renewablePct": 54,
+    "carbonIntensityKgPerMwh": 238,
+    "pue": 1.14,
+    "wue": 0.23650000000000002,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00088",
+    "dataCenterId": "DC-00008",
+    "month": "2025-04",
+    "renewablePct": 56,
+    "carbonIntensityKgPerMwh": 237.5,
+    "pue": 1.145,
+    "wue": 0.23650000000000002,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00089",
+    "dataCenterId": "DC-00008",
+    "month": "2025-05",
+    "renewablePct": 56,
+    "carbonIntensityKgPerMwh": 241.1,
+    "pue": 1.135,
+    "wue": 0.23650000000000002,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00090",
+    "dataCenterId": "DC-00008",
+    "month": "2025-06",
+    "renewablePct": 54,
+    "carbonIntensityKgPerMwh": 255.1,
+    "pue": 1.138,
+    "wue": 0.23650000000000002,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00091",
+    "dataCenterId": "DC-00008",
+    "month": "2025-07",
+    "renewablePct": 60,
+    "carbonIntensityKgPerMwh": 239.1,
+    "pue": 1.148,
+    "wue": 0.23650000000000002,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00092",
+    "dataCenterId": "DC-00008",
+    "month": "2025-08",
+    "renewablePct": 59,
+    "carbonIntensityKgPerMwh": 241.39999999999998,
+    "pue": 1.146,
+    "wue": 0.23650000000000002,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00093",
+    "dataCenterId": "DC-00008",
+    "month": "2025-09",
+    "renewablePct": 52,
+    "carbonIntensityKgPerMwh": 246.79999999999998,
+    "pue": 1.1219999999999999,
+    "wue": 0.23650000000000002,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00094",
+    "dataCenterId": "DC-00008",
+    "month": "2025-10",
+    "renewablePct": 58,
+    "carbonIntensityKgPerMwh": 246.6,
+    "pue": 1.146,
+    "wue": 0.23650000000000002,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00095",
+    "dataCenterId": "DC-00008",
+    "month": "2025-11",
+    "renewablePct": 54,
+    "carbonIntensityKgPerMwh": 249.2,
+    "pue": 1.1789999999999998,
+    "wue": 0.23650000000000002,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00096",
+    "dataCenterId": "DC-00008",
+    "month": "2025-12",
+    "renewablePct": 56,
+    "carbonIntensityKgPerMwh": 257.8,
+    "pue": 1.152,
+    "wue": 0.23650000000000002,
+    "energyMix": {
+      "renewable": 58,
+      "gridMix": 42
+    }
+  },
+  {
+    "id": "ESG-00097",
+    "dataCenterId": "DC-00009",
+    "month": "2025-01",
+    "renewablePct": 40,
+    "carbonIntensityKgPerMwh": 226.1,
+    "pue": 1.0770000000000002,
+    "wue": 0.1715,
+    "energyMix": {
+      "renewable": 46,
+      "gridMix": 54
+    }
+  },
+  {
+    "id": "ESG-00098",
+    "dataCenterId": "DC-00009",
+    "month": "2025-02",
+    "renewablePct": 50,
+    "carbonIntensityKgPerMwh": 226.70000000000002,
+    "pue": 1.07,
+    "wue": 0.1715,
+    "energyMix": {
+      "renewable": 46,
+      "gridMix": 54
+    }
+  },
+  {
+    "id": "ESG-00099",
+    "dataCenterId": "DC-00009",
+    "month": "2025-03",
+    "renewablePct": 44,
+    "carbonIntensityKgPerMwh": 233.3,
+    "pue": 1.072,
+    "wue": 0.1715,
+    "energyMix": {
+      "renewable": 46,
+      "gridMix": 54
+    }
+  },
+  {
+    "id": "ESG-00100",
+    "dataCenterId": "DC-00009",
+    "month": "2025-04",
+    "renewablePct": 41,
+    "carbonIntensityKgPerMwh": 214.8,
+    "pue": 1.078,
+    "wue": 0.1715,
+    "energyMix": {
+      "renewable": 46,
+      "gridMix": 54
+    }
+  },
+  {
+    "id": "ESG-00101",
+    "dataCenterId": "DC-00009",
+    "month": "2025-05",
+    "renewablePct": 47,
+    "carbonIntensityKgPerMwh": 214.1,
+    "pue": 1.1,
+    "wue": 0.1715,
+    "energyMix": {
+      "renewable": 46,
+      "gridMix": 54
+    }
+  },
+  {
+    "id": "ESG-00102",
+    "dataCenterId": "DC-00009",
+    "month": "2025-06",
+    "renewablePct": 43,
+    "carbonIntensityKgPerMwh": 217.6,
+    "pue": 1.096,
+    "wue": 0.1715,
+    "energyMix": {
+      "renewable": 46,
+      "gridMix": 54
+    }
+  },
+  {
+    "id": "ESG-00103",
+    "dataCenterId": "DC-00009",
+    "month": "2025-07",
+    "renewablePct": 50,
+    "carbonIntensityKgPerMwh": 208.20000000000002,
+    "pue": 1.05,
+    "wue": 0.1715,
+    "energyMix": {
+      "renewable": 46,
+      "gridMix": 54
+    }
+  },
+  {
+    "id": "ESG-00104",
+    "dataCenterId": "DC-00009",
+    "month": "2025-08",
+    "renewablePct": 43,
+    "carbonIntensityKgPerMwh": 209.20000000000002,
+    "pue": 1.105,
+    "wue": 0.1715,
+    "energyMix": {
+      "renewable": 46,
+      "gridMix": 54
+    }
+  },
+  {
+    "id": "ESG-00105",
+    "dataCenterId": "DC-00009",
+    "month": "2025-09",
+    "renewablePct": 49,
+    "carbonIntensityKgPerMwh": 217.5,
+    "pue": 1.104,
+    "wue": 0.1715,
+    "energyMix": {
+      "renewable": 46,
+      "gridMix": 54
+    }
+  },
+  {
+    "id": "ESG-00106",
+    "dataCenterId": "DC-00009",
+    "month": "2025-10",
+    "renewablePct": 44,
+    "carbonIntensityKgPerMwh": 218.9,
+    "pue": 1.058,
+    "wue": 0.1715,
+    "energyMix": {
+      "renewable": 46,
+      "gridMix": 54
+    }
+  },
+  {
+    "id": "ESG-00107",
+    "dataCenterId": "DC-00009",
+    "month": "2025-11",
+    "renewablePct": 51,
+    "carbonIntensityKgPerMwh": 232.70000000000002,
+    "pue": 1.093,
+    "wue": 0.1715,
+    "energyMix": {
+      "renewable": 46,
+      "gridMix": 54
+    }
+  },
+  {
+    "id": "ESG-00108",
+    "dataCenterId": "DC-00009",
+    "month": "2025-12",
+    "renewablePct": 47,
+    "carbonIntensityKgPerMwh": 215.3,
+    "pue": 1.07,
+    "wue": 0.1715,
+    "energyMix": {
+      "renewable": 46,
+      "gridMix": 54
+    }
+  },
+  {
+    "id": "ESG-00109",
+    "dataCenterId": "DC-00010",
+    "month": "2025-01",
+    "renewablePct": 98,
+    "carbonIntensityKgPerMwh": 136.60000000000002,
+    "pue": 1.2409999999999999,
+    "wue": 0.10791666666666666,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00110",
+    "dataCenterId": "DC-00010",
+    "month": "2025-02",
+    "renewablePct": 89,
+    "carbonIntensityKgPerMwh": 147.20000000000002,
+    "pue": 1.195,
+    "wue": 0.10791666666666666,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00111",
+    "dataCenterId": "DC-00010",
+    "month": "2025-03",
+    "renewablePct": 97,
+    "carbonIntensityKgPerMwh": 143.60000000000002,
+    "pue": 1.207,
+    "wue": 0.10791666666666666,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00112",
+    "dataCenterId": "DC-00010",
+    "month": "2025-04",
+    "renewablePct": 90,
+    "carbonIntensityKgPerMwh": 142.4,
+    "pue": 1.208,
+    "wue": 0.10791666666666666,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00113",
+    "dataCenterId": "DC-00010",
+    "month": "2025-05",
+    "renewablePct": 91,
+    "carbonIntensityKgPerMwh": 140.9,
+    "pue": 1.2389999999999999,
+    "wue": 0.10791666666666666,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00114",
+    "dataCenterId": "DC-00010",
+    "month": "2025-06",
+    "renewablePct": 90,
+    "carbonIntensityKgPerMwh": 148.3,
+    "pue": 1.209,
+    "wue": 0.10791666666666666,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00115",
+    "dataCenterId": "DC-00010",
+    "month": "2025-07",
+    "renewablePct": 97,
+    "carbonIntensityKgPerMwh": 139.4,
+    "pue": 1.212,
+    "wue": 0.10791666666666666,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00116",
+    "dataCenterId": "DC-00010",
+    "month": "2025-08",
+    "renewablePct": 97,
+    "carbonIntensityKgPerMwh": 151.20000000000002,
+    "pue": 1.242,
+    "wue": 0.10791666666666666,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00117",
+    "dataCenterId": "DC-00010",
+    "month": "2025-09",
+    "renewablePct": 91,
+    "carbonIntensityKgPerMwh": 154.9,
+    "pue": 1.208,
+    "wue": 0.10791666666666666,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00118",
+    "dataCenterId": "DC-00010",
+    "month": "2025-10",
+    "renewablePct": 92,
+    "carbonIntensityKgPerMwh": 152.4,
+    "pue": 1.2,
+    "wue": 0.10791666666666666,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00119",
+    "dataCenterId": "DC-00010",
+    "month": "2025-11",
+    "renewablePct": 100,
+    "carbonIntensityKgPerMwh": 152.5,
+    "pue": 1.208,
+    "wue": 0.10791666666666666,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00120",
+    "dataCenterId": "DC-00010",
+    "month": "2025-12",
+    "renewablePct": 96,
+    "carbonIntensityKgPerMwh": 159.3,
+    "pue": 1.2469999999999999,
+    "wue": 0.10791666666666666,
+    "energyMix": {
+      "renewable": 95,
+      "gridMix": 5
+    }
+  },
+  {
+    "id": "ESG-00121",
+    "dataCenterId": "DC-00011",
+    "month": "2025-01",
+    "renewablePct": 65,
+    "carbonIntensityKgPerMwh": 402.09999999999997,
+    "pue": 1.116,
+    "wue": 0.26875,
+    "energyMix": {
+      "renewable": 71,
+      "gridMix": 29
+    }
+  },
+  {
+    "id": "ESG-00122",
+    "dataCenterId": "DC-00011",
+    "month": "2025-02",
+    "renewablePct": 68,
+    "carbonIntensityKgPerMwh": 394.59999999999997,
+    "pue": 1.1090000000000002,
+    "wue": 0.26875,
+    "energyMix": {
+      "renewable": 71,
+      "gridMix": 29
+    }
+  },
+  {
+    "id": "ESG-00123",
+    "dataCenterId": "DC-00011",
+    "month": "2025-03",
+    "renewablePct": 74,
+    "carbonIntensityKgPerMwh": 387.9,
+    "pue": 1.118,
+    "wue": 0.26875,
+    "energyMix": {
+      "renewable": 71,
+      "gridMix": 29
+    }
+  },
+  {
+    "id": "ESG-00124",
+    "dataCenterId": "DC-00011",
+    "month": "2025-04",
+    "renewablePct": 70,
+    "carbonIntensityKgPerMwh": 415.7,
+    "pue": 1.135,
+    "wue": 0.26875,
+    "energyMix": {
+      "renewable": 71,
+      "gridMix": 29
+    }
+  },
+  {
+    "id": "ESG-00125",
+    "dataCenterId": "DC-00011",
+    "month": "2025-05",
+    "renewablePct": 67,
+    "carbonIntensityKgPerMwh": 404.09999999999997,
+    "pue": 1.125,
+    "wue": 0.26875,
+    "energyMix": {
+      "renewable": 71,
+      "gridMix": 29
+    }
+  },
+  {
+    "id": "ESG-00126",
+    "dataCenterId": "DC-00011",
+    "month": "2025-06",
+    "renewablePct": 71,
+    "carbonIntensityKgPerMwh": 416,
+    "pue": 1.129,
+    "wue": 0.26875,
+    "energyMix": {
+      "renewable": 71,
+      "gridMix": 29
+    }
+  },
+  {
+    "id": "ESG-00127",
+    "dataCenterId": "DC-00011",
+    "month": "2025-07",
+    "renewablePct": 68,
+    "carbonIntensityKgPerMwh": 409.7,
+    "pue": 1.0950000000000002,
+    "wue": 0.26875,
+    "energyMix": {
+      "renewable": 71,
+      "gridMix": 29
+    }
+  },
+  {
+    "id": "ESG-00128",
+    "dataCenterId": "DC-00011",
+    "month": "2025-08",
+    "renewablePct": 70,
+    "carbonIntensityKgPerMwh": 399.5,
+    "pue": 1.0910000000000002,
+    "wue": 0.26875,
+    "energyMix": {
+      "renewable": 71,
+      "gridMix": 29
+    }
+  },
+  {
+    "id": "ESG-00129",
+    "dataCenterId": "DC-00011",
+    "month": "2025-09",
+    "renewablePct": 65,
+    "carbonIntensityKgPerMwh": 413.4,
+    "pue": 1.118,
+    "wue": 0.26875,
+    "energyMix": {
+      "renewable": 71,
+      "gridMix": 29
+    }
+  },
+  {
+    "id": "ESG-00130",
+    "dataCenterId": "DC-00011",
+    "month": "2025-10",
+    "renewablePct": 69,
+    "carbonIntensityKgPerMwh": 412.3,
+    "pue": 1.0950000000000002,
+    "wue": 0.26875,
+    "energyMix": {
+      "renewable": 71,
+      "gridMix": 29
+    }
+  },
+  {
+    "id": "ESG-00131",
+    "dataCenterId": "DC-00011",
+    "month": "2025-11",
+    "renewablePct": 71,
+    "carbonIntensityKgPerMwh": 408.9,
+    "pue": 1.108,
+    "wue": 0.26875,
+    "energyMix": {
+      "renewable": 71,
+      "gridMix": 29
+    }
+  },
+  {
+    "id": "ESG-00132",
+    "dataCenterId": "DC-00011",
+    "month": "2025-12",
+    "renewablePct": 75,
+    "carbonIntensityKgPerMwh": 412.2,
+    "pue": 1.111,
+    "wue": 0.26875,
+    "energyMix": {
+      "renewable": 71,
+      "gridMix": 29
+    }
+  },
+  {
+    "id": "ESG-00133",
+    "dataCenterId": "DC-00012",
+    "month": "2025-01",
+    "renewablePct": 26,
+    "carbonIntensityKgPerMwh": 357,
+    "pue": 1.054,
+    "wue": 0.13616666666666666,
+    "energyMix": {
+      "renewable": 32,
+      "gridMix": 68
+    }
+  },
+  {
+    "id": "ESG-00134",
+    "dataCenterId": "DC-00012",
+    "month": "2025-02",
+    "renewablePct": 30,
+    "carbonIntensityKgPerMwh": 354,
+    "pue": 1.103,
+    "wue": 0.13616666666666666,
+    "energyMix": {
+      "renewable": 32,
+      "gridMix": 68
+    }
+  },
+  {
+    "id": "ESG-00135",
+    "dataCenterId": "DC-00012",
+    "month": "2025-03",
+    "renewablePct": 32,
+    "carbonIntensityKgPerMwh": 365.8,
+    "pue": 1.0590000000000002,
+    "wue": 0.13616666666666666,
+    "energyMix": {
+      "renewable": 32,
+      "gridMix": 68
+    }
+  },
+  {
+    "id": "ESG-00136",
+    "dataCenterId": "DC-00012",
+    "month": "2025-04",
+    "renewablePct": 27,
+    "carbonIntensityKgPerMwh": 369.8,
+    "pue": 1.056,
+    "wue": 0.13616666666666666,
+    "energyMix": {
+      "renewable": 32,
+      "gridMix": 68
+    }
+  },
+  {
+    "id": "ESG-00137",
+    "dataCenterId": "DC-00012",
+    "month": "2025-05",
+    "renewablePct": 32,
+    "carbonIntensityKgPerMwh": 360.90000000000003,
+    "pue": 1.062,
+    "wue": 0.13616666666666666,
+    "energyMix": {
+      "renewable": 32,
+      "gridMix": 68
+    }
+  },
+  {
+    "id": "ESG-00138",
+    "dataCenterId": "DC-00012",
+    "month": "2025-06",
+    "renewablePct": 36,
+    "carbonIntensityKgPerMwh": 353.8,
+    "pue": 1.11,
+    "wue": 0.13616666666666666,
+    "energyMix": {
+      "renewable": 32,
+      "gridMix": 68
+    }
+  },
+  {
+    "id": "ESG-00139",
+    "dataCenterId": "DC-00012",
+    "month": "2025-07",
+    "renewablePct": 38,
+    "carbonIntensityKgPerMwh": 353.90000000000003,
+    "pue": 1.072,
+    "wue": 0.13616666666666666,
+    "energyMix": {
+      "renewable": 32,
+      "gridMix": 68
+    }
+  },
+  {
+    "id": "ESG-00140",
+    "dataCenterId": "DC-00012",
+    "month": "2025-08",
+    "renewablePct": 31,
+    "carbonIntensityKgPerMwh": 367.3,
+    "pue": 1.0550000000000002,
+    "wue": 0.13616666666666666,
+    "energyMix": {
+      "renewable": 32,
+      "gridMix": 68
+    }
+  },
+  {
+    "id": "ESG-00141",
+    "dataCenterId": "DC-00012",
+    "month": "2025-09",
+    "renewablePct": 28,
+    "carbonIntensityKgPerMwh": 345,
+    "pue": 1.104,
+    "wue": 0.13616666666666666,
+    "energyMix": {
+      "renewable": 32,
+      "gridMix": 68
+    }
+  },
+  {
+    "id": "ESG-00142",
+    "dataCenterId": "DC-00012",
+    "month": "2025-10",
+    "renewablePct": 35,
+    "carbonIntensityKgPerMwh": 350.90000000000003,
+    "pue": 1.0530000000000002,
+    "wue": 0.13616666666666666,
+    "energyMix": {
+      "renewable": 32,
+      "gridMix": 68
+    }
+  },
+  {
+    "id": "ESG-00143",
+    "dataCenterId": "DC-00012",
+    "month": "2025-11",
+    "renewablePct": 29,
+    "carbonIntensityKgPerMwh": 370.3,
+    "pue": 1.104,
+    "wue": 0.13616666666666666,
+    "energyMix": {
+      "renewable": 32,
+      "gridMix": 68
+    }
+  },
+  {
+    "id": "ESG-00144",
+    "dataCenterId": "DC-00012",
+    "month": "2025-12",
+    "renewablePct": 38,
+    "carbonIntensityKgPerMwh": 350.5,
+    "pue": 1.097,
+    "wue": 0.13616666666666666,
+    "energyMix": {
+      "renewable": 32,
+      "gridMix": 68
+    }
+  },
+  {
+    "id": "ESG-00145",
+    "dataCenterId": "DC-00013",
+    "month": "2025-01",
+    "renewablePct": 23,
+    "carbonIntensityKgPerMwh": 207.9,
+    "pue": 1.1070000000000002,
+    "wue": 0.42341666666666666,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00146",
+    "dataCenterId": "DC-00013",
+    "month": "2025-02",
+    "renewablePct": 15,
+    "carbonIntensityKgPerMwh": 220.1,
+    "pue": 1.135,
+    "wue": 0.42341666666666666,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00147",
+    "dataCenterId": "DC-00013",
+    "month": "2025-03",
+    "renewablePct": 22,
+    "carbonIntensityKgPerMwh": 212,
+    "pue": 1.106,
+    "wue": 0.42341666666666666,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00148",
+    "dataCenterId": "DC-00013",
+    "month": "2025-04",
+    "renewablePct": 14,
+    "carbonIntensityKgPerMwh": 220.1,
+    "pue": 1.0810000000000002,
+    "wue": 0.42341666666666666,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00149",
+    "dataCenterId": "DC-00013",
+    "month": "2025-05",
+    "renewablePct": 21,
+    "carbonIntensityKgPerMwh": 215.1,
+    "pue": 1.113,
+    "wue": 0.42341666666666666,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00150",
+    "dataCenterId": "DC-00013",
+    "month": "2025-06",
+    "renewablePct": 22,
+    "carbonIntensityKgPerMwh": 220.5,
+    "pue": 1.12,
+    "wue": 0.42341666666666666,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00151",
+    "dataCenterId": "DC-00013",
+    "month": "2025-07",
+    "renewablePct": 13,
+    "carbonIntensityKgPerMwh": 213.6,
+    "pue": 1.131,
+    "wue": 0.42341666666666666,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00152",
+    "dataCenterId": "DC-00013",
+    "month": "2025-08",
+    "renewablePct": 20,
+    "carbonIntensityKgPerMwh": 203.3,
+    "pue": 1.118,
+    "wue": 0.42341666666666666,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00153",
+    "dataCenterId": "DC-00013",
+    "month": "2025-09",
+    "renewablePct": 25,
+    "carbonIntensityKgPerMwh": 209.9,
+    "pue": 1.1300000000000001,
+    "wue": 0.42341666666666666,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00154",
+    "dataCenterId": "DC-00013",
+    "month": "2025-10",
+    "renewablePct": 23,
+    "carbonIntensityKgPerMwh": 209.1,
+    "pue": 1.086,
+    "wue": 0.42341666666666666,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00155",
+    "dataCenterId": "DC-00013",
+    "month": "2025-11",
+    "renewablePct": 24,
+    "carbonIntensityKgPerMwh": 201.6,
+    "pue": 1.104,
+    "wue": 0.42341666666666666,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00156",
+    "dataCenterId": "DC-00013",
+    "month": "2025-12",
+    "renewablePct": 13,
+    "carbonIntensityKgPerMwh": 202.6,
+    "pue": 1.129,
+    "wue": 0.42341666666666666,
+    "energyMix": {
+      "renewable": 19,
+      "gridMix": 81
+    }
+  },
+  {
+    "id": "ESG-00157",
+    "dataCenterId": "DC-00014",
+    "month": "2025-01",
+    "renewablePct": 55,
+    "carbonIntensityKgPerMwh": 47,
+    "pue": 1.04,
+    "wue": 0.38800000000000007,
+    "energyMix": {
+      "renewable": 55,
+      "gridMix": 45
+    }
+  },
+  {
+    "id": "ESG-00158",
+    "dataCenterId": "DC-00014",
+    "month": "2025-02",
+    "renewablePct": 53,
+    "carbonIntensityKgPerMwh": 28.9,
+    "pue": 1.036,
+    "wue": 0.38800000000000007,
+    "energyMix": {
+      "renewable": 55,
+      "gridMix": 45
+    }
+  },
+  {
+    "id": "ESG-00159",
+    "dataCenterId": "DC-00014",
+    "month": "2025-03",
+    "renewablePct": 52,
+    "carbonIntensityKgPerMwh": 30.999999999999996,
+    "pue": 1.07,
+    "wue": 0.38800000000000007,
+    "energyMix": {
+      "renewable": 55,
+      "gridMix": 45
+    }
+  },
+  {
+    "id": "ESG-00160",
+    "dataCenterId": "DC-00014",
+    "month": "2025-04",
+    "renewablePct": 50,
+    "carbonIntensityKgPerMwh": 34.3,
+    "pue": 1.04,
+    "wue": 0.38800000000000007,
+    "energyMix": {
+      "renewable": 55,
+      "gridMix": 45
+    }
+  },
+  {
+    "id": "ESG-00161",
+    "dataCenterId": "DC-00014",
+    "month": "2025-05",
+    "renewablePct": 49,
+    "carbonIntensityKgPerMwh": 27.799999999999997,
+    "pue": 1.058,
+    "wue": 0.38800000000000007,
+    "energyMix": {
+      "renewable": 55,
+      "gridMix": 45
+    }
+  },
+  {
+    "id": "ESG-00162",
+    "dataCenterId": "DC-00014",
+    "month": "2025-06",
+    "renewablePct": 60,
+    "carbonIntensityKgPerMwh": 23.499999999999996,
+    "pue": 1.078,
+    "wue": 0.38800000000000007,
+    "energyMix": {
+      "renewable": 55,
+      "gridMix": 45
+    }
+  },
+  {
+    "id": "ESG-00163",
+    "dataCenterId": "DC-00014",
+    "month": "2025-07",
+    "renewablePct": 58,
+    "carbonIntensityKgPerMwh": 44.699999999999996,
+    "pue": 1.071,
+    "wue": 0.38800000000000007,
+    "energyMix": {
+      "renewable": 55,
+      "gridMix": 45
+    }
+  },
+  {
+    "id": "ESG-00164",
+    "dataCenterId": "DC-00014",
+    "month": "2025-08",
+    "renewablePct": 61,
+    "carbonIntensityKgPerMwh": 44.4,
+    "pue": 1.036,
+    "wue": 0.38800000000000007,
+    "energyMix": {
+      "renewable": 55,
+      "gridMix": 45
+    }
+  },
+  {
+    "id": "ESG-00165",
+    "dataCenterId": "DC-00014",
+    "month": "2025-09",
+    "renewablePct": 56,
+    "carbonIntensityKgPerMwh": 49.4,
+    "pue": 1.064,
+    "wue": 0.38800000000000007,
+    "energyMix": {
+      "renewable": 55,
+      "gridMix": 45
+    }
+  },
+  {
+    "id": "ESG-00166",
+    "dataCenterId": "DC-00014",
+    "month": "2025-10",
+    "renewablePct": 54,
+    "carbonIntensityKgPerMwh": 30.099999999999998,
+    "pue": 1.032,
+    "wue": 0.38800000000000007,
+    "energyMix": {
+      "renewable": 55,
+      "gridMix": 45
+    }
+  },
+  {
+    "id": "ESG-00167",
+    "dataCenterId": "DC-00014",
+    "month": "2025-11",
+    "renewablePct": 52,
+    "carbonIntensityKgPerMwh": 42.199999999999996,
+    "pue": 1.04,
+    "wue": 0.38800000000000007,
+    "energyMix": {
+      "renewable": 55,
+      "gridMix": 45
+    }
+  },
+  {
+    "id": "ESG-00168",
+    "dataCenterId": "DC-00014",
+    "month": "2025-12",
+    "renewablePct": 52,
+    "carbonIntensityKgPerMwh": 45,
+    "pue": 1.052,
+    "wue": 0.38800000000000007,
+    "energyMix": {
+      "renewable": 55,
+      "gridMix": 45
+    }
+  },
+  {
+    "id": "ESG-00169",
+    "dataCenterId": "DC-00015",
+    "month": "2025-01",
+    "renewablePct": 44,
+    "carbonIntensityKgPerMwh": 118.60000000000001,
+    "pue": 1.1300000000000001,
+    "wue": 0.5828333333333333,
+    "energyMix": {
+      "renewable": 43,
+      "gridMix": 57
+    }
+  },
+  {
+    "id": "ESG-00170",
+    "dataCenterId": "DC-00015",
+    "month": "2025-02",
+    "renewablePct": 46,
+    "carbonIntensityKgPerMwh": 141.70000000000002,
+    "pue": 1.1500000000000001,
+    "wue": 0.5828333333333333,
+    "energyMix": {
+      "renewable": 43,
+      "gridMix": 57
+    }
+  },
+  {
+    "id": "ESG-00171",
+    "dataCenterId": "DC-00015",
+    "month": "2025-03",
+    "renewablePct": 46,
+    "carbonIntensityKgPerMwh": 124.9,
+    "pue": 1.1260000000000001,
+    "wue": 0.5828333333333333,
+    "energyMix": {
+      "renewable": 43,
+      "gridMix": 57
+    }
+  },
+  {
+    "id": "ESG-00172",
+    "dataCenterId": "DC-00015",
+    "month": "2025-04",
+    "renewablePct": 43,
+    "carbonIntensityKgPerMwh": 119.4,
+    "pue": 1.0970000000000002,
+    "wue": 0.5828333333333333,
+    "energyMix": {
+      "renewable": 43,
+      "gridMix": 57
+    }
+  },
+  {
+    "id": "ESG-00173",
+    "dataCenterId": "DC-00015",
+    "month": "2025-05",
+    "renewablePct": 40,
+    "carbonIntensityKgPerMwh": 123.2,
+    "pue": 1.1320000000000001,
+    "wue": 0.5828333333333333,
+    "energyMix": {
+      "renewable": 43,
+      "gridMix": 57
+    }
+  },
+  {
+    "id": "ESG-00174",
+    "dataCenterId": "DC-00015",
+    "month": "2025-06",
+    "renewablePct": 37,
+    "carbonIntensityKgPerMwh": 133.5,
+    "pue": 1.1440000000000001,
+    "wue": 0.5828333333333333,
+    "energyMix": {
+      "renewable": 43,
+      "gridMix": 57
+    }
+  },
+  {
+    "id": "ESG-00175",
+    "dataCenterId": "DC-00015",
+    "month": "2025-07",
+    "renewablePct": 49,
+    "carbonIntensityKgPerMwh": 132.1,
+    "pue": 1.125,
+    "wue": 0.5828333333333333,
+    "energyMix": {
+      "renewable": 43,
+      "gridMix": 57
+    }
+  },
+  {
+    "id": "ESG-00176",
+    "dataCenterId": "DC-00015",
+    "month": "2025-08",
+    "renewablePct": 37,
+    "carbonIntensityKgPerMwh": 124.30000000000001,
+    "pue": 1.149,
+    "wue": 0.5828333333333333,
+    "energyMix": {
+      "renewable": 43,
+      "gridMix": 57
+    }
+  },
+  {
+    "id": "ESG-00177",
+    "dataCenterId": "DC-00015",
+    "month": "2025-09",
+    "renewablePct": 49,
+    "carbonIntensityKgPerMwh": 117.5,
+    "pue": 1.118,
+    "wue": 0.5828333333333333,
+    "energyMix": {
+      "renewable": 43,
+      "gridMix": 57
+    }
+  },
+  {
+    "id": "ESG-00178",
+    "dataCenterId": "DC-00015",
+    "month": "2025-10",
+    "renewablePct": 41,
+    "carbonIntensityKgPerMwh": 142.8,
+    "pue": 1.0910000000000002,
+    "wue": 0.5828333333333333,
+    "energyMix": {
+      "renewable": 43,
+      "gridMix": 57
+    }
+  },
+  {
+    "id": "ESG-00179",
+    "dataCenterId": "DC-00015",
+    "month": "2025-11",
+    "renewablePct": 38,
+    "carbonIntensityKgPerMwh": 128.4,
+    "pue": 1.102,
+    "wue": 0.5828333333333333,
+    "energyMix": {
+      "renewable": 43,
+      "gridMix": 57
+    }
+  },
+  {
+    "id": "ESG-00180",
+    "dataCenterId": "DC-00015",
+    "month": "2025-12",
+    "renewablePct": 45,
+    "carbonIntensityKgPerMwh": 122.10000000000001,
+    "pue": 1.0910000000000002,
+    "wue": 0.5828333333333333,
+    "energyMix": {
+      "renewable": 43,
+      "gridMix": 57
+    }
+  },
+  {
+    "id": "ESG-00181",
+    "dataCenterId": "DC-00016",
+    "month": "2025-01",
+    "renewablePct": 24,
+    "carbonIntensityKgPerMwh": 30.099999999999998,
+    "pue": 1.1219999999999999,
+    "wue": 0.7238333333333334,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00182",
+    "dataCenterId": "DC-00016",
+    "month": "2025-02",
+    "renewablePct": 22,
+    "carbonIntensityKgPerMwh": 5.399999999999999,
+    "pue": 1.135,
+    "wue": 0.7238333333333334,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00183",
+    "dataCenterId": "DC-00016",
+    "month": "2025-03",
+    "renewablePct": 21,
+    "carbonIntensityKgPerMwh": 8.799999999999999,
+    "pue": 1.1199999999999999,
+    "wue": 0.7238333333333334,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00184",
+    "dataCenterId": "DC-00016",
+    "month": "2025-04",
+    "renewablePct": 24,
+    "carbonIntensityKgPerMwh": 11.499999999999998,
+    "pue": 1.13,
+    "wue": 0.7238333333333334,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00185",
+    "dataCenterId": "DC-00016",
+    "month": "2025-05",
+    "renewablePct": 20,
+    "carbonIntensityKgPerMwh": 16.9,
+    "pue": 1.126,
+    "wue": 0.7238333333333334,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00186",
+    "dataCenterId": "DC-00016",
+    "month": "2025-06",
+    "renewablePct": 22,
+    "carbonIntensityKgPerMwh": 4.899999999999999,
+    "pue": 1.14,
+    "wue": 0.7238333333333334,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00187",
+    "dataCenterId": "DC-00016",
+    "month": "2025-07",
+    "renewablePct": 15,
+    "carbonIntensityKgPerMwh": 31,
+    "pue": 1.1489999999999998,
+    "wue": 0.7238333333333334,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00188",
+    "dataCenterId": "DC-00016",
+    "month": "2025-08",
+    "renewablePct": 21,
+    "carbonIntensityKgPerMwh": 11.999999999999998,
+    "pue": 1.113,
+    "wue": 0.7238333333333334,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00189",
+    "dataCenterId": "DC-00016",
+    "month": "2025-09",
+    "renewablePct": 12,
+    "carbonIntensityKgPerMwh": 23.9,
+    "pue": 1.134,
+    "wue": 0.7238333333333334,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00190",
+    "dataCenterId": "DC-00016",
+    "month": "2025-10",
+    "renewablePct": 20,
+    "carbonIntensityKgPerMwh": 18.099999999999998,
+    "pue": 1.1509999999999998,
+    "wue": 0.7238333333333334,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00191",
+    "dataCenterId": "DC-00016",
+    "month": "2025-11",
+    "renewablePct": 13,
+    "carbonIntensityKgPerMwh": 17.9,
+    "pue": 1.158,
+    "wue": 0.7238333333333334,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00192",
+    "dataCenterId": "DC-00016",
+    "month": "2025-12",
+    "renewablePct": 18,
+    "carbonIntensityKgPerMwh": 4.399999999999999,
+    "pue": 1.152,
+    "wue": 0.7238333333333334,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00193",
+    "dataCenterId": "DC-00017",
+    "month": "2025-01",
+    "renewablePct": 23,
+    "carbonIntensityKgPerMwh": 211.10000000000002,
+    "pue": 1.0710000000000002,
+    "wue": 0.35074999999999995,
+    "energyMix": {
+      "renewable": 23,
+      "gridMix": 77
+    }
+  },
+  {
+    "id": "ESG-00194",
+    "dataCenterId": "DC-00017",
+    "month": "2025-02",
+    "renewablePct": 26,
+    "carbonIntensityKgPerMwh": 214.10000000000002,
+    "pue": 1.091,
+    "wue": 0.35074999999999995,
+    "energyMix": {
+      "renewable": 23,
+      "gridMix": 77
+    }
+  },
+  {
+    "id": "ESG-00195",
+    "dataCenterId": "DC-00017",
+    "month": "2025-03",
+    "renewablePct": 24,
+    "carbonIntensityKgPerMwh": 199,
+    "pue": 1.0750000000000002,
+    "wue": 0.35074999999999995,
+    "energyMix": {
+      "renewable": 23,
+      "gridMix": 77
+    }
+  },
+  {
+    "id": "ESG-00196",
+    "dataCenterId": "DC-00017",
+    "month": "2025-04",
+    "renewablePct": 25,
+    "carbonIntensityKgPerMwh": 198.70000000000002,
+    "pue": 1.093,
+    "wue": 0.35074999999999995,
+    "energyMix": {
+      "renewable": 23,
+      "gridMix": 77
+    }
+  },
+  {
+    "id": "ESG-00197",
+    "dataCenterId": "DC-00017",
+    "month": "2025-05",
+    "renewablePct": 28,
+    "carbonIntensityKgPerMwh": 213.60000000000002,
+    "pue": 1.0690000000000002,
+    "wue": 0.35074999999999995,
+    "energyMix": {
+      "renewable": 23,
+      "gridMix": 77
+    }
+  },
+  {
+    "id": "ESG-00198",
+    "dataCenterId": "DC-00017",
+    "month": "2025-06",
+    "renewablePct": 22,
+    "carbonIntensityKgPerMwh": 213.20000000000002,
+    "pue": 1.0790000000000002,
+    "wue": 0.35074999999999995,
+    "energyMix": {
+      "renewable": 23,
+      "gridMix": 77
+    }
+  },
+  {
+    "id": "ESG-00199",
+    "dataCenterId": "DC-00017",
+    "month": "2025-07",
+    "renewablePct": 18,
+    "carbonIntensityKgPerMwh": 211.70000000000002,
+    "pue": 1.105,
+    "wue": 0.35074999999999995,
+    "energyMix": {
+      "renewable": 23,
+      "gridMix": 77
+    }
+  },
+  {
+    "id": "ESG-00200",
+    "dataCenterId": "DC-00017",
+    "month": "2025-08",
+    "renewablePct": 25,
+    "carbonIntensityKgPerMwh": 215.60000000000002,
+    "pue": 1.078,
+    "wue": 0.35074999999999995,
+    "energyMix": {
+      "renewable": 23,
+      "gridMix": 77
+    }
+  },
+  {
+    "id": "ESG-00201",
+    "dataCenterId": "DC-00017",
+    "month": "2025-09",
+    "renewablePct": 19,
+    "carbonIntensityKgPerMwh": 202.10000000000002,
+    "pue": 1.0690000000000002,
+    "wue": 0.35074999999999995,
+    "energyMix": {
+      "renewable": 23,
+      "gridMix": 77
+    }
+  },
+  {
+    "id": "ESG-00202",
+    "dataCenterId": "DC-00017",
+    "month": "2025-10",
+    "renewablePct": 27,
+    "carbonIntensityKgPerMwh": 201.70000000000002,
+    "pue": 1.095,
+    "wue": 0.35074999999999995,
+    "energyMix": {
+      "renewable": 23,
+      "gridMix": 77
+    }
+  },
+  {
+    "id": "ESG-00203",
+    "dataCenterId": "DC-00017",
+    "month": "2025-11",
+    "renewablePct": 22,
+    "carbonIntensityKgPerMwh": 209.20000000000002,
+    "pue": 1.081,
+    "wue": 0.35074999999999995,
+    "energyMix": {
+      "renewable": 23,
+      "gridMix": 77
+    }
+  },
+  {
+    "id": "ESG-00204",
+    "dataCenterId": "DC-00017",
+    "month": "2025-12",
+    "renewablePct": 20,
+    "carbonIntensityKgPerMwh": 197.20000000000002,
+    "pue": 1.091,
+    "wue": 0.35074999999999995,
+    "energyMix": {
+      "renewable": 23,
+      "gridMix": 77
+    }
+  },
+  {
+    "id": "ESG-00205",
+    "dataCenterId": "DC-00018",
+    "month": "2025-01",
+    "renewablePct": 62,
+    "carbonIntensityKgPerMwh": 224.20000000000002,
+    "pue": 1.126,
+    "wue": 0.48100000000000004,
+    "energyMix": {
+      "renewable": 65,
+      "gridMix": 35
+    }
+  },
+  {
+    "id": "ESG-00206",
+    "dataCenterId": "DC-00018",
+    "month": "2025-02",
+    "renewablePct": 66,
+    "carbonIntensityKgPerMwh": 204.70000000000002,
+    "pue": 1.138,
+    "wue": 0.48100000000000004,
+    "energyMix": {
+      "renewable": 65,
+      "gridMix": 35
+    }
+  },
+  {
+    "id": "ESG-00207",
+    "dataCenterId": "DC-00018",
+    "month": "2025-03",
+    "renewablePct": 71,
+    "carbonIntensityKgPerMwh": 205.9,
+    "pue": 1.126,
+    "wue": 0.48100000000000004,
+    "energyMix": {
+      "renewable": 65,
+      "gridMix": 35
+    }
+  },
+  {
+    "id": "ESG-00208",
+    "dataCenterId": "DC-00018",
+    "month": "2025-04",
+    "renewablePct": 71,
+    "carbonIntensityKgPerMwh": 223.5,
+    "pue": 1.146,
+    "wue": 0.48100000000000004,
+    "energyMix": {
+      "renewable": 65,
+      "gridMix": 35
+    }
+  },
+  {
+    "id": "ESG-00209",
+    "dataCenterId": "DC-00018",
+    "month": "2025-05",
+    "renewablePct": 62,
+    "carbonIntensityKgPerMwh": 216.6,
+    "pue": 1.154,
+    "wue": 0.48100000000000004,
+    "energyMix": {
+      "renewable": 65,
+      "gridMix": 35
+    }
+  },
+  {
+    "id": "ESG-00210",
+    "dataCenterId": "DC-00018",
+    "month": "2025-06",
+    "renewablePct": 66,
+    "carbonIntensityKgPerMwh": 224.20000000000002,
+    "pue": 1.1239999999999999,
+    "wue": 0.48100000000000004,
+    "energyMix": {
+      "renewable": 65,
+      "gridMix": 35
+    }
+  },
+  {
+    "id": "ESG-00211",
+    "dataCenterId": "DC-00018",
+    "month": "2025-07",
+    "renewablePct": 68,
+    "carbonIntensityKgPerMwh": 205.9,
+    "pue": 1.1529999999999998,
+    "wue": 0.48100000000000004,
+    "energyMix": {
+      "renewable": 65,
+      "gridMix": 35
+    }
+  },
+  {
+    "id": "ESG-00212",
+    "dataCenterId": "DC-00018",
+    "month": "2025-08",
+    "renewablePct": 60,
+    "carbonIntensityKgPerMwh": 203.9,
+    "pue": 1.146,
+    "wue": 0.48100000000000004,
+    "energyMix": {
+      "renewable": 65,
+      "gridMix": 35
+    }
+  },
+  {
+    "id": "ESG-00213",
+    "dataCenterId": "DC-00018",
+    "month": "2025-09",
+    "renewablePct": 60,
+    "carbonIntensityKgPerMwh": 201.8,
+    "pue": 1.1219999999999999,
+    "wue": 0.48100000000000004,
+    "energyMix": {
+      "renewable": 65,
+      "gridMix": 35
+    }
+  },
+  {
+    "id": "ESG-00214",
+    "dataCenterId": "DC-00018",
+    "month": "2025-10",
+    "renewablePct": 71,
+    "carbonIntensityKgPerMwh": 214.70000000000002,
+    "pue": 1.126,
+    "wue": 0.48100000000000004,
+    "energyMix": {
+      "renewable": 65,
+      "gridMix": 35
+    }
+  },
+  {
+    "id": "ESG-00215",
+    "dataCenterId": "DC-00018",
+    "month": "2025-11",
+    "renewablePct": 71,
+    "carbonIntensityKgPerMwh": 217.9,
+    "pue": 1.156,
+    "wue": 0.48100000000000004,
+    "energyMix": {
+      "renewable": 65,
+      "gridMix": 35
+    }
+  },
+  {
+    "id": "ESG-00216",
+    "dataCenterId": "DC-00018",
+    "month": "2025-12",
+    "renewablePct": 70,
+    "carbonIntensityKgPerMwh": 207.70000000000002,
+    "pue": 1.1509999999999998,
+    "wue": 0.48100000000000004,
+    "energyMix": {
+      "renewable": 65,
+      "gridMix": 35
+    }
+  },
+  {
+    "id": "ESG-00217",
+    "dataCenterId": "DC-00019",
+    "month": "2025-01",
+    "renewablePct": 62,
+    "carbonIntensityKgPerMwh": 201.9,
+    "pue": 1.1050000000000002,
+    "wue": 0.36341666666666667,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00218",
+    "dataCenterId": "DC-00019",
+    "month": "2025-02",
+    "renewablePct": 64,
+    "carbonIntensityKgPerMwh": 215.7,
+    "pue": 1.1130000000000002,
+    "wue": 0.36341666666666667,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00219",
+    "dataCenterId": "DC-00019",
+    "month": "2025-03",
+    "renewablePct": 54,
+    "carbonIntensityKgPerMwh": 215.7,
+    "pue": 1.141,
+    "wue": 0.36341666666666667,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00220",
+    "dataCenterId": "DC-00019",
+    "month": "2025-04",
+    "renewablePct": 60,
+    "carbonIntensityKgPerMwh": 205.29999999999998,
+    "pue": 1.1360000000000001,
+    "wue": 0.36341666666666667,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00221",
+    "dataCenterId": "DC-00019",
+    "month": "2025-05",
+    "renewablePct": 55,
+    "carbonIntensityKgPerMwh": 224.2,
+    "pue": 1.1380000000000001,
+    "wue": 0.36341666666666667,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00222",
+    "dataCenterId": "DC-00019",
+    "month": "2025-06",
+    "renewablePct": 53,
+    "carbonIntensityKgPerMwh": 216.29999999999998,
+    "pue": 1.1030000000000002,
+    "wue": 0.36341666666666667,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00223",
+    "dataCenterId": "DC-00019",
+    "month": "2025-07",
+    "renewablePct": 56,
+    "carbonIntensityKgPerMwh": 210.7,
+    "pue": 1.1460000000000001,
+    "wue": 0.36341666666666667,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00224",
+    "dataCenterId": "DC-00019",
+    "month": "2025-08",
+    "renewablePct": 64,
+    "carbonIntensityKgPerMwh": 218.4,
+    "pue": 1.1260000000000001,
+    "wue": 0.36341666666666667,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00225",
+    "dataCenterId": "DC-00019",
+    "month": "2025-09",
+    "renewablePct": 57,
+    "carbonIntensityKgPerMwh": 201.5,
+    "pue": 1.1500000000000001,
+    "wue": 0.36341666666666667,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00226",
+    "dataCenterId": "DC-00019",
+    "month": "2025-10",
+    "renewablePct": 54,
+    "carbonIntensityKgPerMwh": 218.4,
+    "pue": 1.1130000000000002,
+    "wue": 0.36341666666666667,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00227",
+    "dataCenterId": "DC-00019",
+    "month": "2025-11",
+    "renewablePct": 53,
+    "carbonIntensityKgPerMwh": 204,
+    "pue": 1.104,
+    "wue": 0.36341666666666667,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00228",
+    "dataCenterId": "DC-00019",
+    "month": "2025-12",
+    "renewablePct": 59,
+    "carbonIntensityKgPerMwh": 222,
+    "pue": 1.096,
+    "wue": 0.36341666666666667,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00229",
+    "dataCenterId": "DC-00020",
+    "month": "2025-01",
+    "renewablePct": 41,
+    "carbonIntensityKgPerMwh": 87.39999999999999,
+    "pue": 1.077,
+    "wue": 0.13491666666666668,
+    "energyMix": {
+      "renewable": 40,
+      "gridMix": 60
+    }
+  },
+  {
+    "id": "ESG-00230",
+    "dataCenterId": "DC-00020",
+    "month": "2025-02",
+    "renewablePct": 36,
+    "carbonIntensityKgPerMwh": 61.199999999999996,
+    "pue": 1.0410000000000001,
+    "wue": 0.13491666666666668,
+    "energyMix": {
+      "renewable": 40,
+      "gridMix": 60
+    }
+  },
+  {
+    "id": "ESG-00231",
+    "dataCenterId": "DC-00020",
+    "month": "2025-03",
+    "renewablePct": 39,
+    "carbonIntensityKgPerMwh": 81.2,
+    "pue": 1.074,
+    "wue": 0.13491666666666668,
+    "energyMix": {
+      "renewable": 40,
+      "gridMix": 60
+    }
+  },
+  {
+    "id": "ESG-00232",
+    "dataCenterId": "DC-00020",
+    "month": "2025-04",
+    "renewablePct": 44,
+    "carbonIntensityKgPerMwh": 81.89999999999999,
+    "pue": 1.077,
+    "wue": 0.13491666666666668,
+    "energyMix": {
+      "renewable": 40,
+      "gridMix": 60
+    }
+  },
+  {
+    "id": "ESG-00233",
+    "dataCenterId": "DC-00020",
+    "month": "2025-05",
+    "renewablePct": 45,
+    "carbonIntensityKgPerMwh": 86.39999999999999,
+    "pue": 1.081,
+    "wue": 0.13491666666666668,
+    "energyMix": {
+      "renewable": 40,
+      "gridMix": 60
+    }
+  },
+  {
+    "id": "ESG-00234",
+    "dataCenterId": "DC-00020",
+    "month": "2025-06",
+    "renewablePct": 45,
+    "carbonIntensityKgPerMwh": 71,
+    "pue": 1.0510000000000002,
+    "wue": 0.13491666666666668,
+    "energyMix": {
+      "renewable": 40,
+      "gridMix": 60
+    }
+  },
+  {
+    "id": "ESG-00235",
+    "dataCenterId": "DC-00020",
+    "month": "2025-07",
+    "renewablePct": 40,
+    "carbonIntensityKgPerMwh": 64,
+    "pue": 1.054,
+    "wue": 0.13491666666666668,
+    "energyMix": {
+      "renewable": 40,
+      "gridMix": 60
+    }
+  },
+  {
+    "id": "ESG-00236",
+    "dataCenterId": "DC-00020",
+    "month": "2025-08",
+    "renewablePct": 45,
+    "carbonIntensityKgPerMwh": 74.6,
+    "pue": 1.064,
+    "wue": 0.13491666666666668,
+    "energyMix": {
+      "renewable": 40,
+      "gridMix": 60
+    }
+  },
+  {
+    "id": "ESG-00237",
+    "dataCenterId": "DC-00020",
+    "month": "2025-09",
+    "renewablePct": 34,
+    "carbonIntensityKgPerMwh": 78.3,
+    "pue": 1.04,
+    "wue": 0.13491666666666668,
+    "energyMix": {
+      "renewable": 40,
+      "gridMix": 60
+    }
+  },
+  {
+    "id": "ESG-00238",
+    "dataCenterId": "DC-00020",
+    "month": "2025-10",
+    "renewablePct": 42,
+    "carbonIntensityKgPerMwh": 85.6,
+    "pue": 1.075,
+    "wue": 0.13491666666666668,
+    "energyMix": {
+      "renewable": 40,
+      "gridMix": 60
+    }
+  },
+  {
+    "id": "ESG-00239",
+    "dataCenterId": "DC-00020",
+    "month": "2025-11",
+    "renewablePct": 35,
+    "carbonIntensityKgPerMwh": 72.6,
+    "pue": 1.06,
+    "wue": 0.13491666666666668,
+    "energyMix": {
+      "renewable": 40,
+      "gridMix": 60
+    }
+  },
+  {
+    "id": "ESG-00240",
+    "dataCenterId": "DC-00020",
+    "month": "2025-12",
+    "renewablePct": 37,
+    "carbonIntensityKgPerMwh": 82.39999999999999,
+    "pue": 1.054,
+    "wue": 0.13491666666666668,
+    "energyMix": {
+      "renewable": 40,
+      "gridMix": 60
+    }
+  },
+  {
+    "id": "ESG-00241",
+    "dataCenterId": "DC-00021",
+    "month": "2025-01",
+    "renewablePct": 66,
+    "carbonIntensityKgPerMwh": 221.6,
+    "pue": 1.114,
+    "wue": 0.05,
+    "energyMix": {
+      "renewable": 61,
+      "gridMix": 39
+    }
+  },
+  {
+    "id": "ESG-00242",
+    "dataCenterId": "DC-00021",
+    "month": "2025-02",
+    "renewablePct": 63,
+    "carbonIntensityKgPerMwh": 225.1,
+    "pue": 1.0630000000000002,
+    "wue": 0.05,
+    "energyMix": {
+      "renewable": 61,
+      "gridMix": 39
+    }
+  },
+  {
+    "id": "ESG-00243",
+    "dataCenterId": "DC-00021",
+    "month": "2025-03",
+    "renewablePct": 66,
+    "carbonIntensityKgPerMwh": 223,
+    "pue": 1.106,
+    "wue": 0.05,
+    "energyMix": {
+      "renewable": 61,
+      "gridMix": 39
+    }
+  },
+  {
+    "id": "ESG-00244",
+    "dataCenterId": "DC-00021",
+    "month": "2025-04",
+    "renewablePct": 61,
+    "carbonIntensityKgPerMwh": 200.8,
+    "pue": 1.09,
+    "wue": 0.05,
+    "energyMix": {
+      "renewable": 61,
+      "gridMix": 39
+    }
+  },
+  {
+    "id": "ESG-00245",
+    "dataCenterId": "DC-00021",
+    "month": "2025-05",
+    "renewablePct": 60,
+    "carbonIntensityKgPerMwh": 222.8,
+    "pue": 1.103,
+    "wue": 0.05,
+    "energyMix": {
+      "renewable": 61,
+      "gridMix": 39
+    }
+  },
+  {
+    "id": "ESG-00246",
+    "dataCenterId": "DC-00021",
+    "month": "2025-06",
+    "renewablePct": 56,
+    "carbonIntensityKgPerMwh": 214,
+    "pue": 1.0870000000000002,
+    "wue": 0.05,
+    "energyMix": {
+      "renewable": 61,
+      "gridMix": 39
+    }
+  },
+  {
+    "id": "ESG-00247",
+    "dataCenterId": "DC-00021",
+    "month": "2025-07",
+    "renewablePct": 62,
+    "carbonIntensityKgPerMwh": 228.6,
+    "pue": 1.0630000000000002,
+    "wue": 0.05,
+    "energyMix": {
+      "renewable": 61,
+      "gridMix": 39
+    }
+  },
+  {
+    "id": "ESG-00248",
+    "dataCenterId": "DC-00021",
+    "month": "2025-08",
+    "renewablePct": 58,
+    "carbonIntensityKgPerMwh": 221.2,
+    "pue": 1.068,
+    "wue": 0.05,
+    "energyMix": {
+      "renewable": 61,
+      "gridMix": 39
+    }
+  },
+  {
+    "id": "ESG-00249",
+    "dataCenterId": "DC-00021",
+    "month": "2025-09",
+    "renewablePct": 59,
+    "carbonIntensityKgPerMwh": 201.3,
+    "pue": 1.094,
+    "wue": 0.05,
+    "energyMix": {
+      "renewable": 61,
+      "gridMix": 39
+    }
+  },
+  {
+    "id": "ESG-00250",
+    "dataCenterId": "DC-00021",
+    "month": "2025-10",
+    "renewablePct": 55,
+    "carbonIntensityKgPerMwh": 210.6,
+    "pue": 1.119,
+    "wue": 0.05,
+    "energyMix": {
+      "renewable": 61,
+      "gridMix": 39
+    }
+  },
+  {
+    "id": "ESG-00251",
+    "dataCenterId": "DC-00021",
+    "month": "2025-11",
+    "renewablePct": 55,
+    "carbonIntensityKgPerMwh": 208.3,
+    "pue": 1.113,
+    "wue": 0.05,
+    "energyMix": {
+      "renewable": 61,
+      "gridMix": 39
+    }
+  },
+  {
+    "id": "ESG-00252",
+    "dataCenterId": "DC-00021",
+    "month": "2025-12",
+    "renewablePct": 65,
+    "carbonIntensityKgPerMwh": 209.4,
+    "pue": 1.107,
+    "wue": 0.05,
+    "energyMix": {
+      "renewable": 61,
+      "gridMix": 39
+    }
+  },
+  {
+    "id": "ESG-00253",
+    "dataCenterId": "DC-00022",
+    "month": "2025-01",
+    "renewablePct": 48,
+    "carbonIntensityKgPerMwh": 370,
+    "pue": 1.1199999999999999,
+    "wue": 0.6176666666666667,
+    "energyMix": {
+      "renewable": 50,
+      "gridMix": 50
+    }
+  },
+  {
+    "id": "ESG-00254",
+    "dataCenterId": "DC-00022",
+    "month": "2025-02",
+    "renewablePct": 50,
+    "carbonIntensityKgPerMwh": 364.7,
+    "pue": 1.156,
+    "wue": 0.6176666666666667,
+    "energyMix": {
+      "renewable": 50,
+      "gridMix": 50
+    }
+  },
+  {
+    "id": "ESG-00255",
+    "dataCenterId": "DC-00022",
+    "month": "2025-03",
+    "renewablePct": 48,
+    "carbonIntensityKgPerMwh": 379,
+    "pue": 1.172,
+    "wue": 0.6176666666666667,
+    "energyMix": {
+      "renewable": 50,
+      "gridMix": 50
+    }
+  },
+  {
+    "id": "ESG-00256",
+    "dataCenterId": "DC-00022",
+    "month": "2025-04",
+    "renewablePct": 51,
+    "carbonIntensityKgPerMwh": 381.4,
+    "pue": 1.138,
+    "wue": 0.6176666666666667,
+    "energyMix": {
+      "renewable": 50,
+      "gridMix": 50
+    }
+  },
+  {
+    "id": "ESG-00257",
+    "dataCenterId": "DC-00022",
+    "month": "2025-05",
+    "renewablePct": 53,
+    "carbonIntensityKgPerMwh": 380.8,
+    "pue": 1.1689999999999998,
+    "wue": 0.6176666666666667,
+    "energyMix": {
+      "renewable": 50,
+      "gridMix": 50
+    }
+  },
+  {
+    "id": "ESG-00258",
+    "dataCenterId": "DC-00022",
+    "month": "2025-06",
+    "renewablePct": 44,
+    "carbonIntensityKgPerMwh": 371.5,
+    "pue": 1.1219999999999999,
+    "wue": 0.6176666666666667,
+    "energyMix": {
+      "renewable": 50,
+      "gridMix": 50
+    }
+  },
+  {
+    "id": "ESG-00259",
+    "dataCenterId": "DC-00022",
+    "month": "2025-07",
+    "renewablePct": 44,
+    "carbonIntensityKgPerMwh": 379.9,
+    "pue": 1.178,
+    "wue": 0.6176666666666667,
+    "energyMix": {
+      "renewable": 50,
+      "gridMix": 50
+    }
+  },
+  {
+    "id": "ESG-00260",
+    "dataCenterId": "DC-00022",
+    "month": "2025-08",
+    "renewablePct": 55,
+    "carbonIntensityKgPerMwh": 374,
+    "pue": 1.137,
+    "wue": 0.6176666666666667,
+    "energyMix": {
+      "renewable": 50,
+      "gridMix": 50
+    }
+  },
+  {
+    "id": "ESG-00261",
+    "dataCenterId": "DC-00022",
+    "month": "2025-09",
+    "renewablePct": 44,
+    "carbonIntensityKgPerMwh": 363.7,
+    "pue": 1.132,
+    "wue": 0.6176666666666667,
+    "energyMix": {
+      "renewable": 50,
+      "gridMix": 50
+    }
+  },
+  {
+    "id": "ESG-00262",
+    "dataCenterId": "DC-00022",
+    "month": "2025-10",
+    "renewablePct": 56,
+    "carbonIntensityKgPerMwh": 365.1,
+    "pue": 1.1589999999999998,
+    "wue": 0.6176666666666667,
+    "energyMix": {
+      "renewable": 50,
+      "gridMix": 50
+    }
+  },
+  {
+    "id": "ESG-00263",
+    "dataCenterId": "DC-00022",
+    "month": "2025-11",
+    "renewablePct": 51,
+    "carbonIntensityKgPerMwh": 365.8,
+    "pue": 1.1689999999999998,
+    "wue": 0.6176666666666667,
+    "energyMix": {
+      "renewable": 50,
+      "gridMix": 50
+    }
+  },
+  {
+    "id": "ESG-00264",
+    "dataCenterId": "DC-00022",
+    "month": "2025-12",
+    "renewablePct": 44,
+    "carbonIntensityKgPerMwh": 384.9,
+    "pue": 1.156,
+    "wue": 0.6176666666666667,
+    "energyMix": {
+      "renewable": 50,
+      "gridMix": 50
+    }
+  },
+  {
+    "id": "ESG-00265",
+    "dataCenterId": "DC-00023",
+    "month": "2025-01",
+    "renewablePct": 20,
+    "carbonIntensityKgPerMwh": 290.2,
+    "pue": 1.1669999999999998,
+    "wue": 0.2290833333333333,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00266",
+    "dataCenterId": "DC-00023",
+    "month": "2025-02",
+    "renewablePct": 23,
+    "carbonIntensityKgPerMwh": 275.8,
+    "pue": 1.1609999999999998,
+    "wue": 0.2290833333333333,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00267",
+    "dataCenterId": "DC-00023",
+    "month": "2025-03",
+    "renewablePct": 21,
+    "carbonIntensityKgPerMwh": 280.40000000000003,
+    "pue": 1.136,
+    "wue": 0.2290833333333333,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00268",
+    "dataCenterId": "DC-00023",
+    "month": "2025-04",
+    "renewablePct": 18,
+    "carbonIntensityKgPerMwh": 272.5,
+    "pue": 1.138,
+    "wue": 0.2290833333333333,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00269",
+    "dataCenterId": "DC-00023",
+    "month": "2025-05",
+    "renewablePct": 21,
+    "carbonIntensityKgPerMwh": 273.7,
+    "pue": 1.182,
+    "wue": 0.2290833333333333,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00270",
+    "dataCenterId": "DC-00023",
+    "month": "2025-06",
+    "renewablePct": 14,
+    "carbonIntensityKgPerMwh": 268,
+    "pue": 1.137,
+    "wue": 0.2290833333333333,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00271",
+    "dataCenterId": "DC-00023",
+    "month": "2025-07",
+    "renewablePct": 15,
+    "carbonIntensityKgPerMwh": 275.6,
+    "pue": 1.188,
+    "wue": 0.2290833333333333,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00272",
+    "dataCenterId": "DC-00023",
+    "month": "2025-08",
+    "renewablePct": 22,
+    "carbonIntensityKgPerMwh": 289.90000000000003,
+    "pue": 1.186,
+    "wue": 0.2290833333333333,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00273",
+    "dataCenterId": "DC-00023",
+    "month": "2025-09",
+    "renewablePct": 23,
+    "carbonIntensityKgPerMwh": 266.2,
+    "pue": 1.17,
+    "wue": 0.2290833333333333,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00274",
+    "dataCenterId": "DC-00023",
+    "month": "2025-10",
+    "renewablePct": 13,
+    "carbonIntensityKgPerMwh": 273.3,
+    "pue": 1.1789999999999998,
+    "wue": 0.2290833333333333,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00275",
+    "dataCenterId": "DC-00023",
+    "month": "2025-11",
+    "renewablePct": 23,
+    "carbonIntensityKgPerMwh": 265.5,
+    "pue": 1.156,
+    "wue": 0.2290833333333333,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00276",
+    "dataCenterId": "DC-00023",
+    "month": "2025-12",
+    "renewablePct": 16,
+    "carbonIntensityKgPerMwh": 288.7,
+    "pue": 1.1769999999999998,
+    "wue": 0.2290833333333333,
+    "energyMix": {
+      "renewable": 18,
+      "gridMix": 82
+    }
+  },
+  {
+    "id": "ESG-00277",
+    "dataCenterId": "DC-00024",
+    "month": "2025-01",
+    "renewablePct": 79,
+    "carbonIntensityKgPerMwh": 189.39999999999998,
+    "pue": 1.0530000000000002,
+    "wue": 0.6654166666666668,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00278",
+    "dataCenterId": "DC-00024",
+    "month": "2025-02",
+    "renewablePct": 82,
+    "carbonIntensityKgPerMwh": 201,
+    "pue": 1.062,
+    "wue": 0.6654166666666668,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00279",
+    "dataCenterId": "DC-00024",
+    "month": "2025-03",
+    "renewablePct": 85,
+    "carbonIntensityKgPerMwh": 208.29999999999998,
+    "pue": 1.066,
+    "wue": 0.6654166666666668,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00280",
+    "dataCenterId": "DC-00024",
+    "month": "2025-04",
+    "renewablePct": 77,
+    "carbonIntensityKgPerMwh": 208,
+    "pue": 1.0710000000000002,
+    "wue": 0.6654166666666668,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00281",
+    "dataCenterId": "DC-00024",
+    "month": "2025-05",
+    "renewablePct": 82,
+    "carbonIntensityKgPerMwh": 202.89999999999998,
+    "pue": 1.092,
+    "wue": 0.6654166666666668,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00282",
+    "dataCenterId": "DC-00024",
+    "month": "2025-06",
+    "renewablePct": 80,
+    "carbonIntensityKgPerMwh": 210.2,
+    "pue": 1.0770000000000002,
+    "wue": 0.6654166666666668,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00283",
+    "dataCenterId": "DC-00024",
+    "month": "2025-07",
+    "renewablePct": 83,
+    "carbonIntensityKgPerMwh": 201.39999999999998,
+    "pue": 1.0770000000000002,
+    "wue": 0.6654166666666668,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00284",
+    "dataCenterId": "DC-00024",
+    "month": "2025-08",
+    "renewablePct": 86,
+    "carbonIntensityKgPerMwh": 198.89999999999998,
+    "pue": 1.066,
+    "wue": 0.6654166666666668,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00285",
+    "dataCenterId": "DC-00024",
+    "month": "2025-09",
+    "renewablePct": 77,
+    "carbonIntensityKgPerMwh": 197.29999999999998,
+    "pue": 1.078,
+    "wue": 0.6654166666666668,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00286",
+    "dataCenterId": "DC-00024",
+    "month": "2025-10",
+    "renewablePct": 79,
+    "carbonIntensityKgPerMwh": 197.6,
+    "pue": 1.06,
+    "wue": 0.6654166666666668,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00287",
+    "dataCenterId": "DC-00024",
+    "month": "2025-11",
+    "renewablePct": 74,
+    "carbonIntensityKgPerMwh": 216.1,
+    "pue": 1.0750000000000002,
+    "wue": 0.6654166666666668,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00288",
+    "dataCenterId": "DC-00024",
+    "month": "2025-12",
+    "renewablePct": 74,
+    "carbonIntensityKgPerMwh": 195.7,
+    "pue": 1.06,
+    "wue": 0.6654166666666668,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00289",
+    "dataCenterId": "DC-00025",
+    "month": "2025-01",
+    "renewablePct": 55,
+    "carbonIntensityKgPerMwh": 39.699999999999996,
+    "pue": 1.17,
+    "wue": 0.44641666666666674,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00290",
+    "dataCenterId": "DC-00025",
+    "month": "2025-02",
+    "renewablePct": 63,
+    "carbonIntensityKgPerMwh": 50.3,
+    "pue": 1.134,
+    "wue": 0.44641666666666674,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00291",
+    "dataCenterId": "DC-00025",
+    "month": "2025-03",
+    "renewablePct": 57,
+    "carbonIntensityKgPerMwh": 49.3,
+    "pue": 1.115,
+    "wue": 0.44641666666666674,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00292",
+    "dataCenterId": "DC-00025",
+    "month": "2025-04",
+    "renewablePct": 59,
+    "carbonIntensityKgPerMwh": 36.4,
+    "pue": 1.132,
+    "wue": 0.44641666666666674,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00293",
+    "dataCenterId": "DC-00025",
+    "month": "2025-05",
+    "renewablePct": 58,
+    "carbonIntensityKgPerMwh": 57.3,
+    "pue": 1.1669999999999998,
+    "wue": 0.44641666666666674,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00294",
+    "dataCenterId": "DC-00025",
+    "month": "2025-06",
+    "renewablePct": 60,
+    "carbonIntensityKgPerMwh": 51.3,
+    "pue": 1.121,
+    "wue": 0.44641666666666674,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00295",
+    "dataCenterId": "DC-00025",
+    "month": "2025-07",
+    "renewablePct": 56,
+    "carbonIntensityKgPerMwh": 61.4,
+    "pue": 1.152,
+    "wue": 0.44641666666666674,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00296",
+    "dataCenterId": "DC-00025",
+    "month": "2025-08",
+    "renewablePct": 60,
+    "carbonIntensityKgPerMwh": 40.4,
+    "pue": 1.15,
+    "wue": 0.44641666666666674,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00297",
+    "dataCenterId": "DC-00025",
+    "month": "2025-09",
+    "renewablePct": 60,
+    "carbonIntensityKgPerMwh": 50.599999999999994,
+    "pue": 1.137,
+    "wue": 0.44641666666666674,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00298",
+    "dataCenterId": "DC-00025",
+    "month": "2025-10",
+    "renewablePct": 63,
+    "carbonIntensityKgPerMwh": 36.8,
+    "pue": 1.136,
+    "wue": 0.44641666666666674,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00299",
+    "dataCenterId": "DC-00025",
+    "month": "2025-11",
+    "renewablePct": 56,
+    "carbonIntensityKgPerMwh": 49,
+    "pue": 1.152,
+    "wue": 0.44641666666666674,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00300",
+    "dataCenterId": "DC-00025",
+    "month": "2025-12",
+    "renewablePct": 62,
+    "carbonIntensityKgPerMwh": 49,
+    "pue": 1.137,
+    "wue": 0.44641666666666674,
+    "energyMix": {
+      "renewable": 59,
+      "gridMix": 41
+    }
+  },
+  {
+    "id": "ESG-00301",
+    "dataCenterId": "DC-00026",
+    "month": "2025-01",
+    "renewablePct": 100,
+    "carbonIntensityKgPerMwh": 66.5,
+    "pue": 1.1260000000000001,
+    "wue": 0.58425,
+    "energyMix": {
+      "renewable": 96,
+      "gridMix": 4
+    }
+  },
+  {
+    "id": "ESG-00302",
+    "dataCenterId": "DC-00026",
+    "month": "2025-02",
+    "renewablePct": 95,
+    "carbonIntensityKgPerMwh": 63.9,
+    "pue": 1.0970000000000002,
+    "wue": 0.58425,
+    "energyMix": {
+      "renewable": 96,
+      "gridMix": 4
+    }
+  },
+  {
+    "id": "ESG-00303",
+    "dataCenterId": "DC-00026",
+    "month": "2025-03",
+    "renewablePct": 95,
+    "carbonIntensityKgPerMwh": 54.4,
+    "pue": 1.09,
+    "wue": 0.58425,
+    "energyMix": {
+      "renewable": 96,
+      "gridMix": 4
+    }
+  },
+  {
+    "id": "ESG-00304",
+    "dataCenterId": "DC-00026",
+    "month": "2025-04",
+    "renewablePct": 95,
+    "carbonIntensityKgPerMwh": 61.9,
+    "pue": 1.116,
+    "wue": 0.58425,
+    "energyMix": {
+      "renewable": 96,
+      "gridMix": 4
+    }
+  },
+  {
+    "id": "ESG-00305",
+    "dataCenterId": "DC-00026",
+    "month": "2025-05",
+    "renewablePct": 91,
+    "carbonIntensityKgPerMwh": 57.1,
+    "pue": 1.074,
+    "wue": 0.58425,
+    "energyMix": {
+      "renewable": 96,
+      "gridMix": 4
+    }
+  },
+  {
+    "id": "ESG-00306",
+    "dataCenterId": "DC-00026",
+    "month": "2025-06",
+    "renewablePct": 100,
+    "carbonIntensityKgPerMwh": 63.8,
+    "pue": 1.129,
+    "wue": 0.58425,
+    "energyMix": {
+      "renewable": 96,
+      "gridMix": 4
+    }
+  },
+  {
+    "id": "ESG-00307",
+    "dataCenterId": "DC-00026",
+    "month": "2025-07",
+    "renewablePct": 90,
+    "carbonIntensityKgPerMwh": 61.9,
+    "pue": 1.094,
+    "wue": 0.58425,
+    "energyMix": {
+      "renewable": 96,
+      "gridMix": 4
+    }
+  },
+  {
+    "id": "ESG-00308",
+    "dataCenterId": "DC-00026",
+    "month": "2025-08",
+    "renewablePct": 98,
+    "carbonIntensityKgPerMwh": 61.4,
+    "pue": 1.072,
+    "wue": 0.58425,
+    "energyMix": {
+      "renewable": 96,
+      "gridMix": 4
+    }
+  },
+  {
+    "id": "ESG-00309",
+    "dataCenterId": "DC-00026",
+    "month": "2025-09",
+    "renewablePct": 100,
+    "carbonIntensityKgPerMwh": 59.699999999999996,
+    "pue": 1.0970000000000002,
+    "wue": 0.58425,
+    "energyMix": {
+      "renewable": 96,
+      "gridMix": 4
+    }
+  },
+  {
+    "id": "ESG-00310",
+    "dataCenterId": "DC-00026",
+    "month": "2025-10",
+    "renewablePct": 94,
+    "carbonIntensityKgPerMwh": 48.9,
+    "pue": 1.072,
+    "wue": 0.58425,
+    "energyMix": {
+      "renewable": 96,
+      "gridMix": 4
+    }
+  },
+  {
+    "id": "ESG-00311",
+    "dataCenterId": "DC-00026",
+    "month": "2025-11",
+    "renewablePct": 95,
+    "carbonIntensityKgPerMwh": 68.4,
+    "pue": 1.122,
+    "wue": 0.58425,
+    "energyMix": {
+      "renewable": 96,
+      "gridMix": 4
+    }
+  },
+  {
+    "id": "ESG-00312",
+    "dataCenterId": "DC-00026",
+    "month": "2025-12",
+    "renewablePct": 93,
+    "carbonIntensityKgPerMwh": 66.2,
+    "pue": 1.07,
+    "wue": 0.58425,
+    "energyMix": {
+      "renewable": 96,
+      "gridMix": 4
+    }
+  },
+  {
+    "id": "ESG-00313",
+    "dataCenterId": "DC-00027",
+    "month": "2025-01",
+    "renewablePct": 45,
+    "carbonIntensityKgPerMwh": 361.59999999999997,
+    "pue": 1.1460000000000001,
+    "wue": 0.5675833333333333,
+    "energyMix": {
+      "renewable": 48,
+      "gridMix": 52
+    }
+  },
+  {
+    "id": "ESG-00314",
+    "dataCenterId": "DC-00027",
+    "month": "2025-02",
+    "renewablePct": 46,
+    "carbonIntensityKgPerMwh": 347.9,
+    "pue": 1.1070000000000002,
+    "wue": 0.5675833333333333,
+    "energyMix": {
+      "renewable": 48,
+      "gridMix": 52
+    }
+  },
+  {
+    "id": "ESG-00315",
+    "dataCenterId": "DC-00027",
+    "month": "2025-03",
+    "renewablePct": 54,
+    "carbonIntensityKgPerMwh": 346.7,
+    "pue": 1.094,
+    "wue": 0.5675833333333333,
+    "energyMix": {
+      "renewable": 48,
+      "gridMix": 52
+    }
+  },
+  {
+    "id": "ESG-00316",
+    "dataCenterId": "DC-00027",
+    "month": "2025-04",
+    "renewablePct": 44,
+    "carbonIntensityKgPerMwh": 335.59999999999997,
+    "pue": 1.122,
+    "wue": 0.5675833333333333,
+    "energyMix": {
+      "renewable": 48,
+      "gridMix": 52
+    }
+  },
+  {
+    "id": "ESG-00317",
+    "dataCenterId": "DC-00027",
+    "month": "2025-05",
+    "renewablePct": 43,
+    "carbonIntensityKgPerMwh": 351.2,
+    "pue": 1.1260000000000001,
+    "wue": 0.5675833333333333,
+    "energyMix": {
+      "renewable": 48,
+      "gridMix": 52
+    }
+  },
+  {
+    "id": "ESG-00318",
+    "dataCenterId": "DC-00027",
+    "month": "2025-06",
+    "renewablePct": 49,
+    "carbonIntensityKgPerMwh": 352,
+    "pue": 1.149,
+    "wue": 0.5675833333333333,
+    "energyMix": {
+      "renewable": 48,
+      "gridMix": 52
+    }
+  },
+  {
+    "id": "ESG-00319",
+    "dataCenterId": "DC-00027",
+    "month": "2025-07",
+    "renewablePct": 52,
+    "carbonIntensityKgPerMwh": 358.7,
+    "pue": 1.1400000000000001,
+    "wue": 0.5675833333333333,
+    "energyMix": {
+      "renewable": 48,
+      "gridMix": 52
+    }
+  },
+  {
+    "id": "ESG-00320",
+    "dataCenterId": "DC-00027",
+    "month": "2025-08",
+    "renewablePct": 54,
+    "carbonIntensityKgPerMwh": 357.2,
+    "pue": 1.1340000000000001,
+    "wue": 0.5675833333333333,
+    "energyMix": {
+      "renewable": 48,
+      "gridMix": 52
+    }
+  },
+  {
+    "id": "ESG-00321",
+    "dataCenterId": "DC-00027",
+    "month": "2025-09",
+    "renewablePct": 46,
+    "carbonIntensityKgPerMwh": 352.79999999999995,
+    "pue": 1.096,
+    "wue": 0.5675833333333333,
+    "energyMix": {
+      "renewable": 48,
+      "gridMix": 52
+    }
+  },
+  {
+    "id": "ESG-00322",
+    "dataCenterId": "DC-00027",
+    "month": "2025-10",
+    "renewablePct": 54,
+    "carbonIntensityKgPerMwh": 351.59999999999997,
+    "pue": 1.1070000000000002,
+    "wue": 0.5675833333333333,
+    "energyMix": {
+      "renewable": 48,
+      "gridMix": 52
+    }
+  },
+  {
+    "id": "ESG-00323",
+    "dataCenterId": "DC-00027",
+    "month": "2025-11",
+    "renewablePct": 48,
+    "carbonIntensityKgPerMwh": 344.09999999999997,
+    "pue": 1.114,
+    "wue": 0.5675833333333333,
+    "energyMix": {
+      "renewable": 48,
+      "gridMix": 52
+    }
+  },
+  {
+    "id": "ESG-00324",
+    "dataCenterId": "DC-00027",
+    "month": "2025-12",
+    "renewablePct": 51,
+    "carbonIntensityKgPerMwh": 359.7,
+    "pue": 1.12,
+    "wue": 0.5675833333333333,
+    "energyMix": {
+      "renewable": 48,
+      "gridMix": 52
+    }
+  },
+  {
+    "id": "ESG-00325",
+    "dataCenterId": "DC-00028",
+    "month": "2025-01",
+    "renewablePct": 77,
+    "carbonIntensityKgPerMwh": 279.7,
+    "pue": 1.0770000000000002,
+    "wue": 0.40791666666666665,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00326",
+    "dataCenterId": "DC-00028",
+    "month": "2025-02",
+    "renewablePct": 79,
+    "carbonIntensityKgPerMwh": 298.7,
+    "pue": 1.109,
+    "wue": 0.40791666666666665,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00327",
+    "dataCenterId": "DC-00028",
+    "month": "2025-03",
+    "renewablePct": 76,
+    "carbonIntensityKgPerMwh": 292.4,
+    "pue": 1.0810000000000002,
+    "wue": 0.40791666666666665,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00328",
+    "dataCenterId": "DC-00028",
+    "month": "2025-04",
+    "renewablePct": 83,
+    "carbonIntensityKgPerMwh": 294.09999999999997,
+    "pue": 1.088,
+    "wue": 0.40791666666666665,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00329",
+    "dataCenterId": "DC-00028",
+    "month": "2025-05",
+    "renewablePct": 80,
+    "carbonIntensityKgPerMwh": 308.2,
+    "pue": 1.112,
+    "wue": 0.40791666666666665,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00330",
+    "dataCenterId": "DC-00028",
+    "month": "2025-06",
+    "renewablePct": 84,
+    "carbonIntensityKgPerMwh": 280.8,
+    "pue": 1.107,
+    "wue": 0.40791666666666665,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00331",
+    "dataCenterId": "DC-00028",
+    "month": "2025-07",
+    "renewablePct": 80,
+    "carbonIntensityKgPerMwh": 279,
+    "pue": 1.07,
+    "wue": 0.40791666666666665,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00332",
+    "dataCenterId": "DC-00028",
+    "month": "2025-08",
+    "renewablePct": 77,
+    "carbonIntensityKgPerMwh": 293.3,
+    "pue": 1.106,
+    "wue": 0.40791666666666665,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00333",
+    "dataCenterId": "DC-00028",
+    "month": "2025-09",
+    "renewablePct": 74,
+    "carbonIntensityKgPerMwh": 287.7,
+    "pue": 1.104,
+    "wue": 0.40791666666666665,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00334",
+    "dataCenterId": "DC-00028",
+    "month": "2025-10",
+    "renewablePct": 82,
+    "carbonIntensityKgPerMwh": 280.3,
+    "pue": 1.108,
+    "wue": 0.40791666666666665,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00335",
+    "dataCenterId": "DC-00028",
+    "month": "2025-11",
+    "renewablePct": 78,
+    "carbonIntensityKgPerMwh": 304.59999999999997,
+    "pue": 1.096,
+    "wue": 0.40791666666666665,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00336",
+    "dataCenterId": "DC-00028",
+    "month": "2025-12",
+    "renewablePct": 79,
+    "carbonIntensityKgPerMwh": 282.59999999999997,
+    "pue": 1.0910000000000002,
+    "wue": 0.40791666666666665,
+    "energyMix": {
+      "renewable": 80,
+      "gridMix": 20
+    }
+  },
+  {
+    "id": "ESG-00337",
+    "dataCenterId": "DC-00029",
+    "month": "2025-01",
+    "renewablePct": 58,
+    "carbonIntensityKgPerMwh": 342.20000000000005,
+    "pue": 1.187,
+    "wue": 0.7220833333333333,
+    "energyMix": {
+      "renewable": 60,
+      "gridMix": 40
+    }
+  },
+  {
+    "id": "ESG-00338",
+    "dataCenterId": "DC-00029",
+    "month": "2025-02",
+    "renewablePct": 61,
+    "carbonIntensityKgPerMwh": 349,
+    "pue": 1.184,
+    "wue": 0.7220833333333333,
+    "energyMix": {
+      "renewable": 60,
+      "gridMix": 40
+    }
+  },
+  {
+    "id": "ESG-00339",
+    "dataCenterId": "DC-00029",
+    "month": "2025-03",
+    "renewablePct": 62,
+    "carbonIntensityKgPerMwh": 348.3,
+    "pue": 1.196,
+    "wue": 0.7220833333333333,
+    "energyMix": {
+      "renewable": 60,
+      "gridMix": 40
+    }
+  },
+  {
+    "id": "ESG-00340",
+    "dataCenterId": "DC-00029",
+    "month": "2025-04",
+    "renewablePct": 59,
+    "carbonIntensityKgPerMwh": 348.70000000000005,
+    "pue": 1.224,
+    "wue": 0.7220833333333333,
+    "energyMix": {
+      "renewable": 60,
+      "gridMix": 40
+    }
+  },
+  {
+    "id": "ESG-00341",
+    "dataCenterId": "DC-00029",
+    "month": "2025-05",
+    "renewablePct": 60,
+    "carbonIntensityKgPerMwh": 344.20000000000005,
+    "pue": 1.2229999999999999,
+    "wue": 0.7220833333333333,
+    "energyMix": {
+      "renewable": 60,
+      "gridMix": 40
+    }
+  },
+  {
+    "id": "ESG-00342",
+    "dataCenterId": "DC-00029",
+    "month": "2025-06",
+    "renewablePct": 62,
+    "carbonIntensityKgPerMwh": 340.3,
+    "pue": 1.224,
+    "wue": 0.7220833333333333,
+    "energyMix": {
+      "renewable": 60,
+      "gridMix": 40
+    }
+  },
+  {
+    "id": "ESG-00343",
+    "dataCenterId": "DC-00029",
+    "month": "2025-07",
+    "renewablePct": 54,
+    "carbonIntensityKgPerMwh": 334.90000000000003,
+    "pue": 1.2129999999999999,
+    "wue": 0.7220833333333333,
+    "energyMix": {
+      "renewable": 60,
+      "gridMix": 40
+    }
+  },
+  {
+    "id": "ESG-00344",
+    "dataCenterId": "DC-00029",
+    "month": "2025-08",
+    "renewablePct": 59,
+    "carbonIntensityKgPerMwh": 338.6,
+    "pue": 1.222,
+    "wue": 0.7220833333333333,
+    "energyMix": {
+      "renewable": 60,
+      "gridMix": 40
+    }
+  },
+  {
+    "id": "ESG-00345",
+    "dataCenterId": "DC-00029",
+    "month": "2025-09",
+    "renewablePct": 64,
+    "carbonIntensityKgPerMwh": 336.70000000000005,
+    "pue": 1.201,
+    "wue": 0.7220833333333333,
+    "energyMix": {
+      "renewable": 60,
+      "gridMix": 40
+    }
+  },
+  {
+    "id": "ESG-00346",
+    "dataCenterId": "DC-00029",
+    "month": "2025-10",
+    "renewablePct": 62,
+    "carbonIntensityKgPerMwh": 333.20000000000005,
+    "pue": 1.2169999999999999,
+    "wue": 0.7220833333333333,
+    "energyMix": {
+      "renewable": 60,
+      "gridMix": 40
+    }
+  },
+  {
+    "id": "ESG-00347",
+    "dataCenterId": "DC-00029",
+    "month": "2025-11",
+    "renewablePct": 56,
+    "carbonIntensityKgPerMwh": 341.90000000000003,
+    "pue": 1.203,
+    "wue": 0.7220833333333333,
+    "energyMix": {
+      "renewable": 60,
+      "gridMix": 40
+    }
+  },
+  {
+    "id": "ESG-00348",
+    "dataCenterId": "DC-00029",
+    "month": "2025-12",
+    "renewablePct": 62,
+    "carbonIntensityKgPerMwh": 350.6,
+    "pue": 1.183,
+    "wue": 0.7220833333333333,
+    "energyMix": {
+      "renewable": 60,
+      "gridMix": 40
+    }
+  }
+]

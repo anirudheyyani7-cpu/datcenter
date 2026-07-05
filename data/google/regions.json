@@ -1,0 +1,124 @@
+[
+  {
+    "id": "REG-00001",
+    "code": "Americas",
+    "name": "Americas",
+    "countryIds": [
+      "CTY-00001",
+      "CTY-00002",
+      "CTY-00003"
+    ],
+    "campusIds": [
+      "CMP-00001",
+      "CMP-00002",
+      "CMP-00003",
+      "CMP-00004",
+      "CMP-00005",
+      "CMP-00006",
+      "CMP-00007",
+      "CMP-00008",
+      "CMP-00009",
+      "CMP-00010"
+    ],
+    "dataCenterIds": [
+      "DC-00001",
+      "DC-00002",
+      "DC-00003",
+      "DC-00004",
+      "DC-00005",
+      "DC-00006",
+      "DC-00007",
+      "DC-00008",
+      "DC-00009",
+      "DC-00010"
+    ]
+  },
+  {
+    "id": "REG-00002",
+    "code": "EMEA",
+    "name": "Europe, Middle East & Africa",
+    "countryIds": [
+      "CTY-00004",
+      "CTY-00005",
+      "CTY-00006",
+      "CTY-00007",
+      "CTY-00008",
+      "CTY-00009",
+      "CTY-00010",
+      "CTY-00011"
+    ],
+    "campusIds": [
+      "CMP-00011",
+      "CMP-00012",
+      "CMP-00013",
+      "CMP-00014",
+      "CMP-00015",
+      "CMP-00016",
+      "CMP-00017",
+      "CMP-00018"
+    ],
+    "dataCenterIds": [
+      "DC-00011",
+      "DC-00012",
+      "DC-00013",
+      "DC-00014",
+      "DC-00015",
+      "DC-00016",
+      "DC-00017",
+      "DC-00018"
+    ]
+  },
+  {
+    "id": "REG-00003",
+    "code": "APAC",
+    "name": "Asia Pacific",
+    "countryIds": [
+      "CTY-00012",
+      "CTY-00013",
+      "CTY-00014",
+      "CTY-00015",
+      "CTY-00016",
+      "CTY-00017"
+    ],
+    "campusIds": [
+      "CMP-00019",
+      "CMP-00020",
+      "CMP-00021",
+      "CMP-00022",
+      "CMP-00023",
+      "CMP-00024",
+      "CMP-00025",
+      "CMP-00026"
+    ],
+    "dataCenterIds": [
+      "DC-00019",
+      "DC-00020",
+      "DC-00021",
+      "DC-00022",
+      "DC-00023",
+      "DC-00024",
+      "DC-00025",
+      "DC-00026"
+    ]
+  },
+  {
+    "id": "REG-00004",
+    "code": "MiddleEast",
+    "name": "Middle East",
+    "countryIds": [
+      "CTY-00018",
+      "CTY-00019",
+      "CTY-00020"
+    ],
+    "campusIds": [
+      "CMP-00027",
+      "CMP-00028",
+      "CMP-00029"
+    ],
+    "dataCenterIds": [
+      "DC-00027",
+      "DC-00028",
+      "DC-00029"
+    ]
+  }
+]

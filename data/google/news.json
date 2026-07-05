@@ -1,0 +1,698 @@
+[
+  {
+    "id": "NEWS-00001",
+    "dataCenterId": "DC-00001",
+    "category": "Government",
+    "headline": "Council Bluffs data center receives updated local zoning and permit approval",
+    "source": "Data Center Dynamics",
+    "publishedDate": "2026-06-02"
+  },
+  {
+    "id": "NEWS-00002",
+    "dataCenterId": "DC-00001",
+    "category": "Community",
+    "headline": "Council Bluffs data center announces local workforce and STEM education funding",
+    "source": "Local Tribune",
+    "publishedDate": "2026-06-26"
+  },
+  {
+    "id": "NEWS-00003",
+    "dataCenterId": "DC-00001",
+    "category": "Power",
+    "headline": "Council Bluffs data center secures additional renewable power purchase agreement",
+    "source": "Regional Business Journal",
+    "publishedDate": "2026-02-17"
+  },
+  {
+    "id": "NEWS-00004",
+    "dataCenterId": "DC-00002",
+    "category": "Community",
+    "headline": "The Dalles data center announces local workforce and STEM education funding",
+    "source": "Utility Sector Weekly",
+    "publishedDate": "2026-05-17"
+  },
+  {
+    "id": "NEWS-00005",
+    "dataCenterId": "DC-00002",
+    "category": "Power",
+    "headline": "The Dalles data center secures additional renewable power purchase agreement",
+    "source": "Data Center Dynamics",
+    "publishedDate": "2026-06-10"
+  },
+  {
+    "id": "NEWS-00006",
+    "dataCenterId": "DC-00002",
+    "category": "Government",
+    "headline": "The Dalles data center receives updated local zoning and permit approval",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-04-02"
+  },
+  {
+    "id": "NEWS-00007",
+    "dataCenterId": "DC-00003",
+    "category": "Power",
+    "headline": "Atlanta data center secures additional renewable power purchase agreement",
+    "source": "Utility Sector Weekly",
+    "publishedDate": "2026-01-13"
+  },
+  {
+    "id": "NEWS-00008",
+    "dataCenterId": "DC-00003",
+    "category": "Weather",
+    "headline": "Atlanta data center operations unaffected by seasonal weather advisory",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-06-20"
+  },
+  {
+    "id": "NEWS-00009",
+    "dataCenterId": "DC-00003",
+    "category": "Government",
+    "headline": "Atlanta data center receives updated local zoning and permit approval",
+    "source": "Utility Sector Weekly",
+    "publishedDate": "2026-04-05"
+  },
+  {
+    "id": "NEWS-00010",
+    "dataCenterId": "DC-00004",
+    "category": "Cyber",
+    "headline": "Pryor data center completes annual third-party security audit",
+    "source": "Utility Sector Weekly",
+    "publishedDate": "2026-02-06"
+  },
+  {
+    "id": "NEWS-00011",
+    "dataCenterId": "DC-00004",
+    "category": "Power",
+    "headline": "Pryor data center secures additional renewable power purchase agreement",
+    "source": "Data Center Dynamics",
+    "publishedDate": "2026-02-11"
+  },
+  {
+    "id": "NEWS-00012",
+    "dataCenterId": "DC-00004",
+    "category": "Cyber",
+    "headline": "Pryor data center completes annual third-party security audit",
+    "source": "Regional Business Journal",
+    "publishedDate": "2026-04-23"
+  },
+  {
+    "id": "NEWS-00013",
+    "dataCenterId": "DC-00005",
+    "category": "Power",
+    "headline": "Henderson data center secures additional renewable power purchase agreement",
+    "source": "Data Center Dynamics",
+    "publishedDate": "2026-06-28"
+  },
+  {
+    "id": "NEWS-00014",
+    "dataCenterId": "DC-00005",
+    "category": "Government",
+    "headline": "Henderson data center receives updated local zoning and permit approval",
+    "source": "Local Tribune",
+    "publishedDate": "2026-04-04"
+  },
+  {
+    "id": "NEWS-00015",
+    "dataCenterId": "DC-00005",
+    "category": "Government",
+    "headline": "Henderson data center receives updated local zoning and permit approval",
+    "source": "Utility Sector Weekly",
+    "publishedDate": "2026-03-02"
+  },
+  {
+    "id": "NEWS-00016",
+    "dataCenterId": "DC-00006",
+    "category": "Community",
+    "headline": "Columbus data center announces local workforce and STEM education funding",
+    "source": "Data Center Dynamics",
+    "publishedDate": "2026-04-24"
+  },
+  {
+    "id": "NEWS-00017",
+    "dataCenterId": "DC-00006",
+    "category": "Expansion",
+    "headline": "Columbus data center campus expansion enters next planning phase",
+    "source": "Local Tribune",
+    "publishedDate": "2026-03-08"
+  },
+  {
+    "id": "NEWS-00018",
+    "dataCenterId": "DC-00006",
+    "category": "Weather",
+    "headline": "Columbus data center operations unaffected by seasonal weather advisory",
+    "source": "Regional Business Journal",
+    "publishedDate": "2026-05-16"
+  },
+  {
+    "id": "NEWS-00019",
+    "dataCenterId": "DC-00007",
+    "category": "Weather",
+    "headline": "Ashburn data center operations unaffected by seasonal weather advisory",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-02-27"
+  },
+  {
+    "id": "NEWS-00020",
+    "dataCenterId": "DC-00007",
+    "category": "Expansion",
+    "headline": "Ashburn data center campus expansion enters next planning phase",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-04-25"
+  },
+  {
+    "id": "NEWS-00021",
+    "dataCenterId": "DC-00007",
+    "category": "Cyber",
+    "headline": "Ashburn data center completes annual third-party security audit",
+    "source": "Utility Sector Weekly",
+    "publishedDate": "2026-02-04"
+  },
+  {
+    "id": "NEWS-00022",
+    "dataCenterId": "DC-00008",
+    "category": "Government",
+    "headline": "Moncks Corner data center receives updated local zoning and permit approval",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-02-03"
+  },
+  {
+    "id": "NEWS-00023",
+    "dataCenterId": "DC-00008",
+    "category": "Cyber",
+    "headline": "Moncks Corner data center completes annual third-party security audit",
+    "source": "Local Tribune",
+    "publishedDate": "2026-02-27"
+  },
+  {
+    "id": "NEWS-00024",
+    "dataCenterId": "DC-00008",
+    "category": "Government",
+    "headline": "Moncks Corner data center receives updated local zoning and permit approval",
+    "source": "Local Tribune",
+    "publishedDate": "2026-06-02"
+  },
+  {
+    "id": "NEWS-00025",
+    "dataCenterId": "DC-00009",
+    "category": "Community",
+    "headline": "Toronto data center announces local workforce and STEM education funding",
+    "source": "Data Center Dynamics",
+    "publishedDate": "2026-02-27"
+  },
+  {
+    "id": "NEWS-00026",
+    "dataCenterId": "DC-00009",
+    "category": "Power",
+    "headline": "Toronto data center secures additional renewable power purchase agreement",
+    "source": "Data Center Dynamics",
+    "publishedDate": "2026-03-26"
+  },
+  {
+    "id": "NEWS-00027",
+    "dataCenterId": "DC-00009",
+    "category": "Government",
+    "headline": "Toronto data center receives updated local zoning and permit approval",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-04-22"
+  },
+  {
+    "id": "NEWS-00028",
+    "dataCenterId": "DC-00010",
+    "category": "Government",
+    "headline": "Santiago data center receives updated local zoning and permit approval",
+    "source": "Local Tribune",
+    "publishedDate": "2026-05-05"
+  },
+  {
+    "id": "NEWS-00029",
+    "dataCenterId": "DC-00010",
+    "category": "Government",
+    "headline": "Santiago data center receives updated local zoning and permit approval",
+    "source": "Local Tribune",
+    "publishedDate": "2026-05-16"
+  },
+  {
+    "id": "NEWS-00030",
+    "dataCenterId": "DC-00010",
+    "category": "Community",
+    "headline": "Santiago data center announces local workforce and STEM education funding",
+    "source": "Data Center Dynamics",
+    "publishedDate": "2026-01-01"
+  },
+  {
+    "id": "NEWS-00031",
+    "dataCenterId": "DC-00011",
+    "category": "Power",
+    "headline": "Hamina data center secures additional renewable power purchase agreement",
+    "source": "Regional Business Journal",
+    "publishedDate": "2026-01-02"
+  },
+  {
+    "id": "NEWS-00032",
+    "dataCenterId": "DC-00011",
+    "category": "Power",
+    "headline": "Hamina data center secures additional renewable power purchase agreement",
+    "source": "Local Tribune",
+    "publishedDate": "2026-04-26"
+  },
+  {
+    "id": "NEWS-00033",
+    "dataCenterId": "DC-00011",
+    "category": "Community",
+    "headline": "Hamina data center announces local workforce and STEM education funding",
+    "source": "Regional Business Journal",
+    "publishedDate": "2026-02-25"
+  },
+  {
+    "id": "NEWS-00034",
+    "dataCenterId": "DC-00012",
+    "category": "Power",
+    "headline": "Saint-Ghislain data center secures additional renewable power purchase agreement",
+    "source": "Utility Sector Weekly",
+    "publishedDate": "2026-04-16"
+  },
+  {
+    "id": "NEWS-00035",
+    "dataCenterId": "DC-00012",
+    "category": "Expansion",
+    "headline": "Saint-Ghislain data center campus expansion enters next planning phase",
+    "source": "Utility Sector Weekly",
+    "publishedDate": "2026-06-16"
+  },
+  {
+    "id": "NEWS-00036",
+    "dataCenterId": "DC-00012",
+    "category": "Power",
+    "headline": "Saint-Ghislain data center secures additional renewable power purchase agreement",
+    "source": "Data Center Dynamics",
+    "publishedDate": "2026-03-09"
+  },
+  {
+    "id": "NEWS-00037",
+    "dataCenterId": "DC-00013",
+    "category": "Community",
+    "headline": "Eemshaven data center announces local workforce and STEM education funding",
+    "source": "Data Center Dynamics",
+    "publishedDate": "2026-02-23"
+  },
+  {
+    "id": "NEWS-00038",
+    "dataCenterId": "DC-00013",
+    "category": "Power",
+    "headline": "Eemshaven data center secures additional renewable power purchase agreement",
+    "source": "Regional Business Journal",
+    "publishedDate": "2026-05-02"
+  },
+  {
+    "id": "NEWS-00039",
+    "dataCenterId": "DC-00013",
+    "category": "Community",
+    "headline": "Eemshaven data center announces local workforce and STEM education funding",
+    "source": "Data Center Dynamics",
+    "publishedDate": "2026-02-27"
+  },
+  {
+    "id": "NEWS-00040",
+    "dataCenterId": "DC-00014",
+    "category": "Government",
+    "headline": "Dublin data center receives updated local zoning and permit approval",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-04-10"
+  },
+  {
+    "id": "NEWS-00041",
+    "dataCenterId": "DC-00014",
+    "category": "Expansion",
+    "headline": "Dublin data center campus expansion enters next planning phase",
+    "source": "Regional Business Journal",
+    "publishedDate": "2026-04-19"
+  },
+  {
+    "id": "NEWS-00042",
+    "dataCenterId": "DC-00014",
+    "category": "Weather",
+    "headline": "Dublin data center operations unaffected by seasonal weather advisory",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-05-12"
+  },
+  {
+    "id": "NEWS-00043",
+    "dataCenterId": "DC-00015",
+    "category": "Community",
+    "headline": "Fredericia data center announces local workforce and STEM education funding",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-03-09"
+  },
+  {
+    "id": "NEWS-00044",
+    "dataCenterId": "DC-00015",
+    "category": "Expansion",
+    "headline": "Fredericia data center campus expansion enters next planning phase",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-06-15"
+  },
+  {
+    "id": "NEWS-00045",
+    "dataCenterId": "DC-00015",
+    "category": "Power",
+    "headline": "Fredericia data center secures additional renewable power purchase agreement",
+    "source": "Regional Business Journal",
+    "publishedDate": "2026-03-17"
+  },
+  {
+    "id": "NEWS-00046",
+    "dataCenterId": "DC-00016",
+    "category": "Community",
+    "headline": "Milan data center announces local workforce and STEM education funding",
+    "source": "Utility Sector Weekly",
+    "publishedDate": "2026-03-07"
+  },
+  {
+    "id": "NEWS-00047",
+    "dataCenterId": "DC-00016",
+    "category": "Community",
+    "headline": "Milan data center announces local workforce and STEM education funding",
+    "source": "Local Tribune",
+    "publishedDate": "2026-05-03"
+  },
+  {
+    "id": "NEWS-00048",
+    "dataCenterId": "DC-00016",
+    "category": "Community",
+    "headline": "Milan data center announces local workforce and STEM education funding",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-04-15"
+  },
+  {
+    "id": "NEWS-00049",
+    "dataCenterId": "DC-00017",
+    "category": "Weather",
+    "headline": "Madrid data center operations unaffected by seasonal weather advisory",
+    "source": "Utility Sector Weekly",
+    "publishedDate": "2026-03-24"
+  },
+  {
+    "id": "NEWS-00050",
+    "dataCenterId": "DC-00017",
+    "category": "Cyber",
+    "headline": "Madrid data center completes annual third-party security audit",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-06-01"
+  },
+  {
+    "id": "NEWS-00051",
+    "dataCenterId": "DC-00017",
+    "category": "Government",
+    "headline": "Madrid data center receives updated local zoning and permit approval",
+    "source": "Utility Sector Weekly",
+    "publishedDate": "2026-06-28"
+  },
+  {
+    "id": "NEWS-00052",
+    "dataCenterId": "DC-00018",
+    "category": "Community",
+    "headline": "Warsaw data center announces local workforce and STEM education funding",
+    "source": "Data Center Dynamics",
+    "publishedDate": "2026-02-17"
+  },
+  {
+    "id": "NEWS-00053",
+    "dataCenterId": "DC-00018",
+    "category": "Cyber",
+    "headline": "Warsaw data center completes annual third-party security audit",
+    "source": "Local Tribune",
+    "publishedDate": "2026-04-09"
+  },
+  {
+    "id": "NEWS-00054",
+    "dataCenterId": "DC-00018",
+    "category": "Power",
+    "headline": "Warsaw data center secures additional renewable power purchase agreement",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-03-12"
+  },
+  {
+    "id": "NEWS-00055",
+    "dataCenterId": "DC-00019",
+    "category": "Community",
+    "headline": "Mumbai data center announces local workforce and STEM education funding",
+    "source": "Data Center Dynamics",
+    "publishedDate": "2026-05-10"
+  },
+  {
+    "id": "NEWS-00056",
+    "dataCenterId": "DC-00019",
+    "category": "Power",
+    "headline": "Mumbai data center secures additional renewable power purchase agreement",
+    "source": "Regional Business Journal",
+    "publishedDate": "2026-06-21"
+  },
+  {
+    "id": "NEWS-00057",
+    "dataCenterId": "DC-00019",
+    "category": "Community",
+    "headline": "Mumbai data center announces local workforce and STEM education funding",
+    "source": "Regional Business Journal",
+    "publishedDate": "2026-01-17"
+  },
+  {
+    "id": "NEWS-00058",
+    "dataCenterId": "DC-00020",
+    "category": "Community",
+    "headline": "Delhi data center announces local workforce and STEM education funding",
+    "source": "Utility Sector Weekly",
+    "publishedDate": "2026-01-25"
+  },
+  {
+    "id": "NEWS-00059",
+    "dataCenterId": "DC-00020",
+    "category": "Weather",
+    "headline": "Delhi data center operations unaffected by seasonal weather advisory",
+    "source": "Data Center Dynamics",
+    "publishedDate": "2026-04-09"
+  },
+  {
+    "id": "NEWS-00060",
+    "dataCenterId": "DC-00020",
+    "category": "Government",
+    "headline": "Delhi data center receives updated local zoning and permit approval",
+    "source": "Data Center Dynamics",
+    "publishedDate": "2026-05-13"
+  },
+  {
+    "id": "NEWS-00061",
+    "dataCenterId": "DC-00021",
+    "category": "Government",
+    "headline": "Singapore data center receives updated local zoning and permit approval",
+    "source": "Data Center Dynamics",
+    "publishedDate": "2026-02-12"
+  },
+  {
+    "id": "NEWS-00062",
+    "dataCenterId": "DC-00021",
+    "category": "Power",
+    "headline": "Singapore data center secures additional renewable power purchase agreement",
+    "source": "Data Center Dynamics",
+    "publishedDate": "2026-02-18"
+  },
+  {
+    "id": "NEWS-00063",
+    "dataCenterId": "DC-00021",
+    "category": "Community",
+    "headline": "Singapore data center announces local workforce and STEM education funding",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-06-09"
+  },
+  {
+    "id": "NEWS-00064",
+    "dataCenterId": "DC-00022",
+    "category": "Power",
+    "headline": "Jakarta data center secures additional renewable power purchase agreement",
+    "source": "Regional Business Journal",
+    "publishedDate": "2026-06-10"
+  },
+  {
+    "id": "NEWS-00065",
+    "dataCenterId": "DC-00022",
+    "category": "Weather",
+    "headline": "Jakarta data center operations unaffected by seasonal weather advisory",
+    "source": "Utility Sector Weekly",
+    "publishedDate": "2026-03-25"
+  },
+  {
+    "id": "NEWS-00066",
+    "dataCenterId": "DC-00022",
+    "category": "Expansion",
+    "headline": "Jakarta data center campus expansion enters next planning phase",
+    "source": "Local Tribune",
+    "publishedDate": "2026-01-16"
+  },
+  {
+    "id": "NEWS-00067",
+    "dataCenterId": "DC-00023",
+    "category": "Community",
+    "headline": "Sydney data center announces local workforce and STEM education funding",
+    "source": "Regional Business Journal",
+    "publishedDate": "2026-04-08"
+  },
+  {
+    "id": "NEWS-00068",
+    "dataCenterId": "DC-00023",
+    "category": "Power",
+    "headline": "Sydney data center secures additional renewable power purchase agreement",
+    "source": "Regional Business Journal",
+    "publishedDate": "2026-02-05"
+  },
+  {
+    "id": "NEWS-00069",
+    "dataCenterId": "DC-00023",
+    "category": "Power",
+    "headline": "Sydney data center secures additional renewable power purchase agreement",
+    "source": "Local Tribune",
+    "publishedDate": "2026-04-06"
+  },
+  {
+    "id": "NEWS-00070",
+    "dataCenterId": "DC-00024",
+    "category": "Government",
+    "headline": "Melbourne data center receives updated local zoning and permit approval",
+    "source": "Data Center Dynamics",
+    "publishedDate": "2026-01-20"
+  },
+  {
+    "id": "NEWS-00071",
+    "dataCenterId": "DC-00024",
+    "category": "Government",
+    "headline": "Melbourne data center receives updated local zoning and permit approval",
+    "source": "Regional Business Journal",
+    "publishedDate": "2026-05-12"
+  },
+  {
+    "id": "NEWS-00072",
+    "dataCenterId": "DC-00024",
+    "category": "Community",
+    "headline": "Melbourne data center announces local workforce and STEM education funding",
+    "source": "Utility Sector Weekly",
+    "publishedDate": "2026-04-12"
+  },
+  {
+    "id": "NEWS-00073",
+    "dataCenterId": "DC-00025",
+    "category": "Power",
+    "headline": "Changhua data center secures additional renewable power purchase agreement",
+    "source": "Regional Business Journal",
+    "publishedDate": "2026-01-02"
+  },
+  {
+    "id": "NEWS-00074",
+    "dataCenterId": "DC-00025",
+    "category": "Government",
+    "headline": "Changhua data center receives updated local zoning and permit approval",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-04-03"
+  },
+  {
+    "id": "NEWS-00075",
+    "dataCenterId": "DC-00025",
+    "category": "Weather",
+    "headline": "Changhua data center operations unaffected by seasonal weather advisory",
+    "source": "Local Tribune",
+    "publishedDate": "2026-01-02"
+  },
+  {
+    "id": "NEWS-00076",
+    "dataCenterId": "DC-00026",
+    "category": "Power",
+    "headline": "Hong Kong data center secures additional renewable power purchase agreement",
+    "source": "Regional Business Journal",
+    "publishedDate": "2026-06-20"
+  },
+  {
+    "id": "NEWS-00077",
+    "dataCenterId": "DC-00026",
+    "category": "Weather",
+    "headline": "Hong Kong data center operations unaffected by seasonal weather advisory",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-02-25"
+  },
+  {
+    "id": "NEWS-00078",
+    "dataCenterId": "DC-00026",
+    "category": "Community",
+    "headline": "Hong Kong data center announces local workforce and STEM education funding",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-06-26"
+  },
+  {
+    "id": "NEWS-00079",
+    "dataCenterId": "DC-00027",
+    "category": "Power",
+    "headline": "Doha data center secures additional renewable power purchase agreement",
+    "source": "Regional Business Journal",
+    "publishedDate": "2026-02-18"
+  },
+  {
+    "id": "NEWS-00080",
+    "dataCenterId": "DC-00027",
+    "category": "Community",
+    "headline": "Doha data center announces local workforce and STEM education funding",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-06-13"
+  },
+  {
+    "id": "NEWS-00081",
+    "dataCenterId": "DC-00027",
+    "category": "Cyber",
+    "headline": "Doha data center completes annual third-party security audit",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-03-06"
+  },
+  {
+    "id": "NEWS-00082",
+    "dataCenterId": "DC-00028",
+    "category": "Weather",
+    "headline": "Dammam data center operations unaffected by seasonal weather advisory",
+    "source": "Local Tribune",
+    "publishedDate": "2026-03-08"
+  },
+  {
+    "id": "NEWS-00083",
+    "dataCenterId": "DC-00028",
+    "category": "Community",
+    "headline": "Dammam data center announces local workforce and STEM education funding",
+    "source": "Utility Sector Weekly",
+    "publishedDate": "2026-06-06"
+  },
+  {
+    "id": "NEWS-00084",
+    "dataCenterId": "DC-00028",
+    "category": "Power",
+    "headline": "Dammam data center secures additional renewable power purchase agreement",
+    "source": "Local Tribune",
+    "publishedDate": "2026-03-09"
+  },
+  {
+    "id": "NEWS-00085",
+    "dataCenterId": "DC-00029",
+    "category": "Government",
+    "headline": "Tel Aviv data center receives updated local zoning and permit approval",
+    "source": "Reuters Wire (regional desk)",
+    "publishedDate": "2026-03-11"
+  },
+  {
+    "id": "NEWS-00086",
+    "dataCenterId": "DC-00029",
+    "category": "Power",
+    "headline": "Tel Aviv data center secures additional renewable power purchase agreement",
+    "source": "Regional Business Journal",
+    "publishedDate": "2026-03-23"
+  },
+  {
+    "id": "NEWS-00087",
+    "dataCenterId": "DC-00029",
+    "category": "Cyber",
+    "headline": "Tel Aviv data center completes annual third-party security audit",
+    "source": "Utility Sector Weekly",
+    "publishedDate": "2026-05-21"
+  }
+]

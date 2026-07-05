@@ -1,0 +1,25 @@
+{
+  "id": "POR-00001",
+  "name": "Google Global Data Center Portfolio (Demo)",
+  "owner": "Google LLC",
+  "generatedAt": "2026-06-30T04:49:08.132Z",
+  "disclaimer": "Facility names, cities, countries, regions, and coordinates are modeled on publicly available information about Google's data center footprint. All capacity, power, cooling, ESG, risk, financial, and asset-level figures are synthetic demo values for this platform and do not represent real Google operational data.",
+  "totals": {
+    "regionCount": 4,
+    "countryCount": 20,
+    "campusCount": 29,
+    "dataCenterCount": 29,
+    "buildingCount": 59,
+    "floorCount": 152,
+    "roomCount": 305,
+    "rackCount": 3096,
+    "assetCount": 20098,
+    "totalCapacityMw": 4190
+  },
+  "regionIds": [
+    "REG-00001",
+    "REG-00002",
+    "REG-00003",
+    "REG-00004"
+  ]
+}

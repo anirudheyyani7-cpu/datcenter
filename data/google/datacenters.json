@@ -1,0 +1,3905 @@
+[
+  {
+    "id": "DC-00001",
+    "identity": {
+      "name": "Council Bluffs Data Center",
+      "displayCode": "COUNCIL-BLUFFS",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III+",
+      "status": "Active",
+      "commissionedYear": 2012,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00001",
+      "countryId": "CTY-00001",
+      "regionId": "REG-00001",
+      "city": "Council Bluffs",
+      "country": "United States",
+      "region": "Americas",
+      "latitude": 41.2619,
+      "longitude": -95.8608,
+      "timezone": "UTC+1",
+      "elevationM": 356
+    },
+    "campus": {
+      "campusName": "Council Bluffs Campus",
+      "campusAreaAcres": 261
+    },
+    "infrastructure": {
+      "buildingCount": 2,
+      "floorCount": 6,
+      "roomCount": 12,
+      "rackCount": 119,
+      "totalAreaSqm": 105240,
+      "whiteSpaceSqm": 70610,
+      "constructionType": "Modular prefabricated",
+      "seismicRating": "Standard"
+    },
+    "capacity": {
+      "itCapacityMw": 184,
+      "totalCapacityMw": 217,
+      "capacityUtilizationPct": 69,
+      "plannedExpansionMw": 52,
+      "maxDesignCapacityMw": 294
+    },
+    "power": {
+      "substationCapacityMva": 465,
+      "backupGeneratorCount": 22,
+      "backupGeneratorCapacityMw": 17,
+      "upsRedundancy": "2N",
+      "pue": 1.07,
+      "wue": 0.38,
+      "gridConnectionKv": 115
+    },
+    "cooling": {
+      "coolingType": "Liquid-cooled (direct-to-chip)",
+      "coolingCapacityMw": 202,
+      "coolingRedundancy": "2N",
+      "chillerCount": 16,
+      "freeCoolingHoursPct": 52,
+      "coolingWaterSourceType": "Closed-loop (no external water)"
+    },
+    "network": {
+      "networkTier": "Edge POP + backbone",
+      "fiberProviders": [
+        "Colt",
+        "Vodafone Carrier",
+        "Zayo",
+        "GTT"
+      ],
+      "peeringExchanges": [],
+      "internalBackboneGbps": 711,
+      "edgePoPCount": 3
+    },
+    "storage": {
+      "storageCapacityPb": 469,
+      "storageType": "Hybrid flash/HDD",
+      "backupRetentionDays": 60
+    },
+    "gpu": {
+      "gpuClusterCount": 2,
+      "totalGpuUnits": 0,
+      "gpuGeneration": "NVIDIA A100",
+      "aiTrainingCapable": true,
+      "aiWorkloadPct": 11
+    },
+    "utilities": {
+      "waterSourceType": "Air-cooled — minimal water",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": false,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 95,
+      "carbonIntensityKgPerMwh": 243.5,
+      "annualCarbonOffsetTons": 13303,
+      "esgScore": 63,
+      "esgGrade": "C",
+      "sustainabilityCertifications": [
+        "LEED Platinum"
+      ],
+      "waterUsageMlPerYear": 94.8,
+      "circularWaterPct": 27
+    },
+    "risk": {
+      "overallRiskScore": 16,
+      "riskLevel": "Low"
+    },
+    "weather": {
+      "climateZone": "Subtropical"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.926,
+      "activeIncidentCount": 1,
+      "alarmCriticalCount": 1,
+      "alarmHighCount": 0,
+      "alarmMediumCount": 1,
+      "alarmLowCount": 13,
+      "lastAuditDate": "2026-06-07"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 8,
+      "openWorkOrders": 8,
+      "preventiveMaintenanceCompliancePct": 98
+    },
+    "publicInfo": {
+      "googleCloudRegion": "us-central1",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00001"
+  },
+  {
+    "id": "DC-00002",
+    "identity": {
+      "name": "The Dalles Data Center",
+      "displayCode": "THE-DALLES",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "IV",
+      "status": "Under Construction",
+      "commissionedYear": null,
+      "plannedOnlineYear": 2028
+    },
+    "location": {
+      "campusId": "CMP-00002",
+      "countryId": "CTY-00001",
+      "regionId": "REG-00001",
+      "city": "The Dalles",
+      "country": "United States",
+      "region": "Americas",
+      "latitude": 45.5946,
+      "longitude": -121.1787,
+      "timezone": "UTC-8",
+      "elevationM": 414
+    },
+    "campus": {
+      "campusName": "The Dalles Campus",
+      "campusAreaAcres": 188
+    },
+    "infrastructure": {
+      "buildingCount": 3,
+      "floorCount": 7,
+      "roomCount": 18,
+      "rackCount": 191,
+      "totalAreaSqm": 137862,
+      "whiteSpaceSqm": 30500,
+      "constructionType": "Modular prefabricated",
+      "seismicRating": "Enhanced — Zone 3+"
+    },
+    "capacity": {
+      "itCapacityMw": 75,
+      "totalCapacityMw": 89,
+      "capacityUtilizationPct": 21,
+      "plannedExpansionMw": 97,
+      "maxDesignCapacityMw": 120
+    },
+    "power": {
+      "substationCapacityMva": 273,
+      "backupGeneratorCount": 13,
+      "backupGeneratorCapacityMw": 26,
+      "upsRedundancy": "N+1",
+      "pue": 1.12,
+      "wue": 1.33,
+      "gridConnectionKv": 115
+    },
+    "cooling": {
+      "coolingType": "Air-cooled (CRAH)",
+      "coolingCapacityMw": 83,
+      "coolingRedundancy": "2N+1",
+      "chillerCount": 5,
+      "freeCoolingHoursPct": 56,
+      "coolingWaterSourceType": "Groundwater"
+    },
+    "network": {
+      "networkTier": "Regional aggregation site",
+      "fiberProviders": [
+        "Colt",
+        "Lumen",
+        "GTT"
+      ],
+      "peeringExchanges": [],
+      "internalBackboneGbps": 2461,
+      "edgePoPCount": 0
+    },
+    "storage": {
+      "storageCapacityPb": 188,
+      "storageType": "NVMe all-flash + object tier",
+      "backupRetentionDays": 90
+    },
+    "gpu": {
+      "gpuClusterCount": 4,
+      "totalGpuUnits": 12288,
+      "gpuGeneration": "NVIDIA A100",
+      "aiTrainingCapable": false,
+      "aiWorkloadPct": 53
+    },
+    "utilities": {
+      "waterSourceType": "Municipal",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 18,
+      "carbonIntensityKgPerMwh": 404.3,
+      "annualCarbonOffsetTons": 2461,
+      "esgScore": 80,
+      "esgGrade": "B",
+      "sustainabilityCertifications": [
+        "Uptime Institute Tier III Certification",
+        "BREEAM Excellent"
+      ],
+      "waterUsageMlPerYear": 190.7,
+      "circularWaterPct": 0
+    },
+    "risk": {
+      "overallRiskScore": 60,
+      "riskLevel": "High"
+    },
+    "weather": {
+      "climateZone": "Oceanic"
+    },
+    "operations": {
+      "operationalStatus": "Pre-commissioning",
+      "uptimePct": null,
+      "activeIncidentCount": 2,
+      "alarmCriticalCount": 0,
+      "alarmHighCount": 5,
+      "alarmMediumCount": 2,
+      "alarmLowCount": 5,
+      "lastAuditDate": "2026-03-13"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 6,
+      "openWorkOrders": 14,
+      "preventiveMaintenanceCompliancePct": 82
+    },
+    "publicInfo": {
+      "googleCloudRegion": "us-west1",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00002"
+  },
+  {
+    "id": "DC-00003",
+    "identity": {
+      "name": "Douglas County Data Center",
+      "displayCode": "DOUGLAS-COUNTY",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "IV",
+      "status": "Active",
+      "commissionedYear": 2009,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00003",
+      "countryId": "CTY-00001",
+      "regionId": "REG-00001",
+      "city": "Atlanta",
+      "country": "United States",
+      "region": "Americas",
+      "latitude": 33.6789,
+      "longitude": -84.7458,
+      "timezone": "UTC",
+      "elevationM": 88
+    },
+    "campus": {
+      "campusName": "Douglas County Campus",
+      "campusAreaAcres": 283
+    },
+    "infrastructure": {
+      "buildingCount": 1,
+      "floorCount": 2,
+      "roomCount": 3,
+      "rackCount": 31,
+      "totalAreaSqm": 95858,
+      "whiteSpaceSqm": 19104,
+      "constructionType": "Concrete tilt-wall",
+      "seismicRating": "Standard"
+    },
+    "capacity": {
+      "itCapacityMw": 108,
+      "totalCapacityMw": 127,
+      "capacityUtilizationPct": 74,
+      "plannedExpansionMw": 5,
+      "maxDesignCapacityMw": 173
+    },
+    "power": {
+      "substationCapacityMva": 192,
+      "backupGeneratorCount": 23,
+      "backupGeneratorCapacityMw": 20,
+      "upsRedundancy": "2N",
+      "pue": 1.15,
+      "wue": 0.88,
+      "gridConnectionKv": 138
+    },
+    "cooling": {
+      "coolingType": "Air-cooled (CRAH)",
+      "coolingCapacityMw": 119,
+      "coolingRedundancy": "2N",
+      "chillerCount": 11,
+      "freeCoolingHoursPct": 84,
+      "coolingWaterSourceType": "Surface water — permitted withdrawal"
+    },
+    "network": {
+      "networkTier": "Regional aggregation site",
+      "fiberProviders": [
+        "Colt",
+        "Lumen"
+      ],
+      "peeringExchanges": [
+        "Equinix IX",
+        "DE-CIX"
+      ],
+      "internalBackboneGbps": 1407,
+      "edgePoPCount": 1
+    },
+    "storage": {
+      "storageCapacityPb": 392,
+      "storageType": "Distributed object storage",
+      "backupRetentionDays": 180
+    },
+    "gpu": {
+      "gpuClusterCount": 1,
+      "totalGpuUnits": 12288,
+      "gpuGeneration": "TPU v5e (Google custom silicon)",
+      "aiTrainingCapable": true,
+      "aiWorkloadPct": 21
+    },
+    "utilities": {
+      "waterSourceType": "Reclaimed/recycled",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": false,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 19,
+      "carbonIntensityKgPerMwh": 309.5,
+      "annualCarbonOffsetTons": 13295,
+      "esgScore": 82,
+      "esgGrade": "B",
+      "sustainabilityCertifications": [
+        "LEED Gold",
+        "LEED Platinum"
+      ],
+      "waterUsageMlPerYear": 111.9,
+      "circularWaterPct": 57
+    },
+    "risk": {
+      "overallRiskScore": 15,
+      "riskLevel": "Low"
+    },
+    "weather": {
+      "climateZone": "Mediterranean"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.903,
+      "activeIncidentCount": 3,
+      "alarmCriticalCount": 0,
+      "alarmHighCount": 4,
+      "alarmMediumCount": 7,
+      "alarmLowCount": 16,
+      "lastAuditDate": "2026-05-20"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 4,
+      "openWorkOrders": 11,
+      "preventiveMaintenanceCompliancePct": 96
+    },
+    "publicInfo": {
+      "googleCloudRegion": null,
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00003"
+  },
+  {
+    "id": "DC-00004",
+    "identity": {
+      "name": "Mayes County Data Center",
+      "displayCode": "MAYES-COUNTY",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III+",
+      "status": "Active",
+      "commissionedYear": 2013,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00004",
+      "countryId": "CTY-00001",
+      "regionId": "REG-00001",
+      "city": "Pryor",
+      "country": "United States",
+      "region": "Americas",
+      "latitude": 36.2089,
+      "longitude": -95.2658,
+      "timezone": "UTC+1",
+      "elevationM": 59
+    },
+    "campus": {
+      "campusName": "Mayes County Campus",
+      "campusAreaAcres": 338
+    },
+    "infrastructure": {
+      "buildingCount": 3,
+      "floorCount": 8,
+      "roomCount": 16,
+      "rackCount": 171,
+      "totalAreaSqm": 102724,
+      "whiteSpaceSqm": 86077,
+      "constructionType": "Concrete tilt-wall",
+      "seismicRating": "Enhanced — Zone 4"
+    },
+    "capacity": {
+      "itCapacityMw": 167,
+      "totalCapacityMw": 197,
+      "capacityUtilizationPct": 79,
+      "plannedExpansionMw": 49,
+      "maxDesignCapacityMw": 267
+    },
+    "power": {
+      "substationCapacityMva": 155,
+      "backupGeneratorCount": 21,
+      "backupGeneratorCapacityMw": 33,
+      "upsRedundancy": "2N+1",
+      "pue": 1.12,
+      "wue": 0.66,
+      "gridConnectionKv": 345
+    },
+    "cooling": {
+      "coolingType": "Immersion (pilot)",
+      "coolingCapacityMw": 184,
+      "coolingRedundancy": "2N",
+      "chillerCount": 13,
+      "freeCoolingHoursPct": 59,
+      "coolingWaterSourceType": "Closed-loop (no external water)"
+    },
+    "network": {
+      "networkTier": "Regional aggregation site",
+      "fiberProviders": [
+        "Vodafone Carrier",
+        "Lumen",
+        "Zayo"
+      ],
+      "peeringExchanges": [
+        "LINX",
+        "NAPAfrica"
+      ],
+      "internalBackboneGbps": 2180,
+      "edgePoPCount": 0
+    },
+    "storage": {
+      "storageCapacityPb": 491,
+      "storageType": "Hybrid flash/HDD",
+      "backupRetentionDays": 60
+    },
+    "gpu": {
+      "gpuClusterCount": 3,
+      "totalGpuUnits": 12288,
+      "gpuGeneration": "NVIDIA A100",
+      "aiTrainingCapable": true,
+      "aiWorkloadPct": 60
+    },
+    "utilities": {
+      "waterSourceType": "Municipal",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 100,
+      "carbonIntensityKgPerMwh": 106.1,
+      "annualCarbonOffsetTons": 4281,
+      "esgScore": 66,
+      "esgGrade": "C",
+      "sustainabilityCertifications": [
+        "BREEAM Excellent"
+      ],
+      "waterUsageMlPerYear": 294.2,
+      "circularWaterPct": 11
+    },
+    "risk": {
+      "overallRiskScore": 54,
+      "riskLevel": "Medium"
+    },
+    "weather": {
+      "climateZone": "Humid continental"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.945,
+      "activeIncidentCount": 3,
+      "alarmCriticalCount": 2,
+      "alarmHighCount": 4,
+      "alarmMediumCount": 7,
+      "alarmLowCount": 19,
+      "lastAuditDate": "2026-03-18"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 4,
+      "openWorkOrders": 3,
+      "preventiveMaintenanceCompliancePct": 97
+    },
+    "publicInfo": {
+      "googleCloudRegion": null,
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00004"
+  },
+  {
+    "id": "DC-00005",
+    "identity": {
+      "name": "Henderson Data Center",
+      "displayCode": "HENDERSON",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "IV",
+      "status": "Active",
+      "commissionedYear": 2010,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00005",
+      "countryId": "CTY-00001",
+      "regionId": "REG-00001",
+      "city": "Henderson",
+      "country": "United States",
+      "region": "Americas",
+      "latitude": 36.0395,
+      "longitude": -114.9817,
+      "timezone": "UTC+5:30",
+      "elevationM": 102
+    },
+    "campus": {
+      "campusName": "Henderson Campus",
+      "campusAreaAcres": 40
+    },
+    "infrastructure": {
+      "buildingCount": 2,
+      "floorCount": 4,
+      "roomCount": 8,
+      "rackCount": 79,
+      "totalAreaSqm": 128830,
+      "whiteSpaceSqm": 50450,
+      "constructionType": "Concrete tilt-wall",
+      "seismicRating": "Enhanced — Zone 4"
+    },
+    "capacity": {
+      "itCapacityMw": 217,
+      "totalCapacityMw": 256,
+      "capacityUtilizationPct": 55,
+      "plannedExpansionMw": 26,
+      "maxDesignCapacityMw": 347
+    },
+    "power": {
+      "substationCapacityMva": 551,
+      "backupGeneratorCount": 10,
+      "backupGeneratorCapacityMw": 35,
+      "upsRedundancy": "2N+1",
+      "pue": 1.1,
+      "wue": 0.26,
+      "gridConnectionKv": 138
+    },
+    "cooling": {
+      "coolingType": "Immersion (pilot)",
+      "coolingCapacityMw": 239,
+      "coolingRedundancy": "2N",
+      "chillerCount": 11,
+      "freeCoolingHoursPct": 37,
+      "coolingWaterSourceType": "Municipal reclaimed water"
+    },
+    "network": {
+      "networkTier": "Regional aggregation site",
+      "fiberProviders": [
+        "Colt",
+        "GTT"
+      ],
+      "peeringExchanges": [
+        "AMS-IX"
+      ],
+      "internalBackboneGbps": 2506,
+      "edgePoPCount": 2
+    },
+    "storage": {
+      "storageCapacityPb": 271,
+      "storageType": "NVMe all-flash + object tier",
+      "backupRetentionDays": 60
+    },
+    "gpu": {
+      "gpuClusterCount": 6,
+      "totalGpuUnits": 0,
+      "gpuGeneration": "NVIDIA H100",
+      "aiTrainingCapable": true,
+      "aiWorkloadPct": 5
+    },
+    "utilities": {
+      "waterSourceType": "Groundwater well",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": true
+    },
+    "esg": {
+      "renewablePct": 72,
+      "carbonIntensityKgPerMwh": 124.1,
+      "annualCarbonOffsetTons": 7670,
+      "esgScore": 67,
+      "esgGrade": "C",
+      "sustainabilityCertifications": [
+        "BREEAM Excellent"
+      ],
+      "waterUsageMlPerYear": 244.6,
+      "circularWaterPct": 57
+    },
+    "risk": {
+      "overallRiskScore": 15,
+      "riskLevel": "Low"
+    },
+    "weather": {
+      "climateZone": "Oceanic"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.987,
+      "activeIncidentCount": 2,
+      "alarmCriticalCount": 2,
+      "alarmHighCount": 2,
+      "alarmMediumCount": 3,
+      "alarmLowCount": 14,
+      "lastAuditDate": "2026-05-18"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 6,
+      "openWorkOrders": 9,
+      "preventiveMaintenanceCompliancePct": 89
+    },
+    "publicInfo": {
+      "googleCloudRegion": "us-west4",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00005"
+  },
+  {
+    "id": "DC-00006",
+    "identity": {
+      "name": "Columbus Data Center",
+      "displayCode": "COLUMBUS",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III+",
+      "status": "Active",
+      "commissionedYear": 2009,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00006",
+      "countryId": "CTY-00001",
+      "regionId": "REG-00001",
+      "city": "Columbus",
+      "country": "United States",
+      "region": "Americas",
+      "latitude": 40.08,
+      "longitude": -82.79,
+      "timezone": "UTC+11",
+      "elevationM": 330
+    },
+    "campus": {
+      "campusName": "New Albany Campus",
+      "campusAreaAcres": 327
+    },
+    "infrastructure": {
+      "buildingCount": 1,
+      "floorCount": 2,
+      "roomCount": 4,
+      "rackCount": 34,
+      "totalAreaSqm": 34391,
+      "whiteSpaceSqm": 68065,
+      "constructionType": "Pre-engineered steel",
+      "seismicRating": "Enhanced — Zone 4"
+    },
+    "capacity": {
+      "itCapacityMw": 74,
+      "totalCapacityMw": 87,
+      "capacityUtilizationPct": 85,
+      "plannedExpansionMw": 25,
+      "maxDesignCapacityMw": 118
+    },
+    "power": {
+      "substationCapacityMva": 540,
+      "backupGeneratorCount": 13,
+      "backupGeneratorCapacityMw": 29,
+      "upsRedundancy": "2N",
+      "pue": 1.1,
+      "wue": 0.6,
+      "gridConnectionKv": 138
+    },
+    "cooling": {
+      "coolingType": "Liquid-cooled (direct-to-chip)",
+      "coolingCapacityMw": 81,
+      "coolingRedundancy": "2N",
+      "chillerCount": 4,
+      "freeCoolingHoursPct": 56,
+      "coolingWaterSourceType": "Municipal reclaimed water"
+    },
+    "network": {
+      "networkTier": "Tier 1 backbone POP",
+      "fiberProviders": [
+        "Lumen",
+        "GTT"
+      ],
+      "peeringExchanges": [
+        "NAPAfrica"
+      ],
+      "internalBackboneGbps": 1255,
+      "edgePoPCount": 3
+    },
+    "storage": {
+      "storageCapacityPb": 611,
+      "storageType": "NVMe all-flash + object tier",
+      "backupRetentionDays": 60
+    },
+    "gpu": {
+      "gpuClusterCount": 1,
+      "totalGpuUnits": 2048,
+      "gpuGeneration": "NVIDIA B200",
+      "aiTrainingCapable": true,
+      "aiWorkloadPct": 44
+    },
+    "utilities": {
+      "waterSourceType": "Groundwater well",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 83,
+      "carbonIntensityKgPerMwh": 290.4,
+      "annualCarbonOffsetTons": 1154,
+      "esgScore": 82,
+      "esgGrade": "B",
+      "sustainabilityCertifications": [
+        "LEED Platinum",
+        "ISO 14001"
+      ],
+      "waterUsageMlPerYear": 206.6,
+      "circularWaterPct": 43
+    },
+    "risk": {
+      "overallRiskScore": 40,
+      "riskLevel": "Medium"
+    },
+    "weather": {
+      "climateZone": "Subtropical"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.968,
+      "activeIncidentCount": 1,
+      "alarmCriticalCount": 1,
+      "alarmHighCount": 4,
+      "alarmMediumCount": 3,
+      "alarmLowCount": 4,
+      "lastAuditDate": "2026-02-06"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 6,
+      "openWorkOrders": 14,
+      "preventiveMaintenanceCompliancePct": 88
+    },
+    "publicInfo": {
+      "googleCloudRegion": "us-east5",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00006"
+  },
+  {
+    "id": "DC-00007",
+    "identity": {
+      "name": "Loudoun County Data Center",
+      "displayCode": "LOUDOUN-COUNTY",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "IV",
+      "status": "Under Construction",
+      "commissionedYear": null,
+      "plannedOnlineYear": 2029
+    },
+    "location": {
+      "campusId": "CMP-00007",
+      "countryId": "CTY-00001",
+      "regionId": "REG-00001",
+      "city": "Ashburn",
+      "country": "United States",
+      "region": "Americas",
+      "latitude": 39.08,
+      "longitude": -77.49,
+      "timezone": "UTC+10",
+      "elevationM": 337
+    },
+    "campus": {
+      "campusName": "Loudoun County Campus",
+      "campusAreaAcres": 343
+    },
+    "infrastructure": {
+      "buildingCount": 1,
+      "floorCount": 2,
+      "roomCount": 4,
+      "rackCount": 44,
+      "totalAreaSqm": 30455,
+      "whiteSpaceSqm": 23316,
+      "constructionType": "Concrete tilt-wall",
+      "seismicRating": "Enhanced — Zone 3+"
+    },
+    "capacity": {
+      "itCapacityMw": 131,
+      "totalCapacityMw": 155,
+      "capacityUtilizationPct": 22,
+      "plannedExpansionMw": 41,
+      "maxDesignCapacityMw": 210
+    },
+    "power": {
+      "substationCapacityMva": 500,
+      "backupGeneratorCount": 8,
+      "backupGeneratorCapacityMw": 32,
+      "upsRedundancy": "2N",
+      "pue": 1.18,
+      "wue": 1.16,
+      "gridConnectionKv": 138
+    },
+    "cooling": {
+      "coolingType": "Immersion (pilot)",
+      "coolingCapacityMw": 144,
+      "coolingRedundancy": "N+1",
+      "chillerCount": 15,
+      "freeCoolingHoursPct": 80,
+      "coolingWaterSourceType": "Surface water — permitted withdrawal"
+    },
+    "network": {
+      "networkTier": "Edge POP + backbone",
+      "fiberProviders": [
+        "Colt",
+        "Vodafone Carrier"
+      ],
+      "peeringExchanges": [],
+      "internalBackboneGbps": 905,
+      "edgePoPCount": 2
+    },
+    "storage": {
+      "storageCapacityPb": 480,
+      "storageType": "Hybrid flash/HDD",
+      "backupRetentionDays": 30
+    },
+    "gpu": {
+      "gpuClusterCount": 5,
+      "totalGpuUnits": 0,
+      "gpuGeneration": "NVIDIA H100",
+      "aiTrainingCapable": true,
+      "aiWorkloadPct": 24
+    },
+    "utilities": {
+      "waterSourceType": "Groundwater well",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 58,
+      "carbonIntensityKgPerMwh": 358.4,
+      "annualCarbonOffsetTons": 3447,
+      "esgScore": 68,
+      "esgGrade": "C",
+      "sustainabilityCertifications": [
+        "ISO 14001",
+        "Uptime Institute Tier III Certification",
+        "LEED Gold"
+      ],
+      "waterUsageMlPerYear": 181,
+      "circularWaterPct": 33
+    },
+    "risk": {
+      "overallRiskScore": 15,
+      "riskLevel": "Low"
+    },
+    "weather": {
+      "climateZone": "Oceanic"
+    },
+    "operations": {
+      "operationalStatus": "Pre-commissioning",
+      "uptimePct": null,
+      "activeIncidentCount": 0,
+      "alarmCriticalCount": 2,
+      "alarmHighCount": 5,
+      "alarmMediumCount": 3,
+      "alarmLowCount": 10,
+      "lastAuditDate": "2026-05-10"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 4,
+      "openWorkOrders": 8,
+      "preventiveMaintenanceCompliancePct": 94
+    },
+    "publicInfo": {
+      "googleCloudRegion": "us-east4",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00007"
+  },
+  {
+    "id": "DC-00008",
+    "identity": {
+      "name": "Moncks Corner Data Center",
+      "displayCode": "MONCKS-CORNER",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III+",
+      "status": "Under Construction",
+      "commissionedYear": null,
+      "plannedOnlineYear": 2028
+    },
+    "location": {
+      "campusId": "CMP-00008",
+      "countryId": "CTY-00001",
+      "regionId": "REG-00001",
+      "city": "Moncks Corner",
+      "country": "United States",
+      "region": "Americas",
+      "latitude": 33.1913,
+      "longitude": -80.0144,
+      "timezone": "UTC+3",
+      "elevationM": 137
+    },
+    "campus": {
+      "campusName": "Berkeley County Campus",
+      "campusAreaAcres": 208
+    },
+    "infrastructure": {
+      "buildingCount": 3,
+      "floorCount": 8,
+      "roomCount": 16,
+      "rackCount": 163,
+      "totalAreaSqm": 15045,
+      "whiteSpaceSqm": 21333,
+      "constructionType": "Concrete tilt-wall",
+      "seismicRating": "Enhanced — Zone 4"
+    },
+    "capacity": {
+      "itCapacityMw": 153,
+      "totalCapacityMw": 181,
+      "capacityUtilizationPct": 14,
+      "plannedExpansionMw": 94,
+      "maxDesignCapacityMw": 245
+    },
+    "power": {
+      "substationCapacityMva": 526,
+      "backupGeneratorCount": 23,
+      "backupGeneratorCapacityMw": 40,
+      "upsRedundancy": "2N+1",
+      "pue": 1.15,
+      "wue": 0.9,
+      "gridConnectionKv": 115
+    },
+    "cooling": {
+      "coolingType": "Immersion (pilot)",
+      "coolingCapacityMw": 168,
+      "coolingRedundancy": "2N",
+      "chillerCount": 15,
+      "freeCoolingHoursPct": 35,
+      "coolingWaterSourceType": "Closed-loop (no external water)"
+    },
+    "network": {
+      "networkTier": "Regional aggregation site",
+      "fiberProviders": [
+        "Colt",
+        "Zayo",
+        "Equinix Fabric"
+      ],
+      "peeringExchanges": [],
+      "internalBackboneGbps": 1217,
+      "edgePoPCount": 3
+    },
+    "storage": {
+      "storageCapacityPb": 323,
+      "storageType": "Distributed object storage",
+      "backupRetentionDays": 180
+    },
+    "gpu": {
+      "gpuClusterCount": 3,
+      "totalGpuUnits": 0,
+      "gpuGeneration": "NVIDIA H100",
+      "aiTrainingCapable": false,
+      "aiWorkloadPct": 38
+    },
+    "utilities": {
+      "waterSourceType": "Air-cooled — minimal water",
+      "wasteHeatRecovery": true,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 58,
+      "carbonIntensityKgPerMwh": 243.2,
+      "annualCarbonOffsetTons": 13973,
+      "esgScore": 68,
+      "esgGrade": "C",
+      "sustainabilityCertifications": [
+        "LEED Platinum",
+        "BREEAM Excellent"
+      ],
+      "waterUsageMlPerYear": 283.8,
+      "circularWaterPct": 62
+    },
+    "risk": {
+      "overallRiskScore": 56,
+      "riskLevel": "High"
+    },
+    "weather": {
+      "climateZone": "Oceanic"
+    },
+    "operations": {
+      "operationalStatus": "Pre-commissioning",
+      "uptimePct": null,
+      "activeIncidentCount": 3,
+      "alarmCriticalCount": 1,
+      "alarmHighCount": 5,
+      "alarmMediumCount": 8,
+      "alarmLowCount": 6,
+      "lastAuditDate": "2026-02-22"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 4,
+      "openWorkOrders": 3,
+      "preventiveMaintenanceCompliancePct": 94
+    },
+    "publicInfo": {
+      "googleCloudRegion": null,
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00008"
+  },
+  {
+    "id": "DC-00009",
+    "identity": {
+      "name": "Toronto Data Center",
+      "displayCode": "TORONTO",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III",
+      "status": "Active",
+      "commissionedYear": 2013,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00009",
+      "countryId": "CTY-00002",
+      "regionId": "REG-00001",
+      "city": "Toronto",
+      "country": "Canada",
+      "region": "Americas",
+      "latitude": 43.6532,
+      "longitude": -79.3832,
+      "timezone": "UTC+1",
+      "elevationM": 350
+    },
+    "campus": {
+      "campusName": "Toronto Campus",
+      "campusAreaAcres": 50
+    },
+    "infrastructure": {
+      "buildingCount": 1,
+      "floorCount": 3,
+      "roomCount": 6,
+      "rackCount": 60,
+      "totalAreaSqm": 82865,
+      "whiteSpaceSqm": 55138,
+      "constructionType": "Concrete tilt-wall",
+      "seismicRating": "Standard"
+    },
+    "capacity": {
+      "itCapacityMw": 186,
+      "totalCapacityMw": 219,
+      "capacityUtilizationPct": 85,
+      "plannedExpansionMw": 59,
+      "maxDesignCapacityMw": 298
+    },
+    "power": {
+      "substationCapacityMva": 524,
+      "backupGeneratorCount": 12,
+      "backupGeneratorCapacityMw": 23,
+      "upsRedundancy": "N+1",
+      "pue": 1.08,
+      "wue": 0.46,
+      "gridConnectionKv": 345
+    },
+    "cooling": {
+      "coolingType": "Air-cooled (CRAH)",
+      "coolingCapacityMw": 205,
+      "coolingRedundancy": "2N+1",
+      "chillerCount": 7,
+      "freeCoolingHoursPct": 58,
+      "coolingWaterSourceType": "Municipal reclaimed water"
+    },
+    "network": {
+      "networkTier": "Regional aggregation site",
+      "fiberProviders": [
+        "Vodafone Carrier",
+        "Lumen",
+        "GTT",
+        "Zayo"
+      ],
+      "peeringExchanges": [],
+      "internalBackboneGbps": 692,
+      "edgePoPCount": 1
+    },
+    "storage": {
+      "storageCapacityPb": 227,
+      "storageType": "Hybrid flash/HDD",
+      "backupRetentionDays": 90
+    },
+    "gpu": {
+      "gpuClusterCount": 4,
+      "totalGpuUnits": 6144,
+      "gpuGeneration": "TPU v5e (Google custom silicon)",
+      "aiTrainingCapable": false,
+      "aiWorkloadPct": 43
+    },
+    "utilities": {
+      "waterSourceType": "Reclaimed/recycled",
+      "wasteHeatRecovery": true,
+      "onsiteSubstation": false,
+      "naturalGasBackup": true
+    },
+    "esg": {
+      "renewablePct": 46,
+      "carbonIntensityKgPerMwh": 218.9,
+      "annualCarbonOffsetTons": 12357,
+      "esgScore": 94,
+      "esgGrade": "A",
+      "sustainabilityCertifications": [
+        "ISO 14001",
+        "LEED Gold",
+        "ISO 50001"
+      ],
+      "waterUsageMlPerYear": 205.8,
+      "circularWaterPct": 20
+    },
+    "risk": {
+      "overallRiskScore": 15,
+      "riskLevel": "Low"
+    },
+    "weather": {
+      "climateZone": "Tropical"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.935,
+      "activeIncidentCount": 2,
+      "alarmCriticalCount": 1,
+      "alarmHighCount": 4,
+      "alarmMediumCount": 6,
+      "alarmLowCount": 6,
+      "lastAuditDate": "2026-05-07"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 4,
+      "openWorkOrders": 1,
+      "preventiveMaintenanceCompliancePct": 88
+    },
+    "publicInfo": {
+      "googleCloudRegion": "northamerica-northeast2",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00009"
+  },
+  {
+    "id": "DC-00010",
+    "identity": {
+      "name": "Santiago Data Center",
+      "displayCode": "SANTIAGO",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III",
+      "status": "Active",
+      "commissionedYear": 2019,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00010",
+      "countryId": "CTY-00003",
+      "regionId": "REG-00001",
+      "city": "Santiago",
+      "country": "Chile",
+      "region": "Americas",
+      "latitude": -33.3617,
+      "longitude": -70.7339,
+      "timezone": "UTC+2",
+      "elevationM": 13
+    },
+    "campus": {
+      "campusName": "Quilicura Campus",
+      "campusAreaAcres": 134
+    },
+    "infrastructure": {
+      "buildingCount": 1,
+      "floorCount": 3,
+      "roomCount": 5,
+      "rackCount": 52,
+      "totalAreaSqm": 87247,
+      "whiteSpaceSqm": 37216,
+      "constructionType": "Pre-engineered steel",
+      "seismicRating": "Enhanced — Zone 4"
+    },
+    "capacity": {
+      "itCapacityMw": 52,
+      "totalCapacityMw": 61,
+      "capacityUtilizationPct": 83,
+      "plannedExpansionMw": 22,
+      "maxDesignCapacityMw": 83
+    },
+    "power": {
+      "substationCapacityMva": 443,
+      "backupGeneratorCount": 19,
+      "backupGeneratorCapacityMw": 14,
+      "upsRedundancy": "2N",
+      "pue": 1.22,
+      "wue": 0.38,
+      "gridConnectionKv": 345
+    },
+    "cooling": {
+      "coolingType": "Liquid-cooled (direct-to-chip)",
+      "coolingCapacityMw": 57,
+      "coolingRedundancy": "2N",
+      "chillerCount": 8,
+      "freeCoolingHoursPct": 31,
+      "coolingWaterSourceType": "Surface water — permitted withdrawal"
+    },
+    "network": {
+      "networkTier": "Regional aggregation site",
+      "fiberProviders": [
+        "Vodafone Carrier",
+        "GTT",
+        "Lumen"
+      ],
+      "peeringExchanges": [
+        "DE-CIX",
+        "HKIX"
+      ],
+      "internalBackboneGbps": 2764,
+      "edgePoPCount": 0
+    },
+    "storage": {
+      "storageCapacityPb": 428,
+      "storageType": "Hybrid flash/HDD",
+      "backupRetentionDays": 30
+    },
+    "gpu": {
+      "gpuClusterCount": 1,
+      "totalGpuUnits": 10240,
+      "gpuGeneration": "NVIDIA B200",
+      "aiTrainingCapable": false,
+      "aiWorkloadPct": 54
+    },
+    "utilities": {
+      "waterSourceType": "Groundwater well",
+      "wasteHeatRecovery": true,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 95,
+      "carbonIntensityKgPerMwh": 150.8,
+      "annualCarbonOffsetTons": 2500,
+      "esgScore": 71,
+      "esgGrade": "C",
+      "sustainabilityCertifications": [
+        "LEED Platinum",
+        "ISO 50001",
+        "BREEAM Excellent"
+      ],
+      "waterUsageMlPerYear": 129.5,
+      "circularWaterPct": 56
+    },
+    "risk": {
+      "overallRiskScore": 30,
+      "riskLevel": "Medium"
+    },
+    "weather": {
+      "climateZone": "Oceanic"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.911,
+      "activeIncidentCount": 0,
+      "alarmCriticalCount": 2,
+      "alarmHighCount": 4,
+      "alarmMediumCount": 9,
+      "alarmLowCount": 14,
+      "lastAuditDate": "2026-01-24"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 4,
+      "openWorkOrders": 7,
+      "preventiveMaintenanceCompliancePct": 84
+    },
+    "publicInfo": {
+      "googleCloudRegion": "southamerica-west1",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00010"
+  },
+  {
+    "id": "DC-00011",
+    "identity": {
+      "name": "Hamina Data Center",
+      "displayCode": "HAMINA",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III+",
+      "status": "Under Construction",
+      "commissionedYear": null,
+      "plannedOnlineYear": 2027
+    },
+    "location": {
+      "campusId": "CMP-00011",
+      "countryId": "CTY-00004",
+      "regionId": "REG-00002",
+      "city": "Hamina",
+      "country": "Finland",
+      "region": "EMEA",
+      "latitude": 60.5693,
+      "longitude": 27.1981,
+      "timezone": "UTC+1",
+      "elevationM": 243
+    },
+    "campus": {
+      "campusName": "Hamina Campus",
+      "campusAreaAcres": 44
+    },
+    "infrastructure": {
+      "buildingCount": 3,
+      "floorCount": 8,
+      "roomCount": 17,
+      "rackCount": 181,
+      "totalAreaSqm": 112470,
+      "whiteSpaceSqm": 39156,
+      "constructionType": "Concrete tilt-wall",
+      "seismicRating": "Standard"
+    },
+    "capacity": {
+      "itCapacityMw": 69,
+      "totalCapacityMw": 81,
+      "capacityUtilizationPct": 20,
+      "plannedExpansionMw": 63,
+      "maxDesignCapacityMw": 110
+    },
+    "power": {
+      "substationCapacityMva": 443,
+      "backupGeneratorCount": 12,
+      "backupGeneratorCapacityMw": 25,
+      "upsRedundancy": "2N",
+      "pue": 1.11,
+      "wue": 1.49,
+      "gridConnectionKv": 345
+    },
+    "cooling": {
+      "coolingType": "Hybrid air/liquid",
+      "coolingCapacityMw": 76,
+      "coolingRedundancy": "2N",
+      "chillerCount": 4,
+      "freeCoolingHoursPct": 30,
+      "coolingWaterSourceType": "Surface water — permitted withdrawal"
+    },
+    "network": {
+      "networkTier": "Regional aggregation site",
+      "fiberProviders": [
+        "Colt",
+        "Lumen"
+      ],
+      "peeringExchanges": [
+        "Equinix IX",
+        "LINX"
+      ],
+      "internalBackboneGbps": 2274,
+      "edgePoPCount": 1
+    },
+    "storage": {
+      "storageCapacityPb": 566,
+      "storageType": "Hybrid flash/HDD",
+      "backupRetentionDays": 90
+    },
+    "gpu": {
+      "gpuClusterCount": 4,
+      "totalGpuUnits": 5120,
+      "gpuGeneration": "NVIDIA H100",
+      "aiTrainingCapable": true,
+      "aiWorkloadPct": 5
+    },
+    "utilities": {
+      "waterSourceType": "Reclaimed/recycled",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": true
+    },
+    "esg": {
+      "renewablePct": 71,
+      "carbonIntensityKgPerMwh": 401.7,
+      "annualCarbonOffsetTons": 2295,
+      "esgScore": 92,
+      "esgGrade": "A",
+      "sustainabilityCertifications": [
+        "BREEAM Excellent"
+      ],
+      "waterUsageMlPerYear": 322.5,
+      "circularWaterPct": 51
+    },
+    "risk": {
+      "overallRiskScore": 42,
+      "riskLevel": "Medium"
+    },
+    "weather": {
+      "climateZone": "Tropical"
+    },
+    "operations": {
+      "operationalStatus": "Pre-commissioning",
+      "uptimePct": null,
+      "activeIncidentCount": 1,
+      "alarmCriticalCount": 1,
+      "alarmHighCount": 2,
+      "alarmMediumCount": 4,
+      "alarmLowCount": 10,
+      "lastAuditDate": "2026-02-08"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 4,
+      "openWorkOrders": 7,
+      "preventiveMaintenanceCompliancePct": 90
+    },
+    "publicInfo": {
+      "googleCloudRegion": "europe-north1",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00011"
+  },
+  {
+    "id": "DC-00012",
+    "identity": {
+      "name": "St. Ghislain Data Center",
+      "displayCode": "ST-GHISLAIN",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "IV",
+      "status": "Active",
+      "commissionedYear": 2019,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00012",
+      "countryId": "CTY-00005",
+      "regionId": "REG-00002",
+      "city": "Saint-Ghislain",
+      "country": "Belgium",
+      "region": "EMEA",
+      "latitude": 50.45,
+      "longitude": 3.82,
+      "timezone": "UTC-8",
+      "elevationM": 334
+    },
+    "campus": {
+      "campusName": "Saint-Ghislain Campus",
+      "campusAreaAcres": 196
+    },
+    "infrastructure": {
+      "buildingCount": 1,
+      "floorCount": 2,
+      "roomCount": 2,
+      "rackCount": 23,
+      "totalAreaSqm": 19367,
+      "whiteSpaceSqm": 56237,
+      "constructionType": "Pre-engineered steel",
+      "seismicRating": "Enhanced — Zone 3+"
+    },
+    "capacity": {
+      "itCapacityMw": 183,
+      "totalCapacityMw": 216,
+      "capacityUtilizationPct": 79,
+      "plannedExpansionMw": 11,
+      "maxDesignCapacityMw": 293
+    },
+    "power": {
+      "substationCapacityMva": 219,
+      "backupGeneratorCount": 21,
+      "backupGeneratorCapacityMw": 36,
+      "upsRedundancy": "2N",
+      "pue": 1.08,
+      "wue": 0.44,
+      "gridConnectionKv": 400
+    },
+    "cooling": {
+      "coolingType": "Immersion (pilot)",
+      "coolingCapacityMw": 201,
+      "coolingRedundancy": "2N",
+      "chillerCount": 7,
+      "freeCoolingHoursPct": 49,
+      "coolingWaterSourceType": "Municipal reclaimed water"
+    },
+    "network": {
+      "networkTier": "Regional aggregation site",
+      "fiberProviders": [
+        "GTT",
+        "Equinix Fabric",
+        "Zayo"
+      ],
+      "peeringExchanges": [
+        "LINX",
+        "NAPAfrica"
+      ],
+      "internalBackboneGbps": 1549,
+      "edgePoPCount": 2
+    },
+    "storage": {
+      "storageCapacityPb": 360,
+      "storageType": "NVMe all-flash + object tier",
+      "backupRetentionDays": 30
+    },
+    "gpu": {
+      "gpuClusterCount": 1,
+      "totalGpuUnits": 12288,
+      "gpuGeneration": "NVIDIA H100",
+      "aiTrainingCapable": true,
+      "aiWorkloadPct": 13
+    },
+    "utilities": {
+      "waterSourceType": "Municipal",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 32,
+      "carbonIntensityKgPerMwh": 358.3,
+      "annualCarbonOffsetTons": 7358,
+      "esgScore": 81,
+      "esgGrade": "B",
+      "sustainabilityCertifications": [
+        "ISO 14001",
+        "LEED Platinum"
+      ],
+      "waterUsageMlPerYear": 163.4,
+      "circularWaterPct": 59
+    },
+    "risk": {
+      "overallRiskScore": 67,
+      "riskLevel": "High"
+    },
+    "weather": {
+      "climateZone": "Mediterranean"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.978,
+      "activeIncidentCount": 0,
+      "alarmCriticalCount": 1,
+      "alarmHighCount": 2,
+      "alarmMediumCount": 6,
+      "alarmLowCount": 6,
+      "lastAuditDate": "2026-02-16"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 4,
+      "openWorkOrders": 4,
+      "preventiveMaintenanceCompliancePct": 99
+    },
+    "publicInfo": {
+      "googleCloudRegion": "europe-west1",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00012"
+  },
+  {
+    "id": "DC-00013",
+    "identity": {
+      "name": "Eemshaven Data Center",
+      "displayCode": "EEMSHAVEN",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III",
+      "status": "Under Construction",
+      "commissionedYear": null,
+      "plannedOnlineYear": 2028
+    },
+    "location": {
+      "campusId": "CMP-00013",
+      "countryId": "CTY-00006",
+      "regionId": "REG-00002",
+      "city": "Eemshaven",
+      "country": "Netherlands",
+      "region": "EMEA",
+      "latitude": 53.4395,
+      "longitude": 6.8276,
+      "timezone": "UTC+1",
+      "elevationM": 29
+    },
+    "campus": {
+      "campusName": "Eemshaven Campus",
+      "campusAreaAcres": 286
+    },
+    "infrastructure": {
+      "buildingCount": 3,
+      "floorCount": 8,
+      "roomCount": 15,
+      "rackCount": 167,
+      "totalAreaSqm": 139414,
+      "whiteSpaceSqm": 40540,
+      "constructionType": "Pre-engineered steel",
+      "seismicRating": "Enhanced — Zone 3+"
+    },
+    "capacity": {
+      "itCapacityMw": 156,
+      "totalCapacityMw": 184,
+      "capacityUtilizationPct": 12,
+      "plannedExpansionMw": 115,
+      "maxDesignCapacityMw": 250
+    },
+    "power": {
+      "substationCapacityMva": 507,
+      "backupGeneratorCount": 12,
+      "backupGeneratorCapacityMw": 40,
+      "upsRedundancy": "2N+1",
+      "pue": 1.11,
+      "wue": 1.67,
+      "gridConnectionKv": 230
+    },
+    "cooling": {
+      "coolingType": "Immersion (pilot)",
+      "coolingCapacityMw": 172,
+      "coolingRedundancy": "2N",
+      "chillerCount": 10,
+      "freeCoolingHoursPct": 47,
+      "coolingWaterSourceType": "Surface water — permitted withdrawal"
+    },
+    "network": {
+      "networkTier": "Edge POP + backbone",
+      "fiberProviders": [
+        "Equinix Fabric",
+        "Vodafone Carrier",
+        "Zayo"
+      ],
+      "peeringExchanges": [],
+      "internalBackboneGbps": 2341,
+      "edgePoPCount": 1
+    },
+    "storage": {
+      "storageCapacityPb": 669,
+      "storageType": "NVMe all-flash + object tier",
+      "backupRetentionDays": 60
+    },
+    "gpu": {
+      "gpuClusterCount": 5,
+      "totalGpuUnits": 0,
+      "gpuGeneration": "NVIDIA H100",
+      "aiTrainingCapable": true,
+      "aiWorkloadPct": 7
+    },
+    "utilities": {
+      "waterSourceType": "Reclaimed/recycled",
+      "wasteHeatRecovery": true,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 19,
+      "carbonIntensityKgPerMwh": 216,
+      "annualCarbonOffsetTons": 5738,
+      "esgScore": 86,
+      "esgGrade": "B",
+      "sustainabilityCertifications": [
+        "Uptime Institute Tier III Certification",
+        "LEED Platinum"
+      ],
+      "waterUsageMlPerYear": 508.1,
+      "circularWaterPct": 58
+    },
+    "risk": {
+      "overallRiskScore": 32,
+      "riskLevel": "Medium"
+    },
+    "weather": {
+      "climateZone": "Subtropical"
+    },
+    "operations": {
+      "operationalStatus": "Pre-commissioning",
+      "uptimePct": null,
+      "activeIncidentCount": 0,
+      "alarmCriticalCount": 1,
+      "alarmHighCount": 2,
+      "alarmMediumCount": 6,
+      "alarmLowCount": 11,
+      "lastAuditDate": "2026-01-20"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 4,
+      "openWorkOrders": 14,
+      "preventiveMaintenanceCompliancePct": 93
+    },
+    "publicInfo": {
+      "googleCloudRegion": "europe-west4",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00013"
+  },
+  {
+    "id": "DC-00014",
+    "identity": {
+      "name": "Dublin Data Center",
+      "displayCode": "DUBLIN",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III+",
+      "status": "Active",
+      "commissionedYear": 2010,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00014",
+      "countryId": "CTY-00007",
+      "regionId": "REG-00002",
+      "city": "Dublin",
+      "country": "Ireland",
+      "region": "EMEA",
+      "latitude": 53.3016,
+      "longitude": -6.4185,
+      "timezone": "UTC+10",
+      "elevationM": 301
+    },
+    "campus": {
+      "campusName": "Grange Castle Campus",
+      "campusAreaAcres": 46
+    },
+    "infrastructure": {
+      "buildingCount": 3,
+      "floorCount": 8,
+      "roomCount": 15,
+      "rackCount": 149,
+      "totalAreaSqm": 25511,
+      "whiteSpaceSqm": 8699,
+      "constructionType": "Concrete tilt-wall",
+      "seismicRating": "Standard"
+    },
+    "capacity": {
+      "itCapacityMw": 100,
+      "totalCapacityMw": 118,
+      "capacityUtilizationPct": 65,
+      "plannedExpansionMw": 25,
+      "maxDesignCapacityMw": 160
+    },
+    "power": {
+      "substationCapacityMva": 305,
+      "backupGeneratorCount": 6,
+      "backupGeneratorCapacityMw": 39,
+      "upsRedundancy": "2N",
+      "pue": 1.06,
+      "wue": 0.81,
+      "gridConnectionKv": 400
+    },
+    "cooling": {
+      "coolingType": "Liquid-cooled (direct-to-chip)",
+      "coolingCapacityMw": 110,
+      "coolingRedundancy": "2N",
+      "chillerCount": 16,
+      "freeCoolingHoursPct": 79,
+      "coolingWaterSourceType": "Groundwater"
+    },
+    "network": {
+      "networkTier": "Regional aggregation site",
+      "fiberProviders": [
+        "GTT",
+        "Lumen",
+        "Zayo",
+        "Equinix Fabric"
+      ],
+      "peeringExchanges": [
+        "LINX",
+        "NAPAfrica"
+      ],
+      "internalBackboneGbps": 3077,
+      "edgePoPCount": 0
+    },
+    "storage": {
+      "storageCapacityPb": 451,
+      "storageType": "Hybrid flash/HDD",
+      "backupRetentionDays": 90
+    },
+    "gpu": {
+      "gpuClusterCount": 4,
+      "totalGpuUnits": 6144,
+      "gpuGeneration": "NVIDIA B200",
+      "aiTrainingCapable": true,
+      "aiWorkloadPct": 9
+    },
+    "utilities": {
+      "waterSourceType": "Municipal",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 55,
+      "carbonIntensityKgPerMwh": 35.3,
+      "annualCarbonOffsetTons": 11501,
+      "esgScore": 82,
+      "esgGrade": "B",
+      "sustainabilityCertifications": [
+        "LEED Gold"
+      ],
+      "waterUsageMlPerYear": 465.6,
+      "circularWaterPct": 33
+    },
+    "risk": {
+      "overallRiskScore": 53,
+      "riskLevel": "Medium"
+    },
+    "weather": {
+      "climateZone": "Mediterranean"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.975,
+      "activeIncidentCount": 0,
+      "alarmCriticalCount": 2,
+      "alarmHighCount": 1,
+      "alarmMediumCount": 5,
+      "alarmLowCount": 8,
+      "lastAuditDate": "2026-02-11"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 4,
+      "openWorkOrders": 1,
+      "preventiveMaintenanceCompliancePct": 82
+    },
+    "publicInfo": {
+      "googleCloudRegion": "europe-west2",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00014"
+  },
+  {
+    "id": "DC-00015",
+    "identity": {
+      "name": "Fredericia Data Center",
+      "displayCode": "FREDERICIA",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "IV",
+      "status": "Active",
+      "commissionedYear": 2020,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00015",
+      "countryId": "CTY-00008",
+      "regionId": "REG-00002",
+      "city": "Fredericia",
+      "country": "Denmark",
+      "region": "EMEA",
+      "latitude": 55.5658,
+      "longitude": 9.7522,
+      "timezone": "UTC-8",
+      "elevationM": 251
+    },
+    "campus": {
+      "campusName": "Fredericia Campus",
+      "campusAreaAcres": 48
+    },
+    "infrastructure": {
+      "buildingCount": 3,
+      "floorCount": 8,
+      "roomCount": 16,
+      "rackCount": 159,
+      "totalAreaSqm": 76097,
+      "whiteSpaceSqm": 12554,
+      "constructionType": "Pre-engineered steel",
+      "seismicRating": "Standard"
+    },
+    "capacity": {
+      "itCapacityMw": 94,
+      "totalCapacityMw": 111,
+      "capacityUtilizationPct": 67,
+      "plannedExpansionMw": 0,
+      "maxDesignCapacityMw": 150
+    },
+    "power": {
+      "substationCapacityMva": 253,
+      "backupGeneratorCount": 17,
+      "backupGeneratorCapacityMw": 10,
+      "upsRedundancy": "2N",
+      "pue": 1.12,
+      "wue": 1.41,
+      "gridConnectionKv": 230
+    },
+    "cooling": {
+      "coolingType": "Hybrid air/liquid",
+      "coolingCapacityMw": 103,
+      "coolingRedundancy": "2N",
+      "chillerCount": 5,
+      "freeCoolingHoursPct": 85,
+      "coolingWaterSourceType": "Groundwater"
+    },
+    "network": {
+      "networkTier": "Tier 1 backbone POP",
+      "fiberProviders": [
+        "GTT",
+        "Equinix Fabric",
+        "Vodafone Carrier",
+        "Zayo"
+      ],
+      "peeringExchanges": [
+        "Equinix IX"
+      ],
+      "internalBackboneGbps": 1956,
+      "edgePoPCount": 3
+    },
+    "storage": {
+      "storageCapacityPb": 767,
+      "storageType": "Distributed object storage",
+      "backupRetentionDays": 60
+    },
+    "gpu": {
+      "gpuClusterCount": 2,
+      "totalGpuUnits": 7168,
+      "gpuGeneration": "NVIDIA H100",
+      "aiTrainingCapable": true,
+      "aiWorkloadPct": 7
+    },
+    "utilities": {
+      "waterSourceType": "Reclaimed/recycled",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 43,
+      "carbonIntensityKgPerMwh": 131.4,
+      "annualCarbonOffsetTons": 11741,
+      "esgScore": 79,
+      "esgGrade": "B",
+      "sustainabilityCertifications": [
+        "BREEAM Excellent"
+      ],
+      "waterUsageMlPerYear": 699.4,
+      "circularWaterPct": 52
+    },
+    "risk": {
+      "overallRiskScore": 58,
+      "riskLevel": "High"
+    },
+    "weather": {
+      "climateZone": "Mediterranean"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.96,
+      "activeIncidentCount": 0,
+      "alarmCriticalCount": 0,
+      "alarmHighCount": 1,
+      "alarmMediumCount": 9,
+      "alarmLowCount": 17,
+      "lastAuditDate": "2026-04-25"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 8,
+      "openWorkOrders": 14,
+      "preventiveMaintenanceCompliancePct": 94
+    },
+    "publicInfo": {
+      "googleCloudRegion": null,
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00015"
+  },
+  {
+    "id": "DC-00016",
+    "identity": {
+      "name": "Milan Data Center",
+      "displayCode": "MILAN",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "IV",
+      "status": "Active",
+      "commissionedYear": 2020,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00016",
+      "countryId": "CTY-00009",
+      "regionId": "REG-00002",
+      "city": "Milan",
+      "country": "Italy",
+      "region": "EMEA",
+      "latitude": 45.4642,
+      "longitude": 9.19,
+      "timezone": "UTC+1",
+      "elevationM": 26
+    },
+    "campus": {
+      "campusName": "Milan Campus",
+      "campusAreaAcres": 133
+    },
+    "infrastructure": {
+      "buildingCount": 1,
+      "floorCount": 2,
+      "roomCount": 4,
+      "rackCount": 41,
+      "totalAreaSqm": 46298,
+      "whiteSpaceSqm": 82571,
+      "constructionType": "Pre-engineered steel",
+      "seismicRating": "Enhanced — Zone 4"
+    },
+    "capacity": {
+      "itCapacityMw": 166,
+      "totalCapacityMw": 196,
+      "capacityUtilizationPct": 80,
+      "plannedExpansionMw": 44,
+      "maxDesignCapacityMw": 266
+    },
+    "power": {
+      "substationCapacityMva": 163,
+      "backupGeneratorCount": 9,
+      "backupGeneratorCapacityMw": 37,
+      "upsRedundancy": "2N+1",
+      "pue": 1.14,
+      "wue": 1.27,
+      "gridConnectionKv": 230
+    },
+    "cooling": {
+      "coolingType": "Air-cooled (CRAH)",
+      "coolingCapacityMw": 183,
+      "coolingRedundancy": "N+1",
+      "chillerCount": 15,
+      "freeCoolingHoursPct": 47,
+      "coolingWaterSourceType": "Municipal reclaimed water"
+    },
+    "network": {
+      "networkTier": "Edge POP + backbone",
+      "fiberProviders": [
+        "Equinix Fabric",
+        "Colt",
+        "GTT",
+        "Lumen"
+      ],
+      "peeringExchanges": [],
+      "internalBackboneGbps": 1307,
+      "edgePoPCount": 3
+    },
+    "storage": {
+      "storageCapacityPb": 67,
+      "storageType": "Hybrid flash/HDD",
+      "backupRetentionDays": 90
+    },
+    "gpu": {
+      "gpuClusterCount": 5,
+      "totalGpuUnits": 3072,
+      "gpuGeneration": "NVIDIA B200",
+      "aiTrainingCapable": true,
+      "aiWorkloadPct": 11
+    },
+    "utilities": {
+      "waterSourceType": "Reclaimed/recycled",
+      "wasteHeatRecovery": true,
+      "onsiteSubstation": true,
+      "naturalGasBackup": true
+    },
+    "esg": {
+      "renewablePct": 18,
+      "carbonIntensityKgPerMwh": 18.9,
+      "annualCarbonOffsetTons": 6841,
+      "esgScore": 57,
+      "esgGrade": "D",
+      "sustainabilityCertifications": [
+        "BREEAM Excellent",
+        "LEED Platinum",
+        "ISO 50001"
+      ],
+      "waterUsageMlPerYear": 868.6,
+      "circularWaterPct": 48
+    },
+    "risk": {
+      "overallRiskScore": 70,
+      "riskLevel": "High"
+    },
+    "weather": {
+      "climateZone": "Arid"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.925,
+      "activeIncidentCount": 0,
+      "alarmCriticalCount": 0,
+      "alarmHighCount": 4,
+      "alarmMediumCount": 7,
+      "alarmLowCount": 12,
+      "lastAuditDate": "2026-05-11"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 4,
+      "openWorkOrders": 4,
+      "preventiveMaintenanceCompliancePct": 89
+    },
+    "publicInfo": {
+      "googleCloudRegion": "europe-west8",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00016"
+  },
+  {
+    "id": "DC-00017",
+    "identity": {
+      "name": "Madrid Data Center",
+      "displayCode": "MADRID",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III+",
+      "status": "Under Construction",
+      "commissionedYear": null,
+      "plannedOnlineYear": 2026
+    },
+    "location": {
+      "campusId": "CMP-00017",
+      "countryId": "CTY-00010",
+      "regionId": "REG-00002",
+      "city": "Madrid",
+      "country": "Spain",
+      "region": "EMEA",
+      "latitude": 40.4168,
+      "longitude": -3.7038,
+      "timezone": "UTC+5:30",
+      "elevationM": 420
+    },
+    "campus": {
+      "campusName": "Madrid Campus",
+      "campusAreaAcres": 214
+    },
+    "infrastructure": {
+      "buildingCount": 3,
+      "floorCount": 8,
+      "roomCount": 19,
+      "rackCount": 180,
+      "totalAreaSqm": 39589,
+      "whiteSpaceSqm": 26942,
+      "constructionType": "Pre-engineered steel",
+      "seismicRating": "Enhanced — Zone 3+"
+    },
+    "capacity": {
+      "itCapacityMw": 120,
+      "totalCapacityMw": 142,
+      "capacityUtilizationPct": 13,
+      "plannedExpansionMw": 51,
+      "maxDesignCapacityMw": 192
+    },
+    "power": {
+      "substationCapacityMva": 181,
+      "backupGeneratorCount": 17,
+      "backupGeneratorCapacityMw": 38,
+      "upsRedundancy": "2N+1",
+      "pue": 1.08,
+      "wue": 1.39,
+      "gridConnectionKv": 345
+    },
+    "cooling": {
+      "coolingType": "Hybrid air/liquid",
+      "coolingCapacityMw": 132,
+      "coolingRedundancy": "N+1",
+      "chillerCount": 6,
+      "freeCoolingHoursPct": 44,
+      "coolingWaterSourceType": "Municipal reclaimed water"
+    },
+    "network": {
+      "networkTier": "Regional aggregation site",
+      "fiberProviders": [
+        "Equinix Fabric",
+        "Vodafone Carrier",
+        "Zayo",
+        "GTT"
+      ],
+      "peeringExchanges": [
+        "LINX",
+        "AMS-IX"
+      ],
+      "internalBackboneGbps": 1089,
+      "edgePoPCount": 1
+    },
+    "storage": {
+      "storageCapacityPb": 212,
+      "storageType": "NVMe all-flash + object tier",
+      "backupRetentionDays": 60
+    },
+    "gpu": {
+      "gpuClusterCount": 5,
+      "totalGpuUnits": 6144,
+      "gpuGeneration": "NVIDIA A100",
+      "aiTrainingCapable": true,
+      "aiWorkloadPct": 25
+    },
+    "utilities": {
+      "waterSourceType": "Municipal",
+      "wasteHeatRecovery": true,
+      "onsiteSubstation": false,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 23,
+      "carbonIntensityKgPerMwh": 202.8,
+      "annualCarbonOffsetTons": 16565,
+      "esgScore": 55,
+      "esgGrade": "D",
+      "sustainabilityCertifications": [
+        "LEED Gold",
+        "LEED Platinum",
+        "ISO 14001"
+      ],
+      "waterUsageMlPerYear": 420.9,
+      "circularWaterPct": 62
+    },
+    "risk": {
+      "overallRiskScore": 17,
+      "riskLevel": "Low"
+    },
+    "weather": {
+      "climateZone": "Subtropical"
+    },
+    "operations": {
+      "operationalStatus": "Pre-commissioning",
+      "uptimePct": null,
+      "activeIncidentCount": 2,
+      "alarmCriticalCount": 1,
+      "alarmHighCount": 5,
+      "alarmMediumCount": 5,
+      "alarmLowCount": 10,
+      "lastAuditDate": "2026-06-10"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 4,
+      "openWorkOrders": 14,
+      "preventiveMaintenanceCompliancePct": 82
+    },
+    "publicInfo": {
+      "googleCloudRegion": "europe-southwest1",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00017"
+  },
+  {
+    "id": "DC-00018",
+    "identity": {
+      "name": "Warsaw Data Center",
+      "displayCode": "WARSAW",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III",
+      "status": "Active",
+      "commissionedYear": 2019,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00018",
+      "countryId": "CTY-00011",
+      "regionId": "REG-00002",
+      "city": "Warsaw",
+      "country": "Poland",
+      "region": "EMEA",
+      "latitude": 52.2297,
+      "longitude": 21.0122,
+      "timezone": "UTC-5",
+      "elevationM": 93
+    },
+    "campus": {
+      "campusName": "Warsaw Campus",
+      "campusAreaAcres": 398
+    },
+    "infrastructure": {
+      "buildingCount": 2,
+      "floorCount": 5,
+      "roomCount": 10,
+      "rackCount": 93,
+      "totalAreaSqm": 25419,
+      "whiteSpaceSqm": 56571,
+      "constructionType": "Modular prefabricated",
+      "seismicRating": "Enhanced — Zone 3+"
+    },
+    "capacity": {
+      "itCapacityMw": 178,
+      "totalCapacityMw": 210,
+      "capacityUtilizationPct": 91,
+      "plannedExpansionMw": 59,
+      "maxDesignCapacityMw": 285
+    },
+    "power": {
+      "substationCapacityMva": 199,
+      "backupGeneratorCount": 23,
+      "backupGeneratorCapacityMw": 18,
+      "upsRedundancy": "2N+1",
+      "pue": 1.15,
+      "wue": 0.38,
+      "gridConnectionKv": 230
+    },
+    "cooling": {
+      "coolingType": "Air-cooled (CRAH)",
+      "coolingCapacityMw": 196,
+      "coolingRedundancy": "2N",
+      "chillerCount": 14,
+      "freeCoolingHoursPct": 81,
+      "coolingWaterSourceType": "Groundwater"
+    },
+    "network": {
+      "networkTier": "Tier 1 backbone POP",
+      "fiberProviders": [
+        "Zayo",
+        "Lumen",
+        "Equinix Fabric",
+        "Colt"
+      ],
+      "peeringExchanges": [
+        "NAPAfrica"
+      ],
+      "internalBackboneGbps": 2090,
+      "edgePoPCount": 3
+    },
+    "storage": {
+      "storageCapacityPb": 566,
+      "storageType": "Distributed object storage",
+      "backupRetentionDays": 60
+    },
+    "gpu": {
+      "gpuClusterCount": 5,
+      "totalGpuUnits": 10240,
+      "gpuGeneration": "NVIDIA H100",
+      "aiTrainingCapable": false,
+      "aiWorkloadPct": 60
+    },
+    "utilities": {
+      "waterSourceType": "Municipal",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": true
+    },
+    "esg": {
+      "renewablePct": 65,
+      "carbonIntensityKgPerMwh": 212.4,
+      "annualCarbonOffsetTons": 2582,
+      "esgScore": 64,
+      "esgGrade": "C",
+      "sustainabilityCertifications": [
+        "ISO 14001",
+        "Uptime Institute Tier III Certification",
+        "LEED Gold"
+      ],
+      "waterUsageMlPerYear": 577.2,
+      "circularWaterPct": 34
+    },
+    "risk": {
+      "overallRiskScore": 43,
+      "riskLevel": "Medium"
+    },
+    "weather": {
+      "climateZone": "Mediterranean"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.911,
+      "activeIncidentCount": 0,
+      "alarmCriticalCount": 1,
+      "alarmHighCount": 1,
+      "alarmMediumCount": 10,
+      "alarmLowCount": 6,
+      "lastAuditDate": "2026-06-08"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 4,
+      "openWorkOrders": 10,
+      "preventiveMaintenanceCompliancePct": 100
+    },
+    "publicInfo": {
+      "googleCloudRegion": null,
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00018"
+  },
+  {
+    "id": "DC-00019",
+    "identity": {
+      "name": "Mumbai Data Center",
+      "displayCode": "MUMBAI",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "IV",
+      "status": "Active",
+      "commissionedYear": 2020,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00019",
+      "countryId": "CTY-00012",
+      "regionId": "REG-00003",
+      "city": "Mumbai",
+      "country": "India",
+      "region": "APAC",
+      "latitude": 19.076,
+      "longitude": 72.8777,
+      "timezone": "UTC-5",
+      "elevationM": 143
+    },
+    "campus": {
+      "campusName": "Mumbai Campus",
+      "campusAreaAcres": 132
+    },
+    "infrastructure": {
+      "buildingCount": 2,
+      "floorCount": 6,
+      "roomCount": 14,
+      "rackCount": 129,
+      "totalAreaSqm": 134360,
+      "whiteSpaceSqm": 23865,
+      "constructionType": "Pre-engineered steel",
+      "seismicRating": "Enhanced — Zone 4"
+    },
+    "capacity": {
+      "itCapacityMw": 119,
+      "totalCapacityMw": 140,
+      "capacityUtilizationPct": 94,
+      "plannedExpansionMw": 25,
+      "maxDesignCapacityMw": 190
+    },
+    "power": {
+      "substationCapacityMva": 306,
+      "backupGeneratorCount": 16,
+      "backupGeneratorCapacityMw": 19,
+      "upsRedundancy": "2N",
+      "pue": 1.12,
+      "wue": 1.75,
+      "gridConnectionKv": 345
+    },
+    "cooling": {
+      "coolingType": "Immersion (pilot)",
+      "coolingCapacityMw": 131,
+      "coolingRedundancy": "2N+1",
+      "chillerCount": 14,
+      "freeCoolingHoursPct": 32,
+      "coolingWaterSourceType": "Surface water — permitted withdrawal"
+    },
+    "network": {
+      "networkTier": "Edge POP + backbone",
+      "fiberProviders": [
+        "Colt",
+        "Vodafone Carrier",
+        "GTT"
+      ],
+      "peeringExchanges": [
+        "HKIX"
+      ],
+      "internalBackboneGbps": 1054,
+      "edgePoPCount": 0
+    },
+    "storage": {
+      "storageCapacityPb": 601,
+      "storageType": "NVMe all-flash + object tier",
+      "backupRetentionDays": 30
+    },
+    "gpu": {
+      "gpuClusterCount": 2,
+      "totalGpuUnits": 7168,
+      "gpuGeneration": "NVIDIA B200",
+      "aiTrainingCapable": false,
+      "aiWorkloadPct": 44
+    },
+    "utilities": {
+      "waterSourceType": "Groundwater well",
+      "wasteHeatRecovery": true,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 59,
+      "carbonIntensityKgPerMwh": 215.6,
+      "annualCarbonOffsetTons": 5773,
+      "esgScore": 93,
+      "esgGrade": "A",
+      "sustainabilityCertifications": [
+        "Uptime Institute Tier III Certification",
+        "LEED Platinum",
+        "BREEAM Excellent"
+      ],
+      "waterUsageMlPerYear": 436.1,
+      "circularWaterPct": 37
+    },
+    "risk": {
+      "overallRiskScore": 17,
+      "riskLevel": "Low"
+    },
+    "weather": {
+      "climateZone": "Subtropical"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.994,
+      "activeIncidentCount": 3,
+      "alarmCriticalCount": 0,
+      "alarmHighCount": 2,
+      "alarmMediumCount": 8,
+      "alarmLowCount": 2,
+      "lastAuditDate": "2026-05-17"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 8,
+      "openWorkOrders": 0,
+      "preventiveMaintenanceCompliancePct": 89
+    },
+    "publicInfo": {
+      "googleCloudRegion": "asia-south1",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00019"
+  },
+  {
+    "id": "DC-00020",
+    "identity": {
+      "name": "Delhi NCR Data Center",
+      "displayCode": "DELHI-NCR",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "IV",
+      "status": "Active",
+      "commissionedYear": 2013,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00020",
+      "countryId": "CTY-00012",
+      "regionId": "REG-00003",
+      "city": "Delhi",
+      "country": "India",
+      "region": "APAC",
+      "latitude": 28.7041,
+      "longitude": 77.1025,
+      "timezone": "UTC+1",
+      "elevationM": 88
+    },
+    "campus": {
+      "campusName": "Delhi NCR Campus",
+      "campusAreaAcres": 58
+    },
+    "infrastructure": {
+      "buildingCount": 1,
+      "floorCount": 3,
+      "roomCount": 4,
+      "rackCount": 42,
+      "totalAreaSqm": 80803,
+      "whiteSpaceSqm": 31567,
+      "constructionType": "Modular prefabricated",
+      "seismicRating": "Standard"
+    },
+    "capacity": {
+      "itCapacityMw": 203,
+      "totalCapacityMw": 240,
+      "capacityUtilizationPct": 78,
+      "plannedExpansionMw": 5,
+      "maxDesignCapacityMw": 325
+    },
+    "power": {
+      "substationCapacityMva": 406,
+      "backupGeneratorCount": 16,
+      "backupGeneratorCapacityMw": 30,
+      "upsRedundancy": "N+1",
+      "pue": 1.07,
+      "wue": 1.16,
+      "gridConnectionKv": 138
+    },
+    "cooling": {
+      "coolingType": "Immersion (pilot)",
+      "coolingCapacityMw": 223,
+      "coolingRedundancy": "2N+1",
+      "chillerCount": 9,
+      "freeCoolingHoursPct": 62,
+      "coolingWaterSourceType": "Municipal reclaimed water"
+    },
+    "network": {
+      "networkTier": "Edge POP + backbone",
+      "fiberProviders": [
+        "Equinix Fabric",
+        "Zayo"
+      ],
+      "peeringExchanges": [
+        "NAPAfrica"
+      ],
+      "internalBackboneGbps": 2556,
+      "edgePoPCount": 3
+    },
+    "storage": {
+      "storageCapacityPb": 558,
+      "storageType": "Distributed object storage",
+      "backupRetentionDays": 90
+    },
+    "gpu": {
+      "gpuClusterCount": 1,
+      "totalGpuUnits": 12288,
+      "gpuGeneration": "NVIDIA A100",
+      "aiTrainingCapable": false,
+      "aiWorkloadPct": 16
+    },
+    "utilities": {
+      "waterSourceType": "Groundwater well",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 40,
+      "carbonIntensityKgPerMwh": 73.3,
+      "annualCarbonOffsetTons": 10416,
+      "esgScore": 65,
+      "esgGrade": "C",
+      "sustainabilityCertifications": [
+        "ISO 50001"
+      ],
+      "waterUsageMlPerYear": 161.9,
+      "circularWaterPct": 19
+    },
+    "risk": {
+      "overallRiskScore": 26,
+      "riskLevel": "Low"
+    },
+    "weather": {
+      "climateZone": "Subtropical"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.97,
+      "activeIncidentCount": 1,
+      "alarmCriticalCount": 2,
+      "alarmHighCount": 3,
+      "alarmMediumCount": 10,
+      "alarmLowCount": 7,
+      "lastAuditDate": "2026-04-13"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 8,
+      "openWorkOrders": 12,
+      "preventiveMaintenanceCompliancePct": 96
+    },
+    "publicInfo": {
+      "googleCloudRegion": "asia-south2",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00020"
+  },
+  {
+    "id": "DC-00021",
+    "identity": {
+      "name": "Singapore Data Center",
+      "displayCode": "SINGAPORE",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III+",
+      "status": "Active",
+      "commissionedYear": 2018,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00021",
+      "countryId": "CTY-00013",
+      "regionId": "REG-00003",
+      "city": "Singapore",
+      "country": "Singapore",
+      "region": "APAC",
+      "latitude": 1.3496,
+      "longitude": 103.7063,
+      "timezone": "UTC-6",
+      "elevationM": 3
+    },
+    "campus": {
+      "campusName": "Jurong West Campus",
+      "campusAreaAcres": 209
+    },
+    "infrastructure": {
+      "buildingCount": 3,
+      "floorCount": 7,
+      "roomCount": 16,
+      "rackCount": 164,
+      "totalAreaSqm": 81314,
+      "whiteSpaceSqm": 21023,
+      "constructionType": "Modular prefabricated",
+      "seismicRating": "Enhanced — Zone 3+"
+    },
+    "capacity": {
+      "itCapacityMw": 191,
+      "totalCapacityMw": 225,
+      "capacityUtilizationPct": 68,
+      "plannedExpansionMw": 3,
+      "maxDesignCapacityMw": 306
+    },
+    "power": {
+      "substationCapacityMva": 545,
+      "backupGeneratorCount": 12,
+      "backupGeneratorCapacityMw": 20,
+      "upsRedundancy": "2N",
+      "pue": 1.09,
+      "wue": 1.08,
+      "gridConnectionKv": 400
+    },
+    "cooling": {
+      "coolingType": "Air-cooled (CRAH)",
+      "coolingCapacityMw": 210,
+      "coolingRedundancy": "N+1",
+      "chillerCount": 11,
+      "freeCoolingHoursPct": 80,
+      "coolingWaterSourceType": "Surface water — permitted withdrawal"
+    },
+    "network": {
+      "networkTier": "Tier 1 backbone POP",
+      "fiberProviders": [
+        "Zayo",
+        "Colt",
+        "Equinix Fabric"
+      ],
+      "peeringExchanges": [],
+      "internalBackboneGbps": 538,
+      "edgePoPCount": 1
+    },
+    "storage": {
+      "storageCapacityPb": 579,
+      "storageType": "Distributed object storage",
+      "backupRetentionDays": 60
+    },
+    "gpu": {
+      "gpuClusterCount": 3,
+      "totalGpuUnits": 1024,
+      "gpuGeneration": "NVIDIA H100",
+      "aiTrainingCapable": true,
+      "aiWorkloadPct": 60
+    },
+    "utilities": {
+      "waterSourceType": "Municipal",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 61,
+      "carbonIntensityKgPerMwh": 215,
+      "annualCarbonOffsetTons": 6338,
+      "esgScore": 68,
+      "esgGrade": "C",
+      "sustainabilityCertifications": [
+        "LEED Platinum",
+        "ISO 50001",
+        "LEED Gold"
+      ],
+      "waterUsageMlPerYear": 26.1,
+      "circularWaterPct": 32
+    },
+    "risk": {
+      "overallRiskScore": 13,
+      "riskLevel": "Low"
+    },
+    "weather": {
+      "climateZone": "Tropical"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.969,
+      "activeIncidentCount": 1,
+      "alarmCriticalCount": 2,
+      "alarmHighCount": 5,
+      "alarmMediumCount": 1,
+      "alarmLowCount": 18,
+      "lastAuditDate": "2026-04-28"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 8,
+      "openWorkOrders": 9,
+      "preventiveMaintenanceCompliancePct": 94
+    },
+    "publicInfo": {
+      "googleCloudRegion": "asia-southeast1",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00021"
+  },
+  {
+    "id": "DC-00022",
+    "identity": {
+      "name": "Jakarta Data Center",
+      "displayCode": "JAKARTA",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III",
+      "status": "Active",
+      "commissionedYear": 2012,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00022",
+      "countryId": "CTY-00014",
+      "regionId": "REG-00003",
+      "city": "Jakarta",
+      "country": "Indonesia",
+      "region": "APAC",
+      "latitude": -6.2088,
+      "longitude": 106.8456,
+      "timezone": "UTC+8",
+      "elevationM": 211
+    },
+    "campus": {
+      "campusName": "Jakarta Campus",
+      "campusAreaAcres": 133
+    },
+    "infrastructure": {
+      "buildingCount": 3,
+      "floorCount": 7,
+      "roomCount": 15,
+      "rackCount": 161,
+      "totalAreaSqm": 138933,
+      "whiteSpaceSqm": 87188,
+      "constructionType": "Modular prefabricated",
+      "seismicRating": "Enhanced — Zone 4"
+    },
+    "capacity": {
+      "itCapacityMw": 184,
+      "totalCapacityMw": 217,
+      "capacityUtilizationPct": 70,
+      "plannedExpansionMw": 30,
+      "maxDesignCapacityMw": 294
+    },
+    "power": {
+      "substationCapacityMva": 495,
+      "backupGeneratorCount": 7,
+      "backupGeneratorCapacityMw": 33,
+      "upsRedundancy": "N+1",
+      "pue": 1.15,
+      "wue": 1.06,
+      "gridConnectionKv": 138
+    },
+    "cooling": {
+      "coolingType": "Immersion (pilot)",
+      "coolingCapacityMw": 202,
+      "coolingRedundancy": "N+1",
+      "chillerCount": 6,
+      "freeCoolingHoursPct": 31,
+      "coolingWaterSourceType": "Municipal reclaimed water"
+    },
+    "network": {
+      "networkTier": "Regional aggregation site",
+      "fiberProviders": [
+        "GTT",
+        "Equinix Fabric",
+        "Vodafone Carrier",
+        "Lumen"
+      ],
+      "peeringExchanges": [
+        "HKIX",
+        "Equinix IX"
+      ],
+      "internalBackboneGbps": 2942,
+      "edgePoPCount": 3
+    },
+    "storage": {
+      "storageCapacityPb": 581,
+      "storageType": "Distributed object storage",
+      "backupRetentionDays": 90
+    },
+    "gpu": {
+      "gpuClusterCount": 5,
+      "totalGpuUnits": 0,
+      "gpuGeneration": "TPU v5e (Google custom silicon)",
+      "aiTrainingCapable": false,
+      "aiWorkloadPct": 13
+    },
+    "utilities": {
+      "waterSourceType": "Reclaimed/recycled",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 50,
+      "carbonIntensityKgPerMwh": 376,
+      "annualCarbonOffsetTons": 6942,
+      "esgScore": 71,
+      "esgGrade": "C",
+      "sustainabilityCertifications": [
+        "LEED Platinum",
+        "ISO 50001",
+        "LEED Gold"
+      ],
+      "waterUsageMlPerYear": 741.2,
+      "circularWaterPct": 14
+    },
+    "risk": {
+      "overallRiskScore": 35,
+      "riskLevel": "Medium"
+    },
+    "weather": {
+      "climateZone": "Arid"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.989,
+      "activeIncidentCount": 1,
+      "alarmCriticalCount": 1,
+      "alarmHighCount": 0,
+      "alarmMediumCount": 1,
+      "alarmLowCount": 18,
+      "lastAuditDate": "2026-03-15"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 6,
+      "openWorkOrders": 6,
+      "preventiveMaintenanceCompliancePct": 89
+    },
+    "publicInfo": {
+      "googleCloudRegion": "asia-southeast2",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00022"
+  },
+  {
+    "id": "DC-00023",
+    "identity": {
+      "name": "Sydney Data Center",
+      "displayCode": "SYDNEY",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III+",
+      "status": "Under Construction",
+      "commissionedYear": null,
+      "plannedOnlineYear": 2027
+    },
+    "location": {
+      "campusId": "CMP-00023",
+      "countryId": "CTY-00015",
+      "regionId": "REG-00003",
+      "city": "Sydney",
+      "country": "Australia",
+      "region": "APAC",
+      "latitude": -33.8688,
+      "longitude": 151.2093,
+      "timezone": "UTC+10",
+      "elevationM": 223
+    },
+    "campus": {
+      "campusName": "Sydney Campus",
+      "campusAreaAcres": 373
+    },
+    "infrastructure": {
+      "buildingCount": 1,
+      "floorCount": 3,
+      "roomCount": 7,
+      "rackCount": 87,
+      "totalAreaSqm": 35595,
+      "whiteSpaceSqm": 86699,
+      "constructionType": "Pre-engineered steel",
+      "seismicRating": "Standard"
+    },
+    "capacity": {
+      "itCapacityMw": 82,
+      "totalCapacityMw": 97,
+      "capacityUtilizationPct": 23,
+      "plannedExpansionMw": 58,
+      "maxDesignCapacityMw": 131
+    },
+    "power": {
+      "substationCapacityMva": 530,
+      "backupGeneratorCount": 9,
+      "backupGeneratorCapacityMw": 37,
+      "upsRedundancy": "2N",
+      "pue": 1.16,
+      "wue": 1.28,
+      "gridConnectionKv": 345
+    },
+    "cooling": {
+      "coolingType": "Air-cooled (CRAH)",
+      "coolingCapacityMw": 90,
+      "coolingRedundancy": "2N",
+      "chillerCount": 15,
+      "freeCoolingHoursPct": 47,
+      "coolingWaterSourceType": "Surface water — permitted withdrawal"
+    },
+    "network": {
+      "networkTier": "Tier 1 backbone POP",
+      "fiberProviders": [
+        "Equinix Fabric",
+        "Vodafone Carrier"
+      ],
+      "peeringExchanges": [
+        "DE-CIX",
+        "HKIX"
+      ],
+      "internalBackboneGbps": 2860,
+      "edgePoPCount": 2
+    },
+    "storage": {
+      "storageCapacityPb": 130,
+      "storageType": "Hybrid flash/HDD",
+      "backupRetentionDays": 60
+    },
+    "gpu": {
+      "gpuClusterCount": 1,
+      "totalGpuUnits": 4096,
+      "gpuGeneration": "NVIDIA H100",
+      "aiTrainingCapable": true,
+      "aiWorkloadPct": 37
+    },
+    "utilities": {
+      "waterSourceType": "Air-cooled — minimal water",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 18,
+      "carbonIntensityKgPerMwh": 280.3,
+      "annualCarbonOffsetTons": 1071,
+      "esgScore": 84,
+      "esgGrade": "B",
+      "sustainabilityCertifications": [
+        "LEED Platinum"
+      ],
+      "waterUsageMlPerYear": 274.9,
+      "circularWaterPct": 26
+    },
+    "risk": {
+      "overallRiskScore": 26,
+      "riskLevel": "Low"
+    },
+    "weather": {
+      "climateZone": "Arid"
+    },
+    "operations": {
+      "operationalStatus": "Pre-commissioning",
+      "uptimePct": null,
+      "activeIncidentCount": 3,
+      "alarmCriticalCount": 2,
+      "alarmHighCount": 3,
+      "alarmMediumCount": 2,
+      "alarmLowCount": 7,
+      "lastAuditDate": "2026-02-17"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 8,
+      "openWorkOrders": 11,
+      "preventiveMaintenanceCompliancePct": 96
+    },
+    "publicInfo": {
+      "googleCloudRegion": "australia-southeast1",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00023"
+  },
+  {
+    "id": "DC-00024",
+    "identity": {
+      "name": "Melbourne Data Center",
+      "displayCode": "MELBOURNE",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III+",
+      "status": "Under Construction",
+      "commissionedYear": null,
+      "plannedOnlineYear": 2029
+    },
+    "location": {
+      "campusId": "CMP-00024",
+      "countryId": "CTY-00015",
+      "regionId": "REG-00003",
+      "city": "Melbourne",
+      "country": "Australia",
+      "region": "APAC",
+      "latitude": -37.8136,
+      "longitude": 144.9631,
+      "timezone": "UTC-5",
+      "elevationM": 186
+    },
+    "campus": {
+      "campusName": "Melbourne Campus",
+      "campusAreaAcres": 67
+    },
+    "infrastructure": {
+      "buildingCount": 2,
+      "floorCount": 6,
+      "roomCount": 10,
+      "rackCount": 99,
+      "totalAreaSqm": 130921,
+      "whiteSpaceSqm": 21114,
+      "constructionType": "Concrete tilt-wall",
+      "seismicRating": "Enhanced — Zone 3+"
+    },
+    "capacity": {
+      "itCapacityMw": 226,
+      "totalCapacityMw": 267,
+      "capacityUtilizationPct": 9,
+      "plannedExpansionMw": 108,
+      "maxDesignCapacityMw": 362
+    },
+    "power": {
+      "substationCapacityMva": 558,
+      "backupGeneratorCount": 15,
+      "backupGeneratorCapacityMw": 11,
+      "upsRedundancy": "2N+1",
+      "pue": 1.08,
+      "wue": 1.44,
+      "gridConnectionKv": 230
+    },
+    "cooling": {
+      "coolingType": "Liquid-cooled (direct-to-chip)",
+      "coolingCapacityMw": 249,
+      "coolingRedundancy": "2N",
+      "chillerCount": 11,
+      "freeCoolingHoursPct": 75,
+      "coolingWaterSourceType": "Surface water — permitted withdrawal"
+    },
+    "network": {
+      "networkTier": "Tier 1 backbone POP",
+      "fiberProviders": [
+        "Vodafone Carrier",
+        "Colt",
+        "GTT"
+      ],
+      "peeringExchanges": [
+        "Equinix IX",
+        "LINX"
+      ],
+      "internalBackboneGbps": 1485,
+      "edgePoPCount": 3
+    },
+    "storage": {
+      "storageCapacityPb": 162,
+      "storageType": "Hybrid flash/HDD",
+      "backupRetentionDays": 180
+    },
+    "gpu": {
+      "gpuClusterCount": 4,
+      "totalGpuUnits": 10240,
+      "gpuGeneration": "TPU v5e (Google custom silicon)",
+      "aiTrainingCapable": true,
+      "aiWorkloadPct": 7
+    },
+    "utilities": {
+      "waterSourceType": "Groundwater well",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 80,
+      "carbonIntensityKgPerMwh": 203.2,
+      "annualCarbonOffsetTons": 8303,
+      "esgScore": 65,
+      "esgGrade": "C",
+      "sustainabilityCertifications": [
+        "Uptime Institute Tier III Certification"
+      ],
+      "waterUsageMlPerYear": 798.5,
+      "circularWaterPct": 54
+    },
+    "risk": {
+      "overallRiskScore": 34,
+      "riskLevel": "Medium"
+    },
+    "weather": {
+      "climateZone": "Arid"
+    },
+    "operations": {
+      "operationalStatus": "Pre-commissioning",
+      "uptimePct": null,
+      "activeIncidentCount": 2,
+      "alarmCriticalCount": 0,
+      "alarmHighCount": 0,
+      "alarmMediumCount": 10,
+      "alarmLowCount": 4,
+      "lastAuditDate": "2026-06-08"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 8,
+      "openWorkOrders": 12,
+      "preventiveMaintenanceCompliancePct": 84
+    },
+    "publicInfo": {
+      "googleCloudRegion": "australia-southeast2",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00024"
+  },
+  {
+    "id": "DC-00025",
+    "identity": {
+      "name": "Taiwan Data Center",
+      "displayCode": "TAIWAN",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III+",
+      "status": "Under Construction",
+      "commissionedYear": null,
+      "plannedOnlineYear": 2027
+    },
+    "location": {
+      "campusId": "CMP-00025",
+      "countryId": "CTY-00016",
+      "regionId": "REG-00003",
+      "city": "Changhua",
+      "country": "Taiwan",
+      "region": "APAC",
+      "latitude": 24.0518,
+      "longitude": 120.5161,
+      "timezone": "UTC-8",
+      "elevationM": 149
+    },
+    "campus": {
+      "campusName": "Changhua Campus",
+      "campusAreaAcres": 239
+    },
+    "infrastructure": {
+      "buildingCount": 3,
+      "floorCount": 8,
+      "roomCount": 15,
+      "rackCount": 153,
+      "totalAreaSqm": 87636,
+      "whiteSpaceSqm": 34725,
+      "constructionType": "Pre-engineered steel",
+      "seismicRating": "Enhanced — Zone 3+"
+    },
+    "capacity": {
+      "itCapacityMw": 151,
+      "totalCapacityMw": 178,
+      "capacityUtilizationPct": 14,
+      "plannedExpansionMw": 63,
+      "maxDesignCapacityMw": 242
+    },
+    "power": {
+      "substationCapacityMva": 518,
+      "backupGeneratorCount": 22,
+      "backupGeneratorCapacityMw": 25,
+      "upsRedundancy": "2N+1",
+      "pue": 1.14,
+      "wue": 1.12,
+      "gridConnectionKv": 230
+    },
+    "cooling": {
+      "coolingType": "Liquid-cooled (direct-to-chip)",
+      "coolingCapacityMw": 166,
+      "coolingRedundancy": "2N",
+      "chillerCount": 9,
+      "freeCoolingHoursPct": 26,
+      "coolingWaterSourceType": "Municipal reclaimed water"
+    },
+    "network": {
+      "networkTier": "Edge POP + backbone",
+      "fiberProviders": [
+        "Zayo",
+        "Lumen"
+      ],
+      "peeringExchanges": [],
+      "internalBackboneGbps": 2010,
+      "edgePoPCount": 3
+    },
+    "storage": {
+      "storageCapacityPb": 878,
+      "storageType": "Hybrid flash/HDD",
+      "backupRetentionDays": 90
+    },
+    "gpu": {
+      "gpuClusterCount": 5,
+      "totalGpuUnits": 7168,
+      "gpuGeneration": "TPU v5e (Google custom silicon)",
+      "aiTrainingCapable": true,
+      "aiWorkloadPct": 15
+    },
+    "utilities": {
+      "waterSourceType": "Air-cooled — minimal water",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 59,
+      "carbonIntensityKgPerMwh": 51.3,
+      "annualCarbonOffsetTons": 7591,
+      "esgScore": 81,
+      "esgGrade": "B",
+      "sustainabilityCertifications": [
+        "LEED Gold",
+        "ISO 14001"
+      ],
+      "waterUsageMlPerYear": 535.7,
+      "circularWaterPct": 66
+    },
+    "risk": {
+      "overallRiskScore": 68,
+      "riskLevel": "High"
+    },
+    "weather": {
+      "climateZone": "Subtropical"
+    },
+    "operations": {
+      "operationalStatus": "Pre-commissioning",
+      "uptimePct": null,
+      "activeIncidentCount": 2,
+      "alarmCriticalCount": 1,
+      "alarmHighCount": 0,
+      "alarmMediumCount": 7,
+      "alarmLowCount": 12,
+      "lastAuditDate": "2026-04-24"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 6,
+      "openWorkOrders": 8,
+      "preventiveMaintenanceCompliancePct": 98
+    },
+    "publicInfo": {
+      "googleCloudRegion": "asia-east1",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00025"
+  },
+  {
+    "id": "DC-00026",
+    "identity": {
+      "name": "Hong Kong Data Center",
+      "displayCode": "HONG-KONG",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III+",
+      "status": "Active",
+      "commissionedYear": 2009,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00026",
+      "countryId": "CTY-00017",
+      "regionId": "REG-00003",
+      "city": "Hong Kong",
+      "country": "Hong Kong",
+      "region": "APAC",
+      "latitude": 22.3193,
+      "longitude": 114.1694,
+      "timezone": "UTC+5:30",
+      "elevationM": 84
+    },
+    "campus": {
+      "campusName": "Hong Kong Campus",
+      "campusAreaAcres": 161
+    },
+    "infrastructure": {
+      "buildingCount": 2,
+      "floorCount": 5,
+      "roomCount": 11,
+      "rackCount": 110,
+      "totalAreaSqm": 100644,
+      "whiteSpaceSqm": 65126,
+      "constructionType": "Pre-engineered steel",
+      "seismicRating": "Enhanced — Zone 3+"
+    },
+    "capacity": {
+      "itCapacityMw": 137,
+      "totalCapacityMw": 162,
+      "capacityUtilizationPct": 57,
+      "plannedExpansionMw": 13,
+      "maxDesignCapacityMw": 219
+    },
+    "power": {
+      "substationCapacityMva": 265,
+      "backupGeneratorCount": 18,
+      "backupGeneratorCapacityMw": 37,
+      "upsRedundancy": "N+1",
+      "pue": 1.1,
+      "wue": 1.37,
+      "gridConnectionKv": 115
+    },
+    "cooling": {
+      "coolingType": "Air-cooled (CRAH)",
+      "coolingCapacityMw": 151,
+      "coolingRedundancy": "2N",
+      "chillerCount": 8,
+      "freeCoolingHoursPct": 78,
+      "coolingWaterSourceType": "Closed-loop (no external water)"
+    },
+    "network": {
+      "networkTier": "Tier 1 backbone POP",
+      "fiberProviders": [
+        "Vodafone Carrier",
+        "Colt",
+        "GTT",
+        "Equinix Fabric"
+      ],
+      "peeringExchanges": [],
+      "internalBackboneGbps": 2551,
+      "edgePoPCount": 2
+    },
+    "storage": {
+      "storageCapacityPb": 853,
+      "storageType": "Hybrid flash/HDD",
+      "backupRetentionDays": 90
+    },
+    "gpu": {
+      "gpuClusterCount": 0,
+      "totalGpuUnits": 9216,
+      "gpuGeneration": "NVIDIA B200",
+      "aiTrainingCapable": false,
+      "aiWorkloadPct": 43
+    },
+    "utilities": {
+      "waterSourceType": "Reclaimed/recycled",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 96,
+      "carbonIntensityKgPerMwh": 61.4,
+      "annualCarbonOffsetTons": 13501,
+      "esgScore": 79,
+      "esgGrade": "B",
+      "sustainabilityCertifications": [
+        "ISO 14001"
+      ],
+      "waterUsageMlPerYear": 701.1,
+      "circularWaterPct": 0
+    },
+    "risk": {
+      "overallRiskScore": 58,
+      "riskLevel": "High"
+    },
+    "weather": {
+      "climateZone": "Subtropical"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.916,
+      "activeIncidentCount": 0,
+      "alarmCriticalCount": 1,
+      "alarmHighCount": 1,
+      "alarmMediumCount": 8,
+      "alarmLowCount": 18,
+      "lastAuditDate": "2026-03-12"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 8,
+      "openWorkOrders": 5,
+      "preventiveMaintenanceCompliancePct": 82
+    },
+    "publicInfo": {
+      "googleCloudRegion": "asia-east2",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00026"
+  },
+  {
+    "id": "DC-00027",
+    "identity": {
+      "name": "Doha Data Center",
+      "displayCode": "DOHA",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "IV",
+      "status": "Active",
+      "commissionedYear": 2009,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00027",
+      "countryId": "CTY-00018",
+      "regionId": "REG-00004",
+      "city": "Doha",
+      "country": "Qatar",
+      "region": "MiddleEast",
+      "latitude": 25.2854,
+      "longitude": 51.531,
+      "timezone": "UTC+11",
+      "elevationM": 23
+    },
+    "campus": {
+      "campusName": "Doha Campus",
+      "campusAreaAcres": 98
+    },
+    "infrastructure": {
+      "buildingCount": 3,
+      "floorCount": 7,
+      "roomCount": 13,
+      "rackCount": 124,
+      "totalAreaSqm": 114440,
+      "whiteSpaceSqm": 46972,
+      "constructionType": "Concrete tilt-wall",
+      "seismicRating": "Enhanced — Zone 4"
+    },
+    "capacity": {
+      "itCapacityMw": 170,
+      "totalCapacityMw": 201,
+      "capacityUtilizationPct": 88,
+      "plannedExpansionMw": 18,
+      "maxDesignCapacityMw": 272
+    },
+    "power": {
+      "substationCapacityMva": 477,
+      "backupGeneratorCount": 12,
+      "backupGeneratorCapacityMw": 31,
+      "upsRedundancy": "2N",
+      "pue": 1.12,
+      "wue": 1.29,
+      "gridConnectionKv": 138
+    },
+    "cooling": {
+      "coolingType": "Air-cooled (CRAH)",
+      "coolingCapacityMw": 187,
+      "coolingRedundancy": "2N+1",
+      "chillerCount": 11,
+      "freeCoolingHoursPct": 67,
+      "coolingWaterSourceType": "Municipal reclaimed water"
+    },
+    "network": {
+      "networkTier": "Edge POP + backbone",
+      "fiberProviders": [
+        "Lumen",
+        "GTT",
+        "Vodafone Carrier",
+        "Colt"
+      ],
+      "peeringExchanges": [],
+      "internalBackboneGbps": 2009,
+      "edgePoPCount": 1
+    },
+    "storage": {
+      "storageCapacityPb": 393,
+      "storageType": "Hybrid flash/HDD",
+      "backupRetentionDays": 30
+    },
+    "gpu": {
+      "gpuClusterCount": 1,
+      "totalGpuUnits": 10240,
+      "gpuGeneration": "NVIDIA B200",
+      "aiTrainingCapable": false,
+      "aiWorkloadPct": 26
+    },
+    "utilities": {
+      "waterSourceType": "Reclaimed/recycled",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 48,
+      "carbonIntensityKgPerMwh": 350.4,
+      "annualCarbonOffsetTons": 12252,
+      "esgScore": 87,
+      "esgGrade": "B",
+      "sustainabilityCertifications": [
+        "BREEAM Excellent",
+        "ISO 14001"
+      ],
+      "waterUsageMlPerYear": 681.1,
+      "circularWaterPct": 35
+    },
+    "risk": {
+      "overallRiskScore": 50,
+      "riskLevel": "Medium"
+    },
+    "weather": {
+      "climateZone": "Subarctic"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.925,
+      "activeIncidentCount": 1,
+      "alarmCriticalCount": 1,
+      "alarmHighCount": 4,
+      "alarmMediumCount": 2,
+      "alarmLowCount": 15,
+      "lastAuditDate": "2026-06-19"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 8,
+      "openWorkOrders": 10,
+      "preventiveMaintenanceCompliancePct": 92
+    },
+    "publicInfo": {
+      "googleCloudRegion": "me-central1",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00027"
+  },
+  {
+    "id": "DC-00028",
+    "identity": {
+      "name": "Dammam Data Center",
+      "displayCode": "DAMMAM",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III",
+      "status": "Active",
+      "commissionedYear": 2019,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00028",
+      "countryId": "CTY-00019",
+      "regionId": "REG-00004",
+      "city": "Dammam",
+      "country": "Saudi Arabia",
+      "region": "MiddleEast",
+      "latitude": 26.4207,
+      "longitude": 50.0888,
+      "timezone": "UTC+3",
+      "elevationM": 301
+    },
+    "campus": {
+      "campusName": "Dammam Campus",
+      "campusAreaAcres": 135
+    },
+    "infrastructure": {
+      "buildingCount": 1,
+      "floorCount": 3,
+      "roomCount": 5,
+      "rackCount": 46,
+      "totalAreaSqm": 70050,
+      "whiteSpaceSqm": 75178,
+      "constructionType": "Modular prefabricated",
+      "seismicRating": "Enhanced — Zone 3+"
+    },
+    "capacity": {
+      "itCapacityMw": 106,
+      "totalCapacityMw": 125,
+      "capacityUtilizationPct": 94,
+      "plannedExpansionMw": 18,
+      "maxDesignCapacityMw": 170
+    },
+    "power": {
+      "substationCapacityMva": 397,
+      "backupGeneratorCount": 9,
+      "backupGeneratorCapacityMw": 17,
+      "upsRedundancy": "2N",
+      "pue": 1.1,
+      "wue": 0.92,
+      "gridConnectionKv": 115
+    },
+    "cooling": {
+      "coolingType": "Liquid-cooled (direct-to-chip)",
+      "coolingCapacityMw": 117,
+      "coolingRedundancy": "2N",
+      "chillerCount": 5,
+      "freeCoolingHoursPct": 45,
+      "coolingWaterSourceType": "Closed-loop (no external water)"
+    },
+    "network": {
+      "networkTier": "Edge POP + backbone",
+      "fiberProviders": [
+        "Vodafone Carrier",
+        "Zayo"
+      ],
+      "peeringExchanges": [],
+      "internalBackboneGbps": 471,
+      "edgePoPCount": 2
+    },
+    "storage": {
+      "storageCapacityPb": 729,
+      "storageType": "NVMe all-flash + object tier",
+      "backupRetentionDays": 60
+    },
+    "gpu": {
+      "gpuClusterCount": 4,
+      "totalGpuUnits": 10240,
+      "gpuGeneration": "NVIDIA A100",
+      "aiTrainingCapable": false,
+      "aiWorkloadPct": 40
+    },
+    "utilities": {
+      "waterSourceType": "Reclaimed/recycled",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 80,
+      "carbonIntensityKgPerMwh": 293.7,
+      "annualCarbonOffsetTons": 3803,
+      "esgScore": 63,
+      "esgGrade": "C",
+      "sustainabilityCertifications": [
+        "Uptime Institute Tier III Certification",
+        "ISO 50001"
+      ],
+      "waterUsageMlPerYear": 489.5,
+      "circularWaterPct": 39
+    },
+    "risk": {
+      "overallRiskScore": 37,
+      "riskLevel": "Medium"
+    },
+    "weather": {
+      "climateZone": "Subarctic"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.96,
+      "activeIncidentCount": 0,
+      "alarmCriticalCount": 1,
+      "alarmHighCount": 1,
+      "alarmMediumCount": 1,
+      "alarmLowCount": 8,
+      "lastAuditDate": "2026-05-28"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 4,
+      "openWorkOrders": 0,
+      "preventiveMaintenanceCompliancePct": 89
+    },
+    "publicInfo": {
+      "googleCloudRegion": "me-central2",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00028"
+  },
+  {
+    "id": "DC-00029",
+    "identity": {
+      "name": "Tel Aviv Data Center",
+      "displayCode": "TEL-AVIV",
+      "operator": "Google LLC",
+      "facilityType": "Hyperscale Campus",
+      "tier": "III",
+      "status": "Active",
+      "commissionedYear": 2008,
+      "plannedOnlineYear": null
+    },
+    "location": {
+      "campusId": "CMP-00029",
+      "countryId": "CTY-00020",
+      "regionId": "REG-00004",
+      "city": "Tel Aviv",
+      "country": "Israel",
+      "region": "MiddleEast",
+      "latitude": 32.0853,
+      "longitude": 34.7818,
+      "timezone": "UTC-5",
+      "elevationM": 130
+    },
+    "campus": {
+      "campusName": "Tel Aviv Campus",
+      "campusAreaAcres": 351
+    },
+    "infrastructure": {
+      "buildingCount": 1,
+      "floorCount": 3,
+      "roomCount": 5,
+      "rackCount": 44,
+      "totalAreaSqm": 35483,
+      "whiteSpaceSqm": 29216,
+      "constructionType": "Concrete tilt-wall",
+      "seismicRating": "Enhanced — Zone 3+"
+    },
+    "capacity": {
+      "itCapacityMw": 208,
+      "totalCapacityMw": 245,
+      "capacityUtilizationPct": 57,
+      "plannedExpansionMw": 8,
+      "maxDesignCapacityMw": 333
+    },
+    "power": {
+      "substationCapacityMva": 331,
+      "backupGeneratorCount": 12,
+      "backupGeneratorCapacityMw": 18,
+      "upsRedundancy": "2N+1",
+      "pue": 1.21,
+      "wue": 1.63,
+      "gridConnectionKv": 345
+    },
+    "cooling": {
+      "coolingType": "Air-cooled (CRAH)",
+      "coolingCapacityMw": 229,
+      "coolingRedundancy": "2N+1",
+      "chillerCount": 15,
+      "freeCoolingHoursPct": 43,
+      "coolingWaterSourceType": "Closed-loop (no external water)"
+    },
+    "network": {
+      "networkTier": "Tier 1 backbone POP",
+      "fiberProviders": [
+        "GTT",
+        "Zayo",
+        "Colt",
+        "Lumen"
+      ],
+      "peeringExchanges": [
+        "LINX",
+        "HKIX"
+      ],
+      "internalBackboneGbps": 624,
+      "edgePoPCount": 1
+    },
+    "storage": {
+      "storageCapacityPb": 259,
+      "storageType": "Hybrid flash/HDD",
+      "backupRetentionDays": 30
+    },
+    "gpu": {
+      "gpuClusterCount": 0,
+      "totalGpuUnits": 7168,
+      "gpuGeneration": "NVIDIA H100",
+      "aiTrainingCapable": false,
+      "aiWorkloadPct": 43
+    },
+    "utilities": {
+      "waterSourceType": "Reclaimed/recycled",
+      "wasteHeatRecovery": false,
+      "onsiteSubstation": true,
+      "naturalGasBackup": false
+    },
+    "esg": {
+      "renewablePct": 60,
+      "carbonIntensityKgPerMwh": 341.1,
+      "annualCarbonOffsetTons": 7278,
+      "esgScore": 93,
+      "esgGrade": "A",
+      "sustainabilityCertifications": [
+        "LEED Gold",
+        "Uptime Institute Tier III Certification"
+      ],
+      "waterUsageMlPerYear": 866.5,
+      "circularWaterPct": 29
+    },
+    "risk": {
+      "overallRiskScore": 15,
+      "riskLevel": "Low"
+    },
+    "weather": {
+      "climateZone": "Arid"
+    },
+    "operations": {
+      "operationalStatus": "Online",
+      "uptimePct": 99.982,
+      "activeIncidentCount": 3,
+      "alarmCriticalCount": 1,
+      "alarmHighCount": 0,
+      "alarmMediumCount": 2,
+      "alarmLowCount": 3,
+      "lastAuditDate": "2026-04-16"
+    },
+    "maintenance": {
+      "maintenanceWindowHours": 8,
+      "openWorkOrders": 11,
+      "preventiveMaintenanceCompliancePct": 89
+    },
+    "publicInfo": {
+      "googleCloudRegion": "me-west1",
+      "publicSustainabilityInitiative": "Google 24/7 Carbon-Free Energy Initiative",
+      "sourceNote": "Location/name based on publicly reported Google data center sites. GCP region mapping is best-effort and not an official Google disclosure."
+    },
+    "aiSummaryId": "AI-00029"
+  }
+]

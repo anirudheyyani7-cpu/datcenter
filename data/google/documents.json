@@ -1,0 +1,546 @@
+[
+  {
+    "id": "DOC-00001",
+    "dataCenterId": "DC-00001",
+    "title": "Council Bluffs Data Center — Environmental Permit Filing",
+    "type": "Environmental Permit Filing",
+    "publishedYear": 2026,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00002",
+    "dataCenterId": "DC-00001",
+    "title": "Council Bluffs Data Center — Local Press Release",
+    "type": "Local Press Release",
+    "publishedYear": 2025,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00003",
+    "dataCenterId": "DC-00002",
+    "title": "The Dalles Data Center — Grid Interconnection Filing",
+    "type": "Community Benefit Agreement",
+    "publishedYear": 2023,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00004",
+    "dataCenterId": "DC-00002",
+    "title": "The Dalles Data Center — Community Benefit Agreement",
+    "type": "Local Press Release",
+    "publishedYear": 2023,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00005",
+    "dataCenterId": "DC-00002",
+    "title": "The Dalles Data Center — Community Benefit Agreement",
+    "type": "Grid Interconnection Filing",
+    "publishedYear": 2026,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00006",
+    "dataCenterId": "DC-00003",
+    "title": "Douglas County Data Center — Community Benefit Agreement",
+    "type": "Community Benefit Agreement",
+    "publishedYear": 2024,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00007",
+    "dataCenterId": "DC-00003",
+    "title": "Douglas County Data Center — Community Benefit Agreement",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2026,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00008",
+    "dataCenterId": "DC-00004",
+    "title": "Mayes County Data Center — Sustainability Report Reference",
+    "type": "Local Press Release",
+    "publishedYear": 2026,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00009",
+    "dataCenterId": "DC-00004",
+    "title": "Mayes County Data Center — Grid Interconnection Filing",
+    "type": "Grid Interconnection Filing",
+    "publishedYear": 2024,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00010",
+    "dataCenterId": "DC-00005",
+    "title": "Henderson Data Center — Environmental Permit Filing",
+    "type": "Grid Interconnection Filing",
+    "publishedYear": 2024,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00011",
+    "dataCenterId": "DC-00005",
+    "title": "Henderson Data Center — Sustainability Report Reference",
+    "type": "Local Press Release",
+    "publishedYear": 2023,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00012",
+    "dataCenterId": "DC-00006",
+    "title": "Columbus Data Center — Environmental Permit Filing",
+    "type": "Environmental Permit Filing",
+    "publishedYear": 2020,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00013",
+    "dataCenterId": "DC-00006",
+    "title": "Columbus Data Center — Sustainability Report Reference",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2020,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00014",
+    "dataCenterId": "DC-00007",
+    "title": "Loudoun County Data Center — Grid Interconnection Filing",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2023,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00015",
+    "dataCenterId": "DC-00007",
+    "title": "Loudoun County Data Center — Environmental Permit Filing",
+    "type": "Environmental Permit Filing",
+    "publishedYear": 2024,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00016",
+    "dataCenterId": "DC-00008",
+    "title": "Moncks Corner Data Center — Local Press Release",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2022,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00017",
+    "dataCenterId": "DC-00008",
+    "title": "Moncks Corner Data Center — Community Benefit Agreement",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2022,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00018",
+    "dataCenterId": "DC-00008",
+    "title": "Moncks Corner Data Center — Local Press Release",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2024,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00019",
+    "dataCenterId": "DC-00009",
+    "title": "Toronto Data Center — Local Press Release",
+    "type": "Local Press Release",
+    "publishedYear": 2026,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00020",
+    "dataCenterId": "DC-00009",
+    "title": "Toronto Data Center — Grid Interconnection Filing",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2025,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00021",
+    "dataCenterId": "DC-00009",
+    "title": "Toronto Data Center — Local Press Release",
+    "type": "Grid Interconnection Filing",
+    "publishedYear": 2020,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00022",
+    "dataCenterId": "DC-00010",
+    "title": "Santiago Data Center — Sustainability Report Reference",
+    "type": "Community Benefit Agreement",
+    "publishedYear": 2020,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00023",
+    "dataCenterId": "DC-00010",
+    "title": "Santiago Data Center — Community Benefit Agreement",
+    "type": "Environmental Permit Filing",
+    "publishedYear": 2023,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00024",
+    "dataCenterId": "DC-00011",
+    "title": "Hamina Data Center — Local Press Release",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2026,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00025",
+    "dataCenterId": "DC-00011",
+    "title": "Hamina Data Center — Local Press Release",
+    "type": "Environmental Permit Filing",
+    "publishedYear": 2020,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00026",
+    "dataCenterId": "DC-00012",
+    "title": "St. Ghislain Data Center — Local Press Release",
+    "type": "Grid Interconnection Filing",
+    "publishedYear": 2025,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00027",
+    "dataCenterId": "DC-00012",
+    "title": "St. Ghislain Data Center — Environmental Permit Filing",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2023,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00028",
+    "dataCenterId": "DC-00013",
+    "title": "Eemshaven Data Center — Environmental Permit Filing",
+    "type": "Grid Interconnection Filing",
+    "publishedYear": 2024,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00029",
+    "dataCenterId": "DC-00013",
+    "title": "Eemshaven Data Center — Local Press Release",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2025,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00030",
+    "dataCenterId": "DC-00014",
+    "title": "Dublin Data Center — Sustainability Report Reference",
+    "type": "Grid Interconnection Filing",
+    "publishedYear": 2019,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00031",
+    "dataCenterId": "DC-00014",
+    "title": "Dublin Data Center — Environmental Permit Filing",
+    "type": "Community Benefit Agreement",
+    "publishedYear": 2019,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00032",
+    "dataCenterId": "DC-00015",
+    "title": "Fredericia Data Center — Community Benefit Agreement",
+    "type": "Environmental Permit Filing",
+    "publishedYear": 2020,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00033",
+    "dataCenterId": "DC-00015",
+    "title": "Fredericia Data Center — Community Benefit Agreement",
+    "type": "Local Press Release",
+    "publishedYear": 2020,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00034",
+    "dataCenterId": "DC-00015",
+    "title": "Fredericia Data Center — Local Press Release",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2024,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00035",
+    "dataCenterId": "DC-00016",
+    "title": "Milan Data Center — Community Benefit Agreement",
+    "type": "Community Benefit Agreement",
+    "publishedYear": 2023,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00036",
+    "dataCenterId": "DC-00016",
+    "title": "Milan Data Center — Environmental Permit Filing",
+    "type": "Local Press Release",
+    "publishedYear": 2024,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00037",
+    "dataCenterId": "DC-00017",
+    "title": "Madrid Data Center — Environmental Permit Filing",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2023,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00038",
+    "dataCenterId": "DC-00017",
+    "title": "Madrid Data Center — Grid Interconnection Filing",
+    "type": "Grid Interconnection Filing",
+    "publishedYear": 2019,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00039",
+    "dataCenterId": "DC-00017",
+    "title": "Madrid Data Center — Local Press Release",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2022,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00040",
+    "dataCenterId": "DC-00018",
+    "title": "Warsaw Data Center — Local Press Release",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2023,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00041",
+    "dataCenterId": "DC-00018",
+    "title": "Warsaw Data Center — Grid Interconnection Filing",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2020,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00042",
+    "dataCenterId": "DC-00018",
+    "title": "Warsaw Data Center — Environmental Permit Filing",
+    "type": "Local Press Release",
+    "publishedYear": 2021,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00043",
+    "dataCenterId": "DC-00019",
+    "title": "Mumbai Data Center — Environmental Permit Filing",
+    "type": "Local Press Release",
+    "publishedYear": 2021,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00044",
+    "dataCenterId": "DC-00019",
+    "title": "Mumbai Data Center — Grid Interconnection Filing",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2026,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00045",
+    "dataCenterId": "DC-00019",
+    "title": "Mumbai Data Center — Local Press Release",
+    "type": "Community Benefit Agreement",
+    "publishedYear": 2026,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00046",
+    "dataCenterId": "DC-00020",
+    "title": "Delhi NCR Data Center — Grid Interconnection Filing",
+    "type": "Local Press Release",
+    "publishedYear": 2024,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00047",
+    "dataCenterId": "DC-00020",
+    "title": "Delhi NCR Data Center — Environmental Permit Filing",
+    "type": "Environmental Permit Filing",
+    "publishedYear": 2026,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00048",
+    "dataCenterId": "DC-00020",
+    "title": "Delhi NCR Data Center — Local Press Release",
+    "type": "Grid Interconnection Filing",
+    "publishedYear": 2022,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00049",
+    "dataCenterId": "DC-00021",
+    "title": "Singapore Data Center — Community Benefit Agreement",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2024,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00050",
+    "dataCenterId": "DC-00021",
+    "title": "Singapore Data Center — Grid Interconnection Filing",
+    "type": "Community Benefit Agreement",
+    "publishedYear": 2019,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00051",
+    "dataCenterId": "DC-00021",
+    "title": "Singapore Data Center — Environmental Permit Filing",
+    "type": "Community Benefit Agreement",
+    "publishedYear": 2021,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00052",
+    "dataCenterId": "DC-00022",
+    "title": "Jakarta Data Center — Community Benefit Agreement",
+    "type": "Grid Interconnection Filing",
+    "publishedYear": 2021,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00053",
+    "dataCenterId": "DC-00022",
+    "title": "Jakarta Data Center — Community Benefit Agreement",
+    "type": "Grid Interconnection Filing",
+    "publishedYear": 2026,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00054",
+    "dataCenterId": "DC-00023",
+    "title": "Sydney Data Center — Grid Interconnection Filing",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2024,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00055",
+    "dataCenterId": "DC-00023",
+    "title": "Sydney Data Center — Local Press Release",
+    "type": "Community Benefit Agreement",
+    "publishedYear": 2025,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00056",
+    "dataCenterId": "DC-00024",
+    "title": "Melbourne Data Center — Local Press Release",
+    "type": "Local Press Release",
+    "publishedYear": 2023,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00057",
+    "dataCenterId": "DC-00024",
+    "title": "Melbourne Data Center — Environmental Permit Filing",
+    "type": "Local Press Release",
+    "publishedYear": 2025,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00058",
+    "dataCenterId": "DC-00025",
+    "title": "Taiwan Data Center — Grid Interconnection Filing",
+    "type": "Local Press Release",
+    "publishedYear": 2024,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00059",
+    "dataCenterId": "DC-00025",
+    "title": "Taiwan Data Center — Sustainability Report Reference",
+    "type": "Community Benefit Agreement",
+    "publishedYear": 2022,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00060",
+    "dataCenterId": "DC-00026",
+    "title": "Hong Kong Data Center — Grid Interconnection Filing",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2020,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00061",
+    "dataCenterId": "DC-00026",
+    "title": "Hong Kong Data Center — Local Press Release",
+    "type": "Local Press Release",
+    "publishedYear": 2019,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00062",
+    "dataCenterId": "DC-00026",
+    "title": "Hong Kong Data Center — Community Benefit Agreement",
+    "type": "Community Benefit Agreement",
+    "publishedYear": 2026,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00063",
+    "dataCenterId": "DC-00027",
+    "title": "Doha Data Center — Environmental Permit Filing",
+    "type": "Community Benefit Agreement",
+    "publishedYear": 2022,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00064",
+    "dataCenterId": "DC-00027",
+    "title": "Doha Data Center — Sustainability Report Reference",
+    "type": "Grid Interconnection Filing",
+    "publishedYear": 2022,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00065",
+    "dataCenterId": "DC-00028",
+    "title": "Dammam Data Center — Grid Interconnection Filing",
+    "type": "Sustainability Report Reference",
+    "publishedYear": 2019,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00066",
+    "dataCenterId": "DC-00028",
+    "title": "Dammam Data Center — Sustainability Report Reference",
+    "type": "Community Benefit Agreement",
+    "publishedYear": 2024,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00067",
+    "dataCenterId": "DC-00029",
+    "title": "Tel Aviv Data Center — Sustainability Report Reference",
+    "type": "Environmental Permit Filing",
+    "publishedYear": 2025,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  },
+  {
+    "id": "DOC-00068",
+    "dataCenterId": "DC-00029",
+    "title": "Tel Aviv Data Center — Community Benefit Agreement",
+    "type": "Grid Interconnection Filing",
+    "publishedYear": 2023,
+    "sourceNote": "Reference only — see Google's public Environmental Report and official data center site pages for verified information."
+  }
+]

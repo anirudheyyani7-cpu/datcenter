@@ -1,0 +1,1829 @@
+[
+  {
+    "id": "RISK-00001",
+    "dataCenterId": "DC-00001",
+    "category": "Weather",
+    "level": "Low",
+    "score": 21,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00002",
+    "dataCenterId": "DC-00001",
+    "category": "Flood",
+    "level": "Low",
+    "score": 24,
+    "narrative": "Flood risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00003",
+    "dataCenterId": "DC-00001",
+    "category": "Earthquake",
+    "level": "Medium",
+    "score": 63,
+    "narrative": "Earthquake risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00004",
+    "dataCenterId": "DC-00001",
+    "category": "Political",
+    "level": "Low",
+    "score": 9,
+    "narrative": "Political risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00005",
+    "dataCenterId": "DC-00001",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 11,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00006",
+    "dataCenterId": "DC-00001",
+    "category": "Grid Stability",
+    "level": "Low",
+    "score": 5,
+    "narrative": "Grid Stability risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00007",
+    "dataCenterId": "DC-00001",
+    "category": "Supply Chain",
+    "level": "Medium",
+    "score": 62,
+    "narrative": "Supply Chain risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00008",
+    "dataCenterId": "DC-00002",
+    "category": "Weather",
+    "level": "Medium",
+    "score": 55,
+    "narrative": "Weather risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00009",
+    "dataCenterId": "DC-00002",
+    "category": "Flood",
+    "level": "Medium",
+    "score": 65,
+    "narrative": "Flood risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00010",
+    "dataCenterId": "DC-00002",
+    "category": "Earthquake",
+    "level": "Low",
+    "score": 26,
+    "narrative": "Earthquake risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00011",
+    "dataCenterId": "DC-00002",
+    "category": "Political",
+    "level": "Medium",
+    "score": 44,
+    "narrative": "Political risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00012",
+    "dataCenterId": "DC-00002",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 13,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00013",
+    "dataCenterId": "DC-00002",
+    "category": "Grid Stability",
+    "level": "Low",
+    "score": 11,
+    "narrative": "Grid Stability risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00014",
+    "dataCenterId": "DC-00002",
+    "category": "Supply Chain",
+    "level": "High",
+    "score": 83,
+    "narrative": "Supply Chain risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00015",
+    "dataCenterId": "DC-00003",
+    "category": "Weather",
+    "level": "Low",
+    "score": 24,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00016",
+    "dataCenterId": "DC-00003",
+    "category": "Flood",
+    "level": "Medium",
+    "score": 38,
+    "narrative": "Flood risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00017",
+    "dataCenterId": "DC-00003",
+    "category": "Earthquake",
+    "level": "Medium",
+    "score": 61,
+    "narrative": "Earthquake risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00018",
+    "dataCenterId": "DC-00003",
+    "category": "Political",
+    "level": "Medium",
+    "score": 39,
+    "narrative": "Political risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00019",
+    "dataCenterId": "DC-00003",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 13,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00020",
+    "dataCenterId": "DC-00003",
+    "category": "Grid Stability",
+    "level": "High",
+    "score": 92,
+    "narrative": "Grid Stability risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00021",
+    "dataCenterId": "DC-00003",
+    "category": "Supply Chain",
+    "level": "High",
+    "score": 74,
+    "narrative": "Supply Chain risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00022",
+    "dataCenterId": "DC-00004",
+    "category": "Weather",
+    "level": "Medium",
+    "score": 41,
+    "narrative": "Weather risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00023",
+    "dataCenterId": "DC-00004",
+    "category": "Flood",
+    "level": "Medium",
+    "score": 69,
+    "narrative": "Flood risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00024",
+    "dataCenterId": "DC-00004",
+    "category": "Earthquake",
+    "level": "Medium",
+    "score": 66,
+    "narrative": "Earthquake risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00025",
+    "dataCenterId": "DC-00004",
+    "category": "Political",
+    "level": "Medium",
+    "score": 53,
+    "narrative": "Political risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00026",
+    "dataCenterId": "DC-00004",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 16,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00027",
+    "dataCenterId": "DC-00004",
+    "category": "Grid Stability",
+    "level": "High",
+    "score": 77,
+    "narrative": "Grid Stability risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00028",
+    "dataCenterId": "DC-00004",
+    "category": "Supply Chain",
+    "level": "Low",
+    "score": 8,
+    "narrative": "Supply Chain risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00029",
+    "dataCenterId": "DC-00005",
+    "category": "Weather",
+    "level": "Medium",
+    "score": 38,
+    "narrative": "Weather risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00030",
+    "dataCenterId": "DC-00005",
+    "category": "Flood",
+    "level": "Low",
+    "score": 7,
+    "narrative": "Flood risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00031",
+    "dataCenterId": "DC-00005",
+    "category": "Earthquake",
+    "level": "High",
+    "score": 88,
+    "narrative": "Earthquake risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00032",
+    "dataCenterId": "DC-00005",
+    "category": "Political",
+    "level": "Low",
+    "score": 20,
+    "narrative": "Political risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00033",
+    "dataCenterId": "DC-00005",
+    "category": "Cyber",
+    "level": "Medium",
+    "score": 39,
+    "narrative": "Cyber risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00034",
+    "dataCenterId": "DC-00005",
+    "category": "Grid Stability",
+    "level": "Low",
+    "score": 32,
+    "narrative": "Grid Stability risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00035",
+    "dataCenterId": "DC-00005",
+    "category": "Supply Chain",
+    "level": "Low",
+    "score": 34,
+    "narrative": "Supply Chain risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00036",
+    "dataCenterId": "DC-00006",
+    "category": "Weather",
+    "level": "Medium",
+    "score": 69,
+    "narrative": "Weather risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00037",
+    "dataCenterId": "DC-00006",
+    "category": "Flood",
+    "level": "Low",
+    "score": 24,
+    "narrative": "Flood risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00038",
+    "dataCenterId": "DC-00006",
+    "category": "Earthquake",
+    "level": "Low",
+    "score": 33,
+    "narrative": "Earthquake risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00039",
+    "dataCenterId": "DC-00006",
+    "category": "Political",
+    "level": "Low",
+    "score": 14,
+    "narrative": "Political risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00040",
+    "dataCenterId": "DC-00006",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 18,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00041",
+    "dataCenterId": "DC-00006",
+    "category": "Grid Stability",
+    "level": "Medium",
+    "score": 57,
+    "narrative": "Grid Stability risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00042",
+    "dataCenterId": "DC-00006",
+    "category": "Supply Chain",
+    "level": "Medium",
+    "score": 48,
+    "narrative": "Supply Chain risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00043",
+    "dataCenterId": "DC-00007",
+    "category": "Weather",
+    "level": "Low",
+    "score": 18,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00044",
+    "dataCenterId": "DC-00007",
+    "category": "Flood",
+    "level": "Low",
+    "score": 29,
+    "narrative": "Flood risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00045",
+    "dataCenterId": "DC-00007",
+    "category": "Earthquake",
+    "level": "Medium",
+    "score": 56,
+    "narrative": "Earthquake risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00046",
+    "dataCenterId": "DC-00007",
+    "category": "Political",
+    "level": "Medium",
+    "score": 66,
+    "narrative": "Political risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00047",
+    "dataCenterId": "DC-00007",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 11,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00048",
+    "dataCenterId": "DC-00007",
+    "category": "Grid Stability",
+    "level": "Low",
+    "score": 8,
+    "narrative": "Grid Stability risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00049",
+    "dataCenterId": "DC-00007",
+    "category": "Supply Chain",
+    "level": "Low",
+    "score": 15,
+    "narrative": "Supply Chain risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00050",
+    "dataCenterId": "DC-00008",
+    "category": "Weather",
+    "level": "Low",
+    "score": 20,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00051",
+    "dataCenterId": "DC-00008",
+    "category": "Flood",
+    "level": "Low",
+    "score": 16,
+    "narrative": "Flood risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00052",
+    "dataCenterId": "DC-00008",
+    "category": "Earthquake",
+    "level": "Medium",
+    "score": 65,
+    "narrative": "Earthquake risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00053",
+    "dataCenterId": "DC-00008",
+    "category": "Political",
+    "level": "Low",
+    "score": 29,
+    "narrative": "Political risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00054",
+    "dataCenterId": "DC-00008",
+    "category": "Cyber",
+    "level": "Medium",
+    "score": 38,
+    "narrative": "Cyber risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00055",
+    "dataCenterId": "DC-00008",
+    "category": "Grid Stability",
+    "level": "Medium",
+    "score": 65,
+    "narrative": "Grid Stability risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00056",
+    "dataCenterId": "DC-00008",
+    "category": "Supply Chain",
+    "level": "Low",
+    "score": 20,
+    "narrative": "Supply Chain risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00057",
+    "dataCenterId": "DC-00009",
+    "category": "Weather",
+    "level": "Low",
+    "score": 29,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00058",
+    "dataCenterId": "DC-00009",
+    "category": "Flood",
+    "level": "High",
+    "score": 73,
+    "narrative": "Flood risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00059",
+    "dataCenterId": "DC-00009",
+    "category": "Earthquake",
+    "level": "Low",
+    "score": 18,
+    "narrative": "Earthquake risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00060",
+    "dataCenterId": "DC-00009",
+    "category": "Political",
+    "level": "Medium",
+    "score": 35,
+    "narrative": "Political risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00061",
+    "dataCenterId": "DC-00009",
+    "category": "Cyber",
+    "level": "Medium",
+    "score": 59,
+    "narrative": "Cyber risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00062",
+    "dataCenterId": "DC-00009",
+    "category": "Grid Stability",
+    "level": "Medium",
+    "score": 48,
+    "narrative": "Grid Stability risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00063",
+    "dataCenterId": "DC-00009",
+    "category": "Supply Chain",
+    "level": "Low",
+    "score": 10,
+    "narrative": "Supply Chain risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00064",
+    "dataCenterId": "DC-00010",
+    "category": "Weather",
+    "level": "Low",
+    "score": 21,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00065",
+    "dataCenterId": "DC-00010",
+    "category": "Flood",
+    "level": "Low",
+    "score": 26,
+    "narrative": "Flood risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00066",
+    "dataCenterId": "DC-00010",
+    "category": "Earthquake",
+    "level": "Medium",
+    "score": 37,
+    "narrative": "Earthquake risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00067",
+    "dataCenterId": "DC-00010",
+    "category": "Political",
+    "level": "Low",
+    "score": 9,
+    "narrative": "Political risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00068",
+    "dataCenterId": "DC-00010",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 25,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00069",
+    "dataCenterId": "DC-00010",
+    "category": "Grid Stability",
+    "level": "Low",
+    "score": 5,
+    "narrative": "Grid Stability risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00070",
+    "dataCenterId": "DC-00010",
+    "category": "Supply Chain",
+    "level": "Low",
+    "score": 9,
+    "narrative": "Supply Chain risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00071",
+    "dataCenterId": "DC-00011",
+    "category": "Weather",
+    "level": "Medium",
+    "score": 42,
+    "narrative": "Weather risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00072",
+    "dataCenterId": "DC-00011",
+    "category": "Flood",
+    "level": "Low",
+    "score": 19,
+    "narrative": "Flood risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00073",
+    "dataCenterId": "DC-00011",
+    "category": "Earthquake",
+    "level": "Low",
+    "score": 16,
+    "narrative": "Earthquake risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00074",
+    "dataCenterId": "DC-00011",
+    "category": "Political",
+    "level": "High",
+    "score": 70,
+    "narrative": "Political risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00075",
+    "dataCenterId": "DC-00011",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 28,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00076",
+    "dataCenterId": "DC-00011",
+    "category": "Grid Stability",
+    "level": "High",
+    "score": 77,
+    "narrative": "Grid Stability risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00077",
+    "dataCenterId": "DC-00011",
+    "category": "Supply Chain",
+    "level": "Medium",
+    "score": 55,
+    "narrative": "Supply Chain risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00078",
+    "dataCenterId": "DC-00012",
+    "category": "Weather",
+    "level": "Low",
+    "score": 19,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00079",
+    "dataCenterId": "DC-00012",
+    "category": "Flood",
+    "level": "Medium",
+    "score": 35,
+    "narrative": "Flood risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00080",
+    "dataCenterId": "DC-00012",
+    "category": "Earthquake",
+    "level": "Low",
+    "score": 26,
+    "narrative": "Earthquake risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00081",
+    "dataCenterId": "DC-00012",
+    "category": "Political",
+    "level": "Low",
+    "score": 23,
+    "narrative": "Political risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00082",
+    "dataCenterId": "DC-00012",
+    "category": "Cyber",
+    "level": "High",
+    "score": 80,
+    "narrative": "Cyber risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00083",
+    "dataCenterId": "DC-00012",
+    "category": "Grid Stability",
+    "level": "Medium",
+    "score": 36,
+    "narrative": "Grid Stability risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00084",
+    "dataCenterId": "DC-00012",
+    "category": "Supply Chain",
+    "level": "Medium",
+    "score": 62,
+    "narrative": "Supply Chain risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00085",
+    "dataCenterId": "DC-00013",
+    "category": "Weather",
+    "level": "Low",
+    "score": 6,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00086",
+    "dataCenterId": "DC-00013",
+    "category": "Flood",
+    "level": "Low",
+    "score": 12,
+    "narrative": "Flood risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00087",
+    "dataCenterId": "DC-00013",
+    "category": "Earthquake",
+    "level": "Medium",
+    "score": 47,
+    "narrative": "Earthquake risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00088",
+    "dataCenterId": "DC-00013",
+    "category": "Political",
+    "level": "Medium",
+    "score": 44,
+    "narrative": "Political risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00089",
+    "dataCenterId": "DC-00013",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 16,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00090",
+    "dataCenterId": "DC-00013",
+    "category": "Grid Stability",
+    "level": "Medium",
+    "score": 59,
+    "narrative": "Grid Stability risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00091",
+    "dataCenterId": "DC-00013",
+    "category": "Supply Chain",
+    "level": "Low",
+    "score": 24,
+    "narrative": "Supply Chain risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00092",
+    "dataCenterId": "DC-00014",
+    "category": "Weather",
+    "level": "Low",
+    "score": 7,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00093",
+    "dataCenterId": "DC-00014",
+    "category": "Flood",
+    "level": "Low",
+    "score": 26,
+    "narrative": "Flood risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00094",
+    "dataCenterId": "DC-00014",
+    "category": "Earthquake",
+    "level": "Low",
+    "score": 28,
+    "narrative": "Earthquake risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00095",
+    "dataCenterId": "DC-00014",
+    "category": "Political",
+    "level": "Medium",
+    "score": 56,
+    "narrative": "Political risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00096",
+    "dataCenterId": "DC-00014",
+    "category": "Cyber",
+    "level": "Medium",
+    "score": 57,
+    "narrative": "Cyber risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00097",
+    "dataCenterId": "DC-00014",
+    "category": "Grid Stability",
+    "level": "Low",
+    "score": 28,
+    "narrative": "Grid Stability risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00098",
+    "dataCenterId": "DC-00014",
+    "category": "Supply Chain",
+    "level": "Medium",
+    "score": 46,
+    "narrative": "Supply Chain risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00099",
+    "dataCenterId": "DC-00015",
+    "category": "Weather",
+    "level": "Low",
+    "score": 34,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00100",
+    "dataCenterId": "DC-00015",
+    "category": "Flood",
+    "level": "Low",
+    "score": 23,
+    "narrative": "Flood risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00101",
+    "dataCenterId": "DC-00015",
+    "category": "Earthquake",
+    "level": "Low",
+    "score": 19,
+    "narrative": "Earthquake risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00102",
+    "dataCenterId": "DC-00015",
+    "category": "Political",
+    "level": "Medium",
+    "score": 44,
+    "narrative": "Political risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00103",
+    "dataCenterId": "DC-00015",
+    "category": "Cyber",
+    "level": "High",
+    "score": 71,
+    "narrative": "Cyber risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00104",
+    "dataCenterId": "DC-00015",
+    "category": "Grid Stability",
+    "level": "Medium",
+    "score": 56,
+    "narrative": "Grid Stability risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00105",
+    "dataCenterId": "DC-00015",
+    "category": "Supply Chain",
+    "level": "Low",
+    "score": 26,
+    "narrative": "Supply Chain risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00106",
+    "dataCenterId": "DC-00016",
+    "category": "Weather",
+    "level": "High",
+    "score": 81,
+    "narrative": "Weather risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00107",
+    "dataCenterId": "DC-00016",
+    "category": "Flood",
+    "level": "Low",
+    "score": 20,
+    "narrative": "Flood risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00108",
+    "dataCenterId": "DC-00016",
+    "category": "Earthquake",
+    "level": "Low",
+    "score": 28,
+    "narrative": "Earthquake risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00109",
+    "dataCenterId": "DC-00016",
+    "category": "Political",
+    "level": "Low",
+    "score": 23,
+    "narrative": "Political risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00110",
+    "dataCenterId": "DC-00016",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 20,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00111",
+    "dataCenterId": "DC-00016",
+    "category": "Grid Stability",
+    "level": "Medium",
+    "score": 41,
+    "narrative": "Grid Stability risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00112",
+    "dataCenterId": "DC-00016",
+    "category": "Supply Chain",
+    "level": "High",
+    "score": 93,
+    "narrative": "Supply Chain risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00113",
+    "dataCenterId": "DC-00017",
+    "category": "Weather",
+    "level": "High",
+    "score": 83,
+    "narrative": "Weather risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00114",
+    "dataCenterId": "DC-00017",
+    "category": "Flood",
+    "level": "Low",
+    "score": 27,
+    "narrative": "Flood risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00115",
+    "dataCenterId": "DC-00017",
+    "category": "Earthquake",
+    "level": "Low",
+    "score": 24,
+    "narrative": "Earthquake risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00116",
+    "dataCenterId": "DC-00017",
+    "category": "Political",
+    "level": "Low",
+    "score": 19,
+    "narrative": "Political risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00117",
+    "dataCenterId": "DC-00017",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 15,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00118",
+    "dataCenterId": "DC-00017",
+    "category": "Grid Stability",
+    "level": "Low",
+    "score": 23,
+    "narrative": "Grid Stability risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00119",
+    "dataCenterId": "DC-00017",
+    "category": "Supply Chain",
+    "level": "High",
+    "score": 82,
+    "narrative": "Supply Chain risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00120",
+    "dataCenterId": "DC-00018",
+    "category": "Weather",
+    "level": "Low",
+    "score": 19,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00121",
+    "dataCenterId": "DC-00018",
+    "category": "Flood",
+    "level": "Medium",
+    "score": 47,
+    "narrative": "Flood risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00122",
+    "dataCenterId": "DC-00018",
+    "category": "Earthquake",
+    "level": "Low",
+    "score": 17,
+    "narrative": "Earthquake risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00123",
+    "dataCenterId": "DC-00018",
+    "category": "Political",
+    "level": "Medium",
+    "score": 45,
+    "narrative": "Political risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00124",
+    "dataCenterId": "DC-00018",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 13,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00125",
+    "dataCenterId": "DC-00018",
+    "category": "Grid Stability",
+    "level": "Low",
+    "score": 8,
+    "narrative": "Grid Stability risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00126",
+    "dataCenterId": "DC-00018",
+    "category": "Supply Chain",
+    "level": "Low",
+    "score": 28,
+    "narrative": "Supply Chain risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00127",
+    "dataCenterId": "DC-00019",
+    "category": "Weather",
+    "level": "Low",
+    "score": 18,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00128",
+    "dataCenterId": "DC-00019",
+    "category": "Flood",
+    "level": "Low",
+    "score": 24,
+    "narrative": "Flood risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00129",
+    "dataCenterId": "DC-00019",
+    "category": "Earthquake",
+    "level": "Low",
+    "score": 29,
+    "narrative": "Earthquake risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00130",
+    "dataCenterId": "DC-00019",
+    "category": "Political",
+    "level": "Low",
+    "score": 30,
+    "narrative": "Political risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00131",
+    "dataCenterId": "DC-00019",
+    "category": "Cyber",
+    "level": "Medium",
+    "score": 45,
+    "narrative": "Cyber risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00132",
+    "dataCenterId": "DC-00019",
+    "category": "Grid Stability",
+    "level": "Low",
+    "score": 31,
+    "narrative": "Grid Stability risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00133",
+    "dataCenterId": "DC-00019",
+    "category": "Supply Chain",
+    "level": "Low",
+    "score": 21,
+    "narrative": "Supply Chain risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00134",
+    "dataCenterId": "DC-00020",
+    "category": "Weather",
+    "level": "Low",
+    "score": 12,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00135",
+    "dataCenterId": "DC-00020",
+    "category": "Flood",
+    "level": "Low",
+    "score": 20,
+    "narrative": "Flood risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00136",
+    "dataCenterId": "DC-00020",
+    "category": "Earthquake",
+    "level": "High",
+    "score": 71,
+    "narrative": "Earthquake risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00137",
+    "dataCenterId": "DC-00020",
+    "category": "Political",
+    "level": "Medium",
+    "score": 47,
+    "narrative": "Political risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00138",
+    "dataCenterId": "DC-00020",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 33,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00139",
+    "dataCenterId": "DC-00020",
+    "category": "Grid Stability",
+    "level": "Low",
+    "score": 25,
+    "narrative": "Grid Stability risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00140",
+    "dataCenterId": "DC-00020",
+    "category": "Supply Chain",
+    "level": "Low",
+    "score": 18,
+    "narrative": "Supply Chain risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00141",
+    "dataCenterId": "DC-00021",
+    "category": "Weather",
+    "level": "Low",
+    "score": 18,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00142",
+    "dataCenterId": "DC-00021",
+    "category": "Flood",
+    "level": "Medium",
+    "score": 55,
+    "narrative": "Flood risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00143",
+    "dataCenterId": "DC-00021",
+    "category": "Earthquake",
+    "level": "Low",
+    "score": 26,
+    "narrative": "Earthquake risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00144",
+    "dataCenterId": "DC-00021",
+    "category": "Political",
+    "level": "Low",
+    "score": 19,
+    "narrative": "Political risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00145",
+    "dataCenterId": "DC-00021",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 32,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00146",
+    "dataCenterId": "DC-00021",
+    "category": "Grid Stability",
+    "level": "Low",
+    "score": 25,
+    "narrative": "Grid Stability risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00147",
+    "dataCenterId": "DC-00021",
+    "category": "Supply Chain",
+    "level": "Low",
+    "score": 19,
+    "narrative": "Supply Chain risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00148",
+    "dataCenterId": "DC-00022",
+    "category": "Weather",
+    "level": "Low",
+    "score": 32,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00149",
+    "dataCenterId": "DC-00022",
+    "category": "Flood",
+    "level": "Low",
+    "score": 22,
+    "narrative": "Flood risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00150",
+    "dataCenterId": "DC-00022",
+    "category": "Earthquake",
+    "level": "Low",
+    "score": 23,
+    "narrative": "Earthquake risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00151",
+    "dataCenterId": "DC-00022",
+    "category": "Political",
+    "level": "Low",
+    "score": 8,
+    "narrative": "Political risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00152",
+    "dataCenterId": "DC-00022",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 5,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00153",
+    "dataCenterId": "DC-00022",
+    "category": "Grid Stability",
+    "level": "High",
+    "score": 77,
+    "narrative": "Grid Stability risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00154",
+    "dataCenterId": "DC-00022",
+    "category": "Supply Chain",
+    "level": "Low",
+    "score": 10,
+    "narrative": "Supply Chain risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00155",
+    "dataCenterId": "DC-00023",
+    "category": "Weather",
+    "level": "Low",
+    "score": 11,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00156",
+    "dataCenterId": "DC-00023",
+    "category": "Flood",
+    "level": "Medium",
+    "score": 55,
+    "narrative": "Flood risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00157",
+    "dataCenterId": "DC-00023",
+    "category": "Earthquake",
+    "level": "Low",
+    "score": 28,
+    "narrative": "Earthquake risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00158",
+    "dataCenterId": "DC-00023",
+    "category": "Political",
+    "level": "Low",
+    "score": 19,
+    "narrative": "Political risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00159",
+    "dataCenterId": "DC-00023",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 24,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00160",
+    "dataCenterId": "DC-00023",
+    "category": "Grid Stability",
+    "level": "Low",
+    "score": 25,
+    "narrative": "Grid Stability risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00161",
+    "dataCenterId": "DC-00023",
+    "category": "Supply Chain",
+    "level": "Medium",
+    "score": 46,
+    "narrative": "Supply Chain risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00162",
+    "dataCenterId": "DC-00024",
+    "category": "Weather",
+    "level": "Low",
+    "score": 10,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00163",
+    "dataCenterId": "DC-00024",
+    "category": "Flood",
+    "level": "Medium",
+    "score": 65,
+    "narrative": "Flood risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00164",
+    "dataCenterId": "DC-00024",
+    "category": "Earthquake",
+    "level": "Medium",
+    "score": 36,
+    "narrative": "Earthquake risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00165",
+    "dataCenterId": "DC-00024",
+    "category": "Political",
+    "level": "Low",
+    "score": 24,
+    "narrative": "Political risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00166",
+    "dataCenterId": "DC-00024",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 10,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00167",
+    "dataCenterId": "DC-00024",
+    "category": "Grid Stability",
+    "level": "Medium",
+    "score": 37,
+    "narrative": "Grid Stability risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00168",
+    "dataCenterId": "DC-00024",
+    "category": "Supply Chain",
+    "level": "High",
+    "score": 85,
+    "narrative": "Supply Chain risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00169",
+    "dataCenterId": "DC-00025",
+    "category": "Weather",
+    "level": "Low",
+    "score": 26,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00170",
+    "dataCenterId": "DC-00025",
+    "category": "Flood",
+    "level": "Medium",
+    "score": 54,
+    "narrative": "Flood risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00171",
+    "dataCenterId": "DC-00025",
+    "category": "Earthquake",
+    "level": "Low",
+    "score": 13,
+    "narrative": "Earthquake risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00172",
+    "dataCenterId": "DC-00025",
+    "category": "Political",
+    "level": "Low",
+    "score": 27,
+    "narrative": "Political risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00173",
+    "dataCenterId": "DC-00025",
+    "category": "Cyber",
+    "level": "Medium",
+    "score": 50,
+    "narrative": "Cyber risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00174",
+    "dataCenterId": "DC-00025",
+    "category": "Grid Stability",
+    "level": "High",
+    "score": 81,
+    "narrative": "Grid Stability risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00175",
+    "dataCenterId": "DC-00025",
+    "category": "Supply Chain",
+    "level": "Low",
+    "score": 20,
+    "narrative": "Supply Chain risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00176",
+    "dataCenterId": "DC-00026",
+    "category": "Weather",
+    "level": "Medium",
+    "score": 41,
+    "narrative": "Weather risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00177",
+    "dataCenterId": "DC-00026",
+    "category": "Flood",
+    "level": "Low",
+    "score": 14,
+    "narrative": "Flood risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00178",
+    "dataCenterId": "DC-00026",
+    "category": "Earthquake",
+    "level": "High",
+    "score": 73,
+    "narrative": "Earthquake risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00179",
+    "dataCenterId": "DC-00026",
+    "category": "Political",
+    "level": "Low",
+    "score": 30,
+    "narrative": "Political risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00180",
+    "dataCenterId": "DC-00026",
+    "category": "Cyber",
+    "level": "Medium",
+    "score": 43,
+    "narrative": "Cyber risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00181",
+    "dataCenterId": "DC-00026",
+    "category": "Grid Stability",
+    "level": "Medium",
+    "score": 49,
+    "narrative": "Grid Stability risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00182",
+    "dataCenterId": "DC-00026",
+    "category": "Supply Chain",
+    "level": "Low",
+    "score": 19,
+    "narrative": "Supply Chain risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00183",
+    "dataCenterId": "DC-00027",
+    "category": "Weather",
+    "level": "Medium",
+    "score": 54,
+    "narrative": "Weather risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00184",
+    "dataCenterId": "DC-00027",
+    "category": "Flood",
+    "level": "Medium",
+    "score": 58,
+    "narrative": "Flood risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00185",
+    "dataCenterId": "DC-00027",
+    "category": "Earthquake",
+    "level": "Medium",
+    "score": 60,
+    "narrative": "Earthquake risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00186",
+    "dataCenterId": "DC-00027",
+    "category": "Political",
+    "level": "Low",
+    "score": 17,
+    "narrative": "Political risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00187",
+    "dataCenterId": "DC-00027",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 15,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00188",
+    "dataCenterId": "DC-00027",
+    "category": "Grid Stability",
+    "level": "Medium",
+    "score": 50,
+    "narrative": "Grid Stability risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00189",
+    "dataCenterId": "DC-00027",
+    "category": "Supply Chain",
+    "level": "High",
+    "score": 88,
+    "narrative": "Supply Chain risk assessed as high based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00190",
+    "dataCenterId": "DC-00028",
+    "category": "Weather",
+    "level": "Low",
+    "score": 15,
+    "narrative": "Weather risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00191",
+    "dataCenterId": "DC-00028",
+    "category": "Flood",
+    "level": "Medium",
+    "score": 58,
+    "narrative": "Flood risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00192",
+    "dataCenterId": "DC-00028",
+    "category": "Earthquake",
+    "level": "Medium",
+    "score": 53,
+    "narrative": "Earthquake risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00193",
+    "dataCenterId": "DC-00028",
+    "category": "Political",
+    "level": "Low",
+    "score": 18,
+    "narrative": "Political risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00194",
+    "dataCenterId": "DC-00028",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 26,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00195",
+    "dataCenterId": "DC-00028",
+    "category": "Grid Stability",
+    "level": "Low",
+    "score": 23,
+    "narrative": "Grid Stability risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00196",
+    "dataCenterId": "DC-00028",
+    "category": "Supply Chain",
+    "level": "Low",
+    "score": 34,
+    "narrative": "Supply Chain risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-02-01"
+  },
+  {
+    "id": "RISK-00197",
+    "dataCenterId": "DC-00029",
+    "category": "Weather",
+    "level": "Medium",
+    "score": 51,
+    "narrative": "Weather risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-04-01"
+  },
+  {
+    "id": "RISK-00198",
+    "dataCenterId": "DC-00029",
+    "category": "Flood",
+    "level": "Medium",
+    "score": 63,
+    "narrative": "Flood risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00199",
+    "dataCenterId": "DC-00029",
+    "category": "Earthquake",
+    "level": "Low",
+    "score": 28,
+    "narrative": "Earthquake risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  },
+  {
+    "id": "RISK-00200",
+    "dataCenterId": "DC-00029",
+    "category": "Political",
+    "level": "Medium",
+    "score": 63,
+    "narrative": "Political risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-03-01"
+  },
+  {
+    "id": "RISK-00201",
+    "dataCenterId": "DC-00029",
+    "category": "Cyber",
+    "level": "Low",
+    "score": 23,
+    "narrative": "Cyber risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-05-01"
+  },
+  {
+    "id": "RISK-00202",
+    "dataCenterId": "DC-00029",
+    "category": "Grid Stability",
+    "level": "Medium",
+    "score": 55,
+    "narrative": "Grid Stability risk assessed as medium based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-01-01"
+  },
+  {
+    "id": "RISK-00203",
+    "dataCenterId": "DC-00029",
+    "category": "Supply Chain",
+    "level": "Low",
+    "score": 33,
+    "narrative": "Supply Chain risk assessed as low based on regional historical data and site mitigations.",
+    "lastAssessed": "2026-06-01"
+  }
+]

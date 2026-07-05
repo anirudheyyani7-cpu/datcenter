@@ -1,0 +1,437 @@
+[
+  {
+    "dataCenterId": "DC-00001",
+    "counts": {
+      "Sensor": 74,
+      "Storage": 68,
+      "Cooling Unit": 79,
+      "PDU": 74,
+      "GPU Server": 92,
+      "Network Switch": 67,
+      "Router": 78,
+      "Firewall": 66,
+      "Server": 89,
+      "UPS": 80
+    }
+  },
+  {
+    "dataCenterId": "DC-00002",
+    "counts": {
+      "Cooling Unit": 117,
+      "PDU": 120,
+      "Router": 141,
+      "Server": 125,
+      "UPS": 139,
+      "GPU Server": 124,
+      "Firewall": 129,
+      "Storage": 123,
+      "Network Switch": 133,
+      "Sensor": 125
+    }
+  },
+  {
+    "dataCenterId": "DC-00003",
+    "counts": {
+      "GPU Server": 18,
+      "Router": 24,
+      "Firewall": 26,
+      "PDU": 20,
+      "Storage": 21,
+      "UPS": 21,
+      "Cooling Unit": 22,
+      "Network Switch": 21,
+      "Sensor": 17,
+      "Server": 23
+    }
+  },
+  {
+    "dataCenterId": "DC-00004",
+    "counts": {
+      "PDU": 113,
+      "Storage": 104,
+      "GPU Server": 128,
+      "Sensor": 103,
+      "Router": 104,
+      "Firewall": 101,
+      "Cooling Unit": 108,
+      "Network Switch": 114,
+      "UPS": 118,
+      "Server": 105
+    }
+  },
+  {
+    "dataCenterId": "DC-00005",
+    "counts": {
+      "Storage": 54,
+      "PDU": 51,
+      "GPU Server": 54,
+      "Cooling Unit": 55,
+      "Sensor": 49,
+      "Network Switch": 51,
+      "UPS": 53,
+      "Firewall": 48,
+      "Server": 61,
+      "Router": 46
+    }
+  },
+  {
+    "dataCenterId": "DC-00006",
+    "counts": {
+      "Firewall": 36,
+      "Network Switch": 23,
+      "GPU Server": 27,
+      "UPS": 27,
+      "PDU": 23,
+      "Cooling Unit": 30,
+      "Sensor": 11,
+      "Server": 16,
+      "Router": 17,
+      "Storage": 13
+    }
+  },
+  {
+    "dataCenterId": "DC-00007",
+    "counts": {
+      "Cooling Unit": 27,
+      "Network Switch": 27,
+      "UPS": 29,
+      "Firewall": 23,
+      "GPU Server": 33,
+      "Sensor": 30,
+      "Router": 29,
+      "PDU": 24,
+      "Server": 30,
+      "Storage": 25
+    }
+  },
+  {
+    "dataCenterId": "DC-00008",
+    "counts": {
+      "Storage": 99,
+      "Network Switch": 104,
+      "UPS": 118,
+      "GPU Server": 98,
+      "Router": 100,
+      "Firewall": 115,
+      "Cooling Unit": 95,
+      "Server": 111,
+      "PDU": 105,
+      "Sensor": 113
+    }
+  },
+  {
+    "dataCenterId": "DC-00009",
+    "counts": {
+      "Server": 44,
+      "Cooling Unit": 44,
+      "Storage": 42,
+      "UPS": 47,
+      "Firewall": 43,
+      "Network Switch": 35,
+      "Router": 46,
+      "Sensor": 37,
+      "PDU": 44,
+      "GPU Server": 44
+    }
+  },
+  {
+    "dataCenterId": "DC-00010",
+    "counts": {
+      "GPU Server": 43,
+      "PDU": 39,
+      "Router": 38,
+      "Storage": 29,
+      "Sensor": 31,
+      "Cooling Unit": 40,
+      "Server": 34,
+      "Firewall": 36,
+      "Network Switch": 27,
+      "UPS": 31
+    }
+  },
+  {
+    "dataCenterId": "DC-00011",
+    "counts": {
+      "Firewall": 101,
+      "Cooling Unit": 119,
+      "UPS": 127,
+      "Server": 117,
+      "Network Switch": 118,
+      "PDU": 132,
+      "Sensor": 94,
+      "Router": 113,
+      "GPU Server": 100,
+      "Storage": 107
+    }
+  },
+  {
+    "dataCenterId": "DC-00012",
+    "counts": {
+      "Storage": 14,
+      "PDU": 19,
+      "Sensor": 14,
+      "GPU Server": 16,
+      "Cooling Unit": 16,
+      "Router": 12,
+      "Firewall": 9,
+      "Server": 15,
+      "Network Switch": 14,
+      "UPS": 9
+    }
+  },
+  {
+    "dataCenterId": "DC-00013",
+    "counts": {
+      "Sensor": 122,
+      "GPU Server": 116,
+      "UPS": 116,
+      "Firewall": 106,
+      "Server": 105,
+      "Router": 112,
+      "PDU": 115,
+      "Cooling Unit": 103,
+      "Storage": 113,
+      "Network Switch": 95
+    }
+  },
+  {
+    "dataCenterId": "DC-00014",
+    "counts": {
+      "Router": 84,
+      "Firewall": 88,
+      "PDU": 106,
+      "GPU Server": 110,
+      "Storage": 87,
+      "Network Switch": 96,
+      "UPS": 83,
+      "Sensor": 98,
+      "Cooling Unit": 97,
+      "Server": 94
+    }
+  },
+  {
+    "dataCenterId": "DC-00015",
+    "counts": {
+      "Router": 114,
+      "PDU": 100,
+      "Network Switch": 97,
+      "GPU Server": 105,
+      "Sensor": 99,
+      "Server": 86,
+      "Cooling Unit": 117,
+      "Firewall": 107,
+      "Storage": 105,
+      "UPS": 96
+    }
+  },
+  {
+    "dataCenterId": "DC-00016",
+    "counts": {
+      "Router": 34,
+      "Network Switch": 32,
+      "PDU": 29,
+      "GPU Server": 25,
+      "Firewall": 21,
+      "Cooling Unit": 21,
+      "Sensor": 27,
+      "UPS": 19,
+      "Storage": 34,
+      "Server": 32
+    }
+  },
+  {
+    "dataCenterId": "DC-00017",
+    "counts": {
+      "Cooling Unit": 108,
+      "Firewall": 105,
+      "Network Switch": 109,
+      "PDU": 124,
+      "Server": 107,
+      "GPU Server": 139,
+      "Sensor": 107,
+      "Storage": 120,
+      "UPS": 118,
+      "Router": 119
+    }
+  },
+  {
+    "dataCenterId": "DC-00018",
+    "counts": {
+      "Firewall": 71,
+      "PDU": 53,
+      "Sensor": 52,
+      "UPS": 78,
+      "Router": 57,
+      "Cooling Unit": 66,
+      "GPU Server": 59,
+      "Server": 63,
+      "Storage": 48,
+      "Network Switch": 53
+    }
+  },
+  {
+    "dataCenterId": "DC-00019",
+    "counts": {
+      "Storage": 91,
+      "GPU Server": 71,
+      "PDU": 62,
+      "Firewall": 107,
+      "Network Switch": 92,
+      "Cooling Unit": 78,
+      "Router": 86,
+      "Server": 82,
+      "Sensor": 79,
+      "UPS": 82
+    }
+  },
+  {
+    "dataCenterId": "DC-00020",
+    "counts": {
+      "Server": 28,
+      "Firewall": 26,
+      "Router": 32,
+      "GPU Server": 28,
+      "UPS": 24,
+      "Network Switch": 29,
+      "Sensor": 25,
+      "PDU": 20,
+      "Cooling Unit": 18,
+      "Storage": 21
+    }
+  },
+  {
+    "dataCenterId": "DC-00021",
+    "counts": {
+      "PDU": 118,
+      "GPU Server": 85,
+      "Firewall": 104,
+      "Sensor": 108,
+      "Storage": 102,
+      "Network Switch": 110,
+      "UPS": 119,
+      "Cooling Unit": 106,
+      "Router": 117,
+      "Server": 92
+    }
+  },
+  {
+    "dataCenterId": "DC-00022",
+    "counts": {
+      "GPU Server": 97,
+      "Storage": 101,
+      "Cooling Unit": 110,
+      "Server": 102,
+      "Sensor": 117,
+      "UPS": 104,
+      "Firewall": 112,
+      "Router": 100,
+      "PDU": 110,
+      "Network Switch": 84
+    }
+  },
+  {
+    "dataCenterId": "DC-00023",
+    "counts": {
+      "Firewall": 45,
+      "Server": 57,
+      "Storage": 66,
+      "UPS": 58,
+      "Sensor": 61,
+      "PDU": 66,
+      "Network Switch": 54,
+      "GPU Server": 62,
+      "Router": 60,
+      "Cooling Unit": 52
+    }
+  },
+  {
+    "dataCenterId": "DC-00024",
+    "counts": {
+      "Sensor": 53,
+      "PDU": 64,
+      "GPU Server": 73,
+      "UPS": 71,
+      "Cooling Unit": 62,
+      "Firewall": 57,
+      "Router": 74,
+      "Storage": 75,
+      "Server": 73,
+      "Network Switch": 54
+    }
+  },
+  {
+    "dataCenterId": "DC-00025",
+    "counts": {
+      "Cooling Unit": 99,
+      "Storage": 99,
+      "Firewall": 91,
+      "GPU Server": 93,
+      "Router": 112,
+      "Network Switch": 102,
+      "UPS": 93,
+      "Server": 93,
+      "PDU": 110,
+      "Sensor": 112
+    }
+  },
+  {
+    "dataCenterId": "DC-00026",
+    "counts": {
+      "Router": 68,
+      "UPS": 84,
+      "Firewall": 63,
+      "Cooling Unit": 88,
+      "Storage": 62,
+      "Network Switch": 68,
+      "GPU Server": 56,
+      "Server": 74,
+      "Sensor": 65,
+      "PDU": 73
+    }
+  },
+  {
+    "dataCenterId": "DC-00027",
+    "counts": {
+      "Router": 72,
+      "GPU Server": 90,
+      "Server": 73,
+      "Storage": 85,
+      "UPS": 77,
+      "Sensor": 90,
+      "PDU": 91,
+      "Cooling Unit": 72,
+      "Firewall": 76,
+      "Network Switch": 76
+    }
+  },
+  {
+    "dataCenterId": "DC-00028",
+    "counts": {
+      "Firewall": 37,
+      "GPU Server": 36,
+      "PDU": 42,
+      "Cooling Unit": 29,
+      "Server": 30,
+      "UPS": 29,
+      "Sensor": 27,
+      "Storage": 28,
+      "Network Switch": 21,
+      "Router": 33
+    }
+  },
+  {
+    "dataCenterId": "DC-00029",
+    "counts": {
+      "Server": 30,
+      "Network Switch": 37,
+      "PDU": 28,
+      "GPU Server": 21,
+      "Firewall": 21,
+      "Storage": 28,
+      "UPS": 23,
+      "Sensor": 30,
+      "Cooling Unit": 33,
+      "Router": 36
+    }
+  }
+]

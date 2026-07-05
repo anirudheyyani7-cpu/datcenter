@@ -1,0 +1,533 @@
+[
+  {
+    "id": "BLD-00001",
+    "dataCenterId": "DC-00001",
+    "name": "Building A",
+    "floorCount": 3,
+    "areaSqm": 23175,
+    "constructionYear": 2012,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00002",
+    "dataCenterId": "DC-00001",
+    "name": "Building B",
+    "floorCount": 3,
+    "areaSqm": 39671,
+    "constructionYear": 2012,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00003",
+    "dataCenterId": "DC-00002",
+    "name": "Building A",
+    "floorCount": 3,
+    "areaSqm": 24511,
+    "constructionYear": 2027,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00004",
+    "dataCenterId": "DC-00002",
+    "name": "Building B",
+    "floorCount": 2,
+    "areaSqm": 20959,
+    "constructionYear": 2027,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00005",
+    "dataCenterId": "DC-00002",
+    "name": "Building C",
+    "floorCount": 2,
+    "areaSqm": 14747,
+    "constructionYear": 2027,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00006",
+    "dataCenterId": "DC-00003",
+    "name": "Building A",
+    "floorCount": 2,
+    "areaSqm": 33577,
+    "constructionYear": 2009,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00007",
+    "dataCenterId": "DC-00004",
+    "name": "Building A",
+    "floorCount": 3,
+    "areaSqm": 39642,
+    "constructionYear": 2013,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00008",
+    "dataCenterId": "DC-00004",
+    "name": "Building B",
+    "floorCount": 3,
+    "areaSqm": 18540,
+    "constructionYear": 2013,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00009",
+    "dataCenterId": "DC-00004",
+    "name": "Building C",
+    "floorCount": 2,
+    "areaSqm": 17259,
+    "constructionYear": 2013,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00010",
+    "dataCenterId": "DC-00005",
+    "name": "Building A",
+    "floorCount": 2,
+    "areaSqm": 39502,
+    "constructionYear": 2010,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00011",
+    "dataCenterId": "DC-00005",
+    "name": "Building B",
+    "floorCount": 2,
+    "areaSqm": 16135,
+    "constructionYear": 2010,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00012",
+    "dataCenterId": "DC-00006",
+    "name": "Building A",
+    "floorCount": 2,
+    "areaSqm": 20748,
+    "constructionYear": 2009,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00013",
+    "dataCenterId": "DC-00007",
+    "name": "Building A",
+    "floorCount": 2,
+    "areaSqm": 15901,
+    "constructionYear": 2024,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00014",
+    "dataCenterId": "DC-00008",
+    "name": "Building A",
+    "floorCount": 3,
+    "areaSqm": 16835,
+    "constructionYear": 2026,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00015",
+    "dataCenterId": "DC-00008",
+    "name": "Building B",
+    "floorCount": 2,
+    "areaSqm": 20109,
+    "constructionYear": 2026,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00016",
+    "dataCenterId": "DC-00008",
+    "name": "Building C",
+    "floorCount": 3,
+    "areaSqm": 8742,
+    "constructionYear": 2025,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00017",
+    "dataCenterId": "DC-00009",
+    "name": "Building A",
+    "floorCount": 3,
+    "areaSqm": 9244,
+    "constructionYear": 2013,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00018",
+    "dataCenterId": "DC-00010",
+    "name": "Building A",
+    "floorCount": 3,
+    "areaSqm": 13655,
+    "constructionYear": 2019,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00019",
+    "dataCenterId": "DC-00011",
+    "name": "Building A",
+    "floorCount": 3,
+    "areaSqm": 18988,
+    "constructionYear": 2024,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00020",
+    "dataCenterId": "DC-00011",
+    "name": "Building B",
+    "floorCount": 2,
+    "areaSqm": 10531,
+    "constructionYear": 2026,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00021",
+    "dataCenterId": "DC-00011",
+    "name": "Building C",
+    "floorCount": 3,
+    "areaSqm": 10331,
+    "constructionYear": 2027,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00022",
+    "dataCenterId": "DC-00012",
+    "name": "Building A",
+    "floorCount": 2,
+    "areaSqm": 16240,
+    "constructionYear": 2019,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00023",
+    "dataCenterId": "DC-00013",
+    "name": "Building A",
+    "floorCount": 3,
+    "areaSqm": 8815,
+    "constructionYear": 2027,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00024",
+    "dataCenterId": "DC-00013",
+    "name": "Building B",
+    "floorCount": 3,
+    "areaSqm": 27169,
+    "constructionYear": 2025,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00025",
+    "dataCenterId": "DC-00013",
+    "name": "Building C",
+    "floorCount": 2,
+    "areaSqm": 11905,
+    "constructionYear": 2024,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00026",
+    "dataCenterId": "DC-00014",
+    "name": "Building A",
+    "floorCount": 3,
+    "areaSqm": 17136,
+    "constructionYear": 2010,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00027",
+    "dataCenterId": "DC-00014",
+    "name": "Building B",
+    "floorCount": 2,
+    "areaSqm": 18637,
+    "constructionYear": 2010,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00028",
+    "dataCenterId": "DC-00014",
+    "name": "Building C",
+    "floorCount": 3,
+    "areaSqm": 30998,
+    "constructionYear": 2010,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00029",
+    "dataCenterId": "DC-00015",
+    "name": "Building A",
+    "floorCount": 2,
+    "areaSqm": 37396,
+    "constructionYear": 2020,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00030",
+    "dataCenterId": "DC-00015",
+    "name": "Building B",
+    "floorCount": 3,
+    "areaSqm": 20484,
+    "constructionYear": 2020,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00031",
+    "dataCenterId": "DC-00015",
+    "name": "Building C",
+    "floorCount": 3,
+    "areaSqm": 31720,
+    "constructionYear": 2020,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00032",
+    "dataCenterId": "DC-00016",
+    "name": "Building A",
+    "floorCount": 2,
+    "areaSqm": 37820,
+    "constructionYear": 2020,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00033",
+    "dataCenterId": "DC-00017",
+    "name": "Building A",
+    "floorCount": 2,
+    "areaSqm": 13884,
+    "constructionYear": 2027,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00034",
+    "dataCenterId": "DC-00017",
+    "name": "Building B",
+    "floorCount": 3,
+    "areaSqm": 15606,
+    "constructionYear": 2025,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00035",
+    "dataCenterId": "DC-00017",
+    "name": "Building C",
+    "floorCount": 3,
+    "areaSqm": 23271,
+    "constructionYear": 2027,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00036",
+    "dataCenterId": "DC-00018",
+    "name": "Building A",
+    "floorCount": 3,
+    "areaSqm": 23193,
+    "constructionYear": 2019,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00037",
+    "dataCenterId": "DC-00018",
+    "name": "Building B",
+    "floorCount": 2,
+    "areaSqm": 18460,
+    "constructionYear": 2019,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00038",
+    "dataCenterId": "DC-00019",
+    "name": "Building A",
+    "floorCount": 3,
+    "areaSqm": 36709,
+    "constructionYear": 2020,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00039",
+    "dataCenterId": "DC-00019",
+    "name": "Building B",
+    "floorCount": 3,
+    "areaSqm": 25137,
+    "constructionYear": 2020,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00040",
+    "dataCenterId": "DC-00020",
+    "name": "Building A",
+    "floorCount": 3,
+    "areaSqm": 11911,
+    "constructionYear": 2013,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00041",
+    "dataCenterId": "DC-00021",
+    "name": "Building A",
+    "floorCount": 2,
+    "areaSqm": 23965,
+    "constructionYear": 2018,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00042",
+    "dataCenterId": "DC-00021",
+    "name": "Building B",
+    "floorCount": 3,
+    "areaSqm": 27711,
+    "constructionYear": 2018,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00043",
+    "dataCenterId": "DC-00021",
+    "name": "Building C",
+    "floorCount": 2,
+    "areaSqm": 21997,
+    "constructionYear": 2018,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00044",
+    "dataCenterId": "DC-00022",
+    "name": "Building A",
+    "floorCount": 3,
+    "areaSqm": 11289,
+    "constructionYear": 2012,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00045",
+    "dataCenterId": "DC-00022",
+    "name": "Building B",
+    "floorCount": 2,
+    "areaSqm": 35131,
+    "constructionYear": 2012,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00046",
+    "dataCenterId": "DC-00022",
+    "name": "Building C",
+    "floorCount": 2,
+    "areaSqm": 26273,
+    "constructionYear": 2012,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00047",
+    "dataCenterId": "DC-00023",
+    "name": "Building A",
+    "floorCount": 3,
+    "areaSqm": 21024,
+    "constructionYear": 2027,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00048",
+    "dataCenterId": "DC-00024",
+    "name": "Building A",
+    "floorCount": 3,
+    "areaSqm": 27430,
+    "constructionYear": 2027,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00049",
+    "dataCenterId": "DC-00024",
+    "name": "Building B",
+    "floorCount": 3,
+    "areaSqm": 36731,
+    "constructionYear": 2025,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00050",
+    "dataCenterId": "DC-00025",
+    "name": "Building A",
+    "floorCount": 3,
+    "areaSqm": 13189,
+    "constructionYear": 2027,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00051",
+    "dataCenterId": "DC-00025",
+    "name": "Building B",
+    "floorCount": 3,
+    "areaSqm": 30701,
+    "constructionYear": 2025,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00052",
+    "dataCenterId": "DC-00025",
+    "name": "Building C",
+    "floorCount": 2,
+    "areaSqm": 18789,
+    "constructionYear": 2027,
+    "status": "Under Construction"
+  },
+  {
+    "id": "BLD-00053",
+    "dataCenterId": "DC-00026",
+    "name": "Building A",
+    "floorCount": 2,
+    "areaSqm": 31050,
+    "constructionYear": 2009,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00054",
+    "dataCenterId": "DC-00026",
+    "name": "Building B",
+    "floorCount": 3,
+    "areaSqm": 29061,
+    "constructionYear": 2009,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00055",
+    "dataCenterId": "DC-00027",
+    "name": "Building A",
+    "floorCount": 2,
+    "areaSqm": 37669,
+    "constructionYear": 2009,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00056",
+    "dataCenterId": "DC-00027",
+    "name": "Building B",
+    "floorCount": 2,
+    "areaSqm": 11321,
+    "constructionYear": 2009,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00057",
+    "dataCenterId": "DC-00027",
+    "name": "Building C",
+    "floorCount": 3,
+    "areaSqm": 21961,
+    "constructionYear": 2009,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00058",
+    "dataCenterId": "DC-00028",
+    "name": "Building A",
+    "floorCount": 3,
+    "areaSqm": 24228,
+    "constructionYear": 2019,
+    "status": "Operational"
+  },
+  {
+    "id": "BLD-00059",
+    "dataCenterId": "DC-00029",
+    "name": "Building A",
+    "floorCount": 3,
+    "areaSqm": 12418,
+    "constructionYear": 2008,
+    "status": "Operational"
+  }
+]

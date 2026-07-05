@@ -1,0 +1,280 @@
+[
+  {
+    "id": "CTY-00001",
+    "code": "US",
+    "name": "United States",
+    "regionId": "REG-00001",
+    "regionCode": "Americas",
+    "campusIds": [
+      "CMP-00001",
+      "CMP-00002",
+      "CMP-00003",
+      "CMP-00004",
+      "CMP-00005",
+      "CMP-00006",
+      "CMP-00007",
+      "CMP-00008"
+    ],
+    "dataCenterIds": [
+      "DC-00001",
+      "DC-00002",
+      "DC-00003",
+      "DC-00004",
+      "DC-00005",
+      "DC-00006",
+      "DC-00007",
+      "DC-00008"
+    ]
+  },
+  {
+    "id": "CTY-00002",
+    "code": "CA",
+    "name": "Canada",
+    "regionId": "REG-00001",
+    "regionCode": "Americas",
+    "campusIds": [
+      "CMP-00009"
+    ],
+    "dataCenterIds": [
+      "DC-00009"
+    ]
+  },
+  {
+    "id": "CTY-00003",
+    "code": "CL",
+    "name": "Chile",
+    "regionId": "REG-00001",
+    "regionCode": "Americas",
+    "campusIds": [
+      "CMP-00010"
+    ],
+    "dataCenterIds": [
+      "DC-00010"
+    ]
+  },
+  {
+    "id": "CTY-00004",
+    "code": "FI",
+    "name": "Finland",
+    "regionId": "REG-00002",
+    "regionCode": "EMEA",
+    "campusIds": [
+      "CMP-00011"
+    ],
+    "dataCenterIds": [
+      "DC-00011"
+    ]
+  },
+  {
+    "id": "CTY-00005",
+    "code": "BE",
+    "name": "Belgium",
+    "regionId": "REG-00002",
+    "regionCode": "EMEA",
+    "campusIds": [
+      "CMP-00012"
+    ],
+    "dataCenterIds": [
+      "DC-00012"
+    ]
+  },
+  {
+    "id": "CTY-00006",
+    "code": "NL",
+    "name": "Netherlands",
+    "regionId": "REG-00002",
+    "regionCode": "EMEA",
+    "campusIds": [
+      "CMP-00013"
+    ],
+    "dataCenterIds": [
+      "DC-00013"
+    ]
+  },
+  {
+    "id": "CTY-00007",
+    "code": "IE",
+    "name": "Ireland",
+    "regionId": "REG-00002",
+    "regionCode": "EMEA",
+    "campusIds": [
+      "CMP-00014"
+    ],
+    "dataCenterIds": [
+      "DC-00014"
+    ]
+  },
+  {
+    "id": "CTY-00008",
+    "code": "DK",
+    "name": "Denmark",
+    "regionId": "REG-00002",
+    "regionCode": "EMEA",
+    "campusIds": [
+      "CMP-00015"
+    ],
+    "dataCenterIds": [
+      "DC-00015"
+    ]
+  },
+  {
+    "id": "CTY-00009",
+    "code": "IT",
+    "name": "Italy",
+    "regionId": "REG-00002",
+    "regionCode": "EMEA",
+    "campusIds": [
+      "CMP-00016"
+    ],
+    "dataCenterIds": [
+      "DC-00016"
+    ]
+  },
+  {
+    "id": "CTY-00010",
+    "code": "ES",
+    "name": "Spain",
+    "regionId": "REG-00002",
+    "regionCode": "EMEA",
+    "campusIds": [
+      "CMP-00017"
+    ],
+    "dataCenterIds": [
+      "DC-00017"
+    ]
+  },
+  {
+    "id": "CTY-00011",
+    "code": "PL",
+    "name": "Poland",
+    "regionId": "REG-00002",
+    "regionCode": "EMEA",
+    "campusIds": [
+      "CMP-00018"
+    ],
+    "dataCenterIds": [
+      "DC-00018"
+    ]
+  },
+  {
+    "id": "CTY-00012",
+    "code": "IN",
+    "name": "India",
+    "regionId": "REG-00003",
+    "regionCode": "APAC",
+    "campusIds": [
+      "CMP-00019",
+      "CMP-00020"
+    ],
+    "dataCenterIds": [
+      "DC-00019",
+      "DC-00020"
+    ]
+  },
+  {
+    "id": "CTY-00013",
+    "code": "SG",
+    "name": "Singapore",
+    "regionId": "REG-00003",
+    "regionCode": "APAC",
+    "campusIds": [
+      "CMP-00021"
+    ],
+    "dataCenterIds": [
+      "DC-00021"
+    ]
+  },
+  {
+    "id": "CTY-00014",
+    "code": "ID",
+    "name": "Indonesia",
+    "regionId": "REG-00003",
+    "regionCode": "APAC",
+    "campusIds": [
+      "CMP-00022"
+    ],
+    "dataCenterIds": [
+      "DC-00022"
+    ]
+  },
+  {
+    "id": "CTY-00015",
+    "code": "AU",
+    "name": "Australia",
+    "regionId": "REG-00003",
+    "regionCode": "APAC",
+    "campusIds": [
+      "CMP-00023",
+      "CMP-00024"
+    ],
+    "dataCenterIds": [
+      "DC-00023",
+      "DC-00024"
+    ]
+  },
+  {
+    "id": "CTY-00016",
+    "code": "TW",
+    "name": "Taiwan",
+    "regionId": "REG-00003",
+    "regionCode": "APAC",
+    "campusIds": [
+      "CMP-00025"
+    ],
+    "dataCenterIds": [
+      "DC-00025"
+    ]
+  },
+  {
+    "id": "CTY-00017",
+    "code": "HK",
+    "name": "Hong Kong",
+    "regionId": "REG-00003",
+    "regionCode": "APAC",
+    "campusIds": [
+      "CMP-00026"
+    ],
+    "dataCenterIds": [
+      "DC-00026"
+    ]
+  },
+  {
+    "id": "CTY-00018",
+    "code": "QA",
+    "name": "Qatar",
+    "regionId": "REG-00004",
+    "regionCode": "MiddleEast",
+    "campusIds": [
+      "CMP-00027"
+    ],
+    "dataCenterIds": [
+      "DC-00027"
+    ]
+  },
+  {
+    "id": "CTY-00019",
+    "code": "SA",
+    "name": "Saudi Arabia",
+    "regionId": "REG-00004",
+    "regionCode": "MiddleEast",
+    "campusIds": [
+      "CMP-00028"
+    ],
+    "dataCenterIds": [
+      "DC-00028"
+    ]
+  },
+  {
+    "id": "CTY-00020",
+    "code": "IL",
+    "name": "Israel",
+    "regionId": "REG-00004",
+    "regionCode": "MiddleEast",
+    "campusIds": [
+      "CMP-00029"
+    ],
+    "dataCenterIds": [
+      "DC-00029"
+    ]
+  }
+]

@@ -117,3 +117,85 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', sans-serif; }
 .leaflet-container {
   background: #e8edf4 !important;
 }
+
+/* ── Global Infrastructure Intelligence — map markers/clusters ──────────── */
+.gii-map-dark .leaflet-container { background: #0D1428 !important; }
+.gii-map-light .leaflet-container { background: #e8edf4 !important; }
+
+.gii-marker-wrapper { background: transparent !important; border: none !important; }
+.gii-marker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease-out;
+}
+.gii-marker:hover { transform: scale(1.35); }
+.gii-marker-dot {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.9);
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.15), 0 2px 6px rgba(0,0,0,0.35);
+}
+.gii-marker-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid;
+  opacity: 0.6;
+  animation: gii-ring-pulse 1.8s ease-out infinite;
+}
+@keyframes gii-ring-pulse {
+  0% { transform: scale(0.85); opacity: 0.7; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.gii-cluster-wrapper { background: transparent !important; border: none !important; }
+.gii-cluster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0,51,141,0.85);
+  border: 2px solid rgba(0,119,200,0.6);
+  box-shadow: 0 4px 14px rgba(0,51,141,0.45);
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 12px;
+  transition: transform 0.15s ease-out;
+}
+.gii-cluster:hover { transform: scale(1.08); }
+
+.gii-region-marker-wrapper { background: transparent !important; border: none !important; }
+.gii-region-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0, 51, 141, 0.22);
+  border: 2px solid rgba(0, 119, 200, 0.85);
+  box-shadow: 0 0 0 6px rgba(0, 119, 200, 0.08);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.gii-region-marker:hover {
+  transform: scale(1.08);
+  background: rgba(0, 51, 141, 0.32);
+}
+.gii-region-marker-label {
+  color: #fff;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+.gii-region-marker-count {
+  color: rgba(255, 255, 255, 0.85);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+}

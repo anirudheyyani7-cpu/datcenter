@@ -1,0 +1,590 @@
+[
+  {
+    "id": "WX-00001",
+    "dataCenterId": "DC-00001",
+    "climateZone": "Subtropical",
+    "current": {
+      "tempC": 27,
+      "condition": "Partly cloudy",
+      "humidityPct": 70,
+      "windKph": 21
+    },
+    "seasonalAvgTempC": {
+      "q1": 6,
+      "q2": 2,
+      "q3": 34,
+      "q4": 1
+    },
+    "extremeWeatherEvents": [
+      "Coastal storm"
+    ],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00002",
+    "dataCenterId": "DC-00002",
+    "climateZone": "Oceanic",
+    "current": {
+      "tempC": 19,
+      "condition": "Clear",
+      "humidityPct": 61,
+      "windKph": 45
+    },
+    "seasonalAvgTempC": {
+      "q1": 3,
+      "q2": 27,
+      "q3": 32,
+      "q4": 18
+    },
+    "extremeWeatherEvents": [],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00003",
+    "dataCenterId": "DC-00003",
+    "climateZone": "Mediterranean",
+    "current": {
+      "tempC": 25,
+      "condition": "Partly cloudy",
+      "humidityPct": 89,
+      "windKph": 40
+    },
+    "seasonalAvgTempC": {
+      "q1": -7,
+      "q2": 1,
+      "q3": 27,
+      "q4": 17
+    },
+    "extremeWeatherEvents": [],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00004",
+    "dataCenterId": "DC-00004",
+    "climateZone": "Humid continental",
+    "current": {
+      "tempC": 20,
+      "condition": "Clear",
+      "humidityPct": 63,
+      "windKph": 38
+    },
+    "seasonalAvgTempC": {
+      "q1": 2,
+      "q2": 14,
+      "q3": 22,
+      "q4": 7
+    },
+    "extremeWeatherEvents": [
+      "Heavy snowfall",
+      "Drought"
+    ],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00005",
+    "dataCenterId": "DC-00005",
+    "climateZone": "Oceanic",
+    "current": {
+      "tempC": 28,
+      "condition": "Windy",
+      "humidityPct": 39,
+      "windKph": 11
+    },
+    "seasonalAvgTempC": {
+      "q1": 26,
+      "q2": 32,
+      "q3": 39,
+      "q4": 2
+    },
+    "extremeWeatherEvents": [],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00006",
+    "dataCenterId": "DC-00006",
+    "climateZone": "Subtropical",
+    "current": {
+      "tempC": 31,
+      "condition": "Windy",
+      "humidityPct": 31,
+      "windKph": 36
+    },
+    "seasonalAvgTempC": {
+      "q1": 30,
+      "q2": 18,
+      "q3": 19,
+      "q4": 16
+    },
+    "extremeWeatherEvents": [],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00007",
+    "dataCenterId": "DC-00007",
+    "climateZone": "Oceanic",
+    "current": {
+      "tempC": 27,
+      "condition": "Windy",
+      "humidityPct": 54,
+      "windKph": 23
+    },
+    "seasonalAvgTempC": {
+      "q1": -3,
+      "q2": 29,
+      "q3": 32,
+      "q4": 24
+    },
+    "extremeWeatherEvents": [],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00008",
+    "dataCenterId": "DC-00008",
+    "climateZone": "Oceanic",
+    "current": {
+      "tempC": 14,
+      "condition": "Humid",
+      "humidityPct": 53,
+      "windKph": 8
+    },
+    "seasonalAvgTempC": {
+      "q1": -4,
+      "q2": 32,
+      "q3": 26,
+      "q4": 16
+    },
+    "extremeWeatherEvents": [
+      "Heavy snowfall"
+    ],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00009",
+    "dataCenterId": "DC-00009",
+    "climateZone": "Tropical",
+    "current": {
+      "tempC": 24,
+      "condition": "Windy",
+      "humidityPct": 46,
+      "windKph": 12
+    },
+    "seasonalAvgTempC": {
+      "q1": 29,
+      "q2": 23,
+      "q3": 39,
+      "q4": 0
+    },
+    "extremeWeatherEvents": [
+      "Monsoon flooding",
+      "Drought"
+    ],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00010",
+    "dataCenterId": "DC-00010",
+    "climateZone": "Oceanic",
+    "current": {
+      "tempC": 10,
+      "condition": "Humid",
+      "humidityPct": 46,
+      "windKph": 13
+    },
+    "seasonalAvgTempC": {
+      "q1": -7,
+      "q2": 23,
+      "q3": 32,
+      "q4": 0
+    },
+    "extremeWeatherEvents": [
+      "Monsoon flooding",
+      "None recorded (5yr)"
+    ],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00011",
+    "dataCenterId": "DC-00011",
+    "climateZone": "Tropical",
+    "current": {
+      "tempC": 3,
+      "condition": "Light rain",
+      "humidityPct": 68,
+      "windKph": 41
+    },
+    "seasonalAvgTempC": {
+      "q1": 11,
+      "q2": 5,
+      "q3": 5,
+      "q4": 6
+    },
+    "extremeWeatherEvents": [],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00012",
+    "dataCenterId": "DC-00012",
+    "climateZone": "Mediterranean",
+    "current": {
+      "tempC": -3,
+      "condition": "Light rain",
+      "humidityPct": 68,
+      "windKph": 13
+    },
+    "seasonalAvgTempC": {
+      "q1": 21,
+      "q2": 24,
+      "q3": 20,
+      "q4": 27
+    },
+    "extremeWeatherEvents": [],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00013",
+    "dataCenterId": "DC-00013",
+    "climateZone": "Subtropical",
+    "current": {
+      "tempC": 1,
+      "condition": "Light rain",
+      "humidityPct": 87,
+      "windKph": 17
+    },
+    "seasonalAvgTempC": {
+      "q1": 20,
+      "q2": 16,
+      "q3": 5,
+      "q4": 7
+    },
+    "extremeWeatherEvents": [
+      "Drought"
+    ],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00014",
+    "dataCenterId": "DC-00014",
+    "climateZone": "Mediterranean",
+    "current": {
+      "tempC": 21,
+      "condition": "Clear",
+      "humidityPct": 52,
+      "windKph": 28
+    },
+    "seasonalAvgTempC": {
+      "q1": -5,
+      "q2": 35,
+      "q3": 37,
+      "q4": 3
+    },
+    "extremeWeatherEvents": [],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00015",
+    "dataCenterId": "DC-00015",
+    "climateZone": "Mediterranean",
+    "current": {
+      "tempC": 31,
+      "condition": "Windy",
+      "humidityPct": 50,
+      "windKph": 18
+    },
+    "seasonalAvgTempC": {
+      "q1": 27,
+      "q2": 15,
+      "q3": 37,
+      "q4": 18
+    },
+    "extremeWeatherEvents": [],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00016",
+    "dataCenterId": "DC-00016",
+    "climateZone": "Arid",
+    "current": {
+      "tempC": 8,
+      "condition": "Light rain",
+      "humidityPct": 48,
+      "windKph": 8
+    },
+    "seasonalAvgTempC": {
+      "q1": 27,
+      "q2": 33,
+      "q3": 18,
+      "q4": 18
+    },
+    "extremeWeatherEvents": [
+      "Heatwave"
+    ],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00017",
+    "dataCenterId": "DC-00017",
+    "climateZone": "Subtropical",
+    "current": {
+      "tempC": 22,
+      "condition": "Clear",
+      "humidityPct": 68,
+      "windKph": 35
+    },
+    "seasonalAvgTempC": {
+      "q1": 19,
+      "q2": 6,
+      "q3": 37,
+      "q4": 0
+    },
+    "extremeWeatherEvents": [],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00018",
+    "dataCenterId": "DC-00018",
+    "climateZone": "Mediterranean",
+    "current": {
+      "tempC": 14,
+      "condition": "Overcast",
+      "humidityPct": 64,
+      "windKph": 15
+    },
+    "seasonalAvgTempC": {
+      "q1": 4,
+      "q2": 1,
+      "q3": 6,
+      "q4": 23
+    },
+    "extremeWeatherEvents": [
+      "Coastal storm",
+      "None recorded (5yr)"
+    ],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00019",
+    "dataCenterId": "DC-00019",
+    "climateZone": "Subtropical",
+    "current": {
+      "tempC": -1,
+      "condition": "Overcast",
+      "humidityPct": 52,
+      "windKph": 44
+    },
+    "seasonalAvgTempC": {
+      "q1": 7,
+      "q2": 10,
+      "q3": 33,
+      "q4": 25
+    },
+    "extremeWeatherEvents": [
+      "Drought",
+      "Monsoon flooding"
+    ],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00020",
+    "dataCenterId": "DC-00020",
+    "climateZone": "Subtropical",
+    "current": {
+      "tempC": 19,
+      "condition": "Light rain",
+      "humidityPct": 28,
+      "windKph": 28
+    },
+    "seasonalAvgTempC": {
+      "q1": -2,
+      "q2": 33,
+      "q3": 12,
+      "q4": 6
+    },
+    "extremeWeatherEvents": [
+      "Heavy snowfall",
+      "Monsoon flooding"
+    ],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00021",
+    "dataCenterId": "DC-00021",
+    "climateZone": "Tropical",
+    "current": {
+      "tempC": 12,
+      "condition": "Overcast",
+      "humidityPct": 47,
+      "windKph": 34
+    },
+    "seasonalAvgTempC": {
+      "q1": -4,
+      "q2": 32,
+      "q3": 9,
+      "q4": 30
+    },
+    "extremeWeatherEvents": [
+      "None recorded (5yr)",
+      "Heavy snowfall"
+    ],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00022",
+    "dataCenterId": "DC-00022",
+    "climateZone": "Arid",
+    "current": {
+      "tempC": 13,
+      "condition": "Humid",
+      "humidityPct": 70,
+      "windKph": 8
+    },
+    "seasonalAvgTempC": {
+      "q1": 29,
+      "q2": 11,
+      "q3": 7,
+      "q4": 3
+    },
+    "extremeWeatherEvents": [],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00023",
+    "dataCenterId": "DC-00023",
+    "climateZone": "Arid",
+    "current": {
+      "tempC": 18,
+      "condition": "Partly cloudy",
+      "humidityPct": 79,
+      "windKph": 17
+    },
+    "seasonalAvgTempC": {
+      "q1": 20,
+      "q2": 23,
+      "q3": 29,
+      "q4": 24
+    },
+    "extremeWeatherEvents": [
+      "Coastal storm"
+    ],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00024",
+    "dataCenterId": "DC-00024",
+    "climateZone": "Arid",
+    "current": {
+      "tempC": 30,
+      "condition": "Clear",
+      "humidityPct": 30,
+      "windKph": 13
+    },
+    "seasonalAvgTempC": {
+      "q1": 22,
+      "q2": 11,
+      "q3": 14,
+      "q4": -4
+    },
+    "extremeWeatherEvents": [
+      "Coastal storm"
+    ],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00025",
+    "dataCenterId": "DC-00025",
+    "climateZone": "Subtropical",
+    "current": {
+      "tempC": 37,
+      "condition": "Overcast",
+      "humidityPct": 76,
+      "windKph": 11
+    },
+    "seasonalAvgTempC": {
+      "q1": 19,
+      "q2": 0,
+      "q3": 34,
+      "q4": 28
+    },
+    "extremeWeatherEvents": [],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00026",
+    "dataCenterId": "DC-00026",
+    "climateZone": "Subtropical",
+    "current": {
+      "tempC": 20,
+      "condition": "Partly cloudy",
+      "humidityPct": 29,
+      "windKph": 10
+    },
+    "seasonalAvgTempC": {
+      "q1": 10,
+      "q2": 8,
+      "q3": 40,
+      "q4": 27
+    },
+    "extremeWeatherEvents": [
+      "Heatwave"
+    ],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00027",
+    "dataCenterId": "DC-00027",
+    "climateZone": "Subarctic",
+    "current": {
+      "tempC": 38,
+      "condition": "Clear",
+      "humidityPct": 56,
+      "windKph": 13
+    },
+    "seasonalAvgTempC": {
+      "q1": 26,
+      "q2": 1,
+      "q3": 11,
+      "q4": 23
+    },
+    "extremeWeatherEvents": [],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00028",
+    "dataCenterId": "DC-00028",
+    "climateZone": "Subarctic",
+    "current": {
+      "tempC": 25,
+      "condition": "Overcast",
+      "humidityPct": 81,
+      "windKph": 16
+    },
+    "seasonalAvgTempC": {
+      "q1": 21,
+      "q2": 26,
+      "q3": 26,
+      "q4": -1
+    },
+    "extremeWeatherEvents": [],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  },
+  {
+    "id": "WX-00029",
+    "dataCenterId": "DC-00029",
+    "climateZone": "Arid",
+    "current": {
+      "tempC": 13,
+      "condition": "Clear",
+      "humidityPct": 29,
+      "windKph": 35
+    },
+    "seasonalAvgTempC": {
+      "q1": -2,
+      "q2": 17,
+      "q3": 13,
+      "q4": 9
+    },
+    "extremeWeatherEvents": [
+      "Heavy snowfall"
+    ],
+    "riskNotes": "Demo placeholder — not a live weather feed."
+  }
+]

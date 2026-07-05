@@ -1,0 +1,408 @@
+[
+  {
+    "id": "CMP-00001",
+    "name": "Council Bluffs Campus",
+    "code": "council-bluffs",
+    "countryId": "CTY-00001",
+    "regionId": "REG-00001",
+    "city": "Council Bluffs",
+    "latitude": 41.2619,
+    "longitude": -95.8608,
+    "areaAcres": 261,
+    "dataCenterIds": [
+      "DC-00001"
+    ]
+  },
+  {
+    "id": "CMP-00002",
+    "name": "The Dalles Campus",
+    "code": "the-dalles",
+    "countryId": "CTY-00001",
+    "regionId": "REG-00001",
+    "city": "The Dalles",
+    "latitude": 45.5946,
+    "longitude": -121.1787,
+    "areaAcres": 188,
+    "dataCenterIds": [
+      "DC-00002"
+    ]
+  },
+  {
+    "id": "CMP-00003",
+    "name": "Douglas County Campus",
+    "code": "douglas-county",
+    "countryId": "CTY-00001",
+    "regionId": "REG-00001",
+    "city": "Atlanta",
+    "latitude": 33.6789,
+    "longitude": -84.7458,
+    "areaAcres": 283,
+    "dataCenterIds": [
+      "DC-00003"
+    ]
+  },
+  {
+    "id": "CMP-00004",
+    "name": "Mayes County Campus",
+    "code": "mayes-county",
+    "countryId": "CTY-00001",
+    "regionId": "REG-00001",
+    "city": "Pryor",
+    "latitude": 36.2089,
+    "longitude": -95.2658,
+    "areaAcres": 338,
+    "dataCenterIds": [
+      "DC-00004"
+    ]
+  },
+  {
+    "id": "CMP-00005",
+    "name": "Henderson Campus",
+    "code": "henderson",
+    "countryId": "CTY-00001",
+    "regionId": "REG-00001",
+    "city": "Henderson",
+    "latitude": 36.0395,
+    "longitude": -114.9817,
+    "areaAcres": 40,
+    "dataCenterIds": [
+      "DC-00005"
+    ]
+  },
+  {
+    "id": "CMP-00006",
+    "name": "New Albany Campus",
+    "code": "columbus",
+    "countryId": "CTY-00001",
+    "regionId": "REG-00001",
+    "city": "Columbus",
+    "latitude": 40.08,
+    "longitude": -82.79,
+    "areaAcres": 327,
+    "dataCenterIds": [
+      "DC-00006"
+    ]
+  },
+  {
+    "id": "CMP-00007",
+    "name": "Loudoun County Campus",
+    "code": "loudoun-county",
+    "countryId": "CTY-00001",
+    "regionId": "REG-00001",
+    "city": "Ashburn",
+    "latitude": 39.08,
+    "longitude": -77.49,
+    "areaAcres": 343,
+    "dataCenterIds": [
+      "DC-00007"
+    ]
+  },
+  {
+    "id": "CMP-00008",
+    "name": "Berkeley County Campus",
+    "code": "moncks-corner",
+    "countryId": "CTY-00001",
+    "regionId": "REG-00001",
+    "city": "Moncks Corner",
+    "latitude": 33.1913,
+    "longitude": -80.0144,
+    "areaAcres": 208,
+    "dataCenterIds": [
+      "DC-00008"
+    ]
+  },
+  {
+    "id": "CMP-00009",
+    "name": "Toronto Campus",
+    "code": "toronto",
+    "countryId": "CTY-00002",
+    "regionId": "REG-00001",
+    "city": "Toronto",
+    "latitude": 43.6532,
+    "longitude": -79.3832,
+    "areaAcres": 50,
+    "dataCenterIds": [
+      "DC-00009"
+    ]
+  },
+  {
+    "id": "CMP-00010",
+    "name": "Quilicura Campus",
+    "code": "santiago",
+    "countryId": "CTY-00003",
+    "regionId": "REG-00001",
+    "city": "Santiago",
+    "latitude": -33.3617,
+    "longitude": -70.7339,
+    "areaAcres": 134,
+    "dataCenterIds": [
+      "DC-00010"
+    ]
+  },
+  {
+    "id": "CMP-00011",
+    "name": "Hamina Campus",
+    "code": "hamina",
+    "countryId": "CTY-00004",
+    "regionId": "REG-00002",
+    "city": "Hamina",
+    "latitude": 60.5693,
+    "longitude": 27.1981,
+    "areaAcres": 44,
+    "dataCenterIds": [
+      "DC-00011"
+    ]
+  },
+  {
+    "id": "CMP-00012",
+    "name": "Saint-Ghislain Campus",
+    "code": "st-ghislain",
+    "countryId": "CTY-00005",
+    "regionId": "REG-00002",
+    "city": "Saint-Ghislain",
+    "latitude": 50.45,
+    "longitude": 3.82,
+    "areaAcres": 196,
+    "dataCenterIds": [
+      "DC-00012"
+    ]
+  },
+  {
+    "id": "CMP-00013",
+    "name": "Eemshaven Campus",
+    "code": "eemshaven",
+    "countryId": "CTY-00006",
+    "regionId": "REG-00002",
+    "city": "Eemshaven",
+    "latitude": 53.4395,
+    "longitude": 6.8276,
+    "areaAcres": 286,
+    "dataCenterIds": [
+      "DC-00013"
+    ]
+  },
+  {
+    "id": "CMP-00014",
+    "name": "Grange Castle Campus",
+    "code": "dublin",
+    "countryId": "CTY-00007",
+    "regionId": "REG-00002",
+    "city": "Dublin",
+    "latitude": 53.3016,
+    "longitude": -6.4185,
+    "areaAcres": 46,
+    "dataCenterIds": [
+      "DC-00014"
+    ]
+  },
+  {
+    "id": "CMP-00015",
+    "name": "Fredericia Campus",
+    "code": "fredericia",
+    "countryId": "CTY-00008",
+    "regionId": "REG-00002",
+    "city": "Fredericia",
+    "latitude": 55.5658,
+    "longitude": 9.7522,
+    "areaAcres": 48,
+    "dataCenterIds": [
+      "DC-00015"
+    ]
+  },
+  {
+    "id": "CMP-00016",
+    "name": "Milan Campus",
+    "code": "milan",
+    "countryId": "CTY-00009",
+    "regionId": "REG-00002",
+    "city": "Milan",
+    "latitude": 45.4642,
+    "longitude": 9.19,
+    "areaAcres": 133,
+    "dataCenterIds": [
+      "DC-00016"
+    ]
+  },
+  {
+    "id": "CMP-00017",
+    "name": "Madrid Campus",
+    "code": "madrid",
+    "countryId": "CTY-00010",
+    "regionId": "REG-00002",
+    "city": "Madrid",
+    "latitude": 40.4168,
+    "longitude": -3.7038,
+    "areaAcres": 214,
+    "dataCenterIds": [
+      "DC-00017"
+    ]
+  },
+  {
+    "id": "CMP-00018",
+    "name": "Warsaw Campus",
+    "code": "warsaw",
+    "countryId": "CTY-00011",
+    "regionId": "REG-00002",
+    "city": "Warsaw",
+    "latitude": 52.2297,
+    "longitude": 21.0122,
+    "areaAcres": 398,
+    "dataCenterIds": [
+      "DC-00018"
+    ]
+  },
+  {
+    "id": "CMP-00019",
+    "name": "Mumbai Campus",
+    "code": "mumbai",
+    "countryId": "CTY-00012",
+    "regionId": "REG-00003",
+    "city": "Mumbai",
+    "latitude": 19.076,
+    "longitude": 72.8777,
+    "areaAcres": 132,
+    "dataCenterIds": [
+      "DC-00019"
+    ]
+  },
+  {
+    "id": "CMP-00020",
+    "name": "Delhi NCR Campus",
+    "code": "delhi-ncr",
+    "countryId": "CTY-00012",
+    "regionId": "REG-00003",
+    "city": "Delhi",
+    "latitude": 28.7041,
+    "longitude": 77.1025,
+    "areaAcres": 58,
+    "dataCenterIds": [
+      "DC-00020"
+    ]
+  },
+  {
+    "id": "CMP-00021",
+    "name": "Jurong West Campus",
+    "code": "singapore",
+    "countryId": "CTY-00013",
+    "regionId": "REG-00003",
+    "city": "Singapore",
+    "latitude": 1.3496,
+    "longitude": 103.7063,
+    "areaAcres": 209,
+    "dataCenterIds": [
+      "DC-00021"
+    ]
+  },
+  {
+    "id": "CMP-00022",
+    "name": "Jakarta Campus",
+    "code": "jakarta",
+    "countryId": "CTY-00014",
+    "regionId": "REG-00003",
+    "city": "Jakarta",
+    "latitude": -6.2088,
+    "longitude": 106.8456,
+    "areaAcres": 133,
+    "dataCenterIds": [
+      "DC-00022"
+    ]
+  },
+  {
+    "id": "CMP-00023",
+    "name": "Sydney Campus",
+    "code": "sydney",
+    "countryId": "CTY-00015",
+    "regionId": "REG-00003",
+    "city": "Sydney",
+    "latitude": -33.8688,
+    "longitude": 151.2093,
+    "areaAcres": 373,
+    "dataCenterIds": [
+      "DC-00023"
+    ]
+  },
+  {
+    "id": "CMP-00024",
+    "name": "Melbourne Campus",
+    "code": "melbourne",
+    "countryId": "CTY-00015",
+    "regionId": "REG-00003",
+    "city": "Melbourne",
+    "latitude": -37.8136,
+    "longitude": 144.9631,
+    "areaAcres": 67,
+    "dataCenterIds": [
+      "DC-00024"
+    ]
+  },
+  {
+    "id": "CMP-00025",
+    "name": "Changhua Campus",
+    "code": "taiwan",
+    "countryId": "CTY-00016",
+    "regionId": "REG-00003",
+    "city": "Changhua",
+    "latitude": 24.0518,
+    "longitude": 120.5161,
+    "areaAcres": 239,
+    "dataCenterIds": [
+      "DC-00025"
+    ]
+  },
+  {
+    "id": "CMP-00026",
+    "name": "Hong Kong Campus",
+    "code": "hong-kong",
+    "countryId": "CTY-00017",
+    "regionId": "REG-00003",
+    "city": "Hong Kong",
+    "latitude": 22.3193,
+    "longitude": 114.1694,
+    "areaAcres": 161,
+    "dataCenterIds": [
+      "DC-00026"
+    ]
+  },
+  {
+    "id": "CMP-00027",
+    "name": "Doha Campus",
+    "code": "doha",
+    "countryId": "CTY-00018",
+    "regionId": "REG-00004",
+    "city": "Doha",
+    "latitude": 25.2854,
+    "longitude": 51.531,
+    "areaAcres": 98,
+    "dataCenterIds": [
+      "DC-00027"
+    ]
+  },
+  {
+    "id": "CMP-00028",
+    "name": "Dammam Campus",
+    "code": "dammam",
+    "countryId": "CTY-00019",
+    "regionId": "REG-00004",
+    "city": "Dammam",
+    "latitude": 26.4207,
+    "longitude": 50.0888,
+    "areaAcres": 135,
+    "dataCenterIds": [
+      "DC-00028"
+    ]
+  },
+  {
+    "id": "CMP-00029",
+    "name": "Tel Aviv Campus",
+    "code": "tel-aviv",
+    "countryId": "CTY-00020",
+    "regionId": "REG-00004",
+    "city": "Tel Aviv",
+    "latitude": 32.0853,
+    "longitude": 34.7818,
+    "areaAcres": 351,
+    "dataCenterIds": [
+      "DC-00029"
+    ]
+  }
+]

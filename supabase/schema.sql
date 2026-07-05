@@ -12,7 +12,7 @@ create table public.datacenters (
   tier integer,
   power_mw numeric,
   pue numeric,
-  coordinates jsonb,
+  coordinates jsonb, 
   specs jsonb,
   created_at timestamptz default now()
 );
@@ -234,3 +234,4 @@ create policy "Users can manage their own asset intelligence"
   on public.asset_intelligence for all to authenticated
   using (auth.uid() = user_id)
   with check (auth.uid() = user_id);
+ 
