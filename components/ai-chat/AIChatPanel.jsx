@@ -6,11 +6,11 @@ import { callClaude } from '@/lib/claude-api';
 import { parseMarkdown } from '@/utils/helpers';
 import { LoadingDots } from '@/components/shared/LoadingDots';
 
-export default function AIChatPanel({ context = '', systemContext = '', title = 'AI Assistant', className = '' }) {
+export default function AIChatPanel({ context = '', systemContext = '', title = 'AI Assistant', className = '', defaultExpanded = false, quickPrompts = null, suggestionChips = [] }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [minimized, setMinimized] = useState(true);
+  const [minimized, setMinimized] = useState(!defaultExpanded);
   const bottomRef = useRef(null);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ Please respond as the KPMG Datacenter Intelligence Engine. Be specific, data-dri
     }
   };
 
-  const SUGGESTIONS = [
+  const SUGGESTIONS = quickPrompts ?? [
     'What are the key risks to consider?',
     'How does this compare to industry benchmarks?',
     'What should be the priority next steps?',
@@ -190,6 +190,16 @@ Please respond as the KPMG Datacenter Intelligence Engine. Be specific, data-dri
                 </button>
               </div>
               <p className="text-xs text-[#9CA3AF] mt-1.5 text-center">Enter to send · Shift+Enter for new line</p>
+              {suggestionChips.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mt-2 justify-center">
+                  {suggestionChips.map((chip, i) => (
+                    <button key={i} onClick={() => sendMessage(chip)}
+                      className="text-xs px-2.5 py-1 bg-[#00338D]/10 hover:bg-[#00338D]/20 text-[#0077C8] rounded-full border border-[#0077C8]/25 transition-colors">
+                      {chip}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </motion.div>
         )}

@@ -5,6 +5,7 @@ const PUBLIC_PATHS = [
   '/login', '/api', '/dashboard',
   '/global-infrastructure',
   '/command-center',
+  '/eai',
 ];
 
 export async function middleware(request) {

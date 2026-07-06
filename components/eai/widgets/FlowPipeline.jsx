@@ -1,0 +1,83 @@
+'use client';
+import { ShoppingCart, ClipboardCheck, Truck, Warehouse, PackageCheck } from 'lucide-react';
+
+const STAGE_ICONS = {
+  ordered:   ShoppingCart,
+  confirmed: ClipboardCheck,
+  intransit: Truck,
+  warehouse: Warehouse,
+  delivered: PackageCheck,
+};
+
+export default function FlowPipeline({ stages = [] }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 0, width: '100%' }}>
+      {stages.map((stage, i) => {
+        const Icon = STAGE_ICONS[stage.key] ?? ShoppingCart;
+        const isLast = i === stages.length - 1;
+        return (
+          <div key={stage.key} style={{ display: 'flex', alignItems: 'center', flex: 1, minWidth: 0 }}>
+
+            {/* Stage node */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, flex: 1, minWidth: 0, padding: '4px 6px' }}>
+              {/* Icon circle */}
+              <div style={{
+                width: 52, height: 52, borderRadius: '50%', flexShrink: 0,
+                background: stage.color + '22',
+                border: `2px solid ${stage.color}55`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                boxShadow: `0 0 18px ${stage.color}30`,
+              }}>
+                <Icon size={20} style={{ color: stage.color }} />
+              </div>
+
+              {/* Label */}
+              <p style={{ fontSize: 9, fontWeight: 700, color: 'rgba(255,255,255,0.50)', textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap', textAlign: 'center' }}>
+                {stage.label}
+              </p>
+
+              {/* Count */}
+              <p style={{ fontSize: 22, fontWeight: 700, color: '#fff', fontFamily: 'ui-monospace,monospace', lineHeight: 1, textAlign: 'center' }}>
+                {stage.count.toLocaleString()}
+              </p>
+
+              {/* Value */}
+              <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.40)', textAlign: 'center', whiteSpace: 'nowrap' }}>
+                ${stage.valueMM.toFixed(1)}M
+              </p>
+
+              {/* Delta chip */}
+              <div style={{
+                display: 'inline-flex', alignItems: 'center',
+                background: 'rgba(0,163,108,0.14)', border: '1px solid rgba(0,163,108,0.25)',
+                borderRadius: 5, padding: '2px 6px',
+              }}>
+                <span style={{ fontSize: 9, fontWeight: 700, color: '#00A36C' }}>↑ {stage.deltaPct}%</span>
+              </div>
+            </div>
+
+            {/* Connector (dotted arrow) */}
+            {!isLast && (
+              <div style={{ width: 28, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{
+                  width: '100%', height: 2,
+                  background: 'transparent',
+                  borderTop: '2px dashed rgba(255,255,255,0.15)',
+                  position: 'relative',
+                }}>
+                  <div style={{
+                    position: 'absolute', right: -3, top: '50%', transform: 'translateY(-50%)',
+                    width: 0, height: 0,
+                    borderTop: '4px solid transparent',
+                    borderBottom: '4px solid transparent',
+                    borderLeft: '6px solid rgba(255,255,255,0.20)',
+                  }} />
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
