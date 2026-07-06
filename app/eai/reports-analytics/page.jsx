@@ -9,7 +9,7 @@ import DataTable          from '@/components/eai/widgets/DataTable';
 import HorizontalBarList  from '@/components/eai/widgets/HorizontalBarList';
 import RegionUtilizationMap from '@/components/eai/widgets/RegionUtilizationMap';
 import ToggleListCard     from '@/components/eai/widgets/ToggleListCard';
-import ReportsSidePanel   from '@/components/eai/reports-analytics/ReportsSidePanel';
+import QuickActionsMenu from '@/components/eai/widgets/QuickActionsMenu';
 
 import {
   KPIS, ASSET_DISTRIBUTION, ASSET_VALUE_TREND,
@@ -105,8 +105,6 @@ export default function ReportsAnalyticsPage() {
 
   return (
     <div style={{ display: 'flex', height: 'calc(100vh - 56px)', overflow: 'hidden' }}>
-      <ReportsSidePanel activeSection={activeSection} onSelect={setActiveSection} />
-
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
 
         {/* ── Sub-header ─────────────────────────────────────────────────────── */}
@@ -165,6 +163,12 @@ export default function ReportsAnalyticsPage() {
                   <ChevronDown size={10} />
                 </button>
               </div>
+              <QuickActionsMenu items={[
+                { iconKey: 'FilePlus',    label: 'Create Report'      },
+                { iconKey: 'CalendarPlus',label: 'Schedule Report'    },
+                { iconKey: 'Download',    label: 'Export Data'        },
+                { iconKey: 'LayoutGrid',  label: 'Manage Dashboards'  },
+              ]} />
             </div>
           </div>
 

@@ -18,7 +18,7 @@ import DonutChart       from '@/components/eai/widgets/DonutChart';
 import GaugeChart       from '@/components/eai/widgets/GaugeChart';
 import HorizontalBarList from '@/components/eai/widgets/HorizontalBarList';
 import Stepper          from '@/components/eai/widgets/Stepper';
-import LifecycleSidePanel from '@/components/eai/asset-lifecycle/LifecycleSidePanel';
+import QuickActionsMenu from '@/components/eai/widgets/QuickActionsMenu';
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 const BG    = '#0A0F1E';
@@ -272,20 +272,20 @@ export default function AssetLifecyclePage() {
           }}>
             <Plus size={13} /> Add Asset <ChevronDown size={10} style={{ opacity: 0.7 }} />
           </button>
+          <QuickActionsMenu items={[
+            { iconKey: 'Plus',        label: 'Add New Asset'      },
+            { iconKey: 'Upload',      label: 'Bulk Import Assets' },
+            { iconKey: 'ClipboardList',label: 'Create Work Order' },
+            { iconKey: 'BarChart2',   label: 'Generate Report'    },
+            { iconKey: 'Download',    label: 'Export Data'        },
+          ]} />
         </div>
       </div>
 
       {/* ── Body ────────────────────────────────────────────────────────── */}
       <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
 
-        {/* Left: Lifecycle Side Panel */}
-        <LifecycleSidePanel
-          counts={stageCounts}
-          activeStage={stageFilter}
-          onSelect={handleStageSelect}
-        />
-
-        {/* Right: Main scroll area */}
+        {/* Main scroll area */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '14px 18px', display: 'flex', flexDirection: 'column', gap: 12, minWidth: 0 }}>
 
           {/* ── Pipeline strip (8 stage cards) ──────────────────────────── */}

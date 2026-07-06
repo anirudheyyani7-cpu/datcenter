@@ -100,7 +100,7 @@ export default function EAITopbar({ unreadCount = 12, sidebarHidden = false, onT
         >
           <div style={{
             width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
-            background: 'linear-gradient(135deg, #7C3AED, #0077C8)',
+            background: 'linear-gradient(135deg, #00338D, #0077C8)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>
             <span style={{ color: '#fff', fontWeight: 700, fontSize: 10 }}>AN</span>

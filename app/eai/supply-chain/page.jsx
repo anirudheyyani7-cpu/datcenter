@@ -20,7 +20,7 @@ import DonutChart    from '@/components/eai/widgets/DonutChart';
 import FlowPipeline  from '@/components/eai/widgets/FlowPipeline';
 import DataTable     from '@/components/eai/widgets/DataTable';
 import RouteMap      from '@/components/eai/widgets/RouteMap';
-import SupplyChainSidePanel from '@/components/eai/supply-chain/SupplyChainSidePanel';
+import QuickActionsMenu from '@/components/eai/widgets/QuickActionsMenu';
 
 // ─── Tokens ───────────────────────────────────────────────────────────────────
 const BG   = '#0A0F1E';
@@ -193,15 +193,22 @@ export default function SupplyChainPage() {
 
       {/* ── Body ──────────────────────────────────────────────────────────── */}
       <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
-        <SupplyChainSidePanel activeSection={activeSection} onSelect={setActiveSection} />
-
         {/* Main scroll area */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '14px 18px', display: 'flex', flexDirection: 'column', gap: 12, minWidth: 0 }}>
 
           {/* Page header (inside scroll area) */}
-          <div style={{ flexShrink: 0 }}>
-            <h1 style={{ fontSize: 16, fontWeight: 700, color: '#fff', lineHeight: 1 }}>Supply Chain</h1>
-            <p style={{ fontSize: 11, color: DIM, marginTop: 3 }}>End-to-end visibility of asset procurement, logistics and fulfillment</p>
+          <div style={{ flexShrink: 0, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+            <div>
+              <h1 style={{ fontSize: 16, fontWeight: 700, color: '#fff', lineHeight: 1 }}>Supply Chain</h1>
+              <p style={{ fontSize: 11, color: DIM, marginTop: 3 }}>End-to-end visibility of asset procurement, logistics and fulfillment</p>
+            </div>
+            <QuickActionsMenu items={[
+              { iconKey: 'ShoppingCart',label: 'Create Purchase Order' },
+              { iconKey: 'Search',      label: 'Track Shipment'        },
+              { iconKey: 'FileCheck',   label: 'GRN (Goods Receipt)'   },
+              { iconKey: 'Truck',       label: 'Create Supplier'       },
+              { iconKey: 'Download',    label: 'Export Inventory'      },
+            ]} />
           </div>
 
           {/* ── 8 KPI cards ─────────────────────────────────────────────── */}

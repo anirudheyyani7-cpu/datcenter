@@ -14,7 +14,7 @@ import HorizontalBarList   from '@/components/eai/widgets/HorizontalBarList';
 import BudgetVsActualTable from '@/components/eai/widgets/BudgetVsActualTable';
 import StatusListCard      from '@/components/eai/widgets/StatusListCard';
 import ScoreRing           from '@/components/eai/widgets/ScoreRing';
-import FinOpsEsgSidePanel  from '@/components/eai/finops-esg/FinOpsEsgSidePanel';
+import QuickActionsMenu from '@/components/eai/widgets/QuickActionsMenu';
 
 import {
   FINOPS_KPIS, COST_TREND, COST_BY_CATEGORY, COST_BY_LOCATION,
@@ -476,8 +476,6 @@ export default function FinOpsEsgPage() {
   return (
     <div style={{ height: 'calc(100vh - 56px)', display: 'flex', flexDirection: 'row', overflow: 'hidden', background: '#0A0F1E' }}>
 
-      <FinOpsEsgSidePanel activeSection={activeSection} onSelect={setActiveSection} />
-
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
 
         {/* Sub-header: tab strip + date + controls */}
@@ -511,6 +509,12 @@ export default function FinOpsEsgPage() {
           <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '4px 14px', borderRadius: 8, background: '#0077C8', border: 'none', cursor: 'pointer', color: '#fff', fontSize: 10, fontWeight: 600 }}>
             <Download size={11} /> Export
           </button>
+          <QuickActionsMenu items={[
+            { iconKey: 'Plus',    label: 'New Cost Report' },
+            { iconKey: 'Download',label: 'Export Data'     },
+            { iconKey: 'Filter',  label: 'Apply Filters'   },
+            { iconKey: 'Bell',    label: 'Set Budget Alert'},
+          ]} />
         </div>
 
         {/* Scrollable content */}

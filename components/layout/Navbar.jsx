@@ -181,6 +181,10 @@ export default function Navbar() {
               </span>
             </NavLink>
 
+            <NavLink href="/eai" active={pathname?.startsWith('/eai')}>
+              EAI Platform
+            </NavLink>
+
           </div>
 
           <div className="flex-1" />

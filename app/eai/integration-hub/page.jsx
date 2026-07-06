@@ -14,7 +14,7 @@ import ScoreRing          from '@/components/eai/widgets/ScoreRing';
 import HorizontalBarList  from '@/components/eai/widgets/HorizontalBarList';
 import IntegrationMapDiagram from '@/components/eai/widgets/IntegrationMapDiagram';
 import IntegrationListRow, { IntegrationListHeader } from '@/components/eai/widgets/IntegrationListRow';
-import IntegrationHubSidePanel from '@/components/eai/integration-hub/IntegrationHubSidePanel';
+import QuickActionsMenu from '@/components/eai/widgets/QuickActionsMenu';
 
 import {
   KPIS,
@@ -130,8 +130,6 @@ export default function IntegrationHubPage() {
 
   return (
     <div style={{ display: 'flex', height: 'calc(100vh - 56px)', overflow: 'hidden' }}>
-      <IntegrationHubSidePanel activeSection={activeSection} onSelect={setActiveSection} />
-
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
         {/* Sub-header ──────────────────────────────────────────────────────── */}
@@ -199,6 +197,13 @@ export default function IntegrationHubPage() {
               <ChevronDown size={12} />
             </button>
           </div>
+          <QuickActionsMenu items={[
+            { iconKey: 'Plus',       label: 'New Integration'        },
+            { iconKey: 'Share2',     label: 'Create Data Flow'       },
+            { iconKey: 'Plug',       label: 'Add API Endpoint'       },
+            { iconKey: 'UploadCloud',label: 'Import Data Source'     },
+            { iconKey: 'BookOpen',   label: 'View Integration Docs'  },
+          ]} />
         </div>
 
         {/* Scrollable content ───────────────────────────────────────────────── */}

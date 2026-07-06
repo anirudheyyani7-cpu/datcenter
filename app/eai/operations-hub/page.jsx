@@ -12,7 +12,7 @@ import TrendChart       from '@/components/eai/widgets/TrendChart';
 import DataTable        from '@/components/eai/widgets/DataTable';
 import ListCard         from '@/components/eai/widgets/ListCard';
 import CalendarListCard from '@/components/eai/widgets/CalendarListCard';
-import OperationsSidePanel from '@/components/eai/operations-hub/OperationsSidePanel';
+import QuickActionsMenu from '@/components/eai/widgets/QuickActionsMenu';
 
 import {
   PORTFOLIO,
@@ -220,8 +220,6 @@ export default function OperationsHubPage() {
 
   return (
     <div style={{ display: 'flex', height: 'calc(100vh - 56px)', overflow: 'hidden' }}>
-      <OperationsSidePanel activeSection={activeSection} onSelect={setActiveSection} />
-
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
         {/* Sub-header */}
@@ -256,6 +254,13 @@ export default function OperationsHubPage() {
           }}>
             <Download size={11} /> Export
           </button>
+          <QuickActionsMenu items={[
+            { iconKey: 'Plus',        label: 'Create Work Order'    },
+            { iconKey: 'AlertOctagon',label: 'Report an Incident'   },
+            { iconKey: 'CalendarDays',label: 'Schedule Maintenance' },
+            { iconKey: 'Users',       label: 'Assign Technician'    },
+            { iconKey: 'Download',    label: 'Export Report'        },
+          ]} />
         </div>
 
         {/* Scrollable content */}

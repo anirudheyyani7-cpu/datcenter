@@ -7,7 +7,7 @@ import KpiCard             from '@/components/eai/widgets/KpiCard';
 import RiskHeatmapGrid     from '@/components/eai/widgets/RiskHeatmapGrid';
 import ForecastChart       from '@/components/eai/widgets/ForecastChart';
 import AnomalyStatCard     from '@/components/eai/widgets/AnomalyStatCard';
-import IntelligenceSidePanel from '@/components/eai/intelligence-center/IntelligenceSidePanel';
+import QuickActionsMenu from '@/components/eai/widgets/QuickActionsMenu';
 import AIChatPanel         from '@/components/ai-chat/AIChatPanel';
 
 import {
@@ -90,8 +90,6 @@ export default function IntelligenceCenterPage() {
   return (
     <div style={{ height: 'calc(100vh - 56px)', display: 'flex', flexDirection: 'row', overflow: 'hidden', background: '#0A0F1E' }}>
 
-      <IntelligenceSidePanel activeSection={activeSection} onSelect={setActiveSection} />
-
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
 
         {/* Page sub-header */}
@@ -114,6 +112,13 @@ export default function IntelligenceCenterPage() {
               <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 14px', borderRadius: 8, background: '#0077C8', border: 'none', cursor: 'pointer', color: '#fff', fontSize: 10, fontWeight: 600 }}>
                 <Download size={11} /> Export
               </button>
+              <QuickActionsMenu items={[
+                { iconKey: 'MessageSquare',label: 'Ask AI Assistant'         },
+                { iconKey: 'GitFork',      label: 'Create What-if Scenario'  },
+                { iconKey: 'Eye',          label: 'View Active Alerts'       },
+                { iconKey: 'Download',     label: 'Export Report'            },
+                { iconKey: 'Bell',         label: 'Schedule Alert'           },
+              ]} />
             </div>
           </div>
         </div>

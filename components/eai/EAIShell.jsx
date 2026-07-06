@@ -11,13 +11,14 @@ export default function EAIShell({ children }) {
   const [hidden,    setHidden]    = useState(false);
 
   return (
-    <div style={{ display: 'flex', height: '100vh', background: '#0A0F1E', color: '#fff', overflow: 'hidden' }}>
+    <div style={{ display: 'flex', height: '100vh', background: '#0D1428', color: '#fff', overflow: 'hidden' }}>
 
       {/* Sidebar — rendered when not fully hidden */}
       {!hidden && (
         <EAISidebar
           collapsed={collapsed}
           onToggle={() => setCollapsed(c => !c)}
+          onHide={() => setHidden(true)}
         />
       )}
 
@@ -29,8 +30,8 @@ export default function EAIShell({ children }) {
           style={{
             position: 'fixed', left: 0, top: '50%', transform: 'translateY(-50%)',
             width: 14, height: 56, zIndex: 200,
-            background: 'rgba(124,58,237,0.28)',
-            border: '1px solid rgba(124,58,237,0.45)',
+            background: 'rgba(0,119,200,0.28)',
+            border: '1px solid rgba(0,119,200,0.45)',
             borderLeft: 'none',
             borderRadius: '0 8px 8px 0',
             cursor: 'pointer',
@@ -39,8 +40,8 @@ export default function EAIShell({ children }) {
             padding: 0,
             transition: 'background 0.15s',
           }}
-          onMouseEnter={e => (e.currentTarget.style.background = 'rgba(124,58,237,0.50)')}
-          onMouseLeave={e => (e.currentTarget.style.background = 'rgba(124,58,237,0.28)')}
+          onMouseEnter={e => (e.currentTarget.style.background = 'rgba(0,119,200,0.50)')}
+          onMouseLeave={e => (e.currentTarget.style.background = 'rgba(0,119,200,0.28)')}
         >
           <ChevronRight size={10} />
         </button>

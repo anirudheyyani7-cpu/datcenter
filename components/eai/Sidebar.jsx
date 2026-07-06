@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import {
   Globe2, Building2, RefreshCw, Truck, CircleDollarSign,
   Brain, Wrench, Link2, BarChart3, ShieldCheck,
-  Zap, ChevronLeft, ChevronRight, ArrowRight,
+  Zap, ChevronLeft, ChevronRight, ArrowRight, X,
 } from 'lucide-react';
 
 const MODULES = [
@@ -28,7 +28,7 @@ const QUICK_ACCESS = [
   { label: 'Create Work Order', href: '/eai/operations-hub'      },
 ];
 
-export default function EAISidebar({ collapsed = false, onToggle }) {
+export default function EAISidebar({ collapsed = false, onToggle, onHide }) {
   const pathname = usePathname();
   const W = collapsed ? 56 : 240;
 
@@ -54,16 +54,33 @@ export default function EAISidebar({ collapsed = false, onToggle }) {
       }}>
         <div style={{
           width: 30, height: 30, borderRadius: 10, flexShrink: 0,
-          background: 'linear-gradient(135deg, #7C3AED, #0077C8)',
+          background: 'linear-gradient(135deg, #00338D, #0077C8)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
         }}>
           <Zap size={14} color="#fff" />
         </div>
         {!collapsed && (
-          <div style={{ minWidth: 0, overflow: 'hidden' }}>
-            <p style={{ fontSize: 11, fontWeight: 700, color: '#fff', whiteSpace: 'nowrap' }}>EAI Platform</p>
-            <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)', marginTop: 1, whiteSpace: 'nowrap' }}>Enterprise Asset Intelligence</p>
-          </div>
+          <>
+            <div style={{ minWidth: 0, overflow: 'hidden', flex: 1 }}>
+              <p style={{ fontSize: 11, fontWeight: 700, color: '#fff', whiteSpace: 'nowrap' }}>EAI Platform</p>
+              <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)', marginTop: 1, whiteSpace: 'nowrap' }}>Enterprise Asset Intelligence</p>
+            </div>
+            <button
+              onClick={onHide}
+              title="Hide sidebar"
+              style={{
+                width: 22, height: 22, borderRadius: 6, flexShrink: 0,
+                background: 'transparent', border: '1px solid transparent',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                cursor: 'pointer', color: 'rgba(255,255,255,0.25)',
+                transition: 'all 0.12s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = 'rgba(255,255,255,0.70)'; e.currentTarget.style.border = '1px solid rgba(255,255,255,0.12)'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'rgba(255,255,255,0.25)'; e.currentTarget.style.border = '1px solid transparent'; }}
+            >
+              <X size={12} />
+            </button>
+          </>
         )}
       </div>
 
@@ -81,8 +98,8 @@ export default function EAISidebar({ collapsed = false, onToggle }) {
                 display: 'flex', alignItems: 'center', gap: 10,
                 padding: collapsed ? '8px 10px' : '7px 10px',
                 borderRadius: 8,
-                background: isActive ? 'rgba(124,58,237,0.18)' : 'transparent',
-                border: isActive ? '1px solid rgba(124,58,237,0.28)' : '1px solid transparent',
+                background: isActive ? 'rgba(0,119,200,0.18)' : 'transparent',
+                border: isActive ? '1px solid rgba(0,119,200,0.28)' : '1px solid transparent',
                 color: isActive ? '#fff' : 'rgba(255,255,255,0.45)',
                 textDecoration: 'none',
                 transition: 'all 0.12s',
@@ -92,11 +109,11 @@ export default function EAISidebar({ collapsed = false, onToggle }) {
               onMouseEnter={e => { if (!isActive) e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}
               onMouseLeave={e => { if (!isActive) e.currentTarget.style.background = 'transparent'; }}
             >
-              <Icon size={15} style={{ flexShrink: 0, color: isActive ? '#7C3AED' : 'inherit' }} />
+              <Icon size={15} style={{ flexShrink: 0, color: isActive ? '#0077C8' : 'inherit' }} />
               {!collapsed && (
                 <>
                   <span style={{ fontSize: 12, fontWeight: 600, flex: 1, overflow: 'hidden', textOverflow: 'ellipsis' }}>{mod.label}</span>
-                  {isActive && <div style={{ width: 4, height: 16, borderRadius: 2, background: '#7C3AED', flexShrink: 0 }} />}
+                  {isActive && <div style={{ width: 4, height: 16, borderRadius: 2, background: '#0077C8', flexShrink: 0 }} />}
                 </>
               )}
             </Link>

@@ -12,7 +12,7 @@ import DataTable          from '@/components/eai/widgets/DataTable';
 import ListCard           from '@/components/eai/widgets/ListCard';
 import HorizontalBarList  from '@/components/eai/widgets/HorizontalBarList';
 import StatRowList        from '@/components/eai/widgets/StatRowList';
-import AdministrationSidePanel from '@/components/eai/administration/AdministrationSidePanel';
+import QuickActionsMenu from '@/components/eai/widgets/QuickActionsMenu';
 
 import {
   KPIS, USER_ACTIVITY, USERS_BY_ROLE,
@@ -147,8 +147,6 @@ export default function AdministrationPage() {
 
   return (
     <div style={{ display: 'flex', height: 'calc(100vh - 56px)', overflow: 'hidden' }}>
-      <AdministrationSidePanel activeSection={activeSection} onSelect={setActiveSection} />
-
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
 
         {/* ── Sub-header ─────────────────────────────────────────────────────── */}
@@ -200,6 +198,13 @@ export default function AdministrationPage() {
                 <ChevronDown size={10} />
               </button>
             </div>
+            <QuickActionsMenu items={[
+              { iconKey: 'UserPlus',        label: 'Add User'               },
+              { iconKey: 'UserCog',         label: 'Create Role'            },
+              { iconKey: 'SlidersHorizontal',label: 'System Settings'       },
+              { iconKey: 'ClipboardList',   label: 'View Audit Logs'        },
+              { iconKey: 'Ticket',          label: 'Create Support Ticket'  },
+            ]} />
           </div>
         </div>
 
