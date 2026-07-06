@@ -812,6 +812,7 @@ function normalizeHeader(h) {
 function mapRow(headers, rawRow) {
   const obj = {};
   headers.forEach((h, i) => {
+    if (/\(original\)/i.test(h)) return; // skip raw/original duplicate columns
     const norm = normalizeHeader(h);
     const key = FIELD_MAP[norm] ?? norm;
     let val = rawRow[i] ?? '';
