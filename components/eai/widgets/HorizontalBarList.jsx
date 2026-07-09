@@ -15,18 +15,18 @@ export default function HorizontalBarList({ items = [], maxValue, unit = '', pre
           <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
             {/* Label */}
             <span style={{
-              fontSize: 10, color: 'rgba(255,255,255,0.55)',
+              fontSize: 10, color: '#6B7280',
               width: labelWidth, flexShrink: 0,
               overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
             }}>
               {item.label}
             </span>
             {/* Bar track */}
-            <div style={{ flex: 1, height: 5, borderRadius: 3, background: 'rgba(255,255,255,0.08)', overflow: 'hidden', minWidth: 0 }}>
+            <div style={{ flex: 1, height: 5, borderRadius: 3, background: '#E2E8F0', overflow: 'hidden', minWidth: 0 }}>
               <div style={{ width: `${pct}%`, height: '100%', borderRadius: 3, background: color, transition: 'width 0.4s ease' }} />
             </div>
             {/* Value */}
-            <span style={{ fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.75)', width: 42, textAlign: 'right', flexShrink: 0, fontFamily: 'ui-monospace,monospace' }}>
+            <span style={{ fontSize: 10, fontWeight: 700, color: '#1A1F36', width: 42, textAlign: 'right', flexShrink: 0, fontFamily: 'ui-monospace,monospace' }}>
               {prefix}{item.value.toLocaleString()}{unit}
             </span>
           </div>

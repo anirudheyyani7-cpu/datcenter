@@ -26,7 +26,7 @@ export default function RiskHeatmapGrid({ rows = [], viewAllHref }) {
         <div style={{ display: 'flex', flexDirection: 'row', gap: 4, alignItems: 'center' }}>
           {/* Vertical "Likelihood" label */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 14 }}>
-            <span style={{ fontSize: 7, fontWeight: 700, color: 'rgba(255,255,255,0.30)', textTransform: 'uppercase', letterSpacing: '0.06em', writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
+            <span style={{ fontSize: 7, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em', writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
               Likelihood
             </span>
           </div>
@@ -34,7 +34,7 @@ export default function RiskHeatmapGrid({ rows = [], viewAllHref }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
             {(rows.length > 0 ? rows.map(r => r.label) : ROW_LABELS).map(l => (
               <div key={l} style={{ height: 28, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-                <span style={{ fontSize: 7, color: 'rgba(255,255,255,0.40)', whiteSpace: 'nowrap', textAlign: 'right', minWidth: 44 }}>{l}</span>
+                <span style={{ fontSize: 7, color: '#6B7280', whiteSpace: 'nowrap', textAlign: 'right', minWidth: 44 }}>{l}</span>
               </div>
             ))}
           </div>
@@ -62,7 +62,7 @@ export default function RiskHeatmapGrid({ rows = [], viewAllHref }) {
           <div style={{ display: 'flex', gap: 3, marginTop: 2 }}>
             {COL_LABELS.map(l => (
               <div key={l} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ fontSize: 7, color: 'rgba(255,255,255,0.40)', textAlign: 'center' }}>{l}</span>
+                <span style={{ fontSize: 7, color: '#6B7280', textAlign: 'center' }}>{l}</span>
               </div>
             ))}
           </div>
@@ -71,7 +71,7 @@ export default function RiskHeatmapGrid({ rows = [], viewAllHref }) {
 
       {/* Impact axis label */}
       <div style={{ display: 'flex', justifyContent: 'center', marginLeft: 62 }}>
-        <span style={{ fontSize: 7, fontWeight: 700, color: 'rgba(255,255,255,0.30)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+        <span style={{ fontSize: 7, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
           Impact
         </span>
       </div>

@@ -16,7 +16,7 @@ function regionBadgeIcon(label, pct) {
   const html = `
     <div style="
       display:flex; align-items:center; gap:5px;
-      background:rgba(10,15,30,0.82);
+      background:rgba(255,255,255,0.85);
       border:1px solid ${color}50;
       border-radius:8px;
       padding:4px 8px;
@@ -30,7 +30,7 @@ function regionBadgeIcon(label, pct) {
         flex-shrink:0;
         display:inline-block;
       "></span>
-      <span style="font-size:10px; font-weight:600; color:rgba(255,255,255,0.80); font-family:system-ui,sans-serif; letter-spacing:-0.01em;">
+      <span style="font-size:10px; font-weight:600; color:#1A1F36; font-family:system-ui,sans-serif; letter-spacing:-0.01em;">
         ${label}
       </span>
       <span style="font-size:10px; font-weight:800; color:${color}; font-family:ui-monospace,monospace;">
@@ -68,7 +68,7 @@ export default function RegionUtilizationMapLeaflet({ regions = [] }) {
       scrollWheelZoom={false}
     >
       <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         subdomains="abcd"
         maxZoom={19}
       />

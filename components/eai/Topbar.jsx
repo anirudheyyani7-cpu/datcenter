@@ -3,10 +3,10 @@ import { Search, Bell, Mail, HelpCircle, ChevronRight, PanelLeft } from 'lucide-
 
 const BTN = {
   width: 34, height: 34, borderRadius: 8,
-  background: 'rgba(255,255,255,0.05)',
-  border: '1px solid rgba(255,255,255,0.10)',
+  background: '#F8FAFC',
+  border: '1px solid #E2E8F0',
   display: 'flex', alignItems: 'center', justifyContent: 'center',
-  cursor: 'pointer', color: 'rgba(255,255,255,0.40)',
+  cursor: 'pointer', color: '#6B7280',
   transition: 'all 0.12s', flexShrink: 0,
 };
 
@@ -16,9 +16,9 @@ export default function EAITopbar({ unreadCount = 12, sidebarHidden = false, onT
       height: 56, flexShrink: 0,
       display: 'flex', alignItems: 'center', gap: 12,
       padding: '0 20px',
-      background: 'rgba(13,20,40,0.95)',
+      background: 'rgba(255,255,255,0.95)',
       backdropFilter: 'blur(20px)',
-      borderBottom: '1px solid rgba(255,255,255,0.08)',
+      borderBottom: '1px solid #E2E8F0',
     }}>
 
       {/* Hide/show sidebar toggle — only visible when sidebar is hidden */}
@@ -27,8 +27,8 @@ export default function EAITopbar({ unreadCount = 12, sidebarHidden = false, onT
           onClick={onToggleSidebar}
           title="Show sidebar"
           style={{ ...BTN, flexShrink: 0, marginRight: -4 }}
-          onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.background = 'rgba(255,255,255,0.10)'; }}
-          onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.40)'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}
+          onMouseEnter={e => { e.currentTarget.style.color = '#1A1F36'; e.currentTarget.style.background = '#F4F6F9'; }}
+          onMouseLeave={e => { e.currentTarget.style.color = '#6B7280'; e.currentTarget.style.background = '#F8FAFC'; }}
         >
           <PanelLeft size={14} />
         </button>
@@ -38,17 +38,17 @@ export default function EAITopbar({ unreadCount = 12, sidebarHidden = false, onT
       <div style={{ flex: 1, maxWidth: 400 }}>
         <button style={{
           width: '100%', display: 'flex', alignItems: 'center', gap: 10,
-          background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.10)',
+          background: '#F8FAFC', border: '1px solid #E2E8F0',
           borderRadius: 10, padding: '6px 12px', cursor: 'pointer',
-          color: 'rgba(255,255,255,0.30)', fontSize: 12,
+          color: '#9CA3AF', fontSize: 12,
           transition: 'border-color 0.12s',
         }}
-          onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.20)')}
-          onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.10)')}
+          onMouseEnter={e => (e.currentTarget.style.borderColor = '#CBD5E1')}
+          onMouseLeave={e => (e.currentTarget.style.borderColor = '#E2E8F0')}
         >
           <Search size={13} style={{ flexShrink: 0 }} />
           <span style={{ flex: 1, textAlign: 'left' }}>Search for anything...</span>
-          <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.20)', flexShrink: 0 }}>⌘K</span>
+          <span style={{ fontSize: 10, color: '#9CA3AF', flexShrink: 0 }}>⌘K</span>
         </button>
       </div>
 
@@ -60,8 +60,8 @@ export default function EAITopbar({ unreadCount = 12, sidebarHidden = false, onT
         {/* Bell */}
         <div style={{ position: 'relative' }}>
           <button style={BTN}
-            onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.background = 'rgba(255,255,255,0.10)'; }}
-            onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.40)'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}>
+            onMouseEnter={e => { e.currentTarget.style.color = '#1A1F36'; e.currentTarget.style.background = '#F4F6F9'; }}
+            onMouseLeave={e => { e.currentTarget.style.color = '#6B7280'; e.currentTarget.style.background = '#F8FAFC'; }}>
             <Bell size={14} />
           </button>
           {unreadCount > 0 && (
@@ -77,15 +77,15 @@ export default function EAITopbar({ unreadCount = 12, sidebarHidden = false, onT
 
         {/* Mail */}
         <button style={BTN}
-          onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.background = 'rgba(255,255,255,0.10)'; }}
-          onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.40)'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}>
+          onMouseEnter={e => { e.currentTarget.style.color = '#1A1F36'; e.currentTarget.style.background = '#F4F6F9'; }}
+          onMouseLeave={e => { e.currentTarget.style.color = '#6B7280'; e.currentTarget.style.background = '#F8FAFC'; }}>
           <Mail size={14} />
         </button>
 
         {/* Help */}
         <button style={BTN}
-          onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.background = 'rgba(255,255,255,0.10)'; }}
-          onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.40)'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}>
+          onMouseEnter={e => { e.currentTarget.style.color = '#1A1F36'; e.currentTarget.style.background = '#F4F6F9'; }}
+          onMouseLeave={e => { e.currentTarget.style.color = '#6B7280'; e.currentTarget.style.background = '#F8FAFC'; }}>
           <HelpCircle size={14} />
         </button>
 
@@ -95,7 +95,7 @@ export default function EAITopbar({ unreadCount = 12, sidebarHidden = false, onT
           padding: '5px 10px 5px 6px', borderRadius: 10, cursor: 'pointer',
           transition: 'background 0.12s',
         }}
-          onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.06)')}
+          onMouseEnter={e => (e.currentTarget.style.background = '#F4F6F9')}
           onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
         >
           <div style={{
@@ -106,10 +106,10 @@ export default function EAITopbar({ unreadCount = 12, sidebarHidden = false, onT
             <span style={{ color: '#fff', fontWeight: 700, fontSize: 10 }}>AN</span>
           </div>
           <div>
-            <p style={{ fontSize: 12, fontWeight: 600, color: '#fff', lineHeight: 1 }}>Anoushka</p>
-            <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)', marginTop: 2 }}>Platform Admin</p>
+            <p style={{ fontSize: 12, fontWeight: 600, color: '#1A1F36', lineHeight: 1 }}>Anoushka</p>
+            <p style={{ fontSize: 9, color: '#6B7280', marginTop: 2 }}>Platform Admin</p>
           </div>
-          <ChevronRight size={11} style={{ color: 'rgba(255,255,255,0.25)' }} />
+          <ChevronRight size={11} style={{ color: '#9CA3AF' }} />
         </div>
       </div>
     </header>

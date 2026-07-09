@@ -9,10 +9,11 @@ function DarkTip({ active, payload, label, unit = '' }) {
   if (!active || !payload?.length) return null;
   return (
     <div style={{
-      background: '#1A1F36', border: '1px solid rgba(255,255,255,0.10)',
-      borderRadius: 8, padding: '6px 10px', fontSize: 11, color: '#fff',
+      background: '#FFFFFF', border: '1px solid #E2E8F0',
+      boxShadow: '0 2px 8px rgba(16,24,40,0.08)',
+      borderRadius: 8, padding: '6px 10px', fontSize: 11, color: '#1A1F36',
     }}>
-      {label && <p style={{ color: 'rgba(255,255,255,0.40)', marginBottom: 2, fontSize: 9 }}>{label}</p>}
+      {label && <p style={{ color: '#6B7280', marginBottom: 2, fontSize: 9 }}>{label}</p>}
       <p style={{ fontWeight: 700, color: '#0077C8' }}>{payload[0].value}{unit}</p>
     </div>
   );

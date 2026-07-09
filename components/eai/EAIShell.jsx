@@ -11,7 +11,7 @@ export default function EAIShell({ children }) {
   const [hidden,    setHidden]    = useState(false);
 
   return (
-    <div style={{ display: 'flex', height: '100vh', background: '#0D1428', color: '#fff', overflow: 'hidden' }}>
+    <div style={{ display: 'flex', height: '100vh', background: '#F4F6F9', color: '#1A1F36', overflow: 'hidden' }}>
 
       {/* Sidebar — rendered when not fully hidden */}
       {!hidden && (

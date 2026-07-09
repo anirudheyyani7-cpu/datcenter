@@ -7,13 +7,13 @@ const STATUS_COLOR = {
   past:    '#10B981',
   next:    '#0077C8',
   current: '#F59E0B',
-  future:  'rgba(255,255,255,0.20)',
+  future:  '#E2E8F0',
 };
 const STATUS_TEXT = {
   past:    '#10B981',
-  next:    '#fff',
+  next:    '#1A1F36',
   current: '#F59E0B',
-  future:  'rgba(255,255,255,0.25)',
+  future:  '#9CA3AF',
 };
 
 export default function Stepper({ stages = [] }) {
@@ -40,7 +40,7 @@ export default function Stepper({ stages = [] }) {
               }}>
                 <div style={{
                   width: 10, height: 10, borderRadius: '50%',
-                  background: stage.status === 'future' ? 'rgba(255,255,255,0.15)' : color,
+                  background: stage.status === 'future' ? '#E2E8F0' : color,
                 }} />
               </div>
               {/* Label */}
@@ -48,11 +48,11 @@ export default function Stepper({ stages = [] }) {
                 <p style={{ fontSize: 9, fontWeight: 700, color: tColor, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                   {stage.label}
                 </p>
-                <p style={{ fontSize: 8, color: 'rgba(255,255,255,0.35)', marginTop: 2, whiteSpace: 'nowrap' }}>
+                <p style={{ fontSize: 8, color: '#6B7280', marginTop: 2, whiteSpace: 'nowrap' }}>
                   {stage.date}
                 </p>
                 {stage.sub && (
-                  <p style={{ fontSize: 8, color: 'rgba(255,255,255,0.25)', marginTop: 1, whiteSpace: 'nowrap' }}>
+                  <p style={{ fontSize: 8, color: '#9CA3AF', marginTop: 1, whiteSpace: 'nowrap' }}>
                     {stage.sub}
                   </p>
                 )}
@@ -65,11 +65,11 @@ export default function Stepper({ stages = [] }) {
                 height: 2,
                 marginTop: 16,
                 background: stage.status === 'future' || stages[i + 1]?.status === 'future'
-                  ? 'rgba(255,255,255,0.10)'
+                  ? '#E2E8F0'
                   : `linear-gradient(90deg, ${color}, ${STATUS_COLOR[stages[i + 1]?.status] ?? color})`,
                 borderStyle: stage.status === 'next' || stages[i + 1]?.status === 'future' ? 'dashed' : 'solid',
                 borderWidth: stage.status === 'next' || stages[i + 1]?.status === 'future' ? '0 0 2px 0' : 'none',
-                borderColor: 'rgba(255,255,255,0.15)',
+                borderColor: '#E2E8F0',
               }} />
             )}
           </div>

@@ -37,11 +37,11 @@ export default function QuickActionsMenu({ items = [] }) {
           background: open ? 'rgba(0,119,200,0.20)' : 'rgba(0,119,200,0.10)',
           border: '1px solid rgba(0,119,200,0.30)',
           borderRadius: 8, padding: '5px 10px', cursor: 'pointer',
-          color: open ? '#fff' : 'rgba(255,255,255,0.65)',
+          color: open ? '#1A1F36' : '#1A1F36',
           fontSize: 10, fontWeight: 600, transition: 'all 0.12s',
         }}
-        onMouseEnter={e => { if (!open) { e.currentTarget.style.background = 'rgba(0,119,200,0.20)'; e.currentTarget.style.color = '#fff'; } }}
-        onMouseLeave={e => { if (!open) { e.currentTarget.style.background = 'rgba(0,119,200,0.10)'; e.currentTarget.style.color = 'rgba(255,255,255,0.65)'; } }}
+        onMouseEnter={e => { if (!open) { e.currentTarget.style.background = 'rgba(0,119,200,0.20)'; e.currentTarget.style.color = '#1A1F36'; } }}
+        onMouseLeave={e => { if (!open) { e.currentTarget.style.background = 'rgba(0,119,200,0.10)'; e.currentTarget.style.color = '#1A1F36'; } }}
       >
         <Zap size={11} /> Actions <ChevronDown size={9} style={{ transition: 'transform 0.15s', transform: open ? 'rotate(180deg)' : 'none' }} />
       </button>
@@ -50,10 +50,10 @@ export default function QuickActionsMenu({ items = [] }) {
         <div style={{
           position: 'absolute', top: 'calc(100% + 4px)', right: 0, zIndex: 300,
           width: 186,
-          background: '#1A1F36',
-          border: '1px solid rgba(255,255,255,0.10)',
+          background: '#FFFFFF',
+          border: '1px solid #E2E8F0',
           borderRadius: 10, overflow: 'hidden',
-          boxShadow: '0 8px 28px rgba(0,0,0,0.45)',
+          boxShadow: '0 4px 16px rgba(16,24,40,0.10)',
         }}>
           <div style={{ padding: '4px 0' }}>
             {items.map(({ iconKey, label }) => {
@@ -65,11 +65,11 @@ export default function QuickActionsMenu({ items = [] }) {
                   style={{
                     display: 'flex', alignItems: 'center', gap: 8, width: '100%',
                     padding: '7px 12px', border: 'none', background: 'transparent',
-                    cursor: 'pointer', color: 'rgba(255,255,255,0.60)',
+                    cursor: 'pointer', color: '#6B7280',
                     fontSize: 11, textAlign: 'left', transition: 'all 0.10s',
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.07)'; e.currentTarget.style.color = '#fff'; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'rgba(255,255,255,0.60)'; }}
+                  onMouseEnter={e => { e.currentTarget.style.background = '#F4F6F9'; e.currentTarget.style.color = '#1A1F36'; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#6B7280'; }}
                 >
                   <Icon size={12} style={{ flexShrink: 0, color: '#0077C8' }} />
                   {label}

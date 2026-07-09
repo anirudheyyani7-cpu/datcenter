@@ -22,12 +22,12 @@ export const USER_ACTIVITY = [
 
 // ─── Users by Role (donut — 1,248 total) ──────────────────────────────────────
 export const USERS_BY_ROLE = [
-  { name: 'Platform Admin',      value: 28,  pct:  2.2, color: '#7C3AED' },
-  { name: 'Asset Manager',       value: 320, pct: 25.6, color: '#0077C8' },
-  { name: 'Operations Manager',  value: 245, pct: 19.6, color: '#00A36C' },
-  { name: 'Data Analyst',        value: 210, pct: 16.8, color: '#F59E0B' },
-  { name: 'Viewer',              value: 380, pct: 30.5, color: '#06B6D4' },
-  { name: 'Others',              value: 65,  pct:  5.3, color: '#6B7280' },
+  { name: 'Platform Admin',      value: 28,  pct:  2.2, color: '#00338D' },
+  { name: 'Asset Manager',       value: 320, pct: 25.6, color: '#0091DA' },
+  { name: 'Operations Manager',  value: 245, pct: 19.6, color: '#69B1E3' },
+  { name: 'Data Analyst',        value: 210, pct: 16.8, color: '#00A36C' },
+  { name: 'Viewer',              value: 380, pct: 30.5, color: '#6F2C91' },
+  { name: 'Others',              value: 65,  pct:  5.3, color: '#94A3B8' },
 ];
 
 // ─── System Health (~7 services) ──────────────────────────────────────────────
@@ -89,11 +89,11 @@ export const AUDIT_LOGS = [
 export const STORAGE_OVERVIEW = {
   totalUsedTb: '4.68',
   breakdown: [
-    { name: 'Documents', value: 1.82, pct: 38.9, color: '#0077C8' },
-    { name: 'Reports',   value: 1.25, pct: 26.7, color: '#7C3AED' },
-    { name: 'Logs',      value: 0.78, pct: 16.7, color: '#F59E0B' },
-    { name: 'Backups',   value: 0.61, pct: 13.0, color: '#06B6D4' },
-    { name: 'Others',    value: 0.22, pct:  4.7, color: '#6B7280' },
+    { name: 'Documents', value: 1.82, pct: 38.9, color: '#00338D' },
+    { name: 'Reports',   value: 1.25, pct: 26.7, color: '#0091DA' },
+    { name: 'Logs',      value: 0.78, pct: 16.7, color: '#69B1E3' },
+    { name: 'Backups',   value: 0.61, pct: 13.0, color: '#00A36C' },
+    { name: 'Others',    value: 0.22, pct:  4.7, color: '#94A3B8' },
   ],
 };
 

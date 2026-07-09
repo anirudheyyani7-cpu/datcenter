@@ -10,12 +10,12 @@ export const KPIS = [
 
 // ─── Asset Distribution by Type (donut) ───────────────────────────────────────
 export const ASSET_DISTRIBUTION = [
-  { name: 'IT Hardware',      value: 8542,  pct: 40.0, color: '#0077C8' },
+  { name: 'IT Hardware',      value: 8542,  pct: 40.0, color: '#00338D' },
   { name: 'Networking',       value: 4326,  pct: 20.3, color: '#00A36C' },
-  { name: 'Power & Cooling',  value: 3256,  pct: 15.3, color: '#7C3AED' },
-  { name: 'Facilities',       value: 2841,  pct: 13.3, color: '#F59E0B' },
-  { name: 'Storage',          value: 1842,  pct:  8.6, color: '#06B6D4' },
-  { name: 'Others',           value:  535,  pct:  2.5, color: '#6B7280' },
+  { name: 'Power & Cooling',  value: 3256,  pct: 15.3, color: '#0091DA' },
+  { name: 'Facilities',       value: 2841,  pct: 13.3, color: '#69B1E3' },
+  { name: 'Storage',          value: 1842,  pct:  8.6, color: '#D4A017' },
+  { name: 'Others',           value:  535,  pct:  2.5, color: '#94A3B8' },
 ];
 
 // ─── Asset Value Trend (monthly USD billions, Dec'24 – May'25) ─────────────────
@@ -31,11 +31,11 @@ export const ASSET_VALUE_TREND = [
 // ─── Utilization by Location ───────────────────────────────────────────────────
 // lat/lon = Leaflet map center for each region badge
 export const UTILIZATION_BY_LOCATION = [
-  { key: 'north-america',       label: 'North America',       utilizationPct: 78.2, lat: 44,  lon: -100, color: '#00A36C' },
-  { key: 'europe',              label: 'Europe',              utilizationPct: 71.4, lat: 52,  lon:   15, color: '#0077C8' },
-  { key: 'asia-pacific',        label: 'Asia Pacific',        utilizationPct: 74.8, lat: 25,  lon:  115, color: '#06B6D4' },
-  { key: 'latin-america',       label: 'Latin America',       utilizationPct: 66.1, lat: -15, lon:  -60, color: '#F59E0B' },
-  { key: 'middle-east-africa',  label: 'Middle East & Africa', utilizationPct: 69.3, lat: 10,  lon:   35, color: '#F59E0B' },
+  { key: 'north-america',       label: 'North America',       utilizationPct: 78.2, lat: 44,  lon: -100, color: '#00338D' },
+  { key: 'europe',              label: 'Europe',              utilizationPct: 71.4, lat: 52,  lon:   15, color: '#0091DA' },
+  { key: 'asia-pacific',        label: 'Asia Pacific',        utilizationPct: 74.8, lat: 25,  lon:  115, color: '#69B1E3' },
+  { key: 'latin-america',       label: 'Latin America',       utilizationPct: 66.1, lat: -15, lon:  -60, color: '#00A36C' },
+  { key: 'middle-east-africa',  label: 'Middle East & Africa', utilizationPct: 69.3, lat: 10,  lon:   35, color: '#6F2C91' },
 ];
 
 // ─── Operational Performance (reuse Operations Hub PORTFOLIO figures) ──────────
@@ -72,11 +72,11 @@ export const COST_OVERVIEW = {
   deltaLabel: 'vs YTD Apr \'25',
   deltaUp: false,
   categoryBreakdown: [
-    { name: 'Power & Cooling', value: 17.62, pct: 38.9, color: '#0077C8' },
-    { name: 'IT Hardware',     value: 12.45, pct: 27.5, color: '#7C3AED' },
-    { name: 'Facilities',      value:  6.78, pct: 15.0, color: '#06B6D4' },
-    { name: 'Networking',      value:  5.31, pct: 11.7, color: '#F59E0B' },
-    { name: 'Others',          value:  3.12, pct:  6.9, color: '#6B7280' },
+    { name: 'Power & Cooling', value: 17.62, pct: 38.9, color: '#0091DA' },
+    { name: 'IT Hardware',     value: 12.45, pct: 27.5, color: '#00338D' },
+    { name: 'Facilities',      value:  6.78, pct: 15.0, color: '#69B1E3' },
+    { name: 'Networking',      value:  5.31, pct: 11.7, color: '#00A36C' },
+    { name: 'Others',          value:  3.12, pct:  6.9, color: '#94A3B8' },
   ],
 };
 
@@ -111,12 +111,12 @@ export const RECENT_REPORTS = [
 
 // ─── Reports by Category (donut) ──────────────────────────────────────────────
 export const REPORTS_BY_CATEGORY = [
-  { name: 'Operational Reports', value: 48, pct: 30.8, color: '#0077C8' },
-  { name: 'Asset Reports',       value: 36, pct: 23.1, color: '#00A36C' },
-  { name: 'Financial Reports',   value: 28, pct: 17.9, color: '#7C3AED' },
-  { name: 'ESG Reports',         value: 20, pct: 12.8, color: '#F59E0B' },
-  { name: 'SLA Reports',         value: 14, pct:  9.0, color: '#06B6D4' },
-  { name: 'Others',              value: 10, pct:  6.4, color: '#6B7280' },
+  { name: 'Operational Reports', value: 48, pct: 30.8, color: '#00338D' },
+  { name: 'Asset Reports',       value: 36, pct: 23.1, color: '#0091DA' },
+  { name: 'Financial Reports',   value: 28, pct: 17.9, color: '#69B1E3' },
+  { name: 'ESG Reports',         value: 20, pct: 12.8, color: '#00A36C' },
+  { name: 'SLA Reports',         value: 14, pct:  9.0, color: '#6F2C91' },
+  { name: 'Others',              value: 10, pct:  6.4, color: '#94A3B8' },
 ];
 
 // ─── Scheduled Reports ────────────────────────────────────────────────────────

@@ -7,8 +7,8 @@ const RegionUtilizationMapLeaflet = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div style={{ height: '100%', background: '#111827', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span style={{ color: 'rgba(255,255,255,0.20)', fontSize: 12 }}>Loading map…</span>
+      <div style={{ height: '100%', background: '#F4F6F9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span style={{ color: '#9CA3AF', fontSize: 12 }}>Loading map…</span>
       </div>
     ),
   }
@@ -31,9 +31,9 @@ export default function RegionUtilizationMap({ regions = [], height = 240, filte
       <button style={{
         position: 'absolute', top: 8, right: 46, zIndex: 500,
         display: 'flex', alignItems: 'center', gap: 3,
-        background: 'rgba(10,15,30,0.80)', border: '1px solid rgba(255,255,255,0.15)',
+        background: 'rgba(255,255,255,0.85)', border: '1px solid rgba(226,232,240,0.9)',
         borderRadius: 6, padding: '3px 8px', cursor: 'pointer',
-        color: 'rgba(255,255,255,0.60)', fontSize: 9, fontFamily: 'system-ui,sans-serif',
+        color: '#1A1F36', fontSize: 9, fontFamily: 'system-ui,sans-serif',
         backdropFilter: 'blur(8px)',
       }}>
         {filterLabel} <ChevronDown size={9} />
@@ -47,7 +47,7 @@ export default function RegionUtilizationMap({ regions = [], height = 240, filte
         {/* Labels */}
         <div style={{
           display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
-          fontSize: 7, color: 'rgba(255,255,255,0.45)', textAlign: 'right',
+          fontSize: 7, color: '#6B7280', textAlign: 'right',
           fontFamily: 'ui-monospace,monospace',
         }}>
           {GRADIENT_STOPS.map(s => <span key={s.pct}>{s.pct}</span>)}

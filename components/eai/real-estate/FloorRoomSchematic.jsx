@@ -53,14 +53,14 @@ export default function FloorRoomSchematic({ dcId, selectedRackId, onSelectRack 
       style={{ width: '100%', height: '100%', display: 'block' }}
     >
       {/* Background */}
-      <rect width={VB_W} height={VB_H} fill="#0d1525" />
+      <rect width={VB_W} height={VB_H} fill="#F8FAFC" />
 
       {/* Main DC floor */}
       <rect
         x={MAIN_X - 5} y={4}
         width={mainFloorW + 10} height={VB_H - 8}
-        fill="rgba(255,255,255,0.02)"
-        stroke="rgba(255,255,255,0.10)"
+        fill="#FFFFFF"
+        stroke="#E2E8F0"
         strokeWidth="1"
         rx="4"
       />
@@ -68,11 +68,11 @@ export default function FloorRoomSchematic({ dcId, selectedRackId, onSelectRack 
       {/* Grid lines (decorative) */}
       {[...Array(10)].map((_, i) => (
         <line key={`vg${i}`} x1={MAIN_X + i * 70} y1={8} x2={MAIN_X + i * 70} y2={VB_H - 8}
-          stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+          stroke="#F4F6F9" strokeWidth="1" />
       ))}
       {[...Array(8)].map((_, i) => (
         <line key={`hg${i}`} x1={MAIN_X} y1={i * 80} x2={MAIN_X + mainFloorW} y2={i * 80}
-          stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+          stroke="#F4F6F9" strokeWidth="1" />
       ))}
 
       {/* Support rooms */}
@@ -80,16 +80,16 @@ export default function FloorRoomSchematic({ dcId, selectedRackId, onSelectRack 
         <g key={s.id}>
           <rect
             x={s.x} y={s.y} width={s.w} height={s.h}
-            fill="rgba(255,255,255,0.025)"
-            stroke="rgba(255,255,255,0.10)"
+            fill="#FFFFFF"
+            stroke="#E2E8F0"
             strokeWidth="1"
             rx="3"
           />
-          <text x={s.x + s.w / 2} y={s.y + 18} textAnchor="middle" fontSize="16" fill="rgba(255,255,255,0.30)">{s.icon}</text>
+          <text x={s.x + s.w / 2} y={s.y + 18} textAnchor="middle" fontSize="16" fill="#9CA3AF">{s.icon}</text>
           {s.label.split('\n').map((line, li) => (
             <text key={li} x={s.x + s.w / 2} y={s.y + s.h / 2 + li * 11}
               textAnchor="middle" dominantBaseline="middle"
-              fontSize="9" fill="rgba(255,255,255,0.40)" fontFamily="sans-serif">
+              fontSize="9" fill="#6B7280" fontFamily="sans-serif">
               {line}
             </text>
           ))}
@@ -104,7 +104,7 @@ export default function FloorRoomSchematic({ dcId, selectedRackId, onSelectRack 
           <g key={row}>
             {/* Row label */}
             <text x={MAIN_X + 6} y={rowY - 10}
-              fontSize="10" fontWeight="700" fill="rgba(255,255,255,0.40)"
+              fontSize="10" fontWeight="700" fill="#6B7280"
               fontFamily="monospace">
               Row {row}
             </text>
@@ -113,7 +113,7 @@ export default function FloorRoomSchematic({ dcId, selectedRackId, onSelectRack 
             <rect
               x={MAIN_X - 2} y={rowY - 2}
               width={mainFloorW + 2} height={RACK_H + 24}
-              fill="rgba(255,255,255,0.015)" rx="3"
+              fill="#F8FAFC" rx="3"
             />
 
             {/* Racks */}
@@ -137,7 +137,7 @@ export default function FloorRoomSchematic({ dcId, selectedRackId, onSelectRack 
                     x={rackX(pi + 1)} y={rowY}
                     width={RACK_W} height={RACK_H}
                     fill={`${color}22`}
-                    stroke={isSel ? '#fff' : `${color}88`}
+                    stroke={isSel ? '#1A1F36' : `${color}88`}
                     strokeWidth={isSel ? 1.5 : 0.8}
                     rx="3"
                   />
@@ -152,7 +152,7 @@ export default function FloorRoomSchematic({ dcId, selectedRackId, onSelectRack 
                     x={rackX(pi + 1) + RACK_W / 2} y={rowY + 22}
                     textAnchor="middle" dominantBaseline="middle"
                     fontSize="9" fontWeight="700"
-                    fill={isSel ? '#fff' : 'rgba(255,255,255,0.70)'}
+                    fill="#1A1F36"
                     fontFamily="monospace">
                     {label}
                   </text>
@@ -160,14 +160,14 @@ export default function FloorRoomSchematic({ dcId, selectedRackId, onSelectRack 
                   <text
                     x={rackX(pi + 1) + RACK_W / 2} y={rowY + 38}
                     textAnchor="middle" dominantBaseline="middle"
-                    fontSize="8" fill="rgba(255,255,255,0.40)" fontFamily="monospace">
+                    fontSize="8" fill="#6B7280" fontFamily="monospace">
                     {utilPct}%
                   </text>
                   {/* Utilisation bar */}
                   <rect
                     x={rackX(pi + 1) + 8} y={rowY + RACK_H - 14}
                     width={RACK_W - 16} height={4}
-                    fill="rgba(255,255,255,0.08)" rx="2"
+                    fill="#E2E8F0" rx="2"
                   />
                   <rect
                     x={rackX(pi + 1) + 8} y={rowY + RACK_H - 14}
@@ -192,7 +192,7 @@ export default function FloorRoomSchematic({ dcId, selectedRackId, onSelectRack 
         x={MAIN_X + mainFloorW / 2} y={VB_H - 14}
         textAnchor="middle"
         fontSize="11" fontWeight="700"
-        fill="rgba(255,255,255,0.25)"
+        fill="#9CA3AF"
         letterSpacing="3"
         fontFamily="monospace"
       >
@@ -216,7 +216,7 @@ export default function FloorRoomSchematic({ dcId, selectedRackId, onSelectRack 
       ].map((s, i) => (
         <g key={s.label} transform={`translate(${MAIN_X + 10 + i * 110}, 14)`}>
           <circle r="4" fill={s.color} />
-          <text x="10" y="0" dominantBaseline="middle" fontSize="9" fill="rgba(255,255,255,0.55)" fontFamily="sans-serif">
+          <text x="10" y="0" dominantBaseline="middle" fontSize="9" fill="#6B7280" fontFamily="sans-serif">
             {s.label}
           </text>
         </g>

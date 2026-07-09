@@ -25,12 +25,12 @@ export const COST_TREND = [
 ];
 
 export const COST_BY_CATEGORY = [
-  { name: 'IT Hardware',    value: 5.12, pct: 40.5, color: '#0077C8' },
-  { name: 'Power & Cooling',value: 3.21, pct: 25.4, color: '#7C3AED' },
-  { name: 'Facilities',     value: 1.98, pct: 15.7, color: '#F59E0B' },
-  { name: 'Network',        value: 1.23, pct:  9.7, color: '#10B981' },
-  { name: 'Security',       value: 0.62, pct:  4.9, color: '#EF4444' },
-  { name: 'Others',         value: 0.28, pct:  2.2, color: '#6B7280' },
+  { name: 'IT Hardware',    value: 5.12, pct: 40.5, color: '#00338D' },
+  { name: 'Power & Cooling',value: 3.21, pct: 25.4, color: '#0091DA' },
+  { name: 'Facilities',     value: 1.98, pct: 15.7, color: '#69B1E3' },
+  { name: 'Network',        value: 1.23, pct:  9.7, color: '#00A36C' },
+  { name: 'Security',       value: 0.62, pct:  4.9, color: '#6F2C91' },
+  { name: 'Others',         value: 0.28, pct:  2.2, color: '#94A3B8' },
 ];
 
 export const COST_BY_LOCATION = [
@@ -118,9 +118,9 @@ export const RENEWABLE_ENERGY = {
 };
 
 export const EMISSIONS_BY_SCOPE = [
-  { name: 'Scope 1', value: 1842,  pct: 14, color: '#0077C8' },
-  { name: 'Scope 2', value: 8104,  pct: 63, color: '#7C3AED' },
-  { name: 'Scope 3', value: 2896,  pct: 23, color: '#F59E0B' },
+  { name: 'Scope 1', value: 1842,  pct: 14, color: '#00338D' },
+  { name: 'Scope 2', value: 8104,  pct: 63, color: '#0091DA' },
+  { name: 'Scope 3', value: 2896,  pct: 23, color: '#69B1E3' },
 ];
 
 export const EMISSIONS_BY_LOCATION = [

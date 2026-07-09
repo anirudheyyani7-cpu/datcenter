@@ -17,13 +17,13 @@ export default function CampusSitePlan({ buildings = [], selectedId, onSelect })
       style={{ width: '100%', height: '100%', display: 'block' }}
     >
       {/* Ground / lot background */}
-      <rect x="0" y="0" width="100" height="100" fill="#0d1525" rx="0" />
+      <rect x="0" y="0" width="100" height="100" fill="#F8FAFC" rx="0" />
       {/* Parking / roads (decorative) */}
-      <rect x="0"  y="93" width="100" height="7"  fill="#121d2e" />
-      <rect x="48" y="0"  width="4"   height="100" fill="#121d2e" />
+      <rect x="0"  y="93" width="100" height="7"  fill="#E2E8F0" />
+      <rect x="48" y="0"  width="4"   height="100" fill="#E2E8F0" />
       {/* road center lines */}
       {[10,20,30,40,60,70,80,90].map(x => (
-        <line key={x} x1={x} y1="93" x2={x} y2="100" stroke="#1e3a5f" strokeWidth="0.3" strokeDasharray="1.2 1" />
+        <line key={x} x1={x} y1="93" x2={x} y2="100" stroke="#9CA3AF" strokeWidth="0.3" strokeDasharray="1.2 1" />
       ))}
 
       {/* Building footprints */}
@@ -37,14 +37,14 @@ export default function CampusSitePlan({ buildings = [], selectedId, onSelect })
             <rect
               x={g.x + 0.8} y={g.y + 0.8}
               width={g.w} height={g.h}
-              fill="rgba(0,0,0,0.4)" rx="1"
+              fill="rgba(16,24,40,0.15)" rx="1"
             />
             {/* Main footprint */}
             <rect
               x={g.x} y={g.y}
               width={g.w} height={g.h}
               fill={theme.fill}
-              stroke={sel ? '#fff' : theme.stroke}
+              stroke={sel ? '#1A1F36' : theme.stroke}
               strokeWidth={sel ? 0.6 : 0.3}
               rx="1"
             />
@@ -64,7 +64,7 @@ export default function CampusSitePlan({ buildings = [], selectedId, onSelect })
               textAnchor="middle" dominantBaseline="middle"
               fontSize={Math.min(g.w, g.h) * 0.22}
               fontWeight="700"
-              fill={sel ? '#fff' : 'rgba(255,255,255,0.85)'}
+              fill="#1A1F36"
               fontFamily="monospace"
             >
               {bld.name}
@@ -80,7 +80,7 @@ export default function CampusSitePlan({ buildings = [], selectedId, onSelect })
               x={g.x + g.w / 2} y={g.y + g.h / 2 + 3}
               textAnchor="middle" dominantBaseline="middle"
               fontSize={Math.min(g.w, g.h) * 0.14}
-              fill="rgba(255,255,255,0.45)"
+              fill="#6B7280"
               fontFamily="sans-serif"
             >
               {bld.children?.length ?? 0}F
@@ -91,9 +91,9 @@ export default function CampusSitePlan({ buildings = [], selectedId, onSelect })
 
       {/* Compass */}
       <g transform="translate(94,6)">
-        <circle cx="0" cy="0" r="4" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" strokeWidth="0.3" />
-        <text x="0" y="-1" textAnchor="middle" dominantBaseline="middle" fontSize="2.5" fill="rgba(255,255,255,0.55)" fontWeight="700">N</text>
-        <line x1="0" y1="-3.2" x2="0" y2="-1.5" stroke="rgba(255,255,255,0.5)" strokeWidth="0.4" />
+        <circle cx="0" cy="0" r="4" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="0.3" />
+        <text x="0" y="-1" textAnchor="middle" dominantBaseline="middle" fontSize="2.5" fill="#6B7280" fontWeight="700">N</text>
+        <line x1="0" y1="-3.2" x2="0" y2="-1.5" stroke="#6B7280" strokeWidth="0.4" />
       </g>
     </svg>
   );

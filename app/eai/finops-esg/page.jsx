@@ -26,16 +26,17 @@ import {
 
 // ─── shared card styles ──────────────────────────────────────────────────────
 const CARD = {
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.07)',
+  background: '#FFFFFF',
+  border: '1px solid #E2E8F0',
   borderRadius: 14, overflow: 'hidden',
   display: 'flex', flexDirection: 'column',
+  boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)',
 };
 const CARD_HDR = {
   display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-  padding: '10px 14px', borderBottom: '1px solid rgba(255,255,255,0.07)', flexShrink: 0,
+  padding: '10px 14px', borderBottom: '1px solid #E2E8F0', flexShrink: 0,
 };
-const CARD_TITLE = { fontSize: 11, fontWeight: 700, color: '#fff' };
+const CARD_TITLE = { fontSize: 11, fontWeight: 700, color: '#1A1F36' };
 
 // ─── local helpers ───────────────────────────────────────────────────────────
 function MiniSparkline({ values = [], color = '#0077C8', height = 30 }) {
@@ -65,7 +66,7 @@ function InsightsCard({ title, items = [], footerLink }) {
             <div style={{ width: 20, height: 20, borderRadius: '50%', background: item.color + '22', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 1 }}>
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: item.color, display: 'inline-block' }} />
             </div>
-            <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.60)', lineHeight: 1.55 }}>{item.text}</p>
+            <p style={{ fontSize: 10, color: '#6B7280', lineHeight: 1.55 }}>{item.text}</p>
           </div>
         ))}
         {footerLink && (
@@ -83,15 +84,15 @@ function AlertsCard({ title, items = [] }) {
     <div style={{ ...CARD, flex: 1 }}>
       <div style={CARD_HDR}>
         <span style={CARD_TITLE}>{title}</span>
-        <a href="#" style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)', textDecoration: 'none' }}>View All</a>
+        <a href="#" style={{ fontSize: 9, color: '#6B7280', textDecoration: 'none' }}>View All</a>
       </div>
       <div style={{ padding: '8px 14px 12px', flex: 1, display: 'flex', flexDirection: 'column', gap: 10, overflowY: 'auto' }}>
         {items.map((item, i) => (
           <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: item.color, flexShrink: 0, display: 'inline-block', marginTop: 3 }} />
             <div style={{ flex: 1, minWidth: 0 }}>
-              <p style={{ fontSize: 10, color: '#fff', lineHeight: 1.4 }}>{item.title}</p>
-              <p style={{ fontSize: 8, color: 'rgba(255,255,255,0.28)', marginTop: 2 }}>{item.ago}</p>
+              <p style={{ fontSize: 10, color: '#1A1F36', lineHeight: 1.4 }}>{item.title}</p>
+              <p style={{ fontSize: 8, color: '#9CA3AF', marginTop: 2 }}>{item.ago}</p>
             </div>
           </div>
         ))}
@@ -102,15 +103,15 @@ function AlertsCard({ title, items = [] }) {
 
 function FinKpiCard({ label, value, sublabel, deltaText, deltaGood, Icon, iconColor, iconBg, valueColor }) {
   return (
-    <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12, padding: '12px 14px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+    <div style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: 12, padding: '12px 14px', display: 'flex', flexDirection: 'column', gap: 8, boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
         <div style={{ width: 28, height: 28, borderRadius: 8, background: iconBg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
           <Icon size={14} style={{ color: iconColor }} />
         </div>
-        <span style={{ fontSize: 9, fontWeight: 700, color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.08em', lineHeight: 1.3 }}>{label}</span>
+        <span style={{ fontSize: 9, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.08em', lineHeight: 1.3 }}>{label}</span>
       </div>
       <div>
-        <p style={{ fontSize: 20, fontWeight: 800, color: valueColor ?? '#fff', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>{value}</p>
+        <p style={{ fontSize: 20, fontWeight: 800, color: valueColor ?? '#1A1F36', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>{value}</p>
         {sublabel && <p style={{ fontSize: 9, color: '#00A36C', marginTop: 3, fontWeight: 600 }}>{sublabel}</p>}
       </div>
       {deltaText && (
@@ -175,15 +176,15 @@ function FinOpsPanel() {
             <div style={{ width: '100%', overflow: 'hidden', height: 210 }}>
               <ResponsiveContainer width="100%" height={210}>
                 <LineChart data={COST_TREND} margin={{ top: 4, right: 8, bottom: 0, left: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
-                  <XAxis dataKey="month" tick={{ fontSize: 8, fill: 'rgba(255,255,255,0.35)' }} axisLine={false} tickLine={false} />
-                  <YAxis tickFormatter={v => `$${v}M`} tick={{ fontSize: 8, fill: 'rgba(255,255,255,0.35)' }} axisLine={false} tickLine={false} width={38} domain={[0, 16]} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />
+                  <XAxis dataKey="month" tick={{ fontSize: 8, fill: '#6B7280' }} axisLine={false} tickLine={false} />
+                  <YAxis tickFormatter={v => `$${v}M`} tick={{ fontSize: 8, fill: '#6B7280' }} axisLine={false} tickLine={false} width={38} domain={[0, 16]} />
                   <Tooltip
-                    contentStyle={{ background: '#1C2340', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 8, fontSize: 10, color: '#fff' }}
+                    contentStyle={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: 8, fontSize: 10, color: '#1A1F36', boxShadow: '0 2px 8px rgba(16,24,40,0.08)' }}
                     formatter={(v, n) => [`$${v}M`, n]}
-                    labelStyle={{ color: 'rgba(255,255,255,0.55)' }}
+                    labelStyle={{ color: '#6B7280' }}
                   />
-                  <Legend wrapperStyle={{ fontSize: 9, color: 'rgba(255,255,255,0.50)' }} iconSize={8} />
+                  <Legend wrapperStyle={{ fontSize: 9, color: '#6B7280' }} iconSize={8} />
                   <Line type="monotone" dataKey="totalCost" name="Total Cost" stroke="#0077C8" strokeWidth={2} dot={false} />
                   <Line type="monotone" dataKey="capex"     name="CapEx"      stroke="#7C3AED" strokeWidth={2} dot={false} />
                   <Line type="monotone" dataKey="opex"      name="OpEx"       stroke="#10B981" strokeWidth={2} dot={false} />
@@ -211,11 +212,11 @@ function FinOpsPanel() {
                 <div key={item.name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 10 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                     <span style={{ width: 7, height: 7, borderRadius: '50%', background: item.color, flexShrink: 0, display: 'inline-block' }} />
-                    <span style={{ color: 'rgba(255,255,255,0.50)' }}>{item.name}</span>
+                    <span style={{ color: '#6B7280' }}>{item.name}</span>
                   </div>
                   <div style={{ display: 'flex', gap: 6 }}>
-                    <span style={{ fontWeight: 700, color: 'rgba(255,255,255,0.75)', fontFamily: 'monospace' }}>${item.value}M</span>
-                    <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: 9 }}>({item.pct}%)</span>
+                    <span style={{ fontWeight: 700, color: '#1A1F36', fontFamily: 'monospace' }}>${item.value}M</span>
+                    <span style={{ color: '#9CA3AF', fontSize: 9 }}>({item.pct}%)</span>
                   </div>
                 </div>
               ))}
@@ -248,16 +249,16 @@ function FinOpsPanel() {
         <div style={CARD}>
           <div style={CARD_HDR}><span style={CARD_TITLE}>Top Cost Drivers</span></div>
           <div style={{ padding: '0 14px 12px', flex: 1, overflowY: 'auto' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 90px 56px 48px', padding: '6px 0 4px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 90px 56px 48px', padding: '6px 0 4px', borderBottom: '1px solid #E2E8F0' }}>
               {['Driver', 'Category', 'Impact', 'Trend'].map(h => (
-                <span key={h} style={{ fontSize: 8, fontWeight: 700, color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: '0.07em' }}>{h}</span>
+                <span key={h} style={{ fontSize: 8, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.07em' }}>{h}</span>
               ))}
             </div>
             {TOP_COST_DRIVERS.map((row, i) => (
-              <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 90px 56px 48px', padding: '7px 0', borderBottom: i < TOP_COST_DRIVERS.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none', alignItems: 'center' }}>
-                <span style={{ fontSize: 10, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: 6 }}>{row.driver}</span>
-                <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.45)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: 4 }}>{row.category}</span>
-                <span style={{ fontSize: 10, fontWeight: 700, color: '#fff', fontFamily: 'ui-monospace,monospace' }}>${row.impactM.toFixed(2)}M</span>
+              <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 90px 56px 48px', padding: '7px 0', borderBottom: i < TOP_COST_DRIVERS.length - 1 ? '1px solid #E2E8F0' : 'none', alignItems: 'center' }}>
+                <span style={{ fontSize: 10, color: '#1A1F36', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: 6 }}>{row.driver}</span>
+                <span style={{ fontSize: 9, color: '#6B7280', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: 4 }}>{row.category}</span>
+                <span style={{ fontSize: 10, fontWeight: 700, color: '#1A1F36', fontFamily: 'ui-monospace,monospace' }}>${row.impactM.toFixed(2)}M</span>
                 <span style={{ fontSize: 9, fontWeight: 700, color: row.up ? '#EF4444' : '#00A36C' }}>
                   {row.up ? '↑' : '↓'}{Math.abs(row.trendPct)}%
                 </span>
@@ -274,10 +275,10 @@ function FinOpsPanel() {
           <div style={CARD_HDR}><span style={CARD_TITLE}>Unit Economics</span></div>
           <div style={{ padding: '8px 14px 12px', flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
             {UNIT_ECONOMICS.map((row, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '7px 0', borderBottom: i < UNIT_ECONOMICS.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
-                <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.55)', flex: 1, paddingRight: 8 }}>{row.metric}</span>
+              <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '7px 0', borderBottom: i < UNIT_ECONOMICS.length - 1 ? '1px solid #E2E8F0' : 'none' }}>
+                <span style={{ fontSize: 10, color: '#6B7280', flex: 1, paddingRight: 8 }}>{row.metric}</span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: '#fff', fontFamily: 'ui-monospace,monospace' }}>{row.value}</span>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: '#1A1F36', fontFamily: 'ui-monospace,monospace' }}>{row.value}</span>
                   <span style={{ fontSize: 9, color: '#00A36C', fontWeight: 600, width: 36, textAlign: 'right' }}>
                     ↓{Math.abs(row.deltaPct)}%
                   </span>
@@ -331,9 +332,9 @@ function EsgPanel() {
           <div style={CARD_HDR}><span style={CARD_TITLE}>Carbon Emissions</span></div>
           <div style={{ padding: '10px 14px', flex: 1, display: 'flex', flexDirection: 'column', gap: 6 }}>
             <div>
-              <p style={{ fontSize: 26, fontWeight: 800, color: '#fff', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>
+              <p style={{ fontSize: 26, fontWeight: 800, color: '#1A1F36', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>
                 {CARBON_TREND[CARBON_TREND.length - 1].tCO2e.toLocaleString()}
-                <span style={{ fontSize: 11, fontWeight: 500, color: 'rgba(255,255,255,0.40)', marginLeft: 5 }}>tCO2e</span>
+                <span style={{ fontSize: 11, fontWeight: 500, color: '#6B7280', marginLeft: 5 }}>tCO2e</span>
               </p>
               <p style={{ fontSize: 10, color: '#00A36C', fontWeight: 600, marginTop: 4 }}>↓6.2% vs Apr '25</p>
             </div>
@@ -346,13 +347,13 @@ function EsgPanel() {
                       <stop offset="95%" stopColor="#10B981" stopOpacity={0}    />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                  <XAxis dataKey="month" tick={{ fontSize: 7, fill: 'rgba(255,255,255,0.30)' }} axisLine={false} tickLine={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />
+                  <XAxis dataKey="month" tick={{ fontSize: 7, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
                   <YAxis hide domain={['auto', 'auto']} />
                   <Tooltip
-                    contentStyle={{ background: '#1C2340', border: '1px solid rgba(255,255,255,0.10)', borderRadius: 8, fontSize: 10, color: '#fff' }}
+                    contentStyle={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: 8, fontSize: 10, color: '#1A1F36', boxShadow: '0 2px 8px rgba(16,24,40,0.08)' }}
                     formatter={v => [`${v.toLocaleString()} tCO2e`]}
-                    labelStyle={{ color: 'rgba(255,255,255,0.55)' }}
+                    labelStyle={{ color: '#6B7280' }}
                   />
                   <Area type="monotone" dataKey="tCO2e" stroke="#10B981" strokeWidth={2} fill="url(#carbonGrad)" dot={false} />
                 </AreaChart>
@@ -366,21 +367,21 @@ function EsgPanel() {
           <div style={CARD_HDR}><span style={CARD_TITLE}>Energy & Water</span></div>
           <div style={{ padding: '10px 14px', flex: 1, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <p style={{ fontSize: 8, fontWeight: 700, color: 'rgba(255,255,255,0.30)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Energy Consumption</p>
-              <p style={{ fontSize: 20, fontWeight: 800, color: '#fff', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>
+              <p style={{ fontSize: 8, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Energy Consumption</p>
+              <p style={{ fontSize: 20, fontWeight: 800, color: '#1A1F36', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>
                 {ENERGY_WATER.consumptionGWh}
-                <span style={{ fontSize: 10, fontWeight: 500, color: 'rgba(255,255,255,0.40)', marginLeft: 3 }}>GWh</span>
+                <span style={{ fontSize: 10, fontWeight: 500, color: '#6B7280', marginLeft: 3 }}>GWh</span>
               </p>
               <p style={{ fontSize: 9, color: '#00A36C', fontWeight: 600 }}>↓{Math.abs(ENERGY_WATER.consumptionDelta)}% vs Apr '25</p>
               <div style={{ marginTop: 'auto', paddingTop: 8 }}>
                 <MiniSparkline values={ENERGY_WATER.consumptionTrend} color="#F59E0B" height={36} />
               </div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 4, borderLeft: '1px solid rgba(255,255,255,0.06)', paddingLeft: 10 }}>
-              <p style={{ fontSize: 8, fontWeight: 700, color: 'rgba(255,255,255,0.30)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Water Usage</p>
-              <p style={{ fontSize: 20, fontWeight: 800, color: '#fff', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 4, borderLeft: '1px solid #E2E8F0', paddingLeft: 10 }}>
+              <p style={{ fontSize: 8, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Water Usage</p>
+              <p style={{ fontSize: 20, fontWeight: 800, color: '#1A1F36', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>
                 {ENERGY_WATER.waterUsageKL}
-                <span style={{ fontSize: 10, fontWeight: 500, color: 'rgba(255,255,255,0.40)', marginLeft: 3 }}>kL</span>
+                <span style={{ fontSize: 10, fontWeight: 500, color: '#6B7280', marginLeft: 3 }}>kL</span>
               </p>
               <p style={{ fontSize: 9, color: '#00A36C', fontWeight: 600 }}>↓{Math.abs(ENERGY_WATER.waterDelta)}% vs Apr '25</p>
               <div style={{ marginTop: 'auto', paddingTop: 8 }}>
@@ -425,11 +426,11 @@ function EsgPanel() {
                 <div key={item.name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 10 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                     <span style={{ width: 7, height: 7, borderRadius: '50%', background: item.color, flexShrink: 0, display: 'inline-block' }} />
-                    <span style={{ color: 'rgba(255,255,255,0.50)' }}>{item.name}</span>
+                    <span style={{ color: '#6B7280' }}>{item.name}</span>
                   </div>
                   <div style={{ display: 'flex', gap: 5 }}>
-                    <span style={{ fontWeight: 700, color: 'rgba(255,255,255,0.75)', fontFamily: 'monospace' }}>{item.value.toLocaleString()}</span>
-                    <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: 9 }}>({item.pct}%)</span>
+                    <span style={{ fontWeight: 700, color: '#1A1F36', fontFamily: 'monospace' }}>{item.value.toLocaleString()}</span>
+                    <span style={{ color: '#9CA3AF', fontSize: 9 }}>({item.pct}%)</span>
                   </div>
                 </div>
               ))}
@@ -474,12 +475,12 @@ export default function FinOpsEsgPage() {
   }
 
   return (
-    <div style={{ height: 'calc(100vh - 56px)', display: 'flex', flexDirection: 'row', overflow: 'hidden', background: '#0A0F1E' }}>
+    <div style={{ height: 'calc(100vh - 56px)', display: 'flex', flexDirection: 'row', overflow: 'hidden', background: '#F4F6F9' }}>
 
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
 
         {/* Sub-header: tab strip + date + controls */}
-        <div style={{ display: 'flex', alignItems: 'center', padding: '0 20px', gap: 20, borderBottom: '1px solid rgba(255,255,255,0.07)', flexShrink: 0, background: '#0D1428', height: 44 }}>
+        <div style={{ display: 'flex', alignItems: 'center', padding: '0 20px', gap: 20, borderBottom: '1px solid #E2E8F0', flexShrink: 0, background: '#F4F6F9', height: 44 }}>
           {[
             { key: 'finops', label: 'FinOps Overview' },
             { key: 'esg',    label: 'ESG Overview'    },
@@ -487,7 +488,7 @@ export default function FinOpsEsgPage() {
             <button key={key} onClick={() => handleTabChange(key)} style={{
               background: 'transparent', border: 'none', cursor: 'pointer',
               padding: '0 2px', height: 44, fontSize: 11, fontWeight: 700,
-              color: activeTab === key ? '#fff' : 'rgba(255,255,255,0.40)',
+              color: activeTab === key ? '#1A1F36' : '#9CA3AF',
               borderBottom: activeTab === key ? '2px solid #0077C8' : '2px solid transparent',
               transition: 'color 0.12s',
             }}>
@@ -497,12 +498,12 @@ export default function FinOpsEsgPage() {
 
           <div style={{ flex: 1 }} />
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 10px', borderRadius: 8, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.10)', cursor: 'pointer' }}>
-            <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.70)' }}>May 1 – May 31, 2025</span>
-            <ChevronDown size={10} style={{ color: 'rgba(255,255,255,0.40)' }} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '4px 10px', borderRadius: 8, background: '#F8FAFC', border: '1px solid #E2E8F0', cursor: 'pointer' }}>
+            <span style={{ fontSize: 10, color: '#6B7280' }}>May 1 – May 31, 2025</span>
+            <ChevronDown size={10} style={{ color: '#9CA3AF' }} />
           </div>
 
-          <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '4px 12px', borderRadius: 8, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.10)', cursor: 'pointer', color: 'rgba(255,255,255,0.65)', fontSize: 10 }}>
+          <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '4px 12px', borderRadius: 8, background: '#F8FAFC', border: '1px solid #E2E8F0', cursor: 'pointer', color: '#6B7280', fontSize: 10 }}>
             <Filter size={11} /> Filters
           </button>
 
