@@ -1,5 +1,6 @@
 'use client';
-import { Search, Bell, Mail, HelpCircle, ChevronRight, PanelLeft } from 'lucide-react';
+import Link from 'next/link';
+import { Search, Bell, Mail, HelpCircle, ChevronRight, PanelLeft, Upload } from 'lucide-react';
 
 const BTN = {
   width: 34, height: 34, borderRadius: 8,
@@ -56,6 +57,24 @@ export default function EAITopbar({ unreadCount = 12, sidebarHidden = false, onT
 
       {/* Icon buttons */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+
+        {/* Upload Data — jumps to the master data import page from anywhere in the platform */}
+        <Link
+          href="/eai/administration/data-import"
+          title="Upload EAI master data (Excel)"
+          style={{
+            display: 'flex', alignItems: 'center', gap: 6,
+            height: 34, padding: '0 12px', borderRadius: 8,
+            background: 'rgba(0,119,200,0.10)', border: '1px solid rgba(0,119,200,0.25)',
+            color: '#0077C8', fontSize: 11, fontWeight: 600,
+            textDecoration: 'none', cursor: 'pointer', flexShrink: 0,
+            transition: 'all 0.12s',
+          }}
+          onMouseEnter={e => { e.currentTarget.style.background = 'rgba(0,119,200,0.18)'; }}
+          onMouseLeave={e => { e.currentTarget.style.background = 'rgba(0,119,200,0.10)'; }}
+        >
+          <Upload size={13} /> Upload Data
+        </Link>
 
         {/* Bell */}
         <div style={{ position: 'relative' }}>

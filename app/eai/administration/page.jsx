@@ -205,6 +205,7 @@ export default function AdministrationPage() {
               { iconKey: 'SlidersHorizontal',label: 'System Settings'       },
               { iconKey: 'ClipboardList',   label: 'View Audit Logs'        },
               { iconKey: 'Ticket',          label: 'Create Support Ticket'  },
+              { iconKey: 'UploadCloud',     label: 'Import EAI Master Data', href: '/eai/administration/data-import' },
             ]} />
           </div>
         </div>

@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { Zap, ChevronDown,
   Plus, Upload, ClipboardList, FileText, Download, Filter, Bell,
   AlertOctagon, CalendarDays, Users, Share2, Plug, UploadCloud, BookOpen,
@@ -56,21 +57,25 @@ export default function QuickActionsMenu({ items = [] }) {
           boxShadow: '0 4px 16px rgba(16,24,40,0.10)',
         }}>
           <div style={{ padding: '4px 0' }}>
-            {items.map(({ iconKey, label }) => {
+            {items.map(({ iconKey, label, href }) => {
               const Icon = ICON_MAP[iconKey] ?? Plus;
-              return (
-                <button
-                  key={label}
-                  onClick={() => setOpen(false)}
-                  style={{
-                    display: 'flex', alignItems: 'center', gap: 8, width: '100%',
-                    padding: '7px 12px', border: 'none', background: 'transparent',
-                    cursor: 'pointer', color: '#6B7280',
-                    fontSize: 11, textAlign: 'left', transition: 'all 0.10s',
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.background = '#F4F6F9'; e.currentTarget.style.color = '#1A1F36'; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#6B7280'; }}
-                >
+              const itemStyle = {
+                display: 'flex', alignItems: 'center', gap: 8, width: '100%',
+                padding: '7px 12px', border: 'none', background: 'transparent',
+                cursor: 'pointer', color: '#6B7280',
+                fontSize: 11, textAlign: 'left', transition: 'all 0.10s',
+                textDecoration: 'none', boxSizing: 'border-box',
+              };
+              const hoverOn  = e => { e.currentTarget.style.background = '#F4F6F9'; e.currentTarget.style.color = '#1A1F36'; };
+              const hoverOff = e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#6B7280'; };
+
+              return href ? (
+                <Link key={label} href={href} onClick={() => setOpen(false)} style={itemStyle} onMouseEnter={hoverOn} onMouseLeave={hoverOff}>
+                  <Icon size={12} style={{ flexShrink: 0, color: '#0077C8' }} />
+                  {label}
+                </Link>
+              ) : (
+                <button key={label} onClick={() => setOpen(false)} style={itemStyle} onMouseEnter={hoverOn} onMouseLeave={hoverOff}>
                   <Icon size={12} style={{ flexShrink: 0, color: '#0077C8' }} />
                   {label}
                 </button>
