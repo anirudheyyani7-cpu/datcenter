@@ -2,10 +2,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Zap, Droplets, TrendingUp, ArrowRight, Users, Globe } from 'lucide-react';
+import { MapPin, Zap, Droplets, TrendingUp, Cpu, ArrowRight, Users, Globe } from 'lucide-react';
 import { DECISION_QUICK_STARTS } from '@/data/decisionModules';
 
-const ICONS = { MapPin, Zap, Droplets, TrendingUp };
+const ICONS = { MapPin, Zap, Droplets, TrendingUp, Cpu };
 
 // Structured, non-chat entry point. Selecting a quick start never sends a
 // chat message — it asks exactly one structured question, then routes
