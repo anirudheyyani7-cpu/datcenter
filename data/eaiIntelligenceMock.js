@@ -110,10 +110,10 @@ export const COST_OPTIMIZATIONS = [
 
 // ─── Anomaly Detection ────────────────────────────────────────────────────────
 export const ANOMALIES = [
-  { category: 'Power Anomalies',       count: 14, delta: 4, up: true,  color: '#EF4444', iconKey: 'flame'       },
-  { category: 'Temperature Anomalies', count: 9,  delta: 2, up: true,  color: '#F59E0B', iconKey: 'thermometer' },
-  { category: 'Network Anomalies',     count: 6,  delta: 1, up: false, color: '#7C3AED', iconKey: 'wifi'        },
-  { category: 'Configuration Drifts',  count: 11, delta: 3, up: true,  color: '#0077C8', iconKey: 'settings'    },
+  { category: 'Power Anomalies',       count: 14, delta: 4, up: true,  color: '#00338D', iconKey: 'flame'       },
+  { category: 'Temperature Anomalies', count: 9,  delta: 2, up: true,  color: '#0091DA', iconKey: 'thermometer' },
+  { category: 'Network Anomalies',     count: 6,  delta: 1, up: false, color: '#69B1E3', iconKey: 'wifi'        },
+  { category: 'Configuration Drifts',  count: 11, delta: 3, up: true,  color: '#00A36C', iconKey: 'settings'    },
 ];
 
 // ─── Knowledge Graph stats ────────────────────────────────────────────────────

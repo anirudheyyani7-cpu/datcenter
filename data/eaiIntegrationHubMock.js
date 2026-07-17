@@ -18,11 +18,11 @@ export const INTEGRATION_HEALTH = [
 
 // ─── Integrations by Category donut ───────────────────────────────────────────
 export const INTEGRATIONS_BY_CATEGORY = [
-  { name: 'IT Systems',      value: 28, pct: 33.3, color: '#0077C8' },
-  { name: 'Cloud Services',  value: 20, pct: 23.8, color: '#7C3AED' },
-  { name: 'Enterprise Apps', value: 18, pct: 21.4, color: '#06B6D4' },
-  { name: 'Data Sources',    value: 10, pct: 11.9, color: '#F59E0B' },
-  { name: 'Others',          value: 8,  pct:  9.6, color: '#6B7280' },
+  { name: 'IT Systems',      value: 28, pct: 33.3, color: '#00338D' },
+  { name: 'Cloud Services',  value: 20, pct: 23.8, color: '#0091DA' },
+  { name: 'Enterprise Apps', value: 18, pct: 21.4, color: '#69B1E3' },
+  { name: 'Data Sources',    value: 10, pct: 11.9, color: '#00A36C' },
+  { name: 'Others',          value: 8,  pct:  9.6, color: '#94A3B8' },
 ];
 
 // ─── Transactions Trend (dual-series, May 25-31) ───────────────────────────────
@@ -95,11 +95,11 @@ export const ERROR_ANALYSIS = {
   criticalErrors: 124,
   warningErrors:  432,
   errorsByCategory: [
-    { name: 'Data Validation', value: 474, pct: 38, color: '#0077C8' },
-    { name: 'Authentication',  value: 299, pct: 24, color: '#F59E0B' },
-    { name: 'Timeout',         value: 224, pct: 18, color: '#06B6D4' },
-    { name: 'System',          value: 150, pct: 12, color: '#EF4444' },
-    { name: 'Others',          value: 101, pct:  8, color: '#6B7280' },
+    { name: 'Data Validation', value: 474, pct: 38, color: '#00338D' },
+    { name: 'Authentication',  value: 299, pct: 24, color: '#0091DA' },
+    { name: 'Timeout',         value: 224, pct: 18, color: '#69B1E3' },
+    { name: 'System',          value: 150, pct: 12, color: '#00A36C' },
+    { name: 'Others',          value: 101, pct:  8, color: '#94A3B8' },
   ],
 };
 

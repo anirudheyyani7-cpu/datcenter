@@ -6,8 +6,9 @@ const TAG_CONFIG = {
 };
 
 const CARD = {
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.07)',
+  background: '#FFFFFF',
+  border: '1px solid #E2E8F0',
+  boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)',
   borderRadius: 12,
   display: 'flex',
   flexDirection: 'column',
@@ -18,7 +19,7 @@ const HDR = {
   padding: '10px 14px 0',
 };
 const TITLE_STYLE = {
-  fontSize: 11, fontWeight: 700, color: '#fff',
+  fontSize: 11, fontWeight: 700, color: '#1A1F36',
   letterSpacing: '-0.01em',
 };
 const VIEW_LINK = {
@@ -42,12 +43,12 @@ export default function CalendarListCard({ title = 'Maintenance Calendar', items
               style={{
                 display: 'flex', alignItems: 'center', gap: 8,
                 padding: '6px 0',
-                borderBottom: i < items.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none',
+                borderBottom: i < items.length - 1 ? '1px solid #E2E8F0' : 'none',
               }}
             >
               {/* Date */}
               <span style={{
-                fontSize: 8, fontWeight: 700, color: 'rgba(255,255,255,0.50)',
+                fontSize: 8, fontWeight: 700, color: '#6B7280',
                 width: 42, flexShrink: 0, lineHeight: 1.3,
               }}>
                 {item.date}
@@ -56,13 +57,13 @@ export default function CalendarListCard({ title = 'Maintenance Calendar', items
               {/* Title + location */}
               <div style={{ flex: 1, minWidth: 0 }}>
                 <p style={{
-                  fontSize: 10, fontWeight: 600, color: '#fff',
+                  fontSize: 10, fontWeight: 600, color: '#1A1F36',
                   overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
                   lineHeight: 1.3,
                 }}>
                   {item.title}
                 </p>
-                <p style={{ fontSize: 8, color: 'rgba(255,255,255,0.30)', marginTop: 1 }}>
+                <p style={{ fontSize: 8, color: '#9CA3AF', marginTop: 1 }}>
                   {item.location}
                 </p>
               </div>
@@ -86,7 +87,7 @@ export default function CalendarListCard({ title = 'Maintenance Calendar', items
       </div>
 
       {viewFullHref && (
-        <div style={{ padding: '7px 14px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ padding: '7px 14px', borderTop: '1px solid #E2E8F0' }}>
           <a href={viewFullHref} style={VIEW_LINK}>View Full Calendar →</a>
         </div>
       )}

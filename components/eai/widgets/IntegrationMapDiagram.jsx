@@ -58,6 +58,7 @@ export default function IntegrationMapDiagram({ nodes = [], onViewFullMap }) {
             boxShadow: '0 0 28px rgba(0,119,200,0.40)',
             border: '1.5px solid rgba(0,119,200,0.55)',
           }}>
+            {/* White icon/text on the brand-gradient hub node — intentional, kept for contrast */}
             <Network size={16} style={{ color: '#fff' }} />
             <span style={{ fontSize: 9, fontWeight: 700, color: '#fff', letterSpacing: '-0.01em' }}>EAI Platform</span>
           </div>
@@ -76,24 +77,25 @@ export default function IntegrationMapDiagram({ nodes = [], onViewFullMap }) {
             }}>
               <div style={{
                 width: 84,
-                background: 'rgba(255,255,255,0.04)',
+                background: '#FFFFFF',
                 border: `1.5px solid ${node.healthColor}45`,
+                boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)',
                 borderRadius: 10,
                 padding: '7px 8px',
                 display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3,
               }}>
                 <div style={{
                   width: 28, height: 28, borderRadius: 8,
-                  background: 'rgba(255,255,255,0.08)',
-                  border: '1px solid rgba(255,255,255,0.12)',
+                  background: '#F8FAFC',
+                  border: '1px solid #E2E8F0',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}>
-                  <Icon size={13} style={{ color: 'rgba(255,255,255,0.75)' }} />
+                  <Icon size={13} style={{ color: '#1A1F36' }} />
                 </div>
-                <p style={{ fontSize: 7, fontWeight: 600, color: 'rgba(255,255,255,0.50)', whiteSpace: 'nowrap', lineHeight: 1.2 }}>
+                <p style={{ fontSize: 7, fontWeight: 600, color: '#6B7280', whiteSpace: 'nowrap', lineHeight: 1.2 }}>
                   {node.label}
                 </p>
-                <p style={{ fontSize: 14, fontWeight: 800, color: '#fff', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>
+                <p style={{ fontSize: 14, fontWeight: 800, color: '#1A1F36', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>
                   {node.count}
                 </p>
                 {/* Health dot */}
@@ -110,7 +112,7 @@ export default function IntegrationMapDiagram({ nodes = [], onViewFullMap }) {
       {/* Legend */}
       <div style={{ display: 'flex', gap: 14, marginTop: 10, padding: '0 2px', flexWrap: 'wrap' }}>
         {LEGEND.map(l => (
-          <div key={l.label} style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 9, color: 'rgba(255,255,255,0.45)' }}>
+          <div key={l.label} style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 9, color: '#6B7280' }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: l.color, display: 'inline-block', flexShrink: 0 }} />
             {l.label}
           </div>

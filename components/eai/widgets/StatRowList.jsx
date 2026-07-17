@@ -49,7 +49,7 @@ export default function StatRowList({ items = [] }) {
             style={{
               display: 'flex', alignItems: 'center', gap: 8,
               padding: '7px 14px',
-              borderBottom: isLast ? 'none' : '1px solid rgba(255,255,255,0.04)',
+              borderBottom: isLast ? 'none' : '1px solid #E2E8F0',
             }}
           >
             {/* Optional leading icon circle */}
@@ -66,7 +66,7 @@ export default function StatRowList({ items = [] }) {
 
             {/* Label */}
             <span style={{
-              flex: 1, fontSize: 10, color: 'rgba(255,255,255,0.60)',
+              flex: 1, fontSize: 10, color: '#6B7280',
               overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
             }}>
               {item.label}
@@ -80,7 +80,7 @@ export default function StatRowList({ items = [] }) {
                 style={{
                   width: 32, height: 17, borderRadius: 9, border: 'none',
                   cursor: 'pointer', flexShrink: 0, position: 'relative',
-                  background: on ? '#0077C8' : 'rgba(255,255,255,0.14)',
+                  background: on ? '#0077C8' : '#E2E8F0',
                   transition: 'background 0.15s', padding: 0,
                 }}
               >
@@ -104,7 +104,7 @@ export default function StatRowList({ items = [] }) {
                 {item.value !== undefined && (
                   <span style={{
                     fontSize: 11, fontWeight: 700,
-                    color: item.valueColor ?? 'rgba(255,255,255,0.85)',
+                    color: item.valueColor ?? '#1A1F36',
                     fontFamily: 'ui-monospace,monospace',
                   }}>
                     {typeof item.value === 'number' ? item.value.toLocaleString() : item.value}
@@ -114,7 +114,7 @@ export default function StatRowList({ items = [] }) {
                   <span style={{
                     fontSize: 9, fontWeight: 600, whiteSpace: 'nowrap',
                     color: item.deltaUp === null
-                      ? 'rgba(255,255,255,0.30)'
+                      ? '#9CA3AF'
                       : item.deltaUp ? '#00A36C' : '#DC2626',
                   }}>
                     {item.delta}

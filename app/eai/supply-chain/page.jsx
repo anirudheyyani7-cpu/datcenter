@@ -23,11 +23,11 @@ import RouteMap      from '@/components/eai/widgets/RouteMap';
 import QuickActionsMenu from '@/components/eai/widgets/QuickActionsMenu';
 
 // ─── Tokens ───────────────────────────────────────────────────────────────────
-const BG   = '#0A0F1E';
-const CARD = 'rgba(255,255,255,0.03)';
-const BORD = 'rgba(255,255,255,0.07)';
-const DIM  = 'rgba(255,255,255,0.40)';
-const DIMMER = 'rgba(255,255,255,0.25)';
+const BG   = '#F4F6F9';
+const CARD = '#FFFFFF';
+const BORD = '#E2E8F0';
+const DIM  = '#6B7280';
+const DIMMER = '#9CA3AF';
 const PER_PAGE = 7;
 
 // ─── Derived data (module-level, derived from arrays) ─────────────────────────
@@ -38,10 +38,10 @@ const vndKPIs  = getVendorKPIs();
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function Card({ title, action, children, style }) {
   return (
-    <div style={{ background: CARD, border: `1px solid ${BORD}`, borderRadius: 14, overflow: 'hidden', display: 'flex', flexDirection: 'column', ...style }}>
+    <div style={{ background: CARD, border: `1px solid ${BORD}`, borderRadius: 14, overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)', ...style }}>
       {(title || action) && (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderBottom: `1px solid ${BORD}`, flexShrink: 0 }}>
-          {title && <span style={{ fontSize: 11, fontWeight: 700, color: '#fff' }}>{title}</span>}
+          {title && <span style={{ fontSize: 11, fontWeight: 700, color: '#1A1F36' }}>{title}</span>}
           {action}
         </div>
       )}
@@ -52,7 +52,7 @@ function Card({ title, action, children, style }) {
 
 function DropBtn({ children }) {
   return (
-    <button style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(255,255,255,0.05)', border: `1px solid ${BORD}`, borderRadius: 7, padding: '4px 9px', cursor: 'pointer', color: DIM, fontSize: 9 }}>
+    <button style={{ display: 'flex', alignItems: 'center', gap: 4, background: '#F8FAFC', border: `1px solid ${BORD}`, borderRadius: 7, padding: '4px 9px', cursor: 'pointer', color: DIM, fontSize: 9 }}>
       {children}
     </button>
   );
@@ -61,14 +61,14 @@ function DropBtn({ children }) {
 // Page-specific KPI card (supply chain icons don't fit the shared KpiCard icon dict)
 function ScKpiCard({ label, value, unit, sublabel, delta, up, Icon, color, bg }) {
   return (
-    <div style={{ background: CARD, border: `1px solid ${BORD}`, borderRadius: 12, padding: 12, display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0, overflow: 'hidden' }}>
+    <div style={{ background: CARD, border: `1px solid ${BORD}`, borderRadius: 12, padding: 12, display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0, overflow: 'hidden', boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)' }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 4 }}>
         <div style={{ width: 30, height: 30, borderRadius: 8, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
           <Icon size={13} style={{ color }} />
         </div>
         <p style={{ fontSize: 8, color: DIM, textTransform: 'uppercase', letterSpacing: '0.07em', textAlign: 'right', lineHeight: 1.3, overflow: 'hidden' }}>{label}</p>
       </div>
-      <p style={{ fontSize: 20, fontWeight: 700, color: '#fff', fontFamily: 'ui-monospace,monospace', lineHeight: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+      <p style={{ fontSize: 20, fontWeight: 700, color: '#1A1F36', fontFamily: 'ui-monospace,monospace', lineHeight: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
         {value}{unit && <span style={{ fontSize: 11, color: DIM, marginLeft: 2 }}>{unit}</span>}
       </p>
       {sublabel && <p style={{ fontSize: 9, color: DIMMER, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{sublabel}</p>}
@@ -106,7 +106,7 @@ function UtilBar({ pct }) {
   const color = pct >= 75 ? '#EF4444' : pct >= 50 ? '#F59E0B' : '#00A36C';
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 6, minWidth: 0 }}>
-      <div style={{ flex: 1, height: 5, background: 'rgba(255,255,255,0.08)', borderRadius: 3, overflow: 'hidden', minWidth: 40 }}>
+      <div style={{ flex: 1, height: 5, background: '#E2E8F0', borderRadius: 3, overflow: 'hidden', minWidth: 40 }}>
         <div style={{ width: `${pct}%`, height: '100%', background: color, borderRadius: 3 }} />
       </div>
       <span style={{ fontSize: 9, color: DIM, width: 28, textAlign: 'right', flexShrink: 0 }}>{pct}%</span>
@@ -119,7 +119,7 @@ function ProgressBar({ pct, status }) {
   const m = STATUS_COLORS[status] ?? { color: '#6B7280' };
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-      <div style={{ flex: 1, height: 4, background: 'rgba(255,255,255,0.08)', borderRadius: 2, overflow: 'hidden', minWidth: 50 }}>
+      <div style={{ flex: 1, height: 4, background: '#E2E8F0', borderRadius: 2, overflow: 'hidden', minWidth: 50 }}>
         <div style={{ width: `${pct}%`, height: '100%', background: m.color, borderRadius: 2 }} />
       </div>
       <span style={{ fontSize: 9, color: DIM, width: 28, textAlign: 'right', flexShrink: 0 }}>{pct}%</span>
@@ -134,7 +134,7 @@ const PO_COLS = [
   { key:'category',     label:'Category',        width: 100 },
   { key:'orderDate',    label:'Order Date',      width: 92  },
   { key:'expectedDate', label:'Expected Date',   width: 92  },
-  { key:'valueFmt',     label:'Value',           width: 70, align:'right', render: v => <span style={{ fontWeight:700, color:'#fff', fontFamily:'ui-monospace,monospace' }}>{v}</span> },
+  { key:'valueFmt',     label:'Value',           width: 70, align:'right', render: v => <span style={{ fontWeight:700, color:'#1A1F36', fontFamily:'ui-monospace,monospace' }}>{v}</span> },
   { key:'status',       label:'Status',          width: 100, render: v => <StatusBadge status={v} /> },
   { key:'progressPct',  label:'Progress',        width: 120, render: (v, row) => <ProgressBar pct={v} status={row.status} /> },
   { key:'_actions',     label:'Actions',         width: 58, render: () => (
@@ -185,7 +185,7 @@ export default function SupplyChainPage() {
   const budgetPct  = Math.round((DEMAND_PLANNING.budgetUsedM / DEMAND_PLANNING.budgetTotalM) * 100);
   const budgetDonut = [
     { name: 'Used',      value: budgetPct,       color: '#7C3AED' },
-    { name: 'Remaining', value: 100 - budgetPct, color: 'rgba(255,255,255,0.08)' },
+    { name: 'Remaining', value: 100 - budgetPct, color: '#E2E8F0' },
   ];
 
   return (
@@ -199,7 +199,7 @@ export default function SupplyChainPage() {
           {/* Page header (inside scroll area) */}
           <div style={{ flexShrink: 0, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
             <div>
-              <h1 style={{ fontSize: 16, fontWeight: 700, color: '#fff', lineHeight: 1 }}>Supply Chain</h1>
+              <h1 style={{ fontSize: 16, fontWeight: 700, color: '#1A1F36', lineHeight: 1 }}>Supply Chain</h1>
               <p style={{ fontSize: 11, color: DIM, marginTop: 3 }}>End-to-end visibility of asset procurement, logistics and fulfillment</p>
             </div>
             <QuickActionsMenu items={[
@@ -224,7 +224,7 @@ export default function SupplyChainPage() {
           </div>
 
           {/* ── Row: Flow | Donut | TrendChart ──────────────────────────── */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 280px 300px', gap: 10, flexShrink: 0 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 280px 300px', gap: 10, flexShrink: 0, alignItems: 'start' }}>
 
             {/* Supply Chain Flow */}
             <Card title="Supply Chain Flow">
@@ -254,7 +254,7 @@ export default function SupplyChainPage() {
                   <LineChart data={LEAD_TIME_TREND} margin={{ top: 4, right: 6, bottom: 0, left: -28 }}>
                     <XAxis dataKey="month" tick={{ fontSize: 7, fill: '#6B7280' }} axisLine={false} tickLine={false} />
                     <YAxis tick={{ fontSize: 7, fill: '#6B7280' }} axisLine={false} tickLine={false} />
-                    <RTooltip contentStyle={{ background: '#1A1F36', border: '1px solid rgba(255,255,255,0.10)', borderRadius: 8, fontSize: 10 }} itemStyle={{ color: '#fff' }} labelStyle={{ color: 'rgba(255,255,255,0.50)', fontSize: 9 }} />
+                    <RTooltip contentStyle={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: 8, fontSize: 10, boxShadow: '0 2px 8px rgba(16,24,40,0.08)' }} itemStyle={{ color: '#1A1F36' }} labelStyle={{ color: '#6B7280', fontSize: 9 }} />
                     <Line type="monotone" dataKey="average" stroke="#0077C8" strokeWidth={2} dot={{ r: 3, fill: '#0077C8', strokeWidth: 0 }} name="Average Lead Time (Days)" />
                     <Line type="monotone" dataKey="target"  stroke="#00A36C" strokeWidth={2} dot={{ r: 3, fill: '#00A36C', strokeWidth: 0 }} name="Target Lead Time (Days)" strokeDasharray="5 3" />
                   </LineChart>
@@ -361,9 +361,9 @@ export default function SupplyChainPage() {
                     { label:'Assets Reaching EOL\n(Next 12 Months)', value: DEMAND_PLANNING.assetsReachingEol, delta: DEMAND_PLANNING.eolDelta, up: true, color: '#F59E0B' },
                     { label:'Forecasted Demand\n(Next 12 Months)',   value: `$${DEMAND_PLANNING.forecastedDemandM}M`, delta: DEMAND_PLANNING.forecastDelta, up: true, color: '#0077C8' },
                   ].map(tile => (
-                    <div key={tile.label} style={{ background: 'rgba(255,255,255,0.04)', border: `1px solid ${BORD}`, borderRadius: 10, padding: '8px 10px' }}>
+                    <div key={tile.label} style={{ background: '#F8FAFC', border: `1px solid ${BORD}`, borderRadius: 10, padding: '8px 10px' }}>
                       <p style={{ fontSize: 8, color: DIM, lineHeight: 1.5, whiteSpace: 'pre-line' }}>{tile.label}</p>
-                      <p style={{ fontSize: 22, fontWeight: 700, color: '#fff', fontFamily: 'ui-monospace,monospace', lineHeight: 1.2 }}>{tile.value}</p>
+                      <p style={{ fontSize: 22, fontWeight: 700, color: '#1A1F36', fontFamily: 'ui-monospace,monospace', lineHeight: 1.2 }}>{tile.value}</p>
                       <p style={{ fontSize: 8, color: tile.up ? '#00A36C' : '#DC2626', marginTop: 2 }}>
                         {tile.up ? '↑' : '↓'} {tile.delta} vs last month
                       </p>
@@ -393,7 +393,7 @@ export default function SupplyChainPage() {
                       <BarChart data={DEMAND_PLANNING.quarterlyForecast} margin={{ top: 4, right: 4, bottom: 0, left: -28 }}>
                         <XAxis dataKey="quarter" tick={{ fontSize: 7, fill: '#6B7280' }} axisLine={false} tickLine={false} />
                         <YAxis tick={{ fontSize: 7, fill: '#6B7280' }} axisLine={false} tickLine={false} />
-                        <RTooltip contentStyle={{ background: '#1A1F36', border: '1px solid rgba(255,255,255,0.10)', borderRadius: 8, fontSize: 10 }} itemStyle={{ color: '#fff' }} />
+                        <RTooltip contentStyle={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: 8, fontSize: 10, boxShadow: '0 2px 8px rgba(16,24,40,0.08)' }} itemStyle={{ color: '#1A1F36' }} />
                         <Bar dataKey="itHardware"   fill={Q_COLORS.itHardware}   stackId="a" radius={[0,0,0,0]} maxBarSize={28} name="IT Hardware" />
                         <Bar dataKey="networking"   fill={Q_COLORS.networking}   stackId="a" maxBarSize={28} name="Networking" />
                         <Bar dataKey="powerCooling" fill={Q_COLORS.powerCooling} stackId="a" maxBarSize={28} name="Power & Cooling" />

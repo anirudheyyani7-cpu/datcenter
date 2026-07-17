@@ -32,17 +32,17 @@ export default function FlowPipeline({ stages = [] }) {
               </div>
 
               {/* Label */}
-              <p style={{ fontSize: 9, fontWeight: 700, color: 'rgba(255,255,255,0.50)', textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap', textAlign: 'center' }}>
+              <p style={{ fontSize: 9, fontWeight: 700, color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap', textAlign: 'center' }}>
                 {stage.label}
               </p>
 
               {/* Count */}
-              <p style={{ fontSize: 22, fontWeight: 700, color: '#fff', fontFamily: 'ui-monospace,monospace', lineHeight: 1, textAlign: 'center' }}>
+              <p style={{ fontSize: 22, fontWeight: 700, color: '#1A1F36', fontFamily: 'ui-monospace,monospace', lineHeight: 1, textAlign: 'center' }}>
                 {stage.count.toLocaleString()}
               </p>
 
               {/* Value */}
-              <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.40)', textAlign: 'center', whiteSpace: 'nowrap' }}>
+              <p style={{ fontSize: 10, color: '#6B7280', textAlign: 'center', whiteSpace: 'nowrap' }}>
                 ${stage.valueMM.toFixed(1)}M
               </p>
 
@@ -62,7 +62,7 @@ export default function FlowPipeline({ stages = [] }) {
                 <div style={{
                   width: '100%', height: 2,
                   background: 'transparent',
-                  borderTop: '2px dashed rgba(255,255,255,0.15)',
+                  borderTop: '2px dashed #E2E8F0',
                   position: 'relative',
                 }}>
                   <div style={{
@@ -70,7 +70,7 @@ export default function FlowPipeline({ stages = [] }) {
                     width: 0, height: 0,
                     borderTop: '4px solid transparent',
                     borderBottom: '4px solid transparent',
-                    borderLeft: '6px solid rgba(255,255,255,0.20)',
+                    borderLeft: '6px solid #E2E8F0',
                   }} />
                 </div>
               </div>

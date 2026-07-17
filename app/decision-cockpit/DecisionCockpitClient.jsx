@@ -4,12 +4,14 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { X, Cpu, Lightbulb } from 'lucide-react';
 import { DECISION_QUICK_STARTS, CARD_TYPE_MAPPING, ACCENT_BY_MODULE, MODULE_LABELS, shapeForCardType } from '@/data/decisionModules';
+import { CHIP_PROFILES, COOLING_PROFILES } from '@/data/gpuChipProfiles';
 
 import HeroCard from '@/components/decision-cockpit/cards/HeroCard';
 import RankingCard from '@/components/decision-cockpit/cards/RankingCard';
 import MetricCard from '@/components/decision-cockpit/cards/MetricCard';
 import ScoreCard from '@/components/decision-cockpit/cards/ScoreCard';
 import InsightCard from '@/components/decision-cockpit/cards/InsightCard';
+import PlannerCard from '@/components/decision-cockpit/cards/PlannerCard';
 import EvaluationSummaryCard from '@/components/decision-cockpit/cards/EvaluationSummaryCard';
 import TradeoffTile from '@/components/decision-cockpit/cards/TradeoffTile';
 import InsightStrip from '@/components/decision-cockpit/cards/InsightStrip';
@@ -20,7 +22,103 @@ const CARD_COMPONENTS = {
   metric: MetricCard,
   score: ScoreCard,
   insight: InsightCard,
+  planner: PlannerCard,
 };
+
+// Compact param control bar for the ai_gpu_campus decision type only — the
+// other four decision types arrive fully pre-configured via the URL and have
+// no input UI. Here, changing chip generation/cooling live is the whole
+// point, so params must be editable. Every change rewrites the URL
+// searchParams (router.replace) rather than adding a parallel state path —
+// the URL stays the single source of truth the rest of the cockpit reacts to.
+function GpuCampusControlBar({ searchParams, mode }) {
+  const router = useRouter();
+  const [capacityDraft, setCapacityDraft] = useState(searchParams.get('capacity') || '');
+  const [clientDraft, setClientDraft] = useState(searchParams.get('client_name') || '');
+  const [locationDraft, setLocationDraft] = useState(searchParams.get('location') || '');
+
+  useEffect(() => { setCapacityDraft(searchParams.get('capacity') || ''); }, [searchParams]);
+  useEffect(() => { setClientDraft(searchParams.get('client_name') || ''); }, [searchParams]);
+  useEffect(() => { setLocationDraft(searchParams.get('location') || ''); }, [searchParams]);
+
+  const updateParam = (key, value) => {
+    const next = new URLSearchParams(searchParams.toString());
+    if (value) next.set(key, value); else next.delete(key);
+    router.replace(`/decision-cockpit?${next.toString()}`, { scroll: false });
+  };
+
+  const selectClass = 'px-2 py-1 rounded-lg border border-grey-border bg-white text-[10.5px] font-semibold text-text-primary outline-none focus:border-accent/50';
+  const inputClass = 'w-24 px-2 py-1 rounded-lg border border-grey-border bg-white text-[10.5px] font-semibold text-text-primary outline-none focus:border-accent/50';
+
+  return (
+    <div className="flex-shrink-0 bg-grey-bg/60 border-b border-grey-border px-5 py-2 flex items-center gap-3 flex-wrap">
+      <label className="flex items-center gap-1.5">
+        <span className="text-[9px] text-text-muted uppercase tracking-wide font-bold">Chip</span>
+        <select
+          className={selectClass}
+          value={searchParams.get('chip_generation') || ''}
+          onChange={e => updateParam('chip_generation', e.target.value)}
+        >
+          <option value="">Select…</option>
+          {CHIP_PROFILES.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
+        </select>
+      </label>
+
+      <label className="flex items-center gap-1.5">
+        <span className="text-[9px] text-text-muted uppercase tracking-wide font-bold">Cooling</span>
+        <select
+          className={selectClass}
+          value={searchParams.get('cooling_approach') || ''}
+          onChange={e => updateParam('cooling_approach', e.target.value)}
+        >
+          <option value="">Select…</option>
+          {COOLING_PROFILES.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
+        </select>
+      </label>
+
+      <label className="flex items-center gap-1.5">
+        <span className="text-[9px] text-text-muted uppercase tracking-wide font-bold">Capacity</span>
+        <input
+          type="number"
+          min="1"
+          className={inputClass}
+          value={capacityDraft}
+          onChange={e => setCapacityDraft(e.target.value.replace(/[^0-9]/g, ''))}
+          onBlur={() => updateParam('capacity', capacityDraft)}
+          onKeyDown={e => { if (e.key === 'Enter') e.currentTarget.blur(); }}
+          placeholder="MW"
+        />
+      </label>
+
+      {mode === 'client_specific' && (
+        <>
+          <label className="flex items-center gap-1.5">
+            <span className="text-[9px] text-text-muted uppercase tracking-wide font-bold">Client</span>
+            <input
+              className={inputClass}
+              value={clientDraft}
+              onChange={e => setClientDraft(e.target.value)}
+              onBlur={() => updateParam('client_name', clientDraft)}
+              onKeyDown={e => { if (e.key === 'Enter') e.currentTarget.blur(); }}
+              placeholder="Client name"
+            />
+          </label>
+          <label className="flex items-center gap-1.5">
+            <span className="text-[9px] text-text-muted uppercase tracking-wide font-bold">Location</span>
+            <input
+              className={inputClass}
+              value={locationDraft}
+              onChange={e => setLocationDraft(e.target.value)}
+              onBlur={() => updateParam('location', locationDraft)}
+              onKeyDown={e => { if (e.key === 'Enter') e.currentTarget.blur(); }}
+              placeholder="Location"
+            />
+          </label>
+        </>
+      )}
+    </div>
+  );
+}
 
 export default function DecisionCockpitClient() {
   const router = useRouter();
@@ -34,6 +132,8 @@ export default function DecisionCockpitClient() {
   const clientName = searchParams.get('client_name') || '';
   const location = searchParams.get('location') || '';
   const capacity = searchParams.get('capacity') || '';
+  const chipGeneration = searchParams.get('chip_generation') || '';
+  const coolingApproach = searchParams.get('cooling_approach') || '';
 
   useEffect(() => {
     if (!decisionType) { setError('No decision_type specified.'); return; }
@@ -43,13 +143,16 @@ export default function DecisionCockpitClient() {
     fetch('/api/decision-engine', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ decision_type: decisionType, mode, client_name: clientName, location, capacity }),
+      body: JSON.stringify({
+        decision_type: decisionType, mode, client_name: clientName, location, capacity,
+        chip_generation: chipGeneration, cooling_approach: coolingApproach,
+      }),
     })
       .then(res => res.json())
       .then(data => { if (!cancelled) { if (data.error) setError(data.error); else setResult(data); } })
       .catch(err => { if (!cancelled) setError(err.message); });
     return () => { cancelled = true; };
-  }, [decisionType, mode, clientName, location, capacity]);
+  }, [decisionType, mode, clientName, location, capacity, chipGeneration, coolingApproach]);
 
   const quickStart = DECISION_QUICK_STARTS.find(qs => qs.decision_type === decisionType);
   const heroKey = 'final_recommendation';
@@ -91,6 +194,10 @@ export default function DecisionCockpitClient() {
           </div>
         )}
       </motion.div>
+
+      {decisionType === 'ai_gpu_campus' && (
+        <GpuCampusControlBar searchParams={searchParams} mode={mode} />
+      )}
 
       <div className="flex-1 min-h-0 overflow-y-auto px-5 py-4 flex flex-col gap-3">
         {error && (

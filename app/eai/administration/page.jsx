@@ -24,21 +24,22 @@ import {
 
 // ─── Shared card styles ────────────────────────────────────────────────────────
 const CARD = {
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.07)',
+  background: '#FFFFFF',
+  border: '1px solid #E2E8F0',
   borderRadius: 12, overflow: 'hidden',
+  boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)',
 };
 const CARD_HDR = {
   display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-  padding: '10px 14px', borderBottom: '1px solid rgba(255,255,255,0.06)',
+  padding: '10px 14px', borderBottom: '1px solid #E2E8F0',
 };
-const CARD_TITLE = { fontSize: 11, fontWeight: 700, color: '#fff', letterSpacing: '-0.01em' };
+const CARD_TITLE = { fontSize: 11, fontWeight: 700, color: '#1A1F36', letterSpacing: '-0.01em' };
 const LINK_STYLE = { fontSize: 9, color: '#0077C8', textDecoration: 'none', fontWeight: 600 };
-const VIEW_ALL   = { fontSize: 9, color: 'rgba(255,255,255,0.35)', textDecoration: 'none' };
+const VIEW_ALL   = { fontSize: 9, color: '#6B7280', textDecoration: 'none' };
 const DROPDOWN_BTN = {
   display: 'flex', alignItems: 'center', gap: 3,
-  fontSize: 9, color: 'rgba(255,255,255,0.55)',
-  background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.10)',
+  fontSize: 9, color: '#6B7280',
+  background: '#F8FAFC', border: '1px solid #E2E8F0',
   borderRadius: 6, padding: '3px 8px', cursor: 'pointer',
 };
 const GAP = 10;
@@ -51,14 +52,14 @@ function UserActivityChart({ data, height = 155 }) {
         {[['#0077C8', 'Active Users'], ['#00A36C', 'New Users']].map(([c, l]) => (
           <div key={l} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
             <span style={{ width: 14, height: 2.5, borderRadius: 2, background: c, display: 'inline-block' }} />
-            <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.50)' }}>{l}</span>
+            <span style={{ fontSize: 9, color: '#6B7280' }}>{l}</span>
           </div>
         ))}
       </div>
       <div style={{ width: '100%', overflow: 'hidden' }}>
         <ResponsiveContainer width="100%" height={height}>
           <LineChart data={data} margin={{ top: 4, right: 4, bottom: 0, left: -18 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
             <XAxis dataKey="date" tick={{ fontSize: 7, fill: '#6B7280' }} axisLine={false} tickLine={false} />
             <YAxis
               tickFormatter={v => v >= 1000 ? (v / 1000).toFixed(1) + 'K' : v}
@@ -66,8 +67,8 @@ function UserActivityChart({ data, height = 155 }) {
               domain={[0, 1400]} ticks={[0, 300, 600, 900, 1200]}
             />
             <Tooltip
-              contentStyle={{ background: '#1A1F36', border: '1px solid rgba(255,255,255,0.10)', borderRadius: 8, fontSize: 11, color: '#fff' }}
-              labelStyle={{ color: 'rgba(255,255,255,0.40)', fontSize: 9, marginBottom: 2 }}
+              contentStyle={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: 8, fontSize: 11, color: '#1A1F36', boxShadow: '0 2px 8px rgba(16,24,40,0.08)' }}
+              labelStyle={{ color: '#6B7280', fontSize: 9, marginBottom: 2 }}
             />
             <Line type="monotone" dataKey="activeUsers" name="Active Users" stroke="#0077C8" strokeWidth={2} dot={{ r: 3, fill: '#0077C8', strokeWidth: 0 }} activeDot={{ r: 5 }} />
             <Line type="monotone" dataKey="newUsers"    name="New Users"    stroke="#00A36C" strokeWidth={2} dot={{ r: 3, fill: '#00A36C', strokeWidth: 0 }} activeDot={{ r: 5 }} />
@@ -87,21 +88,21 @@ const USER_STATUS = {
 // ─── Table column configs ──────────────────────────────────────────────────────
 const USER_COLS = [
   { key: 'name',      label: 'User',       width: 110 },
-  { key: 'email',     label: 'Email',      render: v => <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.40)' }}>{v}</span> },
-  { key: 'role',      label: 'Role',       width: 132, render: v => <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.55)' }}>{v}</span> },
+  { key: 'email',     label: 'Email',      render: v => <span style={{ fontSize: 9, color: '#6B7280' }}>{v}</span> },
+  { key: 'role',      label: 'Role',       width: 132, render: v => <span style={{ fontSize: 9, color: '#6B7280' }}>{v}</span> },
   { key: 'status',    label: 'Status',     width: 68, render: v => {
     const s = USER_STATUS[v] ?? USER_STATUS.Active;
     return <span style={{ fontSize: 8, fontWeight: 700, padding: '2px 7px', borderRadius: 5, color: s.color, background: s.bg, border: `1px solid ${s.border}` }}>{v}</span>;
   }},
-  { key: 'lastLogin', label: 'Last Login', width: 148, render: v => <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)' }}>{v}</span> },
+  { key: 'lastLogin', label: 'Last Login', width: 148, render: v => <span style={{ fontSize: 9, color: '#6B7280' }}>{v}</span> },
 ];
 
 const AUDIT_COLS = [
-  { key: 'time',      label: 'Time',       width: 140, render: v => <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.45)' }}>{v}</span> },
+  { key: 'time',      label: 'Time',       width: 140, render: v => <span style={{ fontSize: 9, color: '#6B7280' }}>{v}</span> },
   { key: 'user',      label: 'User',       width: 116 },
-  { key: 'action',    label: 'Action',     width: 110, render: v => <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.55)' }}>{v}</span> },
-  { key: 'resource',  label: 'Resource',   render: v => <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.45)' }}>{v}</span> },
-  { key: 'ipAddress', label: 'IP Address', width: 110, render: v => <span style={{ fontSize: 9, fontFamily: 'ui-monospace,monospace', color: 'rgba(255,255,255,0.35)' }}>{v}</span> },
+  { key: 'action',    label: 'Action',     width: 110, render: v => <span style={{ fontSize: 9, color: '#6B7280' }}>{v}</span> },
+  { key: 'resource',  label: 'Resource',   render: v => <span style={{ fontSize: 9, color: '#6B7280' }}>{v}</span> },
+  { key: 'ipAddress', label: 'IP Address', width: 110, render: v => <span style={{ fontSize: 9, fontFamily: 'ui-monospace,monospace', color: '#6B7280' }}>{v}</span> },
 ];
 
 // ─── Support Ticket icon keys by severity ─────────────────────────────────────
@@ -153,12 +154,12 @@ export default function AdministrationPage() {
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           padding: '12px 20px',
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
-          flexShrink: 0, background: '#0A0F1E',
+          borderBottom: '1px solid #E2E8F0',
+          flexShrink: 0, background: '#F4F6F9',
         }}>
           <div>
-            <h1 style={{ fontSize: 16, fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.2 }}>Administration</h1>
-            <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)', marginTop: 2 }}>Manage users, roles, system settings and platform governance</p>
+            <h1 style={{ fontSize: 16, fontWeight: 800, color: '#1A1F36', letterSpacing: '-0.02em', lineHeight: 1.2 }}>Administration</h1>
+            <p style={{ fontSize: 10, color: '#6B7280', marginTop: 2 }}>Manage users, roles, system settings and platform governance</p>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
             {/* System Status pill */}
@@ -168,15 +169,15 @@ export default function AdministrationPage() {
               borderRadius: 8, padding: '5px 10px',
             }}>
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#00A36C', boxShadow: '0 0 5px #00A36C90', display: 'inline-block' }} />
-              <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.60)' }}>System Status</span>
+              <span style={{ fontSize: 9, color: '#6B7280' }}>System Status</span>
               <span style={{ fontSize: 9, fontWeight: 700, color: '#00A36C' }}>Healthy</span>
             </div>
             {/* Timestamp */}
             <button style={{
               display: 'flex', alignItems: 'center', gap: 5,
-              background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.10)',
+              background: '#F8FAFC', border: '1px solid #E2E8F0',
               borderRadius: 8, padding: '5px 10px', cursor: 'pointer',
-              color: 'rgba(255,255,255,0.60)', fontSize: 10,
+              color: '#6B7280', fontSize: 10,
             }}>
               May 31, 2025 10:30 AM <ChevronDown size={10} />
             </button>
@@ -191,7 +192,7 @@ export default function AdministrationPage() {
                 <Plus size={11} /> Create
               </button>
               <button style={{
-                background: 'rgba(0,119,200,0.25)', border: 'none',
+                background: '#005EA6', border: 'none',
                 borderLeft: '1px solid rgba(0,119,200,0.50)',
                 padding: '5px 7px', cursor: 'pointer', color: '#fff',
               }}>
@@ -204,6 +205,7 @@ export default function AdministrationPage() {
               { iconKey: 'SlidersHorizontal',label: 'System Settings'       },
               { iconKey: 'ClipboardList',   label: 'View Audit Logs'        },
               { iconKey: 'Ticket',          label: 'Create Support Ticket'  },
+              { iconKey: 'UploadCloud',     label: 'Import EAI Master Data', href: '/eai/administration/data-import' },
             ]} />
           </div>
         </div>
@@ -257,7 +259,7 @@ export default function AdministrationPage() {
               <div style={{ padding: '4px 0 4px' }}>
                 <StatRowList items={healthItems} />
               </div>
-              <div style={{ padding: '6px 14px 10px', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+              <div style={{ padding: '6px 14px 10px', borderTop: '1px solid #E2E8F0' }}>
                 <a href="#" style={LINK_STYLE}>View system status →</a>
               </div>
             </div>
@@ -358,7 +360,7 @@ export default function AdministrationPage() {
               <div style={{ padding: '4px 0 4px' }}>
                 <StatRowList items={ticketItems} />
               </div>
-              <div style={{ padding: '6px 14px 10px', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+              <div style={{ padding: '6px 14px 10px', borderTop: '1px solid #E2E8F0' }}>
                 <a href="#" style={LINK_STYLE}>Create Ticket →</a>
               </div>
             </div>

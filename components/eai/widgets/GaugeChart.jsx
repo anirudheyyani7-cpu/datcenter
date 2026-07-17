@@ -22,7 +22,7 @@ export default function GaugeChart({ score = 68, height = 110 }) {
       aria-label={`Risk gauge: ${score}/100 — ${riskLabel}`}
     >
       {/* Track */}
-      <path d={d} fill="none" stroke="rgba(255,255,255,0.10)" strokeWidth={15} strokeLinecap="round" />
+      <path d={d} fill="none" stroke="#E2E8F0" strokeWidth={15} strokeLinecap="round" />
       {/* Score arc */}
       {score > 0 && (
         <path d={d} fill="none" stroke={color} strokeWidth={15} strokeLinecap="round"
@@ -30,9 +30,9 @@ export default function GaugeChart({ score = 68, height = 110 }) {
       )}
       {/* Score value */}
       <text x={cx} y={cy - 14} textAnchor="middle" fontSize={30} fontWeight={700}
-        fill="#fff" fontFamily="ui-monospace,monospace">{score}</text>
+        fill="#1A1F36" fontFamily="ui-monospace,monospace">{score}</text>
       <text x={cx + 24} y={cy - 18} textAnchor="start" fontSize={11}
-        fill="rgba(255,255,255,0.40)">/100</text>
+        fill="#6B7280">/100</text>
       {/* Risk label */}
       <text x={cx} y={cy + 4} textAnchor="middle" fontSize={11} fontWeight={700}
         fill={color}>{riskLabel}</text>

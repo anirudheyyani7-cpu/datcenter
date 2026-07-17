@@ -28,13 +28,18 @@ function Sparkline({ seed, up }) {
   );
 }
 
-export default function KpiCard({ label, value, unit, sublabel, delta, up, iconKey, color, bg, seed }) {
+export default function KpiCard({ label, value, unit, sublabel, delta, up, iconKey, color, bg, seed, onClick }) {
   const Icon = ICONS[iconKey] ?? Building2;
   return (
     <div
+      onClick={onClick}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={onClick ? (e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); } }) : undefined}
       style={{
-        background: 'rgba(255,255,255,0.04)',
-        border: '1px solid rgba(255,255,255,0.08)',
+        background: '#FFFFFF',
+        border: '1px solid #E2E8F0',
+        boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)',
         borderRadius: 12,
         padding: 12,
         display: 'flex',
@@ -44,24 +49,24 @@ export default function KpiCard({ label, value, unit, sublabel, delta, up, iconK
         minWidth: 0,       // allow shrinking in grid
         overflow: 'hidden',
       }}
-      onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.07)')}
-      onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.04)')}
+      onMouseEnter={e => (e.currentTarget.style.background = '#F4F6F9')}
+      onMouseLeave={e => (e.currentTarget.style.background = '#FFFFFF')}
     >
       {/* Icon + label row */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 8, gap: 4 }}>
         <div style={{ width: 30, height: 30, borderRadius: 8, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
           <Icon size={13} style={{ color }} />
         </div>
-        <p style={{ fontSize: 8, color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.07em', textAlign: 'right', lineHeight: 1.3, marginLeft: 4, overflow: 'hidden' }}>{label}</p>
+        <p style={{ fontSize: 8, color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.07em', textAlign: 'right', lineHeight: 1.3, marginLeft: 4, overflow: 'hidden' }}>{label}</p>
       </div>
 
       {/* Value */}
-      <p style={{ fontSize: 20, fontWeight: 700, color: '#fff', fontFamily: 'monospace', lineHeight: 1, marginBottom: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-        {value}{unit && <span style={{ fontSize: 11, fontWeight: 500, color: 'rgba(255,255,255,0.55)', marginLeft: 2 }}>{unit}</span>}
+      <p style={{ fontSize: 20, fontWeight: 700, color: '#1A1F36', fontFamily: 'monospace', lineHeight: 1, marginBottom: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        {value}{unit && <span style={{ fontSize: 11, fontWeight: 500, color: '#6B7280', marginLeft: 2 }}>{unit}</span>}
       </p>
 
       {/* Sublabel */}
-      {sublabel && <p style={{ fontSize: 8, color: 'rgba(255,255,255,0.30)', marginBottom: 6, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{sublabel}</p>}
+      {sublabel && <p style={{ fontSize: 8, color: '#9CA3AF', marginBottom: 6, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{sublabel}</p>}
 
       {/* Sparkline + delta */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto' }}>

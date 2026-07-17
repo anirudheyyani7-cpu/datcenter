@@ -21,11 +21,11 @@ import Stepper          from '@/components/eai/widgets/Stepper';
 import QuickActionsMenu from '@/components/eai/widgets/QuickActionsMenu';
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
-const BG    = '#0A0F1E';
-const CARD  = 'rgba(255,255,255,0.03)';
-const BORD  = 'rgba(255,255,255,0.07)';
-const DIM   = 'rgba(255,255,255,0.40)';
-const DIMMER = 'rgba(255,255,255,0.25)';
+const BG    = '#F4F6F9';
+const CARD  = '#FFFFFF';
+const BORD  = '#E2E8F0';
+const DIM   = '#6B7280';
+const DIMMER = '#9CA3AF';
 const PER_PAGE = 8;
 
 // ─── Pipeline strip configuration ────────────────────────────────────────────
@@ -44,10 +44,10 @@ const PIPELINE = [
 
 function Card({ title, action, children, style }) {
   return (
-    <div style={{ background: CARD, border: `1px solid ${BORD}`, borderRadius: 14, overflow: 'hidden', display: 'flex', flexDirection: 'column', ...style }}>
+    <div style={{ background: CARD, border: `1px solid ${BORD}`, borderRadius: 14, overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)', ...style }}>
       {(title || action) && (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderBottom: `1px solid ${BORD}`, flexShrink: 0 }}>
-          {title && <span style={{ fontSize: 11, fontWeight: 700, color: '#fff' }}>{title}</span>}
+          {title && <span style={{ fontSize: 11, fontWeight: 700, color: '#1A1F36' }}>{title}</span>}
           {action}
         </div>
       )}
@@ -60,7 +60,7 @@ function DropBtn({ children, style }) {
   return (
     <button style={{
       display: 'flex', alignItems: 'center', gap: 4,
-      background: 'rgba(255,255,255,0.05)', border: `1px solid ${BORD}`,
+      background: '#F8FAFC', border: `1px solid ${BORD}`,
       borderRadius: 7, padding: '4px 9px', cursor: 'pointer',
       color: DIM, fontSize: 9, ...style,
     }}>{children}</button>
@@ -110,8 +110,9 @@ function StagePipelineCard({ label, sub, Icon, color, count, pct, active, onClic
         display: 'flex', flexDirection: 'column', gap: 4,
         cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s',
         minWidth: 0, overflow: 'hidden',
+        boxShadow: active ? 'none' : '0 1px 2px rgba(16, 24, 40, 0.04)',
       }}
-      onMouseEnter={e => { if (!active) e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}
+      onMouseEnter={e => { if (!active) e.currentTarget.style.background = '#F4F6F9'; }}
       onMouseLeave={e => { if (!active) e.currentTarget.style.background = CARD; }}
     >
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 4 }}>
@@ -122,13 +123,13 @@ function StagePipelineCard({ label, sub, Icon, color, count, pct, active, onClic
       </div>
       <div>
         <p style={{ fontSize: 8, color: DIM, marginBottom: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{label}</p>
-        <p style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: 'ui-monospace,monospace', lineHeight: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        <p style={{ fontSize: 18, fontWeight: 700, color: '#1A1F36', fontFamily: 'ui-monospace,monospace', lineHeight: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           {count?.toLocaleString() ?? '—'}
         </p>
       </div>
       {/* Progress bar */}
       <div style={{ marginTop: 2 }}>
-        <div style={{ height: 3, borderRadius: 2, background: 'rgba(255,255,255,0.08)', overflow: 'hidden' }}>
+        <div style={{ height: 3, borderRadius: 2, background: '#E2E8F0', overflow: 'hidden' }}>
           <div style={{ width: `${pct}%`, height: '100%', background: color, borderRadius: 2 }} />
         </div>
         <p style={{ fontSize: 8, color: DIM, marginTop: 2 }}>{pct?.toFixed(1)}%</p>
@@ -230,7 +231,7 @@ export default function AssetLifecyclePage() {
   };
 
   const TH = { fontSize: 9, fontWeight: 700, color: DIMMER, textTransform: 'uppercase', letterSpacing: '0.07em', padding: '8px 10px', whiteSpace: 'nowrap' };
-  const TD = { fontSize: 10, color: 'rgba(255,255,255,0.70)', padding: '9px 10px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: 0 };
+  const TD = { fontSize: 10, color: '#1A1F36', padding: '9px 10px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: 0 };
 
   return (
     <div style={{ height: 'calc(100vh - 56px)', display: 'flex', flexDirection: 'column', overflow: 'hidden', background: BG }}>
@@ -243,18 +244,18 @@ export default function AssetLifecyclePage() {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
           <Home size={13} color={DIM} />
-          <span style={{ fontSize: 12, fontWeight: 700, color: '#fff' }}>Asset Lifecycle</span>
+          <span style={{ fontSize: 12, fontWeight: 700, color: '#1A1F36' }}>Asset Lifecycle</span>
         </div>
 
         {/* Global search */}
         <div style={{ flex: 1, maxWidth: 420 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,0.05)', border: `1px solid ${BORD}`, borderRadius: 9, padding: '5px 12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#F8FAFC', border: `1px solid ${BORD}`, borderRadius: 9, padding: '5px 12px' }}>
             <Search size={12} style={{ color: DIM, flexShrink: 0 }} />
             <input
               value={searchQ}
               onChange={e => { setSearchQ(e.target.value); setPage(1); }}
               placeholder="Search assets, serial no, model, vendor, or location..."
-              style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: '#fff', fontSize: 11 }}
+              style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: '#1A1F36', fontSize: 11 }}
             />
             <span style={{ fontSize: 9, color: DIMMER, flexShrink: 0 }}>⌘ K</span>
           </div>
@@ -346,9 +347,9 @@ export default function AssetLifecyclePage() {
                     <XAxis dataKey="bucket" tick={{ fontSize: 7, fill: '#6B7280' }} axisLine={false} tickLine={false} />
                     <YAxis tick={{ fontSize: 7, fill: '#6B7280' }} axisLine={false} tickLine={false} />
                     <RTooltip
-                      contentStyle={{ background: '#1A1F36', border: '1px solid rgba(255,255,255,0.10)', borderRadius: 8, fontSize: 10 }}
-                      labelStyle={{ color: 'rgba(255,255,255,0.50)', fontSize: 9 }}
-                      itemStyle={{ color: '#fff' }}
+                      contentStyle={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: 8, fontSize: 10, boxShadow: '0 2px 8px rgba(16,24,40,0.08)' }}
+                      labelStyle={{ color: '#6B7280', fontSize: 9 }}
+                      itemStyle={{ color: '#1A1F36' }}
                     />
                     {Object.entries(AGE_COLORS).map(([key, color]) => (
                       <Bar key={key} dataKey={key} fill={color} radius={[2, 2, 0, 0]} maxBarSize={14} />
@@ -376,7 +377,7 @@ export default function AssetLifecyclePage() {
                   return (
                     <div key={rf.label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                       <span style={{ width: 6, height: 6, borderRadius: '50%', background: c, flexShrink: 0 }} />
-                      <span style={{ flex: 1, fontSize: 9, color: 'rgba(255,255,255,0.50)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{rf.label}</span>
+                      <span style={{ flex: 1, fontSize: 9, color: '#6B7280', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{rf.label}</span>
                       <span style={{ fontSize: 9, fontWeight: 700, color: c, flexShrink: 0 }}>{rf.score}/100</span>
                     </div>
                   );
@@ -392,14 +393,14 @@ export default function AssetLifecyclePage() {
           <div style={{ background: CARD, border: `1px solid ${BORD}`, borderRadius: 14, overflow: 'hidden' }}>
             {/* Tracker header */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderBottom: `1px solid ${BORD}`, gap: 10, flexWrap: 'wrap' }}>
-              <span style={{ fontSize: 11, fontWeight: 700, color: '#fff', flexShrink: 0 }}>Asset Lifecycle Tracker</span>
+              <span style={{ fontSize: 11, fontWeight: 700, color: '#1A1F36', flexShrink: 0 }}>Asset Lifecycle Tracker</span>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1, flexWrap: 'wrap', minWidth: 0 }}>
                 {/* In-table search */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.04)', border: `1px solid ${BORD}`, borderRadius: 7, padding: '4px 10px', minWidth: 160 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#F8FAFC', border: `1px solid ${BORD}`, borderRadius: 7, padding: '4px 10px', minWidth: 160 }}>
                   <Search size={10} style={{ color: DIM, flexShrink: 0 }} />
                   <input value={searchQ} onChange={e => { setSearchQ(e.target.value); setPage(1); }}
                     placeholder="Search assets..."
-                    style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: '#fff', fontSize: 10, minWidth: 0 }} />
+                    style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: '#1A1F36', fontSize: 10, minWidth: 0 }} />
                 </div>
                 {/* Filter dropdowns */}
                 {[
@@ -412,8 +413,8 @@ export default function AssetLifecyclePage() {
                     value={f.value}
                     onChange={e => { f.set(e.target.value); setPage(1); }}
                     style={{
-                      background: 'rgba(255,255,255,0.05)', border: `1px solid ${BORD}`,
-                      borderRadius: 7, padding: '4px 8px', color: f.value ? '#fff' : DIM,
+                      background: '#F8FAFC', border: `1px solid ${BORD}`,
+                      borderRadius: 7, padding: '4px 8px', color: f.value ? '#1A1F36' : DIM,
                       fontSize: 9, cursor: 'pointer', outline: 'none',
                     }}
                   >
@@ -460,7 +461,7 @@ export default function AssetLifecyclePage() {
                           background: isSel ? 'rgba(0,119,200,0.10)' : 'transparent',
                           cursor: 'pointer', transition: 'background 0.12s',
                         }}
-                        onMouseEnter={e => { if (!isSel) e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; }}
+                        onMouseEnter={e => { if (!isSel) e.currentTarget.style.background = '#F4F6F9'; }}
                         onMouseLeave={e => { if (!isSel) e.currentTarget.style.background = 'transparent'; }}
                       >
                         <td style={{ ...TD, color: '#0077C8', fontWeight: 600, fontFamily: 'ui-monospace,monospace' }}>{asset.assetId}</td>
@@ -473,7 +474,7 @@ export default function AssetLifecyclePage() {
                         <td style={{ ...TD, overflow: 'visible' }}><StageBadge stage={asset.lifecycleStage} /></td>
                         <td style={{ ...TD, color: DIM }}>{asset.ageYears} yrs</td>
                         <td style={{ ...TD }}>
-                          <p style={{ fontSize: 9, color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{asset.nextMilestone.label}</p>
+                          <p style={{ fontSize: 9, color: '#1A1F36', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{asset.nextMilestone.label}</p>
                           <p style={{ fontSize: 8, color: DIMMER, whiteSpace: 'nowrap' }}>{asset.nextMilestone.date}</p>
                         </td>
                         <td style={{ ...TD, overflow: 'visible' }}><RiskDot score={asset.riskScore} /></td>
@@ -494,7 +495,7 @@ export default function AssetLifecyclePage() {
               </span>
               <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                 <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}
-                  style={{ width: 26, height: 26, borderRadius: 6, border: `1px solid ${BORD}`, background: 'transparent', cursor: page === 1 ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: page === 1 ? DIMMER : '#fff', opacity: page === 1 ? 0.4 : 1 }}>
+                  style={{ width: 26, height: 26, borderRadius: 6, border: `1px solid ${BORD}`, background: 'transparent', cursor: page === 1 ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: page === 1 ? DIMMER : '#1A1F36', opacity: page === 1 ? 0.4 : 1 }}>
                   <ChevronLeft size={12} />
                 </button>
                 {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
@@ -508,7 +509,7 @@ export default function AssetLifecyclePage() {
                 })}
                 {totalPages > 5 && <span style={{ color: DIMMER, fontSize: 10 }}>…{totalPages}</span>}
                 <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}
-                  style={{ width: 26, height: 26, borderRadius: 6, border: `1px solid ${BORD}`, background: 'transparent', cursor: page === totalPages ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: page === totalPages ? DIMMER : '#fff', opacity: page === totalPages ? 0.4 : 1 }}>
+                  style={{ width: 26, height: 26, borderRadius: 6, border: `1px solid ${BORD}`, background: 'transparent', cursor: page === totalPages ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: page === totalPages ? DIMMER : '#1A1F36', opacity: page === totalPages ? 0.4 : 1 }}>
                   <ChevronRight size={12} />
                 </button>
               </div>
@@ -522,7 +523,7 @@ export default function AssetLifecyclePage() {
             <div style={{ flex: 1, minWidth: 0, background: CARD, border: `1px solid ${BORD}`, borderRadius: 14, overflow: 'hidden' }}>
               {/* Timeline header */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderBottom: `1px solid ${BORD}` }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: '#fff' }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: '#1A1F36' }}>
                   Asset Timeline: <span style={{ color: '#0077C8' }}>{selectedAsset.assetName}</span>
                   <span style={{ color: DIMMER, fontWeight: 400, marginLeft: 6 }}>({selectedAsset.assetId})</span>
                 </span>
@@ -546,11 +547,11 @@ export default function AssetLifecyclePage() {
                     ].map(row => (
                       <div key={row.l} style={{ display: 'flex', flexDirection: 'column' }}>
                         <span style={{ fontSize: 8, color: DIMMER }}>{row.l}</span>
-                        <span style={{ fontSize: 9, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{row.v}</span>
+                        <span style={{ fontSize: 9, color: '#1A1F36', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{row.v}</span>
                       </div>
                     ))}
                     {/* QR placeholder */}
-                    <div style={{ marginTop: 4, width: 52, height: 52, background: '#fff', borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ marginTop: 4, width: 52, height: 52, background: '#fff', border: '1px solid #E2E8F0', borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <div style={{ width: 36, height: 36, background: 'linear-gradient(135deg, #111 25%, transparent 25%, transparent 75%, #111 75%)', backgroundSize: '6px 6px' }} />
                     </div>
                   </div>
@@ -568,7 +569,7 @@ export default function AssetLifecyclePage() {
               {/* Upcoming Milestones */}
               <div style={{ background: CARD, border: `1px solid ${BORD}`, borderRadius: 14, overflow: 'hidden' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderBottom: `1px solid ${BORD}` }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: '#fff' }}>Upcoming Milestones</span>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: '#1A1F36' }}>Upcoming Milestones</span>
                   <button style={{ fontSize: 9, color: DIMMER, background: 'none', border: 'none', cursor: 'pointer' }}>View All</button>
                 </div>
                 <div style={{ padding: '8px 14px', display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -578,9 +579,9 @@ export default function AssetLifecyclePage() {
                         <div style={{ width: 24, height: 24, borderRadius: 7, background: m.color + '20', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                           <m.Icon size={11} style={{ color: m.color }} />
                         </div>
-                        <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.55)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.label}</span>
+                        <span style={{ fontSize: 9, color: '#6B7280', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.label}</span>
                       </div>
-                      <span style={{ fontSize: 13, fontWeight: 700, color: '#fff', fontFamily: 'ui-monospace,monospace', flexShrink: 0 }}>{m.count}</span>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: '#1A1F36', fontFamily: 'ui-monospace,monospace', flexShrink: 0 }}>{m.count}</span>
                     </div>
                   ))}
                 </div>
@@ -589,7 +590,7 @@ export default function AssetLifecyclePage() {
               {/* Insights & Recommendations */}
               <div style={{ background: CARD, border: `1px solid ${BORD}`, borderRadius: 14, overflow: 'hidden' }}>
                 <div style={{ padding: '10px 14px', borderBottom: `1px solid ${BORD}` }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: '#fff' }}>Insights & Recommendations</span>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: '#1A1F36' }}>Insights & Recommendations</span>
                 </div>
                 <div style={{ padding: '8px 14px', display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {INSIGHTS.map((ins, i) => (
@@ -597,7 +598,7 @@ export default function AssetLifecyclePage() {
                       <div style={{ width: 24, height: 24, borderRadius: 7, background: ins.color + '20', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 1 }}>
                         <ins.Icon size={11} style={{ color: ins.color }} />
                       </div>
-                      <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5, flex: 1 }}>{ins.text}</p>
+                      <p style={{ fontSize: 9, color: '#6B7280', lineHeight: 1.5, flex: 1 }}>{ins.text}</p>
                     </div>
                   ))}
                   <button style={{ marginTop: 4, fontSize: 9, color: '#0077C8', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, padding: 0 }}>

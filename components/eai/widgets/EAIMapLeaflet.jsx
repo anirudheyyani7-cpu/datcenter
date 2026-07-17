@@ -12,8 +12,9 @@ const STATUS_COLOR = {
   maintenance: '#6B7280',
 };
 
-function clusterIcon(count, color) {
+function clusterIcon(count, color, isSelected) {
   const size = count >= 6 ? 42 : count >= 3 ? 36 : 30;
+  const ring = isSelected ? `0 0 0 4px ${color}55, 0 0 0 7px ${color}` : `0 0 0 4px ${color}30`;
   return L.divIcon({
     html: `<div style="
       width:${size}px;height:${size}px;border-radius:50%;
@@ -22,7 +23,9 @@ function clusterIcon(count, color) {
       display:flex;align-items:center;justify-content:center;
       color:#fff;font-weight:700;font-size:${size > 36 ? 14 : 12}px;
       font-family:monospace;
-      box-shadow:0 0 0 4px ${color}30;
+      box-shadow:${ring};
+      cursor:pointer;
+      transition:box-shadow 0.15s;
     ">${count}</div>`,
     className: '',
     iconSize: [size, size],
@@ -30,7 +33,7 @@ function clusterIcon(count, color) {
   });
 }
 
-export default function EAIMapLeaflet({ clusters = [] }) {
+export default function EAIMapLeaflet({ clusters = [], onMarkerClick, selectedIds }) {
   useEffect(() => {
     // Fix default Leaflet icon path issues in Next.js
     delete L.Icon.Default.prototype._getIconUrl;
@@ -51,7 +54,7 @@ export default function EAIMapLeaflet({ clusters = [] }) {
       scrollWheelZoom={false}
     >
       <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         attribution='&copy; <a href="https://carto.com">CARTO</a>'
         subdomains="abcd"
         maxZoom={19}
@@ -62,7 +65,8 @@ export default function EAIMapLeaflet({ clusters = [] }) {
         <Marker
           key={c.id}
           position={[c.lat, c.lon]}
-          icon={clusterIcon(c.count, STATUS_COLOR[c.status] ?? '#6B7280')}
+          icon={clusterIcon(c.count, STATUS_COLOR[c.status] ?? '#6B7280', !!selectedIds?.includes(c.id))}
+          eventHandlers={onMarkerClick ? { click: () => onMarkerClick(c) } : undefined}
         >
           <Tooltip direction="top" offset={[0, -16]} opacity={0.95}>
             <span style={{ fontSize: 11 }}>{c.label} ({c.count} facilities)</span>

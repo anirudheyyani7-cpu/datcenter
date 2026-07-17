@@ -21,7 +21,7 @@ export default function ForecastChart({
       {/* Manual legend */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
         {LEGEND_ITEMS.map(l => (
-          <div key={l.label} style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 9, color: 'rgba(255,255,255,0.55)' }}>
+          <div key={l.label} style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 9, color: '#6B7280' }}>
             <svg width="18" height="8" viewBox="0 0 18 8">
               {l.dashed
                 ? <line x1="0" y1="4" x2="18" y2="4" stroke={l.color} strokeWidth="2" strokeDasharray="4 3" />
@@ -38,19 +38,19 @@ export default function ForecastChart({
         <div style={{ width: '100%', height, overflow: 'hidden' }}>
           <ResponsiveContainer width="100%" height={height}>
             <ComposedChart data={data} margin={{ top: 8, right: 8, bottom: 4, left: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
-              <XAxis dataKey="month" tick={{ fontSize: 8, fill: 'rgba(255,255,255,0.35)' }} axisLine={false} tickLine={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />
+              <XAxis dataKey="month" tick={{ fontSize: 8, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
               <YAxis
-                tick={{ fontSize: 8, fill: 'rgba(255,255,255,0.35)' }}
+                tick={{ fontSize: 8, fill: '#9CA3AF' }}
                 axisLine={false} tickLine={false}
                 width={30}
                 domain={[0, 220]}
                 tickCount={5}
               />
               <Tooltip
-                contentStyle={{ background: '#1C2340', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 8, fontSize: 10, color: '#fff' }}
+                contentStyle={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: 8, boxShadow: '0 2px 8px rgba(16,24,40,0.08)', fontSize: 10, color: '#1A1F36' }}
                 formatter={(v, n) => v != null ? [`${v} MW`, n] : [null]}
-                labelStyle={{ color: 'rgba(255,255,255,0.55)' }}
+                labelStyle={{ color: '#6B7280' }}
               />
 
               {/* Capacity limit reference line */}

@@ -24,22 +24,23 @@ import {
 
 // ─── Shared card styles ────────────────────────────────────────────────────────
 const CARD = {
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.07)',
+  background: '#FFFFFF',
+  border: '1px solid #E2E8F0',
   borderRadius: 12,
   overflow: 'hidden',
+  boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)',
 };
 const CARD_HDR = {
   display: 'flex', alignItems: 'center', justifyContent: 'space-between',
   padding: '10px 14px',
-  borderBottom: '1px solid rgba(255,255,255,0.06)',
+  borderBottom: '1px solid #E2E8F0',
 };
-const CARD_TITLE = { fontSize: 11, fontWeight: 700, color: '#fff', letterSpacing: '-0.01em' };
+const CARD_TITLE = { fontSize: 11, fontWeight: 700, color: '#1A1F36', letterSpacing: '-0.01em' };
 const LINK_STYLE = { fontSize: 9, color: '#0077C8', textDecoration: 'none', fontWeight: 600 };
 const DROPDOWN_BTN = {
   display: 'flex', alignItems: 'center', gap: 3,
-  fontSize: 9, color: 'rgba(255,255,255,0.55)',
-  background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.10)',
+  fontSize: 9, color: '#6B7280',
+  background: '#F8FAFC', border: '1px solid #E2E8F0',
   borderRadius: 6, padding: '3px 8px', cursor: 'pointer',
 };
 
@@ -74,12 +75,12 @@ const WO_COLUMNS = [
   { key: 'woId',      label: 'WO ID',           width: 96 },
   { key: 'title',     label: 'Title' },
   { key: 'type',      label: 'Type',             width: 80,
-    render: v => <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.45)' }}>{v}</span> },
+    render: v => <span style={{ fontSize: 9, color: '#6B7280' }}>{v}</span> },
   { key: 'asset',     label: 'Asset / Location', width: 136,
     render: (v, row) => (
       <div>
-        <p style={{ fontSize: 10, fontWeight: 600, color: '#fff', lineHeight: 1.3 }}>{v}</p>
-        <p style={{ fontSize: 8, color: 'rgba(255,255,255,0.35)', marginTop: 1 }}>{row.location}</p>
+        <p style={{ fontSize: 10, fontWeight: 600, color: '#1A1F36', lineHeight: 1.3 }}>{v}</p>
+        <p style={{ fontSize: 8, color: '#6B7280', marginTop: 1 }}>{row.location}</p>
       </div>
     ) },
   { key: 'priority',  label: 'Priority',         width: 72,
@@ -87,23 +88,23 @@ const WO_COLUMNS = [
   { key: 'status',    label: 'Status',           width: 92,
     render: v => <StatusPill v={v} map={STATUS_STYLE} /> },
   { key: 'assignedTo', label: 'Assigned To',     width: 108,
-    render: v => <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.45)' }}>{v}</span> },
+    render: v => <span style={{ fontSize: 9, color: '#6B7280' }}>{v}</span> },
   { key: 'dueDate',   label: 'Due Date',         width: 92,
-    render: v => <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.45)' }}>{v}</span> },
+    render: v => <span style={{ fontSize: 9, color: '#6B7280' }}>{v}</span> },
   { key: 'slaPct',    label: 'SLA',              width: 82,
     render: v => (
       <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-        <div style={{ flex: 1, height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.08)', overflow: 'hidden' }}>
+        <div style={{ flex: 1, height: 4, borderRadius: 2, background: '#E2E8F0', overflow: 'hidden' }}>
           <div style={{
             width: `${v}%`, height: '100%', borderRadius: 2,
             background: v >= 80 ? '#10B981' : v >= 50 ? '#F59E0B' : '#EF4444',
           }} />
         </div>
-        <span style={{ fontSize: 9, fontWeight: 700, color: '#fff', width: 26, textAlign: 'right', flexShrink: 0 }}>{v}%</span>
+        <span style={{ fontSize: 9, fontWeight: 700, color: '#1A1F36', width: 26, textAlign: 'right', flexShrink: 0 }}>{v}%</span>
       </div>
     ) },
   { key: '_act',      label: '',                 width: 36, align: 'center',
-    render: () => <span style={{ color: 'rgba(255,255,255,0.30)', fontSize: 14, cursor: 'pointer' }}>···</span> },
+    render: () => <span style={{ color: '#9CA3AF', fontSize: 14, cursor: 'pointer' }}>···</span> },
 ];
 
 const WO_TABS = [
@@ -130,7 +131,7 @@ function DonutHalf({ title, data, centerLabel, centerSublabel }) {
   return (
     <div style={{ flex: 1, minWidth: 0 }}>
       <p style={{
-        fontSize: 9, fontWeight: 700, color: 'rgba(255,255,255,0.40)',
+        fontSize: 9, fontWeight: 700, color: '#6B7280',
         textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6,
       }}>
         {title}
@@ -152,11 +153,11 @@ function DonutHalf({ title, data, centerLabel, centerSublabel }) {
             <div key={item.name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 4 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                 <span style={{ width: 5, height: 5, borderRadius: '50%', background: item.color, flexShrink: 0, display: 'inline-block' }} />
-                <span style={{ fontSize: 8, color: 'rgba(255,255,255,0.45)', whiteSpace: 'nowrap' }}>{item.name}</span>
+                <span style={{ fontSize: 8, color: '#6B7280', whiteSpace: 'nowrap' }}>{item.name}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 3, flexShrink: 0 }}>
-                <span style={{ fontSize: 9, fontWeight: 700, color: '#fff', fontFamily: 'monospace' }}>{item.value}</span>
-                <span style={{ fontSize: 7, color: 'rgba(255,255,255,0.25)' }}>({item.pct}%)</span>
+                <span style={{ fontSize: 9, fontWeight: 700, color: '#1A1F36', fontFamily: 'monospace' }}>{item.value}</span>
+                <span style={{ fontSize: 7, color: '#9CA3AF' }}>({item.pct}%)</span>
               </div>
             </div>
           ))}
@@ -174,7 +175,7 @@ function IncidentsTrendChart({ data, height = 165 }) {
           { key: 'critHigh', label: 'Critical / High', color: '#EF4444' },
           { key: 'medLow',   label: 'Medium / Low',    color: '#0077C8' },
         ].map(s => (
-          <div key={s.key} style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 9, color: 'rgba(255,255,255,0.55)' }}>
+          <div key={s.key} style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 9, color: '#6B7280' }}>
             <span style={{ width: 14, height: 2, background: s.color, display: 'inline-block', borderRadius: 1, flexShrink: 0 }} />
             {s.label}
           </div>
@@ -182,16 +183,16 @@ function IncidentsTrendChart({ data, height = 165 }) {
       </div>
       <ResponsiveContainer width="100%" height={height}>
         <LineChart data={data} margin={{ top: 4, right: 8, bottom: 4, left: -8 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
-          <XAxis dataKey="date" tick={{ fontSize: 8, fill: 'rgba(255,255,255,0.35)' }} axisLine={false} tickLine={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />
+          <XAxis dataKey="date" tick={{ fontSize: 8, fill: '#6B7280' }} axisLine={false} tickLine={false} />
           <YAxis
-            tick={{ fontSize: 8, fill: 'rgba(255,255,255,0.35)' }}
+            tick={{ fontSize: 8, fill: '#6B7280' }}
             axisLine={false} tickLine={false}
             width={24} domain={[0, 80]} ticks={[0, 20, 40, 60, 80]}
           />
           <Tooltip
-            contentStyle={{ background: '#1C2340', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 8, fontSize: 10, color: '#fff' }}
-            labelStyle={{ color: 'rgba(255,255,255,0.55)' }}
+            contentStyle={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: 8, fontSize: 10, color: '#1A1F36', boxShadow: '0 2px 8px rgba(16,24,40,0.08)' }}
+            labelStyle={{ color: '#6B7280' }}
           />
           <Line type="monotone" dataKey="critHigh" name="Critical / High" stroke="#EF4444" strokeWidth={2} dot={{ r: 3.5, fill: '#EF4444', strokeWidth: 0 }} activeDot={{ r: 5 }} />
           <Line type="monotone" dataKey="medLow"   name="Medium / Low"    stroke="#0077C8" strokeWidth={2} dot={{ r: 3.5, fill: '#0077C8', strokeWidth: 0 }} activeDot={{ r: 5 }} />
@@ -226,30 +227,30 @@ export default function OperationsHubPage() {
         <div style={{
           display: 'flex', alignItems: 'center', gap: 10,
           padding: '10px 20px',
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          borderBottom: '1px solid #E2E8F0',
           flexShrink: 0,
         }}>
           <div style={{ flex: 1 }}>
-            <h1 style={{ fontSize: 16, fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
+            <h1 style={{ fontSize: 16, fontWeight: 800, color: '#1A1F36', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
               Operations Hub
             </h1>
-            <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.40)', marginTop: 1 }}>
+            <p style={{ fontSize: 10, color: '#6B7280', marginTop: 1 }}>
               Real-time operations, work orders & incident management
             </p>
           </div>
-          <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.30)', flexShrink: 0 }}>May 19, 2025</span>
+          <span style={{ fontSize: 10, color: '#9CA3AF', flexShrink: 0 }}>May 19, 2025</span>
           <button style={{
             display: 'flex', alignItems: 'center', gap: 5,
-            fontSize: 10, fontWeight: 600, color: 'rgba(255,255,255,0.70)',
-            background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.10)',
+            fontSize: 10, fontWeight: 600, color: '#6B7280',
+            background: '#F8FAFC', border: '1px solid #E2E8F0',
             borderRadius: 7, padding: '5px 12px', cursor: 'pointer',
           }}>
             <Filter size={11} /> Filters
           </button>
           <button style={{
             display: 'flex', alignItems: 'center', gap: 5,
-            fontSize: 10, fontWeight: 600, color: 'rgba(255,255,255,0.70)',
-            background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.10)',
+            fontSize: 10, fontWeight: 600, color: '#6B7280',
+            background: '#F8FAFC', border: '1px solid #E2E8F0',
             borderRadius: 7, padding: '5px 12px', cursor: 'pointer',
           }}>
             <Download size={11} /> Export
@@ -272,7 +273,10 @@ export default function OperationsHubPage() {
           </div>
 
           {/* Row 1: Operations Overview | Incidents Trend | Right Rail */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr 0.88fr', gap: 12 }}>
+          {/* alignItems:'start' — the Right Rail's 2 stacked list cards are naturally taller
+              than the single-chart cards beside them; without this the shorter cards get
+              stretched to match, leaving dead white space at their bottom. */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr 0.88fr', gap: 12, alignItems: 'start' }}>
 
             {/* Operations Overview */}
             <div style={CARD}>
@@ -287,7 +291,7 @@ export default function OperationsHubPage() {
                   centerLabel="48"
                   centerSublabel="Total"
                 />
-                <div style={{ width: 1, background: 'rgba(255,255,255,0.06)', flexShrink: 0 }} />
+                <div style={{ width: 1, background: '#E2E8F0', flexShrink: 0 }} />
                 <DonutHalf
                   title="Work Orders by Status"
                   data={WORK_ORDERS_BY_STATUS}
@@ -376,7 +380,7 @@ export default function OperationsHubPage() {
             <div style={CARD}>
               <div style={CARD_HDR}><span style={CARD_TITLE}>MTTR Trend</span></div>
               <div style={{ padding: '10px 14px 8px' }}>
-                <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.30)', marginBottom: 6 }}>Mean Time To Resolve (hrs)</p>
+                <p style={{ fontSize: 9, color: '#9CA3AF', marginBottom: 6 }}>Mean Time To Resolve (hrs)</p>
                 <TrendChart
                   data={MTTR_TREND}
                   type="line"

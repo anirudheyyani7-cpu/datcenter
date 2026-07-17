@@ -31,9 +31,16 @@ export const DECISION_QUICK_STARTS = [
     subtitle: 'Assess build vs acquire, expansion, and capital deployment',
     icon: 'TrendingUp',
   },
+  {
+    id: 'ai-gpu-campus',
+    decision_type: 'ai_gpu_campus',
+    title: 'AI & GPU Campus Planner',
+    subtitle: 'Model chip generation, power density, cooling, and capital deployment',
+    icon: 'Cpu',
+  },
 ];
 
-// The 7 globally-fixed modules. No other module name may ever appear
+// The 8 globally-fixed modules. No other module name may ever appear
 // in selected_modules / priority_order, by the LLM or by the engine.
 export const ALL_MODULES = [
   'final_recommendation',
@@ -43,6 +50,7 @@ export const ALL_MODULES = [
   'risk_analysis',
   'cost_estimation',
   'connectivity',
+  'gpu_cluster_planning',
 ];
 
 // Fixed per-decision_type subset — defines what's even eligible for that decision.
@@ -79,6 +87,15 @@ export const MODULE_REGISTRY = {
     'candidate_locations',
     'power_analysis',
   ],
+  ai_gpu_campus: [
+    'final_recommendation',
+    'gpu_cluster_planning',
+    'power_analysis',
+    'cost_estimation',
+    'risk_analysis',
+    'feasibility',
+    'connectivity',
+  ],
 };
 
 export const MODULE_LABELS = {
@@ -89,6 +106,7 @@ export const MODULE_LABELS = {
   risk_analysis: 'Risk',
   cost_estimation: 'Cost',
   connectivity: 'Connectivity',
+  gpu_cluster_planning: 'GPU Cluster',
 };
 
 // module → card TYPE (Part 6). This is intrinsic to each module's data shape
@@ -102,6 +120,7 @@ export const CARD_TYPE_MAPPING = {
   connectivity: 'metric',
   risk_analysis: 'score',
   feasibility: 'score',
+  gpu_cluster_planning: 'planner',
 };
 
 // module → accent color key, purely cosmetic (resolved to a hex value by
@@ -113,6 +132,7 @@ export const ACCENT_BY_MODULE = {
   connectivity: 'accent',
   risk_analysis: 'danger',
   feasibility: 'navy',
+  gpu_cluster_planning: 'accent',
 };
 
 // Tiny string hash used only for deterministic, purely-cosmetic placement
@@ -204,6 +224,12 @@ export function shapeForCardType(moduleKey, data) {
 
   if (type === 'score') {
     return { type, score: data.score, verdict: data.verdict, factors: data.factors, flags: data.flags };
+  }
+
+  if (type === 'planner') {
+    // Richer than ranking/metric/score — PlannerCard reads the computed
+    // gpu_cluster_planning fields directly, this just tags the type.
+    return { type, ...data };
   }
 
   return { type: 'insight', summary: data.headline || data.verdict || '' };

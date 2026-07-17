@@ -25,22 +25,23 @@ import {
 
 // ─── Shared styles ─────────────────────────────────────────────────────────────
 const CARD = {
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.07)',
+  background: '#FFFFFF',
+  border: '1px solid #E2E8F0',
   borderRadius: 12, overflow: 'hidden',
+  boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)',
 };
 const CARD_HDR = {
   display: 'flex', alignItems: 'center', justifyContent: 'space-between',
   padding: '10px 14px',
-  borderBottom: '1px solid rgba(255,255,255,0.06)',
+  borderBottom: '1px solid #E2E8F0',
 };
-const CARD_TITLE = { fontSize: 11, fontWeight: 700, color: '#fff', letterSpacing: '-0.01em' };
+const CARD_TITLE = { fontSize: 11, fontWeight: 700, color: '#1A1F36', letterSpacing: '-0.01em' };
 const LINK_STYLE = { fontSize: 9, color: '#0077C8', textDecoration: 'none', fontWeight: 600 };
-const VIEW_ALL   = { fontSize: 9, color: 'rgba(255,255,255,0.35)', textDecoration: 'none' };
+const VIEW_ALL   = { fontSize: 9, color: '#6B7280', textDecoration: 'none' };
 const DROPDOWN_BTN = {
   display: 'flex', alignItems: 'center', gap: 3,
-  fontSize: 9, color: 'rgba(255,255,255,0.55)',
-  background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.10)',
+  fontSize: 9, color: '#6B7280',
+  background: '#F8FAFC', border: '1px solid #E2E8F0',
   borderRadius: 6, padding: '3px 8px', cursor: 'pointer',
 };
 
@@ -65,7 +66,7 @@ const DATA_FLOW_COLS = [
     },
   },
   { key: 'lastRun',     label: 'Last Run',    width: 90,
-    render: v => <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.40)' }}>{v}</span> },
+    render: v => <span style={{ fontSize: 9, color: '#6B7280' }}>{v}</span> },
 ];
 
 // ─── API Health table config ───────────────────────────────────────────────────
@@ -77,9 +78,9 @@ const API_HEALTH_COLS = [
     ),
   },
   { key: 'availabilityPct',  label: 'Availability',      width: 90,
-    render: v => <span style={{ fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.75)', fontFamily: 'monospace' }}>{v}%</span> },
+    render: v => <span style={{ fontSize: 10, fontWeight: 700, color: '#1A1F36', fontFamily: 'monospace' }}>{v}%</span> },
   { key: 'avgResponseTimeMs', label: 'Avg Response Time', width: 110,
-    render: v => <span style={{ fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.55)', fontFamily: 'monospace' }}>{v} ms</span> },
+    render: v => <span style={{ fontSize: 10, fontWeight: 700, color: '#6B7280', fontFamily: 'monospace' }}>{v} ms</span> },
 ];
 
 // ─── Transactions Trend dual-series chart ──────────────────────────────────────
@@ -91,7 +92,7 @@ function TransactionsTrendChart({ data, height = 165 }) {
           { key: 'successful', label: 'Successful', color: '#00A36C' },
           { key: 'failed',     label: 'Failed',      color: '#EF4444' },
         ].map(s => (
-          <div key={s.key} style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 9, color: 'rgba(255,255,255,0.55)' }}>
+          <div key={s.key} style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 9, color: '#6B7280' }}>
             <span style={{ width: 12, height: 12, borderRadius: '50%', background: s.color, display: 'inline-block', flexShrink: 0 }} />
             {s.label}
           </div>
@@ -99,10 +100,10 @@ function TransactionsTrendChart({ data, height = 165 }) {
       </div>
       <ResponsiveContainer width="100%" height={height}>
         <LineChart data={data} margin={{ top: 4, right: 8, bottom: 4, left: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
-          <XAxis dataKey="date" tick={{ fontSize: 8, fill: 'rgba(255,255,255,0.35)' }} axisLine={false} tickLine={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />
+          <XAxis dataKey="date" tick={{ fontSize: 8, fill: '#6B7280' }} axisLine={false} tickLine={false} />
           <YAxis
-            tick={{ fontSize: 8, fill: 'rgba(255,255,255,0.35)' }}
+            tick={{ fontSize: 8, fill: '#6B7280' }}
             axisLine={false} tickLine={false}
             width={28}
             domain={[0, 100000]}
@@ -110,8 +111,8 @@ function TransactionsTrendChart({ data, height = 165 }) {
             tickFormatter={v => `${Math.round(v / 1000)}K`}
           />
           <Tooltip
-            contentStyle={{ background: '#1C2340', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 8, fontSize: 10, color: '#fff' }}
-            labelStyle={{ color: 'rgba(255,255,255,0.55)' }}
+            contentStyle={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: 8, fontSize: 10, color: '#1A1F36', boxShadow: '0 2px 8px rgba(16,24,40,0.08)' }}
+            labelStyle={{ color: '#6B7280' }}
             formatter={v => [v.toLocaleString(), undefined]}
           />
           <Line type="monotone" dataKey="successful" name="Successful" stroke="#00A36C" strokeWidth={2} dot={{ r: 3, fill: '#00A36C', strokeWidth: 0 }} activeDot={{ r: 5 }} />
@@ -136,14 +137,14 @@ export default function IntegrationHubPage() {
         <div style={{
           display: 'flex', alignItems: 'center', gap: 10,
           padding: '10px 20px',
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          borderBottom: '1px solid #E2E8F0',
           flexShrink: 0,
         }}>
           <div style={{ flex: 1 }}>
-            <h1 style={{ fontSize: 16, fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
+            <h1 style={{ fontSize: 16, fontWeight: 800, color: '#1A1F36', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
               Integration Hub
             </h1>
-            <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.40)', marginTop: 1 }}>
+            <p style={{ fontSize: 10, color: '#6B7280', marginTop: 1 }}>
               Connect, monitor and manage integrations across your ecosystem
             </p>
           </div>
@@ -151,19 +152,19 @@ export default function IntegrationHubPage() {
           {/* Search */}
           <div style={{
             display: 'flex', alignItems: 'center', gap: 7,
-            background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.10)',
+            background: '#F8FAFC', border: '1px solid #E2E8F0',
             borderRadius: 8, padding: '6px 12px', width: 280, flexShrink: 0,
           }}>
-            <Search size={12} style={{ color: 'rgba(255,255,255,0.30)', flexShrink: 0 }} />
-            <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.25)', flex: 1 }}>Search systems, APIs, data flows…</span>
-            <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.18)', flexShrink: 0 }}>⌘K</span>
+            <Search size={12} style={{ color: '#9CA3AF', flexShrink: 0 }} />
+            <span style={{ fontSize: 10, color: '#9CA3AF', flex: 1 }}>Search systems, APIs, data flows…</span>
+            <span style={{ fontSize: 9, color: '#9CA3AF', flexShrink: 0 }}>⌘K</span>
           </div>
 
           {/* Date range */}
           <button style={{
             display: 'flex', alignItems: 'center', gap: 6,
-            fontSize: 10, color: 'rgba(255,255,255,0.60)',
-            background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.10)',
+            fontSize: 10, color: '#6B7280',
+            background: '#F8FAFC', border: '1px solid #E2E8F0',
             borderRadius: 8, padding: '6px 11px', cursor: 'pointer', whiteSpace: 'nowrap',
           }}>
             <Calendar size={11} /> May 1 – May 31, 2025
@@ -172,8 +173,8 @@ export default function IntegrationHubPage() {
           {/* Filters */}
           <button style={{
             display: 'flex', alignItems: 'center', gap: 5,
-            fontSize: 10, fontWeight: 600, color: 'rgba(255,255,255,0.70)',
-            background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.10)',
+            fontSize: 10, fontWeight: 600, color: '#6B7280',
+            background: '#F8FAFC', border: '1px solid #E2E8F0',
             borderRadius: 7, padding: '6px 12px', cursor: 'pointer',
           }}>
             <Filter size={11} /> Filters
@@ -310,7 +311,7 @@ export default function IntegrationHubPage() {
                     isLast={i === Math.min(TOP_INTEGRATIONS.length, 6) - 1}
                   />
                 ))}
-                <div style={{ padding: '8px 14px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                <div style={{ padding: '8px 14px', borderTop: '1px solid #E2E8F0' }}>
                   <a href="#" style={LINK_STYLE}>View All Integrations →</a>
                 </div>
               </div>
@@ -359,8 +360,8 @@ export default function IntegrationHubPage() {
               <div style={{ padding: '12px 14px', display: 'flex', gap: 12 }}>
                 {/* Stats */}
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)', marginBottom: 3 }}>Total Errors</p>
-                  <p style={{ fontSize: 26, fontWeight: 800, color: '#fff', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>
+                  <p style={{ fontSize: 9, color: '#6B7280', marginBottom: 3 }}>Total Errors</p>
+                  <p style={{ fontSize: 26, fontWeight: 800, color: '#1A1F36', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>
                     {ERROR_ANALYSIS.totalErrors.toLocaleString()}
                   </p>
                   <p style={{ fontSize: 9, fontWeight: 600, color: '#00A36C', marginTop: 3 }}>
@@ -368,13 +369,13 @@ export default function IntegrationHubPage() {
                   </p>
                   <div style={{ display: 'flex', gap: 16, marginTop: 14 }}>
                     <div>
-                      <p style={{ fontSize: 8, color: 'rgba(255,255,255,0.30)' }}>Critical Errors</p>
+                      <p style={{ fontSize: 8, color: '#9CA3AF' }}>Critical Errors</p>
                       <p style={{ fontSize: 22, fontWeight: 800, color: '#EF4444', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>
                         {ERROR_ANALYSIS.criticalErrors}
                       </p>
                     </div>
                     <div>
-                      <p style={{ fontSize: 8, color: 'rgba(255,255,255,0.30)' }}>Warning Errors</p>
+                      <p style={{ fontSize: 8, color: '#9CA3AF' }}>Warning Errors</p>
                       <p style={{ fontSize: 22, fontWeight: 800, color: '#F59E0B', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>
                         {ERROR_ANALYSIS.warningErrors}
                       </p>
@@ -383,7 +384,7 @@ export default function IntegrationHubPage() {
                 </div>
                 {/* Errors by Category donut */}
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)', textAlign: 'center', marginBottom: 2 }}>Errors by Category</p>
+                  <p style={{ fontSize: 9, color: '#6B7280', textAlign: 'center', marginBottom: 2 }}>Errors by Category</p>
                   <DonutChart
                     data={ERROR_ANALYSIS.errorsByCategory}
                     height={130}
@@ -413,7 +414,7 @@ export default function IntegrationHubPage() {
                 </div>
                 {/* Per-service uptime bars */}
                 <div style={{ flex: 1, paddingTop: 6 }}>
-                  <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.30)', marginBottom: 10 }}>
+                  <p style={{ fontSize: 9, color: '#9CA3AF', marginBottom: 10 }}>
                     Uptime (Last 30 Days)
                   </p>
                   <HorizontalBarList

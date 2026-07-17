@@ -27,7 +27,7 @@ export default function ScoreRing({
           <circle
             cx={cx} cy={cy} r={R}
             fill="none"
-            stroke="rgba(255,255,255,0.10)"
+            stroke="#E2E8F0"
             strokeWidth={SW}
           />
           {/* Arc */}
@@ -44,11 +44,11 @@ export default function ScoreRing({
 
         {/* Center text */}
         <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
-          <span style={{ fontSize: size < 120 ? 24 : 28, fontWeight: 800, color: '#fff', lineHeight: 1, fontFamily: 'ui-monospace,monospace' }}>
+          <span style={{ fontSize: size < 120 ? 24 : 28, fontWeight: 800, color: '#1A1F36', lineHeight: 1, fontFamily: 'ui-monospace,monospace' }}>
             {unit === '%' ? `${score}%` : score}
           </span>
           {unit !== '%' && (
-            <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)', marginTop: 1 }}>{unit}</span>
+            <span style={{ fontSize: 10, color: '#6B7280', marginTop: 1 }}>{unit}</span>
           )}
         </div>
       </div>
@@ -65,19 +65,19 @@ export default function ScoreRing({
             ? items.map((item, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 10 }}>
                   <span style={{ width: 8, height: 8, borderRadius: '50%', background: item.color, flexShrink: 0, display: 'inline-block' }} />
-                  <span style={{ color: 'rgba(255,255,255,0.55)', flex: 1 }}>{item.label}</span>
-                  <span style={{ color: 'rgba(255,255,255,0.75)', fontWeight: 700 }}>{item.value}</span>
+                  <span style={{ color: '#6B7280', flex: 1 }}>{item.label}</span>
+                  <span style={{ color: '#1A1F36', fontWeight: 700 }}>{item.value}</span>
                 </div>
               ))
             : items.map((item, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  {item.Icon && <item.Icon size={11} style={{ color: item.color ?? 'rgba(255,255,255,0.40)', flexShrink: 0 }} />}
-                  <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.55)', flex: 1 }}>{item.label}</span>
+                  {item.Icon && <item.Icon size={11} style={{ color: item.color ?? '#6B7280', flexShrink: 0 }} />}
+                  <span style={{ fontSize: 10, color: '#6B7280', flex: 1 }}>{item.label}</span>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                    <div style={{ width: 40, height: 3, borderRadius: 2, background: 'rgba(255,255,255,0.10)', overflow: 'hidden' }}>
+                    <div style={{ width: 40, height: 3, borderRadius: 2, background: '#E2E8F0', overflow: 'hidden' }}>
                       <div style={{ width: `${item.score ?? 0}%`, height: '100%', borderRadius: 2, background: item.color ?? '#0077C8' }} />
                     </div>
-                    <span style={{ fontSize: 9, fontWeight: 700, color: '#fff', fontFamily: 'ui-monospace,monospace', width: 32, textAlign: 'right' }}>
+                    <span style={{ fontSize: 9, fontWeight: 700, color: '#1A1F36', fontFamily: 'ui-monospace,monospace', width: 32, textAlign: 'right' }}>
                       {item.score}{unit}
                     </span>
                   </div>

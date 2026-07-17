@@ -1,9 +1,9 @@
 'use client';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const BORD = 'rgba(255,255,255,0.07)';
-const DIM  = 'rgba(255,255,255,0.40)';
-const DIMMER = 'rgba(255,255,255,0.25)';
+const BORD = '#E2E8F0';
+const DIM  = '#6B7280';
+const DIMMER = '#9CA3AF';
 
 // Generic table shell.
 // columns: [{ key, label, width?, align?, render?(value, row) → ReactNode }]
@@ -29,7 +29,7 @@ export default function DataTable({
     whiteSpace: 'nowrap', textAlign: 'left',
   };
   const TD = {
-    fontSize: 10, color: 'rgba(255,255,255,0.70)',
+    fontSize: 10, color: '#1A1F36',
     padding: compact ? '7px 8px' : '9px 10px',
     whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
   };
@@ -40,15 +40,15 @@ export default function DataTable({
   const totalPages = total ? Math.max(1, Math.ceil(total / perPage)) : 1;
 
   return (
-    <div style={{ background: 'rgba(255,255,255,0.03)', border: `1px solid ${BORD}`, borderRadius: 14, overflow: 'hidden', display: 'flex', flexDirection: 'column', ...style }}>
+    <div style={{ background: '#FFFFFF', border: `1px solid ${BORD}`, boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)', borderRadius: 14, overflow: 'hidden', display: 'flex', flexDirection: 'column', ...style }}>
 
       {/* Card header */}
       {(title || viewAllHref) && (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderBottom: `1px solid ${BORD}`, flexShrink: 0 }}>
-          {title && <span style={{ fontSize: 11, fontWeight: 700, color: '#fff' }}>{title}</span>}
+          {title && <span style={{ fontSize: 11, fontWeight: 700, color: '#1A1F36' }}>{title}</span>}
           {viewAllHref && (
             <a href={viewAllHref} style={{ fontSize: 9, color: DIM, textDecoration: 'none' }}
-              onMouseEnter={e => e.currentTarget.style.color = '#fff'}
+              onMouseEnter={e => e.currentTarget.style.color = '#1A1F36'}
               onMouseLeave={e => e.currentTarget.style.color = DIM}>{viewAllLabel}</a>
           )}
         </div>
@@ -68,12 +68,12 @@ export default function DataTable({
                   whiteSpace: 'nowrap', transition: 'all 0.12s',
                   display: 'flex', alignItems: 'center', gap: 5,
                 }}
-                onMouseEnter={e => { if (!isActive) e.currentTarget.style.color = '#fff'; }}
+                onMouseEnter={e => { if (!isActive) e.currentTarget.style.color = '#1A1F36'; }}
                 onMouseLeave={e => { if (!isActive) e.currentTarget.style.color = DIM; }}
               >
                 {tab.label}
                 {tab.count !== undefined && (
-                  <span style={{ fontSize: 8, background: isActive ? 'rgba(0,119,200,0.20)' : 'rgba(255,255,255,0.08)', color: isActive ? '#0077C8' : DIMMER, padding: '1px 5px', borderRadius: 4, fontWeight: 700 }}>
+                  <span style={{ fontSize: 8, background: isActive ? 'rgba(0,119,200,0.20)' : '#F4F6F9', color: isActive ? '#0077C8' : DIMMER, padding: '1px 5px', borderRadius: 4, fontWeight: 700 }}>
                     {tab.count}
                   </span>
                 )}
@@ -114,7 +114,7 @@ export default function DataTable({
                     cursor: onRowClick ? 'pointer' : 'default',
                     transition: 'background 0.12s',
                   }}
-                  onMouseEnter={e => { if (!isSel && onRowClick) e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; }}
+                  onMouseEnter={e => { if (!isSel && onRowClick) e.currentTarget.style.background = '#F4F6F9'; }}
                   onMouseLeave={e => { if (!isSel) e.currentTarget.style.background = isSel ? 'rgba(0,119,200,0.10)' : 'transparent'; }}
                 >
                   {columns.map((c, ci) => (
@@ -139,7 +139,7 @@ export default function DataTable({
           </span>
           <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
             <button onClick={() => onPageChange?.(page - 1)} disabled={page <= 1}
-              style={{ width: 24, height: 24, borderRadius: 5, border: `1px solid ${BORD}`, background: 'transparent', cursor: page <= 1 ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: page <= 1 ? DIMMER : '#fff', opacity: page <= 1 ? 0.4 : 1 }}>
+              style={{ width: 24, height: 24, borderRadius: 5, border: `1px solid ${BORD}`, background: 'transparent', cursor: page <= 1 ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: page <= 1 ? DIMMER : '#1A1F36', opacity: page <= 1 ? 0.4 : 1 }}>
               <ChevronLeft size={11} />
             </button>
             {Array.from({ length: Math.min(totalPages, 3) }, (_, i) => i + 1).map(pg => (
@@ -150,7 +150,7 @@ export default function DataTable({
             ))}
             {totalPages > 3 && <span style={{ color: DIMMER, fontSize: 10 }}>…{totalPages}</span>}
             <button onClick={() => onPageChange?.(page + 1)} disabled={page >= totalPages}
-              style={{ width: 24, height: 24, borderRadius: 5, border: `1px solid ${BORD}`, background: 'transparent', cursor: page >= totalPages ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: page >= totalPages ? DIMMER : '#fff', opacity: page >= totalPages ? 0.4 : 1 }}>
+              style={{ width: 24, height: 24, borderRadius: 5, border: `1px solid ${BORD}`, background: 'transparent', cursor: page >= totalPages ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: page >= totalPages ? DIMMER : '#1A1F36', opacity: page >= totalPages ? 0.4 : 1 }}>
               <ChevronRight size={11} />
             </button>
           </div>

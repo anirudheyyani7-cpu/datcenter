@@ -12,8 +12,9 @@ export default function AnomalyStatCard({ category, count, delta, up, color, ico
   const Icon = ICON_MAP[iconKey] ?? Flame;
   return (
     <div style={{
-      background: 'rgba(255,255,255,0.03)',
-      border: '1px solid rgba(255,255,255,0.07)',
+      background: '#FFFFFF',
+      border: '1px solid #E2E8F0',
+      boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)',
       borderRadius: 12, padding: '12px 14px',
       display: 'flex', flexDirection: 'column', gap: 8, flex: 1,
     }}>
@@ -28,12 +29,12 @@ export default function AnomalyStatCard({ category, count, delta, up, color, ico
       </div>
 
       {/* Category */}
-      <p style={{ fontSize: 9, fontWeight: 700, color: 'rgba(255,255,255,0.40)', textTransform: 'uppercase', letterSpacing: '0.07em', lineHeight: 1.3 }}>
+      <p style={{ fontSize: 9, fontWeight: 700, color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.07em', lineHeight: 1.3 }}>
         {category}
       </p>
 
       {/* Count */}
-      <p style={{ fontSize: 28, fontWeight: 800, color: '#fff', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>
+      <p style={{ fontSize: 28, fontWeight: 800, color: '#1A1F36', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>
         {count}
       </p>
 

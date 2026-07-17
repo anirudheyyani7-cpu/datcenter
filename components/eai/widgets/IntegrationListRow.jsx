@@ -17,10 +17,10 @@ export function IntegrationListHeader() {
     <div style={{
       display: 'grid', gridTemplateColumns: '1fr 38px 64px 72px',
       padding: '5px 14px',
-      borderBottom: '1px solid rgba(255,255,255,0.06)',
+      borderBottom: '1px solid #E2E8F0',
     }}>
       {['Integration', 'Status', 'Success Rate', 'Response Time'].map(h => (
-        <span key={h} style={{ fontSize: 8, fontWeight: 700, color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: '0.07em' }}>
+        <span key={h} style={{ fontSize: 8, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.07em' }}>
           {h}
         </span>
       ))}
@@ -36,10 +36,10 @@ export default function IntegrationListRow({ name, sublabel, logoIcon, logoColor
       display: 'grid', gridTemplateColumns: '1fr 38px 64px 72px',
       alignItems: 'center',
       padding: '7px 14px',
-      borderBottom: isLast ? 'none' : '1px solid rgba(255,255,255,0.05)',
+      borderBottom: isLast ? 'none' : '1px solid #E2E8F0',
       transition: 'background 0.12s',
     }}
-      onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}
+      onMouseEnter={e => e.currentTarget.style.background = '#F4F6F9'}
       onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
     >
       {/* Integration name + icon */}
@@ -53,8 +53,8 @@ export default function IntegrationListRow({ name, sublabel, logoIcon, logoColor
           <Icon size={12} style={{ color: logoColor }} />
         </div>
         <div style={{ minWidth: 0 }}>
-          <p style={{ fontSize: 10, fontWeight: 700, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{name}</p>
-          <p style={{ fontSize: 8, color: 'rgba(255,255,255,0.30)' }}>{sublabel}</p>
+          <p style={{ fontSize: 10, fontWeight: 700, color: '#1A1F36', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{name}</p>
+          <p style={{ fontSize: 8, color: '#9CA3AF' }}>{sublabel}</p>
         </div>
       </div>
 
@@ -69,12 +69,12 @@ export default function IntegrationListRow({ name, sublabel, logoIcon, logoColor
       </div>
 
       {/* Success Rate */}
-      <span style={{ fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.75)', fontFamily: 'ui-monospace,monospace' }}>
+      <span style={{ fontSize: 10, fontWeight: 700, color: '#1A1F36', fontFamily: 'ui-monospace,monospace' }}>
         {successRatePct}%
       </span>
 
       {/* Response Time */}
-      <span style={{ fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.55)', fontFamily: 'ui-monospace,monospace' }}>
+      <span style={{ fontSize: 10, fontWeight: 700, color: '#6B7280', fontFamily: 'ui-monospace,monospace' }}>
         {responseTimeMs} ms
       </span>
     </div>

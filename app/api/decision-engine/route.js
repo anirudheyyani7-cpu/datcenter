@@ -10,7 +10,7 @@ export async function POST(request) {
     return Response.json({ error: 'Invalid JSON body.' }, { status: 400 });
   }
 
-  const { decision_type, mode = 'exploratory', client_name, location, capacity } = body;
+  const { decision_type, mode = 'exploratory', client_name, location, capacity, chip_generation, cooling_approach } = body;
 
   if (!decision_type || !MODULE_REGISTRY[decision_type]) {
     return Response.json({ error: `Unknown decision_type: ${decision_type}` }, { status: 400 });
@@ -22,6 +22,8 @@ export async function POST(request) {
     clientName: isExploratory ? '' : (client_name || ''),
     location: isExploratory ? 'Metro Region' : (location || 'Metro Region'),
     capacity: capacity ? Number(capacity) : 100,
+    chipGeneration: chip_generation || null,
+    coolingApproach: cooling_approach || null,
   };
 
   // 1. Deterministic computation — every module's data, no LLM involved.
@@ -56,6 +58,8 @@ export async function POST(request) {
       client_name: params.clientName,
       location: params.location,
       capacity: params.capacity,
+      chip_generation: params.chipGeneration,
+      cooling_approach: params.coolingApproach,
     },
     selected_modules,
     priority_order,
