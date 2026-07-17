@@ -1,5 +1,6 @@
 'use client';
-import { Search, Bell, Mail, HelpCircle, ChevronRight, PanelLeft } from 'lucide-react';
+import Link from 'next/link';
+import { Search, Bell, Mail, HelpCircle, ChevronRight, PanelLeft, Home } from 'lucide-react';
 
 const BTN = {
   width: 34, height: 34, borderRadius: 8,
@@ -51,6 +52,13 @@ export default function EAITopbar({ unreadCount = 12, sidebarHidden = false, onT
           <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.20)', flexShrink: 0 }}>⌘K</span>
         </button>
       </div>
+
+      {/* Home — back to main K-Nexus.AI site */}
+      <Link href="/" title="Home" style={BTN}
+        onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.background = 'rgba(255,255,255,0.10)'; }}
+        onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.40)'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}>
+        <Home size={14} />
+      </Link>
 
       <div style={{ flex: 1 }} />
 
