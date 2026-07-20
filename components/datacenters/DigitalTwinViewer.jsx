@@ -10,7 +10,7 @@ const ExteriorModel3D = dynamic(() => import('./ExteriorModel3D'), { ssr: false 
 const InteriorModel3D = dynamic(() => import('./InteriorModel3D'), { ssr: false });
 const ThermalHeatmapView = dynamic(() => import('../thermal/ThermalHeatmapView'), { ssr: false });
 
-export default function DigitalTwinViewer({ dc, zoneHealth, onHotspotChange }) {
+export default function DigitalTwinViewer({ dc, zoneHealth, onHotspotChange, isGenerated }) {
   const [view, setView] = useState('exterior');
   const [activeHotspot, setActiveHotspot] = useState(null);
   const [activeRackId, setActiveRackId] = useState(null);
@@ -140,6 +140,7 @@ export default function DigitalTwinViewer({ dc, zoneHealth, onHotspotChange }) {
             zoneData={zoneData}
             position={activeHotspot.position}
             onClose={handleClose}
+            isGenerated={isGenerated}
           />
         )}
 
