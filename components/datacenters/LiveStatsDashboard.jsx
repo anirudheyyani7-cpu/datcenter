@@ -239,7 +239,7 @@ function DetailPanel({ zoneId, zoneHealth }) {
   );
 }
 
-export default function LiveStatsDashboard({ dc, zoneHealth, activeZoneId }) {
+export default function LiveStatsDashboard({ dc, zoneHealth, activeZoneId, isGenerated }) {
   const overallStatus = getOverallStatus(zoneHealth);
   const overallCfg = STATUS_CONFIG[overallStatus];
   const zones = Object.keys(ZONE_CONFIG);
@@ -249,7 +249,14 @@ export default function LiveStatsDashboard({ dc, zoneHealth, activeZoneId }) {
       {/* Header */}
       <div className="flex-shrink-0 px-4 py-3 border-b border-[#E2E8F0] flex items-center justify-between">
         <div>
-          <div className="text-xs font-bold text-[#1A1F36]">Live Status Dashboard</div>
+          <div className="flex items-center gap-2">
+            <div className="text-xs font-bold text-[#1A1F36]">Live Status Dashboard</div>
+            {isGenerated && (
+              <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-[#EFF6FF] text-[#0077C8] border border-[#0077C8]/25">
+                ✦ AI-Synthesised
+              </span>
+            )}
+          </div>
           <div className="text-[10px] text-[#6B7280]">{dc?.city}, {dc?.country} · {dc?.tier}</div>
         </div>
         <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border"

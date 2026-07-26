@@ -60,7 +60,7 @@ function getMetrics(zoneId, data) {
   }
 }
 
-export default function HotspotCard({ zoneId, zoneData, position, onClose }) {
+export default function HotspotCard({ zoneId, zoneData, position, onClose, isGenerated }) {
   if (!zoneId || !zoneData) return null;
 
   const zone = ZONE_CONFIG[zoneId];
@@ -91,9 +91,14 @@ export default function HotspotCard({ zoneId, zoneData, position, onClose }) {
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-[#334466]"
           style={{ borderLeftWidth: 3, borderLeftColor: zone.color, borderLeftStyle: 'solid' }}>
-          <div className="flex items-center gap-2">
-            <zone.Icon size={14} style={{ color: zone.color }} />
-            <span className="text-xs font-semibold text-white tracking-wide">{zone.label}</span>
+          <div className="flex items-center gap-2 min-w-0">
+            <zone.Icon size={14} style={{ color: zone.color }} className="flex-shrink-0" />
+            <span className="text-xs font-semibold text-white tracking-wide truncate">{zone.label}</span>
+            {isGenerated && (
+              <span className="px-1.5 py-0.5 rounded-full text-[8px] font-bold bg-[#0077C8]/20 text-[#60a5fa] border border-[#0077C8]/40 flex-shrink-0">
+                ✦ AI
+              </span>
+            )}
           </div>
           <button
             onClick={onClose}
