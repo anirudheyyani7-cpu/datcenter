@@ -26,24 +26,33 @@ const VIEW_LINK = {
   fontSize: 9, color: '#0077C8', textDecoration: 'none', fontWeight: 600,
 };
 
-export default function CalendarListCard({ title = 'Maintenance Calendar', items = [], viewAllHref, viewFullHref }) {
+export default function CalendarListCard({ title = 'Maintenance Calendar', items = [], viewAllHref, viewFullHref, onViewAll, onViewFull, onItemClick }) {
   return (
     <div style={CARD}>
       <div style={HDR}>
         <span style={TITLE_STYLE}>{title}</span>
-        {viewAllHref && <a href={viewAllHref} style={VIEW_LINK}>View Calendar</a>}
+        {onViewAll ? (
+          <button onClick={onViewAll} className="eai-focusable" style={{ ...VIEW_LINK, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View Calendar</button>
+        ) : viewAllHref && <a href={viewAllHref} style={VIEW_LINK}>View Calendar</a>}
       </div>
 
       <div style={{ padding: '8px 14px', display: 'flex', flexDirection: 'column' }}>
         {items.map((item, i) => {
           const tag = TAG_CONFIG[item.tag] ?? TAG_CONFIG.Standard;
+          const Tag = onItemClick ? 'button' : 'div';
           return (
-            <div
+            <Tag
               key={i}
+              type={onItemClick ? 'button' : undefined}
+              onClick={onItemClick ? () => onItemClick(item, i) : undefined}
+              className={onItemClick ? 'eai-focusable' : undefined}
               style={{
                 display: 'flex', alignItems: 'center', gap: 8,
                 padding: '6px 0',
-                borderBottom: i < items.length - 1 ? '1px solid #E2E8F0' : 'none',
+                border: 'none',
+                borderBottomWidth: i < items.length - 1 ? 1 : 0, borderBottomStyle: 'solid', borderBottomColor: '#E2E8F0',
+                background: 'transparent', width: '100%', textAlign: 'left', font: 'inherit',
+                cursor: onItemClick ? 'pointer' : 'default',
               }}
             >
               {/* Date */}
@@ -81,14 +90,18 @@ export default function CalendarListCard({ title = 'Maintenance Calendar', items
               }}>
                 {item.tag}
               </span>
-            </div>
+            </Tag>
           );
         })}
       </div>
 
-      {viewFullHref && (
+      {(onViewFull || viewFullHref) && (
         <div style={{ padding: '7px 14px', borderTop: '1px solid #E2E8F0' }}>
-          <a href={viewFullHref} style={VIEW_LINK}>View Full Calendar →</a>
+          {onViewFull ? (
+            <button onClick={onViewFull} className="eai-focusable" style={{ ...VIEW_LINK, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>View Full Calendar →</button>
+          ) : (
+            <a href={viewFullHref} style={VIEW_LINK}>View Full Calendar →</a>
+          )}
         </div>
       )}
     </div>

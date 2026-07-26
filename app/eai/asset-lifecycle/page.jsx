@@ -1,24 +1,29 @@
 'use client';
-import { useState, useMemo } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import {
-  Search, Filter, Download, Plus, ChevronDown, Home, ChevronLeft, ChevronRight,
+  Search, Filter, Download, Plus, ChevronDown, ChevronUp, Home, ChevronLeft, ChevronRight,
   Package, Activity, Wrench, AlertTriangle, CheckCircle, XCircle, Archive,
   Columns3, ExternalLink,
   AlertCircle, Lightbulb, Thermometer, Cpu,
+  FileSpreadsheet, FileText, FileDown, UploadCloud, ClipboardList, QrCode,
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip as RTooltip } from 'recharts';
 
 import {
   ASSETS, PORTFOLIO, STAGE_META, STATUS_META,
-  getLifecycleStats, getCategoryStats, getAgeProfileData, buildAssetTimeline,
+  CATEGORIES, LIFECYCLE_STAGES, STATUSES, AGE_BUCKETS,
+  getLifecycleStats, getAgeProfileData, buildAssetTimeline,
 } from '@/data/eaiAssetLifecycleMock';
 
-import KpiCard          from '@/components/eai/widgets/KpiCard';
-import DonutChart       from '@/components/eai/widgets/DonutChart';
-import GaugeChart       from '@/components/eai/widgets/GaugeChart';
+import DonutChart        from '@/components/eai/widgets/DonutChart';
+import GaugeChart        from '@/components/eai/widgets/GaugeChart';
 import HorizontalBarList from '@/components/eai/widgets/HorizontalBarList';
-import Stepper          from '@/components/eai/widgets/Stepper';
-import QuickActionsMenu from '@/components/eai/widgets/QuickActionsMenu';
+import Stepper           from '@/components/eai/widgets/Stepper';
+import QuickActionsMenu  from '@/components/eai/widgets/QuickActionsMenu';
+import DetailDrawer, { DrawerTable, DrawerStatRow, DrawerPill } from '@/components/eai/widgets/DetailDrawer';
+import FilterPopover      from '@/components/eai/widgets/FilterPopover';
+import { useToast }       from '@/components/eai/widgets/Toast';
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 const BG    = '#F4F6F9';
@@ -27,6 +32,8 @@ const BORD  = '#E2E8F0';
 const DIM   = '#6B7280';
 const DIMMER = '#9CA3AF';
 const PER_PAGE = 8;
+const LABEL_STYLE = { fontSize: 9, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em' };
+const INPUT_STYLE = { fontSize: 11, padding: '8px 10px', border: `1px solid ${BORD}`, borderRadius: 8, color: '#1A1F36', fontFamily: 'inherit', outline: 'none', width: '100%', boxSizing: 'border-box' };
 
 // ─── Pipeline strip configuration ────────────────────────────────────────────
 const PIPELINE = [
@@ -39,6 +46,113 @@ const PIPELINE = [
   { key: 'eol',         label: 'End of Life',          sub: null,                icon: XCircle,       color: '#EF4444', countKey: 'End of Life',          pctKey: 'End of Life'  },
   { key: 'retired',     label: 'Retired',              sub: null,                icon: Archive,       color: '#6B7280', countKey: 'Retired',              pctKey: 'Retired'      },
 ];
+
+const SORT_FIELD = { asset: 'assetName', category: 'category', stage: 'lifecycleStage', status: 'status', location: 'location', age: 'ageYears' };
+const COLUMNS = [
+  { key: 'assetId',   label: 'Asset ID' },
+  { key: 'assetName', label: 'Asset Name', sortKey: 'asset' },
+  { key: 'category',  label: 'Category',   sortKey: 'category' },
+  { key: 'vendor',    label: 'Vendor' },
+  { key: 'model',     label: 'Model' },
+  { key: 'location',  label: 'Location', sortKey: 'location' },
+  { key: 'status',    label: 'Status',   sortKey: 'status' },
+  { key: 'stage',     label: 'Lifecycle Stage', sortKey: 'stage' },
+  { key: 'age',       label: 'Age', sortKey: 'age' },
+  { key: 'milestone', label: 'Next Milestone' },
+  { key: 'risk',      label: 'Risk Score' },
+];
+
+const STAGE_TO_STATUS = {
+  'In Use': 'Operational', 'Maintenance': 'Maintenance', 'Repair': 'Repair',
+  'Ready for Deployment': 'Ready', 'End of Life': 'EOL', 'Retired': 'EOL', 'Discover': 'Operational',
+};
+
+function ageBucketOf(ageYears) {
+  if (ageYears < 1) return AGE_BUCKETS[0];
+  if (ageYears < 3) return AGE_BUCKETS[1];
+  if (ageYears < 5) return AGE_BUCKETS[2];
+  if (ageYears < 7) return AGE_BUCKETS[3];
+  if (ageYears < 10) return AGE_BUCKETS[4];
+  return AGE_BUCKETS[5];
+}
+
+function nextAssetId(list) {
+  const nums = list.map(a => parseInt(a.assetId.replace('AST-', ''), 10)).filter(n => !Number.isNaN(n));
+  const max = nums.length ? Math.max(...nums) : 1245;
+  return `AST-${String(max + 1).padStart(7, '0')}`;
+}
+
+function formatAnchorDate(daysOffset) {
+  const d = new Date('2026-07-05');
+  d.setDate(d.getDate() + daysOffset);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+// ─── export helpers ──────────────────────────────────────────────────────────
+async function exportWorkbook(sheets, filename) {
+  const XLSX = await import('xlsx');
+  const wb = XLSX.utils.book_new();
+  sheets.forEach(({ name, rows }) => {
+    const ws = XLSX.utils.json_to_sheet(rows);
+    XLSX.utils.book_append_sheet(wb, ws, name.slice(0, 31));
+  });
+  XLSX.writeFile(wb, filename);
+}
+
+async function exportCsv(rows, filename) {
+  const XLSX = await import('xlsx');
+  const ws = XLSX.utils.json_to_sheet(rows);
+  const csv = XLSX.utils.sheet_to_csv(ws);
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+async function exportPanelPdf(el, filename) {
+  const [{ default: html2canvas }, { jsPDF }] = await Promise.all([import('html2canvas'), import('jspdf')]);
+  const canvas = await html2canvas(el, { scale: 2, useCORS: true, backgroundColor: '#FFFFFF' });
+  const imgData = canvas.toDataURL('image/png');
+  const pxToMm = 0.264583 / 2;
+  const w = canvas.width * pxToMm;
+  const h = canvas.height * pxToMm;
+  const doc = new jsPDF({ orientation: w > h ? 'landscape' : 'portrait', unit: 'mm', format: [w, h] });
+  doc.addImage(imgData, 'PNG', 0, 0, w, h);
+  doc.save(filename);
+}
+
+function parseAssetsFile(rows, seedList) {
+  let maxNum = Math.max(1245, ...seedList.map(a => parseInt(a.assetId.replace('AST-', ''), 10) || 0));
+  const norm = row => {
+    const map = {};
+    Object.keys(row).forEach(k => { map[k.trim().toLowerCase().replace(/[\s_]+/g, '')] = String(row[k] ?? '').trim(); });
+    return map;
+  };
+  const pick = (m, keys) => { for (const k of keys) { if (m[k]) return m[k]; } return ''; };
+
+  return rows.map((row, i) => {
+    const m = norm(row);
+    const stageRaw = pick(m, ['lifecyclestage', 'stage']);
+    const lifecycleStage = LIFECYCLE_STAGES.includes(stageRaw) ? stageRaw : 'Discover';
+    const category = CATEGORIES.includes(pick(m, ['category'])) ? pick(m, ['category']) : 'Server';
+    const assetName = pick(m, ['assetname', 'name']) || `Imported Asset ${i + 1}`;
+    const vendor = pick(m, ['vendor']) || 'Unknown';
+    const model = pick(m, ['model']) || 'Unknown';
+    const location = pick(m, ['location']) || 'Unassigned';
+    const serialNumber = pick(m, ['serialnumber', 'serial']) || `SN-IMP-${Date.now()}-${i}`;
+    maxNum += 1;
+    return {
+      assetId: `AST-${String(maxNum).padStart(7, '0')}`,
+      assetName, category, vendor, model, location,
+      status: STAGE_TO_STATUS[lifecycleStage] ?? 'Operational',
+      lifecycleStage, ageYears: 0,
+      nextMilestone: { label: 'Initial Inspection', date: formatAnchorDate(30) },
+      riskScore: 10, serialNumber,
+    };
+  });
+}
 
 // ─── Inline helpers ───────────────────────────────────────────────────────────
 
@@ -56,14 +170,20 @@ function Card({ title, action, children, style }) {
   );
 }
 
-function DropBtn({ children, style }) {
+function DropBtn({ children, style, onClick, active }) {
   return (
-    <button style={{
-      display: 'flex', alignItems: 'center', gap: 4,
-      background: '#F8FAFC', border: `1px solid ${BORD}`,
-      borderRadius: 7, padding: '4px 9px', cursor: 'pointer',
-      color: DIM, fontSize: 9, ...style,
-    }}>{children}</button>
+    <button
+      onClick={onClick}
+      className="eai-focusable"
+      style={{
+        display: 'flex', alignItems: 'center', gap: 4,
+        background: active ? '#EEF2F7' : '#F8FAFC', border: `1px solid ${BORD}`,
+        borderRadius: 7, padding: '4px 9px', cursor: 'pointer',
+        color: DIM, fontSize: 9, ...style,
+      }}
+      onMouseEnter={e => { if (!active) e.currentTarget.style.background = '#EEF2F7'; }}
+      onMouseLeave={e => { if (!active) e.currentTarget.style.background = '#F8FAFC'; }}
+    >{children}</button>
   );
 }
 
@@ -99,10 +219,11 @@ function RiskDot({ score }) {
   );
 }
 
-function StagePipelineCard({ label, sub, Icon, color, count, pct, active, onClick, seed }) {
+function StagePipelineCard({ label, sub, Icon, color, count, pct, active, onClick }) {
   return (
     <button
       onClick={onClick}
+      className="eai-focusable"
       style={{
         background: active ? `${color}18` : CARD,
         border: `1px solid ${active ? color + '44' : BORD}`,
@@ -110,7 +231,7 @@ function StagePipelineCard({ label, sub, Icon, color, count, pct, active, onClic
         display: 'flex', flexDirection: 'column', gap: 4,
         cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s',
         minWidth: 0, overflow: 'hidden',
-        boxShadow: active ? 'none' : '0 1px 2px rgba(16, 24, 40, 0.04)',
+        boxShadow: active ? 'inset 0 0 0 1px ' + color + '30' : '0 1px 2px rgba(16, 24, 40, 0.04)',
       }}
       onMouseEnter={e => { if (!active) e.currentTarget.style.background = '#F4F6F9'; }}
       onMouseLeave={e => { if (!active) e.currentTarget.style.background = CARD; }}
@@ -135,6 +256,15 @@ function StagePipelineCard({ label, sub, Icon, color, count, pct, active, onClic
         <p style={{ fontSize: 8, color: DIM, marginTop: 2 }}>{pct?.toFixed(1)}%</p>
       </div>
     </button>
+  );
+}
+
+function Field({ label, children }) {
+  return (
+    <label style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+      <span style={LABEL_STYLE}>{label}</span>
+      {children}
+    </label>
   );
 }
 
@@ -182,59 +312,487 @@ const INSIGHTS = [
   { text: 'Cooling units in Building A require attention. Failure risk is high.', Icon: Lightbulb, color: '#0077C8' },
 ];
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
-export default function AssetLifecyclePage() {
-  const [selectedAsset,  setSelectedAsset]  = useState(ASSETS[0]);
-  const [searchQ,        setSearchQ]        = useState('');
-  const [stageFilter,    setStageFilter]    = useState(null);
+// ─── drawer-body forms ────────────────────────────────────────────────────────
+function AddAssetForm({ onSubmit, categories, stages }) {
+  const [assetName, setAssetName] = useState('');
+  const [category, setCategory] = useState(categories[0]);
+  const [vendor, setVendor] = useState('');
+  const [model, setModel] = useState('');
+  const [location, setLocation] = useState('');
+  const [serialNumber, setSerialNumber] = useState('');
+  const [stage, setStage] = useState('Discover');
+
+  const valid = assetName.trim() && vendor.trim() && model.trim() && location.trim();
+
+  function submit() {
+    if (!valid) return;
+    onSubmit({ assetName: assetName.trim(), category, vendor: vendor.trim(), model: model.trim(), location: location.trim(), serialNumber: serialNumber.trim(), stage });
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <Field label="Asset Name"><input value={assetName} onChange={e => setAssetName(e.target.value)} placeholder="e.g. Server-Dell-05" style={INPUT_STYLE} /></Field>
+      <Field label="Category">
+        <select value={category} onChange={e => setCategory(e.target.value)} style={INPUT_STYLE}>
+          {categories.map(c => <option key={c} value={c}>{c}</option>)}
+        </select>
+      </Field>
+      <Field label="Vendor"><input value={vendor} onChange={e => setVendor(e.target.value)} placeholder="e.g. Dell" style={INPUT_STYLE} /></Field>
+      <Field label="Model"><input value={model} onChange={e => setModel(e.target.value)} placeholder="e.g. PowerEdge R760" style={INPUT_STYLE} /></Field>
+      <Field label="Location"><input value={location} onChange={e => setLocation(e.target.value)} placeholder="e.g. Singapore / Bldg A / Fl 2 / Rack A06" style={INPUT_STYLE} /></Field>
+      <Field label="Serial Number (optional)"><input value={serialNumber} onChange={e => setSerialNumber(e.target.value)} placeholder="e.g. DL-R760-00001" style={INPUT_STYLE} /></Field>
+      <Field label="Initial Stage">
+        <select value={stage} onChange={e => setStage(e.target.value)} style={INPUT_STYLE}>
+          {stages.map(s => <option key={s} value={s}>{s}</option>)}
+        </select>
+      </Field>
+      <button
+        type="button" onClick={submit} disabled={!valid} className="eai-focusable"
+        style={{
+          padding: '9px 0', borderRadius: 8, border: 'none', fontSize: 11, fontWeight: 700,
+          cursor: valid ? 'pointer' : 'default',
+          background: valid ? '#7C3AED' : '#E2E8F0', color: valid ? '#fff' : '#9CA3AF',
+        }}
+      >Add Asset</button>
+    </div>
+  );
+}
+
+function BulkImportForm({ onFile }) {
+  const [fileName, setFileName] = useState('');
+  const [busy, setBusy] = useState(false);
+  const inputRef = useRef(null);
+
+  async function handleChange(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setFileName(file.name);
+    setBusy(true);
+    await onFile(file);
+    setBusy(false);
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div
+        onClick={() => inputRef.current?.click()}
+        role="button" tabIndex={0}
+        onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); inputRef.current?.click(); } }}
+        className="eai-focusable"
+        style={{
+          border: '1.5px dashed #CBD5E1', borderRadius: 10, padding: '28px 16px',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, cursor: 'pointer', background: '#F8FAFC',
+        }}
+      >
+        <UploadCloud size={22} style={{ color: '#7C3AED' }} />
+        <p style={{ fontSize: 11, color: '#1A1F36', fontWeight: 600 }}>{fileName || 'Click to choose a CSV or XLSX file'}</p>
+        <p style={{ fontSize: 9, color: '#9CA3AF' }}>{busy ? 'Importing…' : 'or drag and drop'}</p>
+        <input ref={inputRef} type="file" accept=".csv,.xlsx,.xls" onChange={handleChange} style={{ display: 'none' }} />
+      </div>
+      <div style={{ background: '#F8FAFC', border: `1px solid ${BORD}`, borderRadius: 8, padding: '10px 12px' }}>
+        <p style={{ fontSize: 9, fontWeight: 700, color: '#1A1F36', marginBottom: 4 }}>Column Mapping</p>
+        <p style={{ fontSize: 9, color: '#6B7280', lineHeight: 1.6 }}>
+          Recognized headers: Asset Name, Category, Vendor, Model, Location, Serial Number, Lifecycle Stage.
+          Unrecognized columns are ignored; missing fields fall back to sensible defaults.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function WorkOrderForm({ asset, onSubmit }) {
+  const [priority, setPriority] = useState('Medium');
+  const [assignee, setAssignee] = useState('');
+  const [description, setDescription] = useState('');
+
+  function submit() {
+    if (!description.trim()) return;
+    onSubmit({ priority, assignee: assignee.trim(), description: description.trim() });
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ background: '#F8FAFC', border: `1px solid ${BORD}`, borderRadius: 8, padding: '8px 10px' }}>
+        <p style={{ fontSize: 9, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Asset</p>
+        <p style={{ fontSize: 11, fontWeight: 700, color: '#1A1F36' }}>{asset.assetName} <span style={{ color: '#9CA3AF', fontWeight: 400 }}>({asset.assetId})</span></p>
+      </div>
+      <Field label="Priority">
+        <select value={priority} onChange={e => setPriority(e.target.value)} style={INPUT_STYLE}>
+          {['Low', 'Medium', 'High', 'Critical'].map(p => <option key={p} value={p}>{p}</option>)}
+        </select>
+      </Field>
+      <Field label="Assignee (optional)"><input value={assignee} onChange={e => setAssignee(e.target.value)} placeholder="e.g. Facilities Team" style={INPUT_STYLE} /></Field>
+      <Field label="Description"><textarea value={description} onChange={e => setDescription(e.target.value)} rows={4} style={{ ...INPUT_STYLE, resize: 'vertical' }} /></Field>
+      <button
+        type="button" onClick={submit} disabled={!description.trim()} className="eai-focusable"
+        style={{
+          padding: '9px 0', borderRadius: 8, border: 'none', fontSize: 11, fontWeight: 700,
+          cursor: description.trim() ? 'pointer' : 'default',
+          background: description.trim() ? '#0077C8' : '#E2E8F0', color: description.trim() ? '#fff' : '#9CA3AF',
+        }}
+      >Create Work Order</button>
+    </div>
+  );
+}
+
+// ─── page (inner — uses useSearchParams, must be wrapped in Suspense) ────────
+function AssetLifecycleInner() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { showToast, ToastHost } = useToast();
+  const tableRef = useRef(null);
+
+  const [assets, setAssets] = useState(ASSETS);
+  const [selectedAsset, setSelectedAssetState] = useState(() => {
+    const id = searchParams.get('assetId');
+    return (id && ASSETS.find(a => a.assetId === id)) || ASSETS[0];
+  });
+  const [searchQ,        setSearchQState]     = useState(() => searchParams.get('q') || '');
+  const [stageFilter,    setStageFilterState] = useState(() => searchParams.get('stage') || null);
   const [catFilter,      setCatFilter]      = useState('');
   const [locationFilter, setLocationFilter] = useState('');
   const [statusFilter,   setStatusFilter]   = useState('');
   const [vendorFilter,   setVendorFilter]   = useState('');
+  const [ageFilter,      setAgeFilter]      = useState('');
   const [page,           setPage]           = useState(1);
+  const [sortState,      setSortState]      = useState(null);
+
+  const [drawer, setDrawer] = useState(null);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [exportOpen, setExportOpen] = useState(false);
+  const [addMenuOpen, setAddMenuOpen] = useState(false);
+
+  const updateURL = useCallback((patch) => {
+    const params = new URLSearchParams(searchParams.toString());
+    Object.entries(patch).forEach(([k, v]) => {
+      if (v === undefined || v === null || v === '') params.delete(k);
+      else params.set(k, v);
+    });
+    const qs = params.toString();
+    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  }, [pathname, router, searchParams]);
+
+  function setSearchQ(v) { setSearchQState(v); updateURL({ q: v }); }
+  function setStageFilter(v) { setStageFilterState(v); updateURL({ stage: v }); }
+  function selectAsset(asset) { setSelectedAssetState(asset); updateURL({ assetId: asset.assetId }); }
+  function handleStageSelect(stage) { setStageFilter(stageFilter === stage ? null : stage); }
+  function openDrawer(kind, payload) { setDrawer({ kind, payload }); }
+  function closeDrawer() { setDrawer(null); }
+
+  // Bug fix: reset to page 1 whenever ANY filter or search input changes,
+  // regardless of which control (dropdown, popover, stage card) changed it.
+  useEffect(() => {
+    setPage(1);
+  }, [searchQ, stageFilter, catFilter, locationFilter, statusFilter, vendorFilter, ageFilter]);
 
   // Derived data
   const lifecycleStats = useMemo(() => getLifecycleStats(), []);
   const ageProfileData = useMemo(() => getAgeProfileData(), []);
   const timeline       = useMemo(() => buildAssetTimeline(selectedAsset), [selectedAsset]);
 
-  // Portfolio-level stage counts from PORTFOLIO (enterprise scale)
   const pCounts = PORTFOLIO.byStage;
   const pTotal  = PORTFOLIO.total;
 
-  // Table filtering
+  const vendors   = useMemo(() => [...new Set(assets.map(a => a.vendor))].sort(), [assets]);
+  const locations = useMemo(() => [...new Set(assets.map(a => a.location.split('/')[0].trim()))].sort(), [assets]);
+
+  // Table filtering — bug fix: `locationFilter` is now included in the deps
+  // array below, so the Location dropdown actually recomputes the table.
   const filtered = useMemo(() => {
     const q = searchQ.toLowerCase();
-    return ASSETS.filter(a => {
+    return assets.filter(a => {
       if (q && !`${a.assetId} ${a.assetName} ${a.vendor} ${a.model} ${a.location}`.toLowerCase().includes(q)) return false;
       if (stageFilter && a.lifecycleStage !== stageFilter) return false;
       if (catFilter      && a.category                           !== catFilter)      return false;
       if (locationFilter && !a.location.toLowerCase().includes(locationFilter.toLowerCase())) return false;
       if (statusFilter   && a.status                            !== statusFilter)   return false;
       if (vendorFilter   && a.vendor                            !== vendorFilter)   return false;
+      if (ageFilter       && ageBucketOf(a.ageYears)              !== ageFilter)      return false;
       return true;
     });
-  }, [searchQ, stageFilter, catFilter, statusFilter, vendorFilter]);
+  }, [assets, searchQ, stageFilter, catFilter, locationFilter, statusFilter, vendorFilter, ageFilter]);
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
-  const pageData   = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+  const sorted = useMemo(() => {
+    if (!sortState) return filtered;
+    const field = SORT_FIELD[sortState.key];
+    const mult = sortState.dir === 'asc' ? 1 : -1;
+    return [...filtered].sort((a, b) => {
+      const av = a[field], bv = b[field];
+      if (typeof av === 'number') return (av - bv) * mult;
+      return String(av).localeCompare(String(bv)) * mult;
+    });
+  }, [filtered, sortState]);
 
-  const vendors    = [...new Set(ASSETS.map(a => a.vendor))].sort();
-  const locations  = [...new Set(ASSETS.map(a => a.location.split('/')[0].trim()))].sort();
+  function handleSort(key) {
+    setSortState(prev => (prev && prev.key === key) ? (prev.dir === 'asc' ? { key, dir: 'desc' } : null) : { key, dir: 'asc' });
+  }
+
+  const totalPages = Math.max(1, Math.ceil(sorted.length / PER_PAGE));
+  const pageData   = sorted.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
   // Stage counts from actual ASSETS for sidebar badges
   const stageCounts = lifecycleStats.counts;
 
-  const handleStageSelect = stage => {
-    setStageFilter(s => s === stage ? null : stage);
-    setPage(1);
+  // ─── Filters popover ─────────────────────────────────────────────────────
+  const FILTER_GROUPS = useMemo(() => [
+    { key: 'category', label: 'Category',         options: CATEGORIES,       single: true },
+    { key: 'location', label: 'Location',          options: locations,        single: true },
+    { key: 'status',   label: 'Status',            options: STATUSES,         single: true },
+    { key: 'vendor',   label: 'Vendor',            options: vendors,          single: true },
+    { key: 'stage',    label: 'Lifecycle Stage',   options: LIFECYCLE_STAGES, single: true },
+    { key: 'age',      label: 'Asset Age',         options: AGE_BUCKETS,      single: true },
+  ], [locations, vendors]);
+
+  const filterSelected = {
+    category: catFilter ? [catFilter] : [],
+    location: locationFilter ? [locationFilter] : [],
+    status: statusFilter ? [statusFilter] : [],
+    vendor: vendorFilter ? [vendorFilter] : [],
+    stage: stageFilter ? [stageFilter] : [],
+    age: ageFilter ? [ageFilter] : [],
   };
+  const activeFilterCount = Object.values(filterSelected).reduce((n, arr) => n + arr.length, 0);
+
+  function handleFilterToggle(groupKey, value) {
+    switch (groupKey) {
+      case 'category': setCatFilter(v => (v === value ? '' : value)); break;
+      case 'location': setLocationFilter(v => (v === value ? '' : value)); break;
+      case 'status':   setStatusFilter(v => (v === value ? '' : value)); break;
+      case 'vendor':   setVendorFilter(v => (v === value ? '' : value)); break;
+      case 'stage':    handleStageSelect(value); break;
+      case 'age':      setAgeFilter(v => (v === value ? '' : value)); break;
+      default: break;
+    }
+  }
+
+  function clearAllFilters() {
+    setCatFilter(''); setLocationFilter(''); setStatusFilter(''); setVendorFilter(''); setAgeFilter('');
+    setStageFilter(null);
+    showToast('Filters cleared', 'info');
+  }
+
+  // ─── Add / import / work order actions ──────────────────────────────────
+  function addAsset(data) {
+    const id = nextAssetId(assets);
+    const asset = {
+      assetId: id,
+      assetName: data.assetName,
+      category: data.category,
+      vendor: data.vendor,
+      model: data.model,
+      location: data.location,
+      status: STAGE_TO_STATUS[data.stage] ?? 'Operational',
+      lifecycleStage: data.stage,
+      ageYears: 0,
+      nextMilestone: { label: 'Initial Inspection', date: formatAnchorDate(30) },
+      riskScore: 8,
+      serialNumber: data.serialNumber || `SN-${id.replace('AST-', '')}`,
+    };
+    setAssets(prev => [asset, ...prev]);
+    selectAsset(asset);
+    closeDrawer();
+    showToast(`${asset.assetName} added to the asset registry`, 'success');
+  }
+
+  async function handleBulkImportFile(file) {
+    try {
+      const XLSX = await import('xlsx');
+      const buf = await file.arrayBuffer();
+      const wb = XLSX.read(buf, { type: 'array' });
+      const sheet = wb.Sheets[wb.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json(sheet, { defval: '' });
+      if (!rows.length) { showToast('No rows found in that file', 'error'); return; }
+      const imported = parseAssetsFile(rows, assets);
+      setAssets(prev => [...imported, ...prev]);
+      showToast(`Imported ${imported.length} assets`, 'success');
+      closeDrawer();
+    } catch {
+      showToast('Import failed — check the file format', 'error');
+    }
+  }
+
+  function submitWorkOrder(asset, data) {
+    showToast(`Work order created for ${asset.assetName} (${data.priority} priority)`, 'success');
+    closeDrawer();
+  }
+
+  // ─── Export ──────────────────────────────────────────────────────────────
+  async function handleExport(kind) {
+    setExportOpen(false);
+    const dateStr = new Date().toISOString().slice(0, 10);
+    try {
+      if (kind === 'pdf') {
+        if (!tableRef.current) return;
+        await exportPanelPdf(tableRef.current, `eai-assets-${dateStr}.pdf`);
+        showToast('PDF exported successfully', 'success');
+        return;
+      }
+      const rows = sorted.map(a => ({
+        'Asset ID': a.assetId, 'Asset Name': a.assetName, Category: a.category, Vendor: a.vendor,
+        Model: a.model, Location: a.location, Status: a.status, 'Lifecycle Stage': a.lifecycleStage,
+        'Age (yrs)': a.ageYears, 'Next Milestone': a.nextMilestone.label, 'Milestone Date': a.nextMilestone.date,
+        'Risk Score': a.riskScore,
+      }));
+      if (kind === 'xlsx') await exportWorkbook([{ name: 'Assets', rows }], `eai-assets-export-${dateStr}.xlsx`);
+      else await exportCsv(rows, `eai-assets-export-${dateStr}.csv`);
+      showToast(`${kind.toUpperCase()} exported successfully (${rows.length} assets)`, 'success');
+    } catch {
+      showToast('Export failed — please try again', 'error');
+    }
+  }
 
   const TH = { fontSize: 9, fontWeight: 700, color: DIMMER, textTransform: 'uppercase', letterSpacing: '0.07em', padding: '8px 10px', whiteSpace: 'nowrap' };
   const TD = { fontSize: 10, color: '#1A1F36', padding: '9px 10px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: 0 };
 
+  // ─── drawer content ──────────────────────────────────────────────────────
+  function renderDrawer() {
+    if (!drawer) return <DetailDrawer open={false} onClose={closeDrawer} />;
+    const { kind, payload } = drawer;
+
+    if (kind === 'asset-full') {
+      const asset = payload;
+      const fullTimeline = buildAssetTimeline(asset);
+      const maintenanceEvents = fullTimeline.filter(s => s.label === 'Maintenance');
+      const statusColor = STATUS_META[asset.status]?.color ?? '#6B7280';
+      return (
+        <DetailDrawer
+          open title={asset.assetName} subtitle={`${asset.assetId} · ${asset.status}`}
+          icon={<Package size={16} color={statusColor} />} accentColor={statusColor} width={480} onClose={closeDrawer}
+          footer={
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button onClick={() => openDrawer('work-order', asset)} className="eai-focusable" style={{ flex: 1, padding: '9px 0', borderRadius: 8, border: 'none', background: '#0077C8', color: '#fff', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>Create Work Order</button>
+              <button onClick={() => router.push('/eai/real-estate-explorer')} className="eai-focusable" style={{ flex: 1, padding: '9px 0', borderRadius: 8, border: `1px solid ${BORD}`, background: '#F8FAFC', color: '#1A1F36', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>View in Real Estate Explorer</button>
+            </div>
+          }
+        >
+          <DrawerStatRow items={[
+            { label: 'Category', value: asset.category },
+            { label: 'Status', value: asset.status, color: statusColor },
+            { label: 'Stage', value: asset.lifecycleStage },
+            { label: 'Age', value: `${asset.ageYears} yrs` },
+            { label: 'Risk Score', value: asset.riskScore },
+          ]} />
+          <p style={{ fontSize: 10, fontWeight: 700, color: '#1A1F36', marginBottom: 8 }}>Full Timeline</p>
+          <div style={{ marginBottom: 16 }}><Stepper stages={fullTimeline} /></div>
+          <p style={{ fontSize: 10, fontWeight: 700, color: '#1A1F36', marginBottom: 8 }}>Specifications</p>
+          <DrawerTable columns={[{ key: 'field', label: 'Field' }, { key: 'val', label: 'Value', align: 'right' }]} rows={[
+            { field: 'Vendor', val: asset.vendor },
+            { field: 'Model', val: asset.model },
+            { field: 'Serial Number', val: asset.serialNumber },
+            { field: 'Location', val: asset.location },
+            { field: 'Next Milestone', val: `${asset.nextMilestone.label} — ${asset.nextMilestone.date}` },
+          ]} keyField="field" />
+          {maintenanceEvents.length > 0 && (
+            <>
+              <p style={{ fontSize: 10, fontWeight: 700, color: '#1A1F36', margin: '16px 0 8px' }}>Maintenance History</p>
+              <DrawerTable columns={[{ key: 'label', label: 'Event' }, { key: 'date', label: 'Date', align: 'right' }]} rows={maintenanceEvents} keyField="date" />
+            </>
+          )}
+        </DetailDrawer>
+      );
+    }
+
+    if (kind === 'milestones-all') {
+      return (
+        <DetailDrawer open title="Upcoming Milestones" subtitle={`${MILESTONES.length} categories`} icon={<AlertCircle size={16} color="#F59E0B" />} accentColor="#F59E0B" onClose={closeDrawer}>
+          <DrawerTable columns={[
+            { key: 'label', label: 'Milestone' },
+            { key: 'count', label: 'Count', align: 'right' },
+          ]} rows={MILESTONES} keyField="label" />
+        </DetailDrawer>
+      );
+    }
+
+    if (kind === 'insights-all') {
+      return (
+        <DetailDrawer
+          open title="AI Insights & Recommendations" subtitle={`${INSIGHTS.length} insights`}
+          icon={<Lightbulb size={16} color="#0077C8" />} accentColor="#0077C8" onClose={closeDrawer}
+          footer={
+            <button onClick={() => showToast('Analysis refreshed — no new insights at this time', 'info')} className="eai-focusable" style={{ width: '100%', padding: '9px 0', borderRadius: 8, border: 'none', background: '#0077C8', color: '#fff', fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>
+              Run Analysis
+            </button>
+          }
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {INSIGHTS.map((ins, i) => (
+              <div key={i} style={{ display: 'flex', gap: 10, padding: '10px 12px', background: '#F8FAFC', border: `1px solid ${BORD}`, borderRadius: 10 }}>
+                <div style={{ width: 24, height: 24, borderRadius: 7, background: ins.color + '20', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <ins.Icon size={12} style={{ color: ins.color }} />
+                </div>
+                <p style={{ fontSize: 11, color: '#1A1F36', lineHeight: 1.6 }}>{ins.text}</p>
+              </div>
+            ))}
+          </div>
+        </DetailDrawer>
+      );
+    }
+
+    if (kind === 'risk-analysis') {
+      return (
+        <DetailDrawer open title="Lifecycle Risk Analysis" subtitle="Portfolio-wide risk factors" icon={<AlertTriangle size={16} color="#EF4444" />} accentColor="#EF4444" onClose={closeDrawer}>
+          <DrawerTable columns={[
+            { key: 'label', label: 'Risk Factor' },
+            { key: 'score', label: 'Score', align: 'right', render: r => <DrawerPill label={`${r.score}/100`} color={r.score >= 70 ? '#EF4444' : r.score >= 40 ? '#F59E0B' : '#00A36C'} /> },
+          ]} rows={RISK_FACTORS} keyField="label" />
+        </DetailDrawer>
+      );
+    }
+
+    if (kind === 'qr') {
+      const asset = payload;
+      const assetUrl = typeof window !== 'undefined' ? `${window.location.origin}/eai/asset-lifecycle?assetId=${asset.assetId}` : `/eai/asset-lifecycle?assetId=${asset.assetId}`;
+      return (
+        <DetailDrawer open title="Asset QR Reference" subtitle={asset.assetId} icon={<QrCode size={16} color="#0077C8" />} accentColor="#0077C8" onClose={closeDrawer}>
+          <DrawerStatRow items={[{ label: 'Asset ID', value: asset.assetId }, { label: 'Asset Name', value: asset.assetName }]} />
+          <p style={{ fontSize: 10, fontWeight: 700, color: '#1A1F36', marginBottom: 6 }}>Direct Link</p>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', background: '#F8FAFC', border: `1px solid ${BORD}`, borderRadius: 8, padding: '8px 10px' }}>
+            <span style={{ fontSize: 10, color: '#6B7280', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontFamily: 'ui-monospace,monospace' }}>{assetUrl}</span>
+            <button
+              onClick={() => { navigator.clipboard?.writeText(assetUrl); showToast('Link copied to clipboard', 'success'); }}
+              className="eai-focusable"
+              style={{ fontSize: 9, fontWeight: 700, color: '#0077C8', background: 'transparent', border: '1px solid rgba(0,119,200,0.3)', borderRadius: 6, padding: '4px 8px', cursor: 'pointer', flexShrink: 0 }}
+            >Copy</button>
+          </div>
+          <p style={{ fontSize: 10, color: '#9CA3AF', marginTop: 10, lineHeight: 1.5 }}>Scan the printed asset tag or share this link to open this asset's record directly.</p>
+        </DetailDrawer>
+      );
+    }
+
+    if (kind === 'add-asset') {
+      return (
+        <DetailDrawer open title="Add Asset" subtitle="Asset Lifecycle" icon={<Plus size={16} color="#7C3AED" />} accentColor="#7C3AED" onClose={closeDrawer}>
+          <AddAssetForm onSubmit={addAsset} categories={CATEGORIES} stages={LIFECYCLE_STAGES} />
+        </DetailDrawer>
+      );
+    }
+
+    if (kind === 'bulk-import') {
+      return (
+        <DetailDrawer open title="Bulk Import Assets" subtitle="CSV / XLSX" icon={<UploadCloud size={16} color="#7C3AED" />} accentColor="#7C3AED" onClose={closeDrawer}>
+          <BulkImportForm onFile={handleBulkImportFile} />
+        </DetailDrawer>
+      );
+    }
+
+    if (kind === 'work-order') {
+      const asset = payload;
+      return (
+        <DetailDrawer open title="Create Work Order" subtitle={`${asset.assetName} · ${asset.assetId}`} icon={<ClipboardList size={16} color="#0077C8" />} accentColor="#0077C8" onClose={closeDrawer}>
+          <WorkOrderForm asset={asset} onSubmit={data => submitWorkOrder(asset, data)} />
+        </DetailDrawer>
+      );
+    }
+
+    return <DetailDrawer open={false} onClose={closeDrawer} />;
+  }
+
   return (
     <div style={{ height: 'calc(100vh - 56px)', display: 'flex', flexDirection: 'column', overflow: 'hidden', background: BG }}>
+      <style>{`
+        .eai-focusable:focus-visible { outline: 2px solid #0077C8; outline-offset: 2px; border-radius: 4px; }
+      `}</style>
 
       {/* ── Page Header ─────────────────────────────────────────────────── */}
       <div style={{
@@ -253,7 +811,7 @@ export default function AssetLifecyclePage() {
             <Search size={12} style={{ color: DIM, flexShrink: 0 }} />
             <input
               value={searchQ}
-              onChange={e => { setSearchQ(e.target.value); setPage(1); }}
+              onChange={e => setSearchQ(e.target.value)}
               placeholder="Search assets, serial no, model, vendor, or location..."
               style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: '#1A1F36', fontSize: 11 }}
             />
@@ -264,21 +822,80 @@ export default function AssetLifecyclePage() {
         <div style={{ flex: 1 }} />
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
-          <DropBtn><Filter size={11} /> Filters</DropBtn>
-          <DropBtn><Download size={11} /> Export <ChevronDown size={9} /></DropBtn>
-          <button style={{
-            display: 'flex', alignItems: 'center', gap: 5, padding: '6px 12px 6px 10px',
-            background: '#7C3AED', border: '1px solid #8B5CF6', borderRadius: 8,
-            color: '#fff', fontSize: 11, fontWeight: 700, cursor: 'pointer',
-          }}>
-            <Plus size={13} /> Add Asset <ChevronDown size={10} style={{ opacity: 0.7 }} />
-          </button>
+          <div style={{ position: 'relative' }}>
+            <DropBtn active={filtersOpen} onClick={() => { setFiltersOpen(o => !o); setExportOpen(false); setAddMenuOpen(false); }}>
+              <Filter size={11} /> Filters
+              {activeFilterCount > 0 && (
+                <span style={{ fontSize: 8, fontWeight: 700, background: '#0077C8', color: '#fff', borderRadius: 20, padding: '1px 5px', marginLeft: 2 }}>{activeFilterCount}</span>
+              )}
+            </DropBtn>
+            <FilterPopover open={filtersOpen} onClose={() => setFiltersOpen(false)} groups={FILTER_GROUPS} selected={filterSelected} onToggle={handleFilterToggle} onClear={clearAllFilters} />
+          </div>
+
+          <div style={{ position: 'relative' }}>
+            <DropBtn active={exportOpen} onClick={() => { setExportOpen(o => !o); setFiltersOpen(false); setAddMenuOpen(false); }}>
+              <Download size={11} /> Export <ChevronDown size={9} />
+            </DropBtn>
+            {exportOpen && (
+              <div style={{ position: 'absolute', top: 'calc(100% + 6px)', right: 0, zIndex: 400, width: 190, background: '#fff', border: `1px solid ${BORD}`, borderRadius: 10, boxShadow: '0 8px 24px rgba(16,24,40,0.12)', overflow: 'hidden' }}>
+                {[
+                  { key: 'csv',  label: 'Export view (CSV)',  Icon: FileDown },
+                  { key: 'xlsx', label: 'Export view (XLSX)', Icon: FileSpreadsheet },
+                  { key: 'pdf',  label: 'Export PDF',         Icon: FileText },
+                ].map(({ key, label, Icon }) => (
+                  <button
+                    key={key} type="button" onClick={() => handleExport(key)} className="eai-focusable"
+                    style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%', padding: '8px 12px', border: 'none', background: 'transparent', cursor: 'pointer', color: '#374151', fontSize: 11 }}
+                    onMouseEnter={e => e.currentTarget.style.background = '#F8FAFC'}
+                    onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                  >
+                    <Icon size={12} style={{ color: '#0077C8' }} /> {label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div style={{ position: 'relative' }}>
+            <button
+              onClick={() => { setAddMenuOpen(o => !o); setFiltersOpen(false); setExportOpen(false); }}
+              className="eai-focusable"
+              style={{
+                display: 'flex', alignItems: 'center', gap: 5, padding: '6px 12px 6px 10px',
+                background: '#7C3AED', border: '1px solid #8B5CF6', borderRadius: 8,
+                color: '#fff', fontSize: 11, fontWeight: 700, cursor: 'pointer',
+              }}
+            >
+              <Plus size={13} /> Add Asset <ChevronDown size={10} style={{ opacity: 0.7, transform: addMenuOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.15s' }} />
+            </button>
+            {addMenuOpen && (
+              <div style={{ position: 'absolute', top: 'calc(100% + 6px)', right: 0, zIndex: 400, width: 170, background: '#fff', border: `1px solid ${BORD}`, borderRadius: 10, boxShadow: '0 8px 24px rgba(16,24,40,0.12)', overflow: 'hidden' }}>
+                <button
+                  type="button" onClick={() => { setAddMenuOpen(false); openDrawer('add-asset'); }} className="eai-focusable"
+                  style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%', padding: '8px 12px', border: 'none', background: 'transparent', cursor: 'pointer', color: '#374151', fontSize: 11 }}
+                  onMouseEnter={e => e.currentTarget.style.background = '#F8FAFC'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                >
+                  <Plus size={12} style={{ color: '#7C3AED' }} /> Add Asset
+                </button>
+                <button
+                  type="button" onClick={() => { setAddMenuOpen(false); openDrawer('bulk-import'); }} className="eai-focusable"
+                  style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%', padding: '8px 12px', border: 'none', background: 'transparent', cursor: 'pointer', color: '#374151', fontSize: 11 }}
+                  onMouseEnter={e => e.currentTarget.style.background = '#F8FAFC'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                >
+                  <UploadCloud size={12} style={{ color: '#7C3AED' }} /> Bulk Import
+                </button>
+              </div>
+            )}
+          </div>
+
           <QuickActionsMenu items={[
-            { iconKey: 'Plus',        label: 'Add New Asset'      },
-            { iconKey: 'Upload',      label: 'Bulk Import Assets' },
-            { iconKey: 'ClipboardList',label: 'Create Work Order' },
-            { iconKey: 'BarChart2',   label: 'Generate Report'    },
-            { iconKey: 'Download',    label: 'Export Data'        },
+            { iconKey: 'Plus',         label: 'Add New Asset',      onClick: () => openDrawer('add-asset') },
+            { iconKey: 'Upload',       label: 'Bulk Import Assets', onClick: () => openDrawer('bulk-import') },
+            { iconKey: 'ClipboardList',label: 'Create Work Order',  onClick: () => openDrawer('work-order', selectedAsset) },
+            { iconKey: 'BarChart2',    label: 'Generate Report',    onClick: () => setExportOpen(true) },
+            { iconKey: 'Download',     label: 'Export Data',        onClick: () => setExportOpen(true) },
           ]} />
         </div>
       </div>
@@ -290,6 +907,19 @@ export default function AssetLifecyclePage() {
         <div style={{ flex: 1, overflowY: 'auto', padding: '14px 18px', display: 'flex', flexDirection: 'column', gap: 12, minWidth: 0 }}>
 
           {/* ── Pipeline strip (8 stage cards) ──────────────────────────── */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span style={{ fontSize: 10, fontWeight: 700, color: DIM, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Lifecycle Pipeline</span>
+            <button
+              type="button" onClick={() => openDrawer('add-asset')} className="eai-focusable"
+              style={{
+                display: 'flex', alignItems: 'center', gap: 4, fontSize: 9, fontWeight: 700, color: '#7C3AED',
+                background: 'rgba(124,58,237,0.08)', border: '1px solid rgba(124,58,237,0.25)', borderRadius: 7,
+                padding: '4px 9px', cursor: 'pointer',
+              }}
+            >
+              <Plus size={10} /> Add Asset
+            </button>
+          </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', gap: 8 }}>
             {PIPELINE.map(p => {
               const count = p.countKey ? pCounts[p.countKey] : pTotal;
@@ -383,14 +1013,18 @@ export default function AssetLifecyclePage() {
                   );
                 })}
               </div>
-              <button style={{ marginTop: 10, fontSize: 9, color: '#0077C8', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, padding: 0 }}>
+              <button
+                onClick={() => openDrawer('risk-analysis')}
+                className="eai-focusable"
+                style={{ marginTop: 10, fontSize: 9, color: '#0077C8', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, padding: 0 }}
+              >
                 View Risk Analysis <ExternalLink size={9} />
               </button>
             </Card>
           </div>
 
           {/* ── Asset Lifecycle Tracker ──────────────────────────────────── */}
-          <div style={{ background: CARD, border: `1px solid ${BORD}`, borderRadius: 14, overflow: 'hidden' }}>
+          <div ref={tableRef} style={{ background: CARD, border: `1px solid ${BORD}`, borderRadius: 14, overflow: 'hidden' }}>
             {/* Tracker header */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderBottom: `1px solid ${BORD}`, gap: 10, flexWrap: 'wrap' }}>
               <span style={{ fontSize: 11, fontWeight: 700, color: '#1A1F36', flexShrink: 0 }}>Asset Lifecycle Tracker</span>
@@ -398,20 +1032,20 @@ export default function AssetLifecyclePage() {
                 {/* In-table search */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#F8FAFC', border: `1px solid ${BORD}`, borderRadius: 7, padding: '4px 10px', minWidth: 160 }}>
                   <Search size={10} style={{ color: DIM, flexShrink: 0 }} />
-                  <input value={searchQ} onChange={e => { setSearchQ(e.target.value); setPage(1); }}
+                  <input value={searchQ} onChange={e => setSearchQ(e.target.value)}
                     placeholder="Search assets..."
                     style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: '#1A1F36', fontSize: 10, minWidth: 0 }} />
                 </div>
                 {/* Filter dropdowns */}
                 {[
-                  { label: 'All Categories', value: catFilter,      set: setCatFilter,      opts: ['Server','Storage','Network','Power','Cooling','Security'] },
+                  { label: 'All Categories', value: catFilter,      set: setCatFilter,      opts: CATEGORIES },
                   { label: 'All Locations',  value: locationFilter, set: setLocationFilter, opts: locations },
-                  { label: 'All Statuses',   value: statusFilter,   set: setStatusFilter,   opts: ['Operational','Maintenance','Repair','EOL','Ready'] },
+                  { label: 'All Statuses',   value: statusFilter,   set: setStatusFilter,   opts: STATUSES },
                   { label: 'All Vendors',    value: vendorFilter,   set: setVendorFilter,   opts: vendors },
                 ].map(f => (
                   <select key={f.label}
                     value={f.value}
-                    onChange={e => { f.set(e.target.value); setPage(1); }}
+                    onChange={e => f.set(e.target.value)}
                     style={{
                       background: '#F8FAFC', border: `1px solid ${BORD}`,
                       borderRadius: 7, padding: '4px 8px', color: f.value ? '#1A1F36' : DIM,
@@ -444,8 +1078,24 @@ export default function AssetLifecyclePage() {
                 </colgroup>
                 <thead>
                   <tr style={{ borderBottom: `1px solid ${BORD}` }}>
-                    {['Asset ID','Asset Name','Category','Vendor','Model','Location','Status','Lifecycle Stage','Age','Next Milestone','Risk Score'].map(h => (
-                      <th key={h} style={{ ...TH, textAlign: 'left' }}>{h}</th>
+                    {COLUMNS.map(col => (
+                      <th key={col.key} style={{ ...TH, textAlign: 'left' }}>
+                        {col.sortKey ? (
+                          <button
+                            type="button" onClick={() => handleSort(col.sortKey)} className="eai-focusable"
+                            aria-label={`Sort by ${col.label}`}
+                            style={{
+                              display: 'flex', alignItems: 'center', gap: 2, border: 'none', background: 'transparent',
+                              cursor: 'pointer', padding: 0, fontSize: 9, fontWeight: 700,
+                              color: sortState?.key === col.sortKey ? '#0077C8' : DIMMER,
+                              textTransform: 'uppercase', letterSpacing: '0.07em',
+                            }}
+                          >
+                            {col.label}
+                            {sortState?.key === col.sortKey ? (sortState.dir === 'asc' ? <ChevronUp size={9} /> : <ChevronDown size={9} />) : null}
+                          </button>
+                        ) : col.label}
+                      </th>
                     ))}
                   </tr>
                 </thead>
@@ -455,7 +1105,8 @@ export default function AssetLifecyclePage() {
                     return (
                       <tr
                         key={asset.assetId}
-                        onClick={() => setSelectedAsset(asset)}
+                        onClick={() => selectAsset(asset)}
+                        onDoubleClick={() => openDrawer('asset-full', asset)}
                         style={{
                           borderBottom: `1px solid ${BORD}`,
                           background: isSel ? 'rgba(0,119,200,0.10)' : 'transparent',
@@ -491,7 +1142,7 @@ export default function AssetLifecyclePage() {
             {/* Pagination */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 14px', borderTop: `1px solid ${BORD}` }}>
               <span style={{ fontSize: 9, color: DIMMER }}>
-                Showing {Math.min((page - 1) * PER_PAGE + 1, filtered.length)}–{Math.min(page * PER_PAGE, filtered.length)} of {filtered.length} assets
+                Showing {Math.min((page - 1) * PER_PAGE + 1, sorted.length)}–{Math.min(page * PER_PAGE, sorted.length)} of {sorted.length} assets
               </span>
               <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                 <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}
@@ -527,7 +1178,11 @@ export default function AssetLifecyclePage() {
                   Asset Timeline: <span style={{ color: '#0077C8' }}>{selectedAsset.assetName}</span>
                   <span style={{ color: DIMMER, fontWeight: 400, marginLeft: 6 }}>({selectedAsset.assetId})</span>
                 </span>
-                <button style={{ fontSize: 9, color: '#0077C8', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4 }}>
+                <button
+                  onClick={() => openDrawer('asset-full', selectedAsset)}
+                  className="eai-focusable"
+                  style={{ fontSize: 9, color: '#0077C8', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4 }}
+                >
                   View Full History <ExternalLink size={9} />
                 </button>
               </div>
@@ -550,10 +1205,18 @@ export default function AssetLifecyclePage() {
                         <span style={{ fontSize: 9, color: '#1A1F36', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{row.v}</span>
                       </div>
                     ))}
-                    {/* QR placeholder */}
-                    <div style={{ marginTop: 4, width: 52, height: 52, background: '#fff', border: '1px solid #E2E8F0', borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {/* QR block — click opens the asset's direct-link reference */}
+                    <button
+                      type="button"
+                      onClick={() => openDrawer('qr', selectedAsset)}
+                      aria-label="View asset QR reference"
+                      className="eai-focusable"
+                      style={{ marginTop: 4, width: 52, height: 52, background: '#fff', border: `1px solid ${BORD}`, borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', padding: 0 }}
+                      onMouseEnter={e => e.currentTarget.style.borderColor = '#0077C8'}
+                      onMouseLeave={e => e.currentTarget.style.borderColor = BORD}
+                    >
                       <div style={{ width: 36, height: 36, background: 'linear-gradient(135deg, #111 25%, transparent 25%, transparent 75%, #111 75%)', backgroundSize: '6px 6px' }} />
-                    </div>
+                    </button>
                   </div>
                 </div>
                 {/* Stepper */}
@@ -570,7 +1233,7 @@ export default function AssetLifecyclePage() {
               <div style={{ background: CARD, border: `1px solid ${BORD}`, borderRadius: 14, overflow: 'hidden' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderBottom: `1px solid ${BORD}` }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: '#1A1F36' }}>Upcoming Milestones</span>
-                  <button style={{ fontSize: 9, color: DIMMER, background: 'none', border: 'none', cursor: 'pointer' }}>View All</button>
+                  <button onClick={() => openDrawer('milestones-all')} className="eai-focusable" style={{ fontSize: 9, color: DIMMER, background: 'none', border: 'none', cursor: 'pointer' }}>View All</button>
                 </div>
                 <div style={{ padding: '8px 14px', display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {MILESTONES.map(m => (
@@ -601,7 +1264,11 @@ export default function AssetLifecyclePage() {
                       <p style={{ fontSize: 9, color: '#6B7280', lineHeight: 1.5, flex: 1 }}>{ins.text}</p>
                     </div>
                   ))}
-                  <button style={{ marginTop: 4, fontSize: 9, color: '#0077C8', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, padding: 0 }}>
+                  <button
+                    onClick={() => openDrawer('insights-all')}
+                    className="eai-focusable"
+                    style={{ marginTop: 4, fontSize: 9, color: '#0077C8', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, padding: 0 }}
+                  >
                     View Full AI Insights <ExternalLink size={9} />
                   </button>
                 </div>
@@ -614,6 +1281,21 @@ export default function AssetLifecyclePage() {
           <div style={{ height: 8, flexShrink: 0 }} />
         </div>
       </div>
+
+      {renderDrawer()}
+      <ToastHost />
     </div>
+  );
+}
+
+export default function AssetLifecyclePage() {
+  return (
+    <Suspense fallback={
+      <div style={{ height: 'calc(100vh - 56px)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F4F6F9', color: '#9CA3AF', fontSize: 12 }}>
+        Loading…
+      </div>
+    }>
+      <AssetLifecycleInner />
+    </Suspense>
   );
 }

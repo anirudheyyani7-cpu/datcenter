@@ -34,7 +34,7 @@ const SUPPORT = [
   { id: 'store',  x: VB_W - RIGHT_W + 4, y: VB_H * 0.72, w: RIGHT_W - 8, h: VB_H * 0.24, label: 'Storage\nRoom', icon: '▦' },
 ];
 
-export default function FloorRoomSchematic({ dcId, selectedRackId, onSelectRack }) {
+export default function FloorRoomSchematic({ dcId, selectedRackId, onSelectRack, dimRackIds }) {
   const racks = useMemo(() => {
     const all = mockRacks[dcId] || generateDCRacks(dcId);
     return all.filter(r => ROWS.includes(r.row) && r.position >= 1 && r.position <= N_RACKS);
@@ -125,11 +125,12 @@ export default function FloorRoomSchematic({ dcId, selectedRackId, onSelectRack 
               const isSel  = rId === selectedRackId;
               const label  = rack?.label ?? `${row}0${pi+1}`;
               const utilPct = rack?.utilPct ?? 60;
+              const dimmed = rId ? (dimRackIds?.has(rId) ?? false) : false;
 
               return (
                 <g
                   key={pi}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', opacity: dimmed ? 0.3 : 1, transition: 'opacity 0.15s' }}
                   onClick={() => rack && onSelectRack(rId)}
                 >
                   {/* Rack body */}

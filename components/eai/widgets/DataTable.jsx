@@ -1,5 +1,5 @@
 'use client';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from 'lucide-react';
 
 const BORD = '#E2E8F0';
 const DIM  = '#6B7280';
@@ -18,6 +18,9 @@ export default function DataTable({
   keyField = 'id',
   selectedKey,
   onRowClick,
+  onRowDoubleClick,
+  sortState,
+  onSort,
   pagination,
   emptyMessage = 'No data.',
   style,
@@ -93,9 +96,27 @@ export default function DataTable({
           )}
           <thead>
             <tr style={{ borderBottom: `1px solid ${BORD}` }}>
-              {columns.map((c, i) => (
-                <th key={i} style={{ ...TH, textAlign: c.align ?? 'left' }}>{c.label}</th>
-              ))}
+              {columns.map((c, i) => {
+                const sortKey = c.sortKey ?? (c.sortable ? c.key : null);
+                const active = sortKey && sortState?.key === sortKey;
+                return (
+                  <th key={i} style={{ ...TH, textAlign: c.align ?? 'left' }}>
+                    {sortKey && onSort ? (
+                      <button
+                        type="button" onClick={() => onSort(sortKey)} aria-label={`Sort by ${c.label}`}
+                        style={{
+                          display: 'inline-flex', alignItems: 'center', gap: 2, border: 'none', background: 'transparent',
+                          cursor: 'pointer', padding: 0, font: 'inherit', fontWeight: 700,
+                          color: active ? '#0077C8' : DIMMER, textTransform: 'uppercase', letterSpacing: '0.07em', fontSize: 9,
+                        }}
+                      >
+                        {c.label}
+                        {active ? (sortState.dir === 'asc' ? <ChevronUp size={9} /> : <ChevronDown size={9} />) : null}
+                      </button>
+                    ) : c.label}
+                  </th>
+                );
+              })}
             </tr>
           </thead>
           <tbody>
@@ -108,13 +129,14 @@ export default function DataTable({
               return (
                 <tr key={rowKey}
                   onClick={() => onRowClick?.(row)}
+                  onDoubleClick={() => onRowDoubleClick?.(row)}
                   style={{
                     borderBottom: `1px solid ${BORD}`,
                     background: isSel ? 'rgba(0,119,200,0.10)' : 'transparent',
-                    cursor: onRowClick ? 'pointer' : 'default',
+                    cursor: (onRowClick || onRowDoubleClick) ? 'pointer' : 'default',
                     transition: 'background 0.12s',
                   }}
-                  onMouseEnter={e => { if (!isSel && onRowClick) e.currentTarget.style.background = '#F4F6F9'; }}
+                  onMouseEnter={e => { if (!isSel && (onRowClick || onRowDoubleClick)) e.currentTarget.style.background = '#F4F6F9'; }}
                   onMouseLeave={e => { if (!isSel) e.currentTarget.style.background = isSel ? 'rgba(0,119,200,0.10)' : 'transparent'; }}
                 >
                   {columns.map((c, ci) => (

@@ -10,6 +10,7 @@ export default function ScoreRing({
   size      = 130,
   items     = [],
   legendStyle = false,
+  onItemClick,
 }) {
   const SW   = 14;
   const cx   = size / 2;
@@ -69,20 +70,37 @@ export default function ScoreRing({
                   <span style={{ color: '#1A1F36', fontWeight: 700 }}>{item.value}</span>
                 </div>
               ))
-            : items.map((item, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  {item.Icon && <item.Icon size={11} style={{ color: item.color ?? '#6B7280', flexShrink: 0 }} />}
-                  <span style={{ fontSize: 10, color: '#6B7280', flex: 1 }}>{item.label}</span>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                    <div style={{ width: 40, height: 3, borderRadius: 2, background: '#E2E8F0', overflow: 'hidden' }}>
-                      <div style={{ width: `${item.score ?? 0}%`, height: '100%', borderRadius: 2, background: item.color ?? '#0077C8' }} />
+            : items.map((item, i) => {
+                const Tag = onItemClick ? 'button' : 'div';
+                return (
+                  <Tag
+                    key={i}
+                    type={onItemClick ? 'button' : undefined}
+                    onClick={onItemClick ? () => onItemClick(item) : undefined}
+                    className={onItemClick ? 'eai-focusable' : undefined}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: 8,
+                      cursor: onItemClick ? 'pointer' : 'default',
+                      padding: '3px 5px', margin: '-3px -5px', borderRadius: 6,
+                      transition: 'background 0.12s',
+                      border: 'none', background: 'transparent', font: 'inherit', textAlign: 'left', width: 'calc(100% + 10px)',
+                    }}
+                    onMouseEnter={e => { if (onItemClick) e.currentTarget.style.background = '#F8FAFC'; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; }}
+                  >
+                    {item.Icon && <item.Icon size={11} style={{ color: item.color ?? '#6B7280', flexShrink: 0 }} />}
+                    <span style={{ fontSize: 10, color: '#6B7280', flex: 1 }}>{item.label}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <div style={{ width: 40, height: 3, borderRadius: 2, background: '#E2E8F0', overflow: 'hidden' }}>
+                        <div style={{ width: `${item.score ?? 0}%`, height: '100%', borderRadius: 2, background: item.color ?? '#0077C8' }} />
+                      </div>
+                      <span style={{ fontSize: 9, fontWeight: 700, color: '#1A1F36', fontFamily: 'ui-monospace,monospace', width: 32, textAlign: 'right' }}>
+                        {item.score}{unit}
+                      </span>
                     </div>
-                    <span style={{ fontSize: 9, fontWeight: 700, color: '#1A1F36', fontFamily: 'ui-monospace,monospace', width: 32, textAlign: 'right' }}>
-                      {item.score}{unit}
-                    </span>
-                  </div>
-                </div>
-              ))
+                  </Tag>
+                );
+              })
           }
         </div>
       )}

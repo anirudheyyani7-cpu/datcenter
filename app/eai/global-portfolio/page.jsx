@@ -1,9 +1,11 @@
 'use client';
-import { useState } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import {
-  Calendar, Filter, Download, ChevronRight, ArrowRight, Leaf, Droplets, Recycle,
+  Calendar, Filter, Download, ChevronRight, ChevronDown, ChevronUp, ArrowRight, Leaf, Droplets, Recycle,
   X, Building2, Layers, Zap, Timer, Activity, ShieldAlert, Globe2, MapPin, Wrench, Newspaper,
+  Search, FileText, FileSpreadsheet, FileDown,
 } from 'lucide-react';
 
 import KpiCard      from '@/components/eai/widgets/KpiCard';
@@ -13,6 +15,9 @@ import MapPanel      from '@/components/eai/widgets/MapPanel';
 import ListCard      from '@/components/eai/widgets/ListCard';
 import StatTile      from '@/components/eai/widgets/StatTile';
 import DetailDrawer, { DrawerTable, DrawerStatRow, DrawerPill } from '@/components/eai/widgets/DetailDrawer';
+import FilterPopover    from '@/components/eai/widgets/FilterPopover';
+import DateRangePopover from '@/components/eai/widgets/DateRangePopover';
+import { useToast }     from '@/components/eai/widgets/Toast';
 
 import {
   eaiKpis, eaiCapacityByRegion, eaiAiBriefing,
@@ -28,6 +33,127 @@ const GlobeViewer = dynamic(() => import('@/components/globe/GlobeViewer'), { ss
 const ESG_ICONS = { leaf: Leaf, droplets: Droplets, recycle: Recycle };
 const KPI_ICONS = { building: Building2, layers: Layers, zap: Zap, timer: Timer, activity: Activity, droplets: Droplets, leaf: Leaf, shieldAlert: ShieldAlert };
 const STATUS_COLOR = { optimal: '#00A36C', good: '#0077C8', warning: '#D4A017', critical: '#DC2626', maintenance: '#6B7280' };
+
+// ── Capacity-by-Region metric switcher ────────────────────────────────────────
+const METRIC_OPTIONS = [
+  { key: 'itPower',     label: 'IT Power (MW)', unit: 'MW' },
+  { key: 'totalPower',  label: 'Total Power',   unit: 'MW' },
+  { key: 'rackCount',   label: 'Rack Count',    unit: '' },
+  { key: 'utilization', label: 'Utilization %', unit: '%' },
+];
+const LATEST_PUE = eaiPueTrend[eaiPueTrend.length - 1].value;
+const RACK_KW = 22; // assumed blended average kW/rack, used only to derive an estimated rack count
+
+// ── Date range ─────────────────────────────────────────────────────────────
+const RANGE_PRESETS = [
+  { key: '7d',     label: 'Last 7 Days' },
+  { key: '30d',    label: 'Last 30 Days' },
+  { key: 'qtd',    label: 'This Quarter (QTD)' },
+  { key: 'ytd',    label: 'Year to Date (YTD)' },
+  { key: '12m',    label: 'Last 12 Months' },
+  { key: 'custom', label: 'Custom' },
+];
+const RANGE_WEEKS = { '7d': 1, '30d': 5, 'qtd': 5, 'ytd': 5, '12m': 5 };
+
+function parseWeekLabel(label) {
+  return new Date(`${label}, 2025`);
+}
+
+function sliceTrendByRange(trend, range) {
+  if (range.presetKey === 'custom') {
+    if (!range.from || !range.to) return trend;
+    const from = new Date(range.from), to = new Date(range.to);
+    return trend.filter(t => { const d = parseWeekLabel(t.week); return d >= from && d <= to; });
+  }
+  const weeks = RANGE_WEEKS[range.presetKey] ?? 5;
+  return trend.slice(-weeks);
+}
+
+function rangeLabel(range) {
+  if (range.presetKey === 'custom') {
+    if (!range.from || !range.to) return 'Custom Range';
+    return `${new Date(range.from).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} – ${new Date(range.to).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+  }
+  return RANGE_PRESETS.find(p => p.key === range.presetKey)?.label ?? 'Last 30 Days';
+}
+
+function trendDeltaPct(trend) {
+  if (trend.length < 2) return null;
+  const first = trend[0].value, last = trend[trend.length - 1].value;
+  return +(((last - first) / first) * 100).toFixed(1);
+}
+
+// ── export helpers ────────────────────────────────────────────────────────────
+async function exportWorkbook(sheets, filename) {
+  const XLSX = await import('xlsx');
+  const wb = XLSX.utils.book_new();
+  sheets.forEach(({ name, rows }) => {
+    const ws = XLSX.utils.json_to_sheet(rows);
+    XLSX.utils.book_append_sheet(wb, ws, name.slice(0, 31));
+  });
+  XLSX.writeFile(wb, filename);
+}
+
+async function exportCsv(rows, filename) {
+  const XLSX = await import('xlsx');
+  const ws = XLSX.utils.json_to_sheet(rows);
+  const csv = XLSX.utils.sheet_to_csv(ws);
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+async function exportPanelPdf(el, filename) {
+  const [{ default: html2canvas }, { jsPDF }] = await Promise.all([import('html2canvas'), import('jspdf')]);
+  const canvas = await html2canvas(el, { scale: 2, useCORS: true, backgroundColor: '#F4F6F9' });
+  const imgData = canvas.toDataURL('image/png');
+  const pxToMm = 0.264583 / 2;
+  const w = canvas.width * pxToMm;
+  const h = canvas.height * pxToMm;
+  const doc = new jsPDF({ orientation: w > h ? 'landscape' : 'portrait', unit: 'mm', format: [w, h] });
+  doc.addImage(imgData, 'PNG', 0, 0, w, h);
+  doc.save(filename);
+}
+
+// ── drawer <-> URL param encoding ─────────────────────────────────────────────
+function drawerToParam(d) {
+  if (!d) return undefined;
+  switch (d.kind) {
+    case 'kpi':         return `kpi:${d.kpi.key}`;
+    case 'cluster':      return `cluster:${d.cluster.id}`;
+    case 'facility':     return `facility:${d.facility.id}`;
+    case 'alert':        return `alert:${d.item.id}`;
+    case 'news':         return `news:${d.item.id}`;
+    case 'news-all':     return 'news-all';
+    case 'maintenance':  return `maintenance:${d.item.id}`;
+    case 'demand':       return `demand:${encodeURIComponent(d.item.label)}`;
+    case 'esg':          return `esg:${encodeURIComponent(d.item.label)}`;
+    default:              return undefined;
+  }
+}
+
+function paramToDrawer(param) {
+  if (!param) return null;
+  if (param === 'news-all') return { kind: 'news-all' };
+  const sep = param.indexOf(':');
+  if (sep === -1) return null;
+  const kind = param.slice(0, sep);
+  const id = decodeURIComponent(param.slice(sep + 1));
+  switch (kind) {
+    case 'kpi':        { const kpi = eaiKpis.find(k => k.key === id); return kpi ? { kind: 'kpi', kpi } : null; }
+    case 'cluster':    { const cluster = eaiMapClusters.find(c => c.id === id); return cluster ? { kind: 'cluster', cluster } : null; }
+    case 'facility':   { const facility = eaiFacilities.find(f => f.id === id); return facility ? { kind: 'facility', facility } : null; }
+    case 'alert':      { const item = eaiCriticalAlerts.find(a => a.id === id); return item ? { kind: 'alert', item } : null; }
+    case 'news':       { const item = eaiRecentNews.find(n => n.id === id); return item ? { kind: 'news', item } : null; }
+    case 'maintenance':{ const item = eaiUpcomingMaintenance.find(m => m.id === id); return item ? { kind: 'maintenance', item } : null; }
+    case 'demand':     { const item = eaiDemandPlanning.find(x => x.label === id); return item ? { kind: 'demand', item } : null; }
+    case 'esg':        { const item = eaiEsgMetrics.find(x => x.label === id); return item ? { kind: 'esg', item } : null; }
+    default: return null;
+  }
+}
 
 // ── Shared card shell ─────────────────────────────────────────────────────────
 function Card({ title, action, children, border, noPad = false }) {
@@ -56,13 +182,49 @@ function Card({ title, action, children, border, noPad = false }) {
   );
 }
 
-function DropBtn({ children }) {
+// DropBtn: plain presentational button by default (unchanged visual). Pass
+// `options` + `value` + `onChange` to turn it into a real dropdown menu — the
+// reusable pattern any card-level selector on this page can adopt.
+function DropBtn({ children, options, value, onChange, menuWidth = 180 }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function handler(e) { if (ref.current && !ref.current.contains(e.target)) setOpen(false); }
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [open]);
+
+  const btnStyle = {
+    background: '#F8FAFC', border: '1px solid #E2E8F0',
+    borderRadius: 8, padding: '3px 9px', cursor: 'pointer',
+    color: '#6B7280', fontSize: 9,
+  };
+
+  if (!options) {
+    return <button style={btnStyle}>{children}</button>;
+  }
+
   return (
-    <button style={{
-      background: '#F8FAFC', border: '1px solid #E2E8F0',
-      borderRadius: 8, padding: '3px 9px', cursor: 'pointer',
-      color: '#6B7280', fontSize: 9,
-    }}>{children}</button>
+    <div ref={ref} style={{ position: 'relative' }}>
+      <button onClick={() => setOpen(o => !o)} className="eai-focusable" style={btnStyle}>{children}</button>
+      {open && (
+        <div style={{ position: 'absolute', top: 'calc(100% + 4px)', right: 0, zIndex: 400, width: menuWidth, background: '#fff', border: '1px solid #E2E8F0', borderRadius: 8, boxShadow: '0 8px 24px rgba(16,24,40,0.12)', overflow: 'hidden' }}>
+          {options.map(opt => {
+            const active = opt.key === value;
+            return (
+              <button
+                key={opt.key} type="button" onClick={() => { onChange(opt.key); setOpen(false); }} className="eai-focusable"
+                style={{ display: 'block', width: '100%', textAlign: 'left', padding: '7px 10px', border: 'none', background: active ? 'rgba(0,119,200,0.08)' : 'transparent', color: active ? '#0077C8' : '#374151', fontSize: 10, fontWeight: active ? 700 : 400, cursor: 'pointer' }}
+                onMouseEnter={e => { if (!active) e.currentTarget.style.background = '#F8FAFC'; }}
+                onMouseLeave={e => { if (!active) e.currentTarget.style.background = 'transparent'; }}
+              >{opt.label}</button>
+            );
+          })}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -143,18 +305,80 @@ function GlobeModal({ open, onClose, facilities, focusClusterId, onMarkerClick }
   );
 }
 
-// ── Page ──────────────────────────────────────────────────────────────────────
-export default function GlobalPortfolioPage() {
+// ── Page (inner — uses useSearchParams, must be wrapped in Suspense) ─────────
+function GlobalPortfolioInner() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { showToast, ToastHost } = useToast();
+  const dashboardRef = useRef(null);
+
   // { kind, ...payload } | null — everything the DetailDrawer currently shows
-  const [drawer, setDrawer] = useState(null);
-  const closeDrawer = () => setDrawer(null);
+  const [drawer, setDrawerState] = useState(() => paramToDrawer(searchParams.get('drawer')));
 
   // Cross-highlight between Capacity by Region legend and the map pins.
-  // source is 'region' (from the donut/legend) or 'cluster' (from a map pin) —
-  // whichever was interacted with most recently wins.
-  const [highlight, setHighlight] = useState(null);
+  const [highlight, setHighlightState] = useState(() => {
+    const hl = searchParams.get('hl');
+    if (hl) {
+      const sep = hl.indexOf(':');
+      if (sep !== -1) {
+        const source = hl.slice(0, sep), value = decodeURIComponent(hl.slice(sep + 1));
+        if (source === 'region' || source === 'cluster') return { source, value };
+      }
+    }
+    const regionParam = searchParams.get('region');
+    if (regionParam && eaiCapacityByRegion.some(r => r.name === regionParam)) return { source: 'region', value: regionParam };
+    const nodeParam = searchParams.get('node');
+    if (nodeParam) {
+      const fac = eaiFacilities.find(f => f.id === nodeParam);
+      if (fac) return { source: 'cluster', value: fac.mapClusterId };
+      const cluster = eaiMapClusters.find(c => c.id === nodeParam);
+      if (cluster) return { source: 'cluster', value: cluster.id };
+    }
+    return null;
+  });
 
   const [globeOpen, setGlobeOpen] = useState(false);
+
+  const [range, setRange] = useState(() => {
+    const key = searchParams.get('range');
+    if (key && RANGE_PRESETS.some(p => p.key === key)) {
+      return { presetKey: key, from: searchParams.get('from') || '', to: searchParams.get('to') || '' };
+    }
+    return { presetKey: '30d', from: '', to: '' };
+  });
+
+  const [metric, setMetric] = useState('itPower');
+  const [filters, setFilters] = useState({ region: [], status: [] });
+  const [utilMin, setUtilMin] = useState(0);
+
+  const [rangeOpen, setRangeOpen] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [exportOpen, setExportOpen] = useState(false);
+
+  const [facilitySearch, setFacilitySearch] = useState('');
+  const [facilitySort, setFacilitySort] = useState(null);
+
+  const updateURL = useCallback((patch) => {
+    const params = new URLSearchParams(searchParams.toString());
+    Object.entries(patch).forEach(([k, v]) => {
+      if (v === undefined || v === null || v === '') params.delete(k);
+      else params.set(k, v);
+    });
+    const qs = params.toString();
+    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  }, [pathname, router, searchParams]);
+
+  function setDrawer(d) {
+    setDrawerState(d);
+    updateURL({ drawer: drawerToParam(d) });
+  }
+  function closeDrawer() { setDrawer(null); }
+
+  function setHighlight(h) {
+    setHighlightState(h);
+    updateURL({ hl: h ? `${h.source}:${encodeURIComponent(h.value)}` : undefined, region: undefined, node: undefined });
+  }
 
   const highlightedClusterIds = highlight?.source === 'region'
     ? eaiClusterIdsForRegion(highlight.value)
@@ -164,8 +388,8 @@ export default function GlobalPortfolioPage() {
   const activeRegionName = highlight?.source === 'region' ? highlight.value : null;
 
   function handleRegionClick(item) {
-    setHighlight(prev =>
-      prev?.source === 'region' && prev.value === item.name ? null : { source: 'region', value: item.name }
+    setHighlight(
+      highlight?.source === 'region' && highlight.value === item.name ? null : { source: 'region', value: item.name }
     );
   }
 
@@ -183,8 +407,198 @@ export default function GlobalPortfolioPage() {
     if (facility) setDrawer({ kind: 'facility', facility });
   }
 
+  // ── Filters ────────────────────────────────────────────────────────────────
+  const FILTER_GROUPS = useMemo(() => [
+    { key: 'region', label: 'Region',          options: eaiCapacityByRegion.map(r => r.name) },
+    { key: 'status', label: 'Facility Status', options: Object.keys(STATUS_COLOR) },
+  ], []);
+  const filterSelected = { region: filters.region, status: filters.status };
+  const filtersActive = filters.region.length > 0 || filters.status.length > 0 || utilMin > 0;
+  const activeFilterCount = filters.region.length + filters.status.length + (utilMin > 0 ? 1 : 0);
+
+  function toggleFilter(groupKey, value) {
+    setFilters(prev => {
+      const cur = prev[groupKey];
+      const next = cur.includes(value) ? cur.filter(v => v !== value) : [...cur, value];
+      return { ...prev, [groupKey]: next };
+    });
+  }
+  function clearAllFilters() {
+    setFilters({ region: [], status: [] });
+    setUtilMin(0);
+    showToast('Filters cleared', 'info');
+  }
+
+  const filterExtra = (
+    <div style={{ padding: '10px 12px' }}>
+      <p style={{ fontSize: 9, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>
+        Min Utilization: {utilMin}%+
+      </p>
+      <input type="range" min="0" max="95" step="5" value={utilMin} onChange={e => setUtilMin(+e.target.value)} style={{ width: '100%', accentColor: '#0077C8' }} />
+    </div>
+  );
+
+  const filteredFacilities = useMemo(() => {
+    if (!filtersActive) return eaiFacilities;
+    return eaiFacilities.filter(f => {
+      if (filters.region.length && !filters.region.includes(f.region)) return false;
+      if (filters.status.length && !filters.status.includes(f.status)) return false;
+      if (utilMin > 0 && f.utilizationPct < utilMin) return false;
+      return true;
+    });
+  }, [filters, utilMin, filtersActive]);
+
+  // Compose filters with the existing region/cluster highlight rather than overriding it:
+  // if both are active, only show clusters that satisfy both; if only one is active, use it.
+  const filterMatchedClusterIds = filtersActive ? [...new Set(filteredFacilities.map(f => f.mapClusterId))] : null;
+  const finalSelectedClusterIds = useMemo(() => {
+    if (highlightedClusterIds.length && filterMatchedClusterIds) {
+      return highlightedClusterIds.filter(id => filterMatchedClusterIds.includes(id));
+    }
+    if (highlightedClusterIds.length) return highlightedClusterIds;
+    if (filterMatchedClusterIds) return filterMatchedClusterIds;
+    return [];
+  }, [highlightedClusterIds, filterMatchedClusterIds]);
+
+  // ── Date range → trend charts + deltas ───────────────────────────────────
+  const filteredUtilTrend = useMemo(() => sliceTrendByRange(eaiUtilizationTrend, range), [range]);
+  const filteredPueTrend  = useMemo(() => sliceTrendByRange(eaiPueTrend, range), [range]);
+  const rangeIsDefault = range.presetKey === '30d';
+
+  // ── KPI strip: filters + range compose onto the base KPI list ───────────
+  const displayKpis = useMemo(() => {
+    let kpis = eaiKpis;
+    if (filtersActive) {
+      const n = filteredFacilities.length;
+      const totalCap = filteredFacilities.reduce((s, f) => s + f.capacityMW, 0);
+      const avgUtil = n ? Math.round(filteredFacilities.reduce((s, f) => s + f.utilizationPct, 0) / n) : 0;
+      const avgHealth = n ? Math.round(filteredFacilities.reduce((s, f) => s + f.healthScore, 0) / n) : 0;
+      const countries = new Set(filteredFacilities.map(f => f.country)).size;
+      kpis = kpis.map(k => {
+        if (k.key === 'facilities')  return { ...k, value: String(n), sublabel: `Across ${countries} countries (filtered)` };
+        if (k.key === 'capacity')    return { ...k, value: totalCap.toLocaleString(), sublabel: 'IT Power Capacity (filtered)' };
+        if (k.key === 'utilization') return { ...k, value: String(avgUtil), sublabel: 'Average Utilization (filtered)' };
+        if (k.key === 'health')      return { ...k, value: String(avgHealth), sublabel: 'Average Health (filtered)' };
+        return k;
+      });
+    }
+    if (!rangeIsDefault) {
+      const uPct = trendDeltaPct(filteredUtilTrend);
+      const pPct = trendDeltaPct(filteredPueTrend);
+      kpis = kpis.map(k => {
+        if (k.key === 'utilization' && uPct != null) return { ...k, delta: `${uPct >= 0 ? '▲' : '▼'}${Math.abs(uPct)}% over ${rangeLabel(range)}`, up: uPct >= 0 };
+        if (k.key === 'pue' && pPct != null)          return { ...k, delta: `${pPct >= 0 ? '▲' : '▼'}${Math.abs(pPct)}% over ${rangeLabel(range)}`, up: pPct <= 0 };
+        return k;
+      });
+    }
+    return kpis;
+  }, [filtersActive, filteredFacilities, rangeIsDefault, filteredUtilTrend, filteredPueTrend, range]);
+
+  // ── Capacity by Region: metric switcher + filter-aware aggregation ──────
+  const regionMetricData = useMemo(() => {
+    const source = filtersActive ? filteredFacilities : eaiFacilities;
+    return eaiCapacityByRegion.map(r => {
+      const regionFacilities = source.filter(f => f.region === r.name);
+      const capacityMW = filtersActive ? regionFacilities.reduce((s, f) => s + f.capacityMW, 0) : r.mw;
+      const avgUtil = filtersActive
+        ? (regionFacilities.length ? Math.round(regionFacilities.reduce((s, f) => s + f.utilizationPct, 0) / regionFacilities.length) : 0)
+        : (eaiUtilizationByRegion.find(u => u.name === r.name)?.value ?? 0);
+      return {
+        name: r.name, color: r.color,
+        itPower: capacityMW,
+        totalPower: +(capacityMW * LATEST_PUE).toFixed(1),
+        rackCount: Math.round(capacityMW * 1000 / RACK_KW),
+        utilization: avgUtil,
+      };
+    });
+  }, [filtersActive, filteredFacilities]);
+
+  const donutData = useMemo(() => {
+    const total = regionMetricData.reduce((s, r) => s + r[metric], 0) || 1;
+    return regionMetricData.map(r => ({
+      name: r.name, color: r.color,
+      value: r[metric],
+      pct: Math.round((r[metric] / total) * 100),
+      ...(metric === 'itPower' ? { mw: r[metric] } : {}),
+    }));
+  }, [regionMetricData, metric]);
+
+  const metricDef = METRIC_OPTIONS.find(m => m.key === metric);
+  const donutTotal = donutData.reduce((s, r) => s + r.value, 0);
+  const donutCenterLabel = metric === 'utilization' ? String(Math.round(donutTotal / donutData.length)) : donutTotal.toLocaleString();
+  const donutCenterSublabel = metric === 'utilization' ? 'Avg Utilization' : metric === 'rackCount' ? 'Total Racks' : 'Total Capacity';
+
+  // ── Main-body facility table ─────────────────────────────────────────────
+  const searchedFacilities = useMemo(() => {
+    const q = facilitySearch.toLowerCase();
+    if (!q) return filteredFacilities;
+    return filteredFacilities.filter(f => `${f.name} ${f.city} ${f.country} ${f.region}`.toLowerCase().includes(q));
+  }, [filteredFacilities, facilitySearch]);
+
+  const sortedFacilitiesTable = useMemo(() => {
+    if (!facilitySort) return searchedFacilities;
+    const { key, dir } = facilitySort;
+    const mult = dir === 'asc' ? 1 : -1;
+    return [...searchedFacilities].sort((a, b) => {
+      const av = a[key], bv = b[key];
+      if (typeof av === 'number') return (av - bv) * mult;
+      return String(av).localeCompare(String(bv)) * mult;
+    });
+  }, [searchedFacilities, facilitySort]);
+
+  function handleFacilitySort(key) {
+    setFacilitySort(prev => (prev && prev.key === key) ? (prev.dir === 'asc' ? { key, dir: 'desc' } : null) : { key, dir: 'asc' });
+  }
+
+  function handleFacilityRowClick(f) {
+    setHighlight({ source: 'cluster', value: f.mapClusterId });
+  }
+
+  // ── Export ────────────────────────────────────────────────────────────────
+  async function handleExport(kind) {
+    setExportOpen(false);
+    const dateStr = new Date().toISOString().slice(0, 10);
+    try {
+      if (kind === 'pdf') {
+        if (!dashboardRef.current) return;
+        await exportPanelPdf(dashboardRef.current, `global-portfolio-${dateStr}.pdf`);
+        showToast('Portfolio summary exported as PDF', 'success');
+        return;
+      }
+      if (kind === 'facilities') {
+        const rows = filteredFacilities.map(f => ({
+          Facility: f.name, City: f.city, Country: f.country, Region: f.region, Status: f.status,
+          'Capacity (MW)': f.capacityMW, 'Utilization %': f.utilizationPct, 'Health Score': f.healthScore,
+        }));
+        await exportWorkbook([{ name: 'Facilities', rows }], `global-portfolio-facilities-${dateStr}.xlsx`);
+        showToast(`Exported ${rows.length} facilities`, 'success');
+        return;
+      }
+      if (kind === 'kpi') {
+        const rows = displayKpis.map(k => ({ Metric: k.label, Value: `${k.value}${k.unit ? ' ' + k.unit : ''}`, Sublabel: k.sublabel, Delta: k.delta }));
+        await exportCsv(rows, `global-portfolio-kpi-snapshot-${dateStr}.csv`);
+        showToast('KPI snapshot exported', 'success');
+      }
+    } catch {
+      showToast('Export failed — please try again', 'error');
+    }
+  }
+
+  const FACILITY_COLUMNS = [
+    { key: 'name',            label: 'Facility' },
+    { key: 'country',         label: 'Country' },
+    { key: 'region',          label: 'Region' },
+    { key: 'status',          label: 'Status' },
+    { key: 'capacityMW',      label: 'Capacity', align: 'right' },
+    { key: 'utilizationPct',  label: 'Util.', align: 'right' },
+    { key: 'healthScore',     label: 'Health', align: 'right' },
+  ];
+
   return (
     <div style={{ background: '#F4F6F9', minHeight: '100%', color: '#1A1F36' }}>
+      <style>{`
+        .eai-focusable:focus-visible { outline: 2px solid #0077C8; outline-offset: 2px; border-radius: 4px; }
+      `}</style>
 
       {/* ── Page header ──────────────────────────────────────────────────── */}
       <div style={{
@@ -201,52 +615,100 @@ export default function GlobalPortfolioPage() {
           <p style={{ fontSize: 10, color: '#6B7280', marginTop: 3 }}>Real-time overview of your global asset portfolio</p>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <button style={{
-            display: 'flex', alignItems: 'center', gap: 6,
-            background: '#F8FAFC', border: '1px solid #E2E8F0',
-            borderRadius: 8, padding: '6px 12px', cursor: 'pointer',
-            color: '#6B7280', fontSize: 11,
-          }}>
-            <Calendar size={12} /> Last 30 Days ▾
-          </button>
-          <button style={{
-            display: 'flex', alignItems: 'center', gap: 6,
-            background: '#F8FAFC', border: '1px solid #E2E8F0',
-            borderRadius: 8, padding: '6px 12px', cursor: 'pointer',
-            color: '#6B7280', fontSize: 11,
-          }}>
-            <Filter size={12} /> Filters
-            <span style={{
-              width: 16, height: 16, borderRadius: '50%', background: '#0077C8',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 9, fontWeight: 700, color: '#fff', flexShrink: 0,
-            }}>3</span>
-          </button>
-          <button style={{
-            display: 'flex', alignItems: 'center', gap: 6,
-            background: '#0077C8', border: 'none', borderRadius: 8,
-            padding: '6px 14px', cursor: 'pointer', color: '#fff', fontSize: 11, fontWeight: 700,
-          }}>
-            <Download size={12} /> Export ▾
-          </button>
+          {/* Date range */}
+          <div style={{ position: 'relative' }}>
+            <button
+              onClick={() => { setRangeOpen(o => !o); setFiltersOpen(false); setExportOpen(false); }}
+              className="eai-focusable"
+              style={{
+                display: 'flex', alignItems: 'center', gap: 6,
+                background: '#F8FAFC', border: '1px solid #E2E8F0',
+                borderRadius: 8, padding: '6px 12px', cursor: 'pointer',
+                color: '#6B7280', fontSize: 11,
+              }}
+            >
+              <Calendar size={12} /> {rangeLabel(range)} ▾
+            </button>
+            <DateRangePopover
+              open={rangeOpen} onClose={() => setRangeOpen(false)}
+              presets={RANGE_PRESETS} value={range}
+              onSelectPreset={key => { const next = { presetKey: key, from: '', to: '' }; setRange(next); updateURL({ range: key === '30d' ? undefined : key, from: undefined, to: undefined }); }}
+              onCustomChange={(from, to) => { const next = { presetKey: 'custom', from, to }; setRange(next); updateURL({ range: 'custom', from, to }); }}
+            />
+          </div>
+
+          {/* Filters */}
+          <div style={{ position: 'relative' }}>
+            <button
+              onClick={() => { setFiltersOpen(o => !o); setRangeOpen(false); setExportOpen(false); }}
+              className="eai-focusable"
+              style={{
+                display: 'flex', alignItems: 'center', gap: 6,
+                background: filtersActive ? 'rgba(0,119,200,0.08)' : '#F8FAFC',
+                border: `1px solid ${filtersActive ? 'rgba(0,119,200,0.30)' : '#E2E8F0'}`,
+                borderRadius: 8, padding: '6px 12px', cursor: 'pointer',
+                color: filtersActive ? '#0077C8' : '#6B7280', fontSize: 11,
+              }}
+            >
+              <Filter size={12} /> Filters
+              {activeFilterCount > 0 && (
+                <span style={{
+                  width: 16, height: 16, borderRadius: '50%', background: '#0077C8',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 9, fontWeight: 700, color: '#fff', flexShrink: 0,
+                }}>{activeFilterCount}</span>
+              )}
+            </button>
+            <FilterPopover
+              open={filtersOpen} onClose={() => setFiltersOpen(false)}
+              groups={FILTER_GROUPS} selected={filterSelected} onToggle={toggleFilter} onClear={clearAllFilters}
+              extra={filterExtra} width={240}
+            />
+          </div>
+
+          {/* Export */}
+          <div style={{ position: 'relative' }}>
+            <button
+              onClick={() => { setExportOpen(o => !o); setRangeOpen(false); setFiltersOpen(false); }}
+              className="eai-focusable"
+              style={{
+                display: 'flex', alignItems: 'center', gap: 6,
+                background: '#0077C8', border: 'none', borderRadius: 8,
+                padding: '6px 14px', cursor: 'pointer', color: '#fff', fontSize: 11, fontWeight: 700,
+              }}
+            >
+              <Download size={12} /> Export ▾
+            </button>
+            {exportOpen && (
+              <div style={{ position: 'absolute', top: 'calc(100% + 6px)', right: 0, zIndex: 400, width: 230, background: '#fff', border: '1px solid #E2E8F0', borderRadius: 10, boxShadow: '0 8px 24px rgba(16,24,40,0.12)', overflow: 'hidden' }}>
+                {[
+                  { key: 'pdf',        label: 'Portfolio summary (PDF)',  Icon: FileText },
+                  { key: 'facilities', label: 'Facilities (XLSX)',        Icon: FileSpreadsheet },
+                  { key: 'kpi',        label: 'KPI snapshot (CSV)',       Icon: FileDown },
+                ].map(({ key, label, Icon }) => (
+                  <button key={key} type="button" onClick={() => handleExport(key)} className="eai-focusable"
+                    style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%', padding: '9px 12px', border: 'none', background: 'transparent', cursor: 'pointer', color: '#374151', fontSize: 11 }}
+                    onMouseEnter={e => e.currentTarget.style.background = '#F8FAFC'} onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
+                    <Icon size={12} style={{ color: '#0077C8' }} /> {label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
-      <div style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div ref={dashboardRef} style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', gap: 14 }}>
 
         {/* ── KPI Strip (8 cards) ───────────────────────────────────────── */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: 10 }}>
-          {eaiKpis.map(k => {
+          {displayKpis.map(k => {
             const { key, ...cardProps } = k;
             return <KpiCard key={key} {...cardProps} onClick={() => setDrawer({ kind: 'kpi', kpi: k })} />;
           })}
         </div>
 
         {/* ── Row 2: Map | Capacity Donut | Right Rail ─────────────────── */}
-        {/* minmax(0, 1fr) lets the map column shrink to the actual available width instead of
-            being pushed wide by intrinsic content; alignItems:'start' stops the shorter Map/
-            Capacity cards from being stretched to match the taller Right Rail (AI Briefing +
-            2 list cards), which otherwise left dead white space at the bottom of those cards. */}
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 290px 258px', gap: 14, alignItems: 'start' }}>
 
           {/* Map */}
@@ -254,17 +716,21 @@ export default function GlobalPortfolioPage() {
             clusters={eaiMapClusters}
             height={370}
             onMarkerClick={handleMarkerClick}
-            selectedClusterIds={highlightedClusterIds}
+            selectedClusterIds={finalSelectedClusterIds}
             onViewFull={handleExpandGlobe}
           />
 
           {/* Capacity by Region */}
-          <Card title="Capacity by Region" action={<DropBtn>IT Power (MW) ▾</DropBtn>}>
+          <Card title="Capacity by Region" action={
+            <DropBtn options={METRIC_OPTIONS.map(m => ({ key: m.key, label: m.label }))} value={metric} onChange={setMetric}>
+              {metricDef.label} ▾
+            </DropBtn>
+          }>
             <DonutChart
-              data={eaiCapacityByRegion}
-              centerLabel="2,134"
-              centerUnit="MW"
-              centerSublabel="Total Capacity"
+              data={donutData}
+              centerLabel={donutCenterLabel}
+              centerUnit={metricDef.unit}
+              centerSublabel={donutCenterSublabel}
               height={155}
               innerRadius={50}
               outerRadius={74}
@@ -336,7 +802,7 @@ export default function GlobalPortfolioPage() {
 
           {/* Utilization Trend */}
           <Card title="Utilization Trend" action={<DropBtn>All Regions ▾</DropBtn>}>
-            <TrendChart type="line" data={eaiUtilizationTrend} color="#0077C8" unit="%" domain={[50, 100]} />
+            <TrendChart type="line" data={filteredUtilTrend} color="#0077C8" unit="%" domain={[50, 100]} />
             <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 8 }}>
               <span style={{ width: 14, height: 2, background: '#0077C8', display: 'inline-block', borderRadius: 1 }} />
               <span style={{ fontSize: 9, color: '#9CA3AF' }}>Avg Utilization</span>
@@ -345,7 +811,7 @@ export default function GlobalPortfolioPage() {
 
           {/* PUE Trend */}
           <Card title="PUE Trend" action={<DropBtn>All Regions ▾</DropBtn>}>
-            <TrendChart type="line" data={eaiPueTrend} color="#00A36C" domain={[1.1, 1.6]} />
+            <TrendChart type="line" data={filteredPueTrend} color="#00A36C" domain={[1.1, 1.6]} />
             <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 8 }}>
               <span style={{ width: 14, height: 2, background: '#00A36C', display: 'inline-block', borderRadius: 1 }} />
               <span style={{ fontSize: 9, color: '#9CA3AF' }}>Power Usage Effectiveness</span>
@@ -458,6 +924,73 @@ export default function GlobalPortfolioPage() {
           </Card>
         </div>
 
+        {/* ── Row 5: All Facilities (main-body table — sortable + searchable) ── */}
+        <Card
+          title="All Facilities"
+          noPad
+          action={
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 5, background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: 7, padding: '4px 8px' }}>
+                <Search size={10} style={{ color: '#9CA3AF' }} />
+                <input value={facilitySearch} onChange={e => setFacilitySearch(e.target.value)} placeholder="Search facilities..."
+                  style={{ background: 'none', border: 'none', outline: 'none', fontSize: 10, color: '#1A1F36', width: 130 }} />
+              </div>
+              <span style={{ fontSize: 9, color: '#9CA3AF' }}>{sortedFacilitiesTable.length} of {eaiFacilities.length}</span>
+            </div>
+          }
+        >
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 10 }}>
+              <thead>
+                <tr style={{ borderBottom: '1px solid #E2E8F0' }}>
+                  {FACILITY_COLUMNS.map(c => {
+                    const active = facilitySort?.key === c.key;
+                    return (
+                      <th key={c.key} style={{ padding: '8px 14px', textAlign: c.align ?? 'left', whiteSpace: 'nowrap' }}>
+                        <button type="button" onClick={() => handleFacilitySort(c.key)} className="eai-focusable" aria-label={`Sort by ${c.label}`}
+                          style={{ display: 'inline-flex', alignItems: 'center', gap: 2, border: 'none', background: 'transparent', cursor: 'pointer', padding: 0, fontSize: 9, fontWeight: 700, color: active ? '#0077C8' : '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                          {c.label}
+                          {active ? (facilitySort.dir === 'asc' ? <ChevronUp size={9} /> : <ChevronDown size={9} />) : null}
+                        </button>
+                      </th>
+                    );
+                  })}
+                </tr>
+              </thead>
+              <tbody>
+                {sortedFacilitiesTable.map((f, i) => {
+                  const isSel = highlight?.source === 'cluster' && highlight.value === f.mapClusterId;
+                  const color = STATUS_COLOR[f.status] ?? '#6B7280';
+                  return (
+                    <tr
+                      key={f.id}
+                      onClick={() => handleFacilityRowClick(f)}
+                      onDoubleClick={() => setDrawer({ kind: 'facility', facility: f })}
+                      style={{
+                        background: isSel ? 'rgba(0,119,200,0.08)' : i % 2 === 0 ? 'transparent' : '#F8FAFC',
+                        cursor: 'pointer', transition: 'background 0.12s',
+                      }}
+                    >
+                      <td style={{ padding: '7px 14px', color: '#1A1F36', fontWeight: 600, whiteSpace: 'nowrap' }}>{f.name}</td>
+                      <td style={{ padding: '7px 14px', color: '#6B7280', whiteSpace: 'nowrap' }}>{f.country}</td>
+                      <td style={{ padding: '7px 14px', color: '#6B7280', whiteSpace: 'nowrap' }}>{f.region}</td>
+                      <td style={{ padding: '7px 14px', whiteSpace: 'nowrap' }}>
+                        <DrawerPill label={f.status} color={color} />
+                      </td>
+                      <td style={{ padding: '7px 14px', color: '#1A1F36', textAlign: 'right', whiteSpace: 'nowrap' }}>{f.capacityMW} MW</td>
+                      <td style={{ padding: '7px 14px', color: '#1A1F36', textAlign: 'right', whiteSpace: 'nowrap' }}>{f.utilizationPct}%</td>
+                      <td style={{ padding: '7px 14px', textAlign: 'right', whiteSpace: 'nowrap', fontWeight: 700, color: f.healthScore < 70 ? '#DC2626' : '#1A1F36' }}>{f.healthScore}</td>
+                    </tr>
+                  );
+                })}
+                {sortedFacilitiesTable.length === 0 && (
+                  <tr><td colSpan={FACILITY_COLUMNS.length} style={{ textAlign: 'center', padding: 20, color: '#9CA3AF', fontSize: 11 }}>No facilities match the current search/filters.</td></tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
       </div>
 
       {/* ── Detail Drawer — the one shared "show me more" pattern ────────── */}
@@ -471,7 +1004,20 @@ export default function GlobalPortfolioPage() {
         focusClusterId={highlightedClusterIds[0] ?? null}
         onMarkerClick={handleGlobeMarkerClick}
       />
+      <ToastHost />
     </div>
+  );
+}
+
+export default function GlobalPortfolioPage() {
+  return (
+    <Suspense fallback={
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F4F6F9', color: '#9CA3AF', fontSize: 12 }}>
+        Loading…
+      </div>
+    }>
+      <GlobalPortfolioInner />
+    </Suspense>
   );
 }
 

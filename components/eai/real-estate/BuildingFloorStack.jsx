@@ -8,7 +8,7 @@ const STATUS = {
   critical:     { fill: 'rgba(239,68,68,0.18)',   stroke: '#ef4444', label: 'Critical'    },
 };
 
-export default function BuildingFloorStack({ floors = [], selectedId, onSelect }) {
+export default function BuildingFloorStack({ floors = [], selectedId, onSelect, onDoubleSelect, dimIds }) {
   const total  = floors.length;
   if (total === 0) return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#9CA3AF', fontSize: 12 }}>
@@ -36,10 +36,12 @@ export default function BuildingFloorStack({ floors = [], selectedId, onSelect }
             const isSelected = floor.id === selectedId;
             const theme = STATUS[floor.status] || STATUS.operational;
             const isRoof = floor.name.toLowerCase().includes('roof');
+            const dimmed = dimIds?.has(floor.id) ?? false;
             return (
               <div
                 key={floor.id}
                 onClick={() => !isRoof && onSelect(floor.id)}
+                onDoubleClick={() => !isRoof && onDoubleSelect?.(floor.id)}
                 style={{
                   height:       barH,
                   borderRadius: idx === 0 ? '10px 10px 0 0' : idx === reversed.length - 1 ? '0 0 6px 6px' : 4,
@@ -47,6 +49,7 @@ export default function BuildingFloorStack({ floors = [], selectedId, onSelect }
                   border:       `1px solid ${isSelected ? '#1A1F36' : theme.stroke}`,
                   boxShadow:    isSelected ? `0 0 0 2px ${theme.stroke}66` : 'none',
                   cursor:       isRoof ? 'default' : 'pointer',
+                  opacity:      dimmed ? 0.35 : 1,
                   display:      'flex',
                   alignItems:   'center',
                   padding:      '0 16px',

@@ -9,7 +9,7 @@ const STATUS_FILL = {
 };
 const DEFAULT_FILL = STATUS_FILL.operational;
 
-export default function CampusSitePlan({ buildings = [], selectedId, onSelect }) {
+export default function CampusSitePlan({ buildings = [], selectedId, onSelect, onDoubleSelect, dimIds }) {
   return (
     <svg
       viewBox="0 0 100 100"
@@ -30,9 +30,15 @@ export default function CampusSitePlan({ buildings = [], selectedId, onSelect })
       {buildings.map(bld => {
         const g    = bld.geo || { x: 20, y: 30, w: 30, h: 25 };
         const sel  = bld.id === selectedId;
+        const dimmed = dimIds?.has(bld.id) ?? false;
         const theme = STATUS_FILL[bld.status] || DEFAULT_FILL;
         return (
-          <g key={bld.id} style={{ cursor: 'pointer' }} onClick={() => onSelect(bld.id)}>
+          <g
+            key={bld.id}
+            style={{ cursor: 'pointer', opacity: dimmed ? 0.3 : 1, transition: 'opacity 0.15s' }}
+            onClick={() => onSelect(bld.id)}
+            onDoubleClick={() => onDoubleSelect?.(bld.id)}
+          >
             {/* Shadow */}
             <rect
               x={g.x + 0.8} y={g.y + 0.8}

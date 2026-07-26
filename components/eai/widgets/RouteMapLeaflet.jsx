@@ -47,7 +47,7 @@ export default function RouteMapLeaflet({ shipments = [] }) {
       scrollWheelZoom={false}
     >
       <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+        url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"
         subdomains="abcd"
         maxZoom={19}
       />

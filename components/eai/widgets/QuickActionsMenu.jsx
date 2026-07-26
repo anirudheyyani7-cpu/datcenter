@@ -57,7 +57,7 @@ export default function QuickActionsMenu({ items = [] }) {
           boxShadow: '0 4px 16px rgba(16,24,40,0.10)',
         }}>
           <div style={{ padding: '4px 0' }}>
-            {items.map(({ iconKey, label, href }) => {
+            {items.map(({ iconKey, label, href, onClick }) => {
               const Icon = ICON_MAP[iconKey] ?? Plus;
               const itemStyle = {
                 display: 'flex', alignItems: 'center', gap: 8, width: '100%',
@@ -75,7 +75,7 @@ export default function QuickActionsMenu({ items = [] }) {
                   {label}
                 </Link>
               ) : (
-                <button key={label} onClick={() => setOpen(false)} style={itemStyle} onMouseEnter={hoverOn} onMouseLeave={hoverOff}>
+                <button key={label} onClick={() => { onClick?.(); setOpen(false); }} style={itemStyle} onMouseEnter={hoverOn} onMouseLeave={hoverOff}>
                   <Icon size={12} style={{ flexShrink: 0, color: '#0077C8' }} />
                   {label}
                 </button>

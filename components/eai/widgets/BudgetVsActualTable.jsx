@@ -4,7 +4,7 @@ import { ChevronDown } from 'lucide-react';
 
 const FILTER_OPTIONS = ['By Category', 'By Location', 'By Vendor'];
 
-export default function BudgetVsActualTable({ title = 'Budget vs Actual', items = [] }) {
+export default function BudgetVsActualTable({ title = 'Budget vs Actual', items = [], onRowClick }) {
   const [filter, setFilter] = useState('By Category');
   const [open, setOpen] = useState(false);
   const maxBudget = Math.max(...items.map(r => r.budgetM), 1);
@@ -52,8 +52,24 @@ export default function BudgetVsActualTable({ title = 'Budget vs Actual', items 
           const budgetBar = (row.budgetM / maxBudget) * 100;
           const actualBar = (row.actualM / maxBudget) * 100;
           const isUnder   = row.variancePct <= 0;
+          const Tag = onRowClick ? 'button' : 'div';
           return (
-            <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 52px', gap: 0, padding: '5px 0', borderBottom: i < items.length - 1 ? '1px solid #E2E8F0' : 'none', alignItems: 'center' }}>
+            <Tag
+              key={i}
+              type={onRowClick ? 'button' : undefined}
+              onClick={onRowClick ? () => onRowClick(row) : undefined}
+              className={onRowClick ? 'eai-focusable' : undefined}
+              style={{
+                display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 52px', gap: 0, padding: '5px 6px',
+                margin: '0 -6px', borderBottom: i < items.length - 1 ? '1px solid #E2E8F0' : 'none',
+                alignItems: 'center', cursor: onRowClick ? 'pointer' : 'default',
+                borderRadius: 6, transition: 'background 0.12s',
+                borderTop: 'none', borderLeft: 'none', borderRight: 'none',
+                background: 'transparent', font: 'inherit', textAlign: 'left', width: 'calc(100% + 12px)',
+              }}
+              onMouseEnter={e => { if (onRowClick) e.currentTarget.style.background = '#F8FAFC'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; }}
+            >
               {/* Category */}
               <span style={{ fontSize: 10, color: '#1A1F36', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: 6 }}>
                 {row.category}
@@ -79,7 +95,7 @@ export default function BudgetVsActualTable({ title = 'Budget vs Actual', items 
               <span style={{ fontSize: 10, fontWeight: 700, color: isUnder ? '#10B981' : '#EF4444', fontFamily: 'ui-monospace,monospace', textAlign: 'right' }}>
                 {row.variancePct > 0 ? '+' : ''}{row.variancePct.toFixed(1)}%
               </span>
-            </div>
+            </Tag>
           );
         })}
       </div>

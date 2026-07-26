@@ -9,7 +9,7 @@ const STATUS_STYLE = {
   'At Risk':     { color: '#EF4444', bg: 'rgba(239,68,68,0.15)',   border: 'rgba(239,68,68,0.30)'   },
 };
 
-export default function StatusListCard({ title, items = [], viewAllHref }) {
+export default function StatusListCard({ title, items = [], viewAllHref, onItemClick }) {
   return (
     <div style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)', borderRadius: 14, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
       {/* Header */}
@@ -27,8 +27,23 @@ export default function StatusListCard({ title, items = [], viewAllHref }) {
       <div style={{ padding: '8px 14px 12px', display: 'flex', flexDirection: 'column', gap: 8 }}>
         {items.map((item, i) => {
           const s = STATUS_STYLE[item.status] ?? STATUS_STYLE['In Progress'];
+          const Tag = onItemClick ? 'button' : 'div';
           return (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+            <Tag
+              key={i}
+              type={onItemClick ? 'button' : undefined}
+              onClick={onItemClick ? () => onItemClick(item) : undefined}
+              className={onItemClick ? 'eai-focusable' : undefined}
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8,
+                cursor: onItemClick ? 'pointer' : 'default',
+                padding: '3px 6px', margin: '-3px -6px', borderRadius: 6,
+                transition: 'background 0.12s',
+                border: 'none', background: 'transparent', font: 'inherit', textAlign: 'left', width: 'calc(100% + 12px)',
+              }}
+              onMouseEnter={e => { if (onItemClick) e.currentTarget.style.background = '#F8FAFC'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; }}
+            >
               <span style={{ fontSize: 10, color: '#1A1F36', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {item.label}
               </span>
@@ -38,7 +53,7 @@ export default function StatusListCard({ title, items = [], viewAllHref }) {
               }}>
                 {item.status}
               </span>
-            </div>
+            </Tag>
           );
         })}
       </div>
