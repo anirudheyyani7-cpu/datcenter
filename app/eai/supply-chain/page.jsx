@@ -1,5 +1,5 @@
 'use client';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import {
   ShoppingCart, FileText, Truck, Warehouse, Package, TrendingUp, CheckCircle, Star,
   Eye, MoreVertical, ExternalLink, ChevronDown,
@@ -59,9 +59,17 @@ function DropBtn({ children }) {
 }
 
 // Page-specific KPI card (supply chain icons don't fit the shared KpiCard icon dict)
-function ScKpiCard({ label, value, unit, sublabel, delta, up, Icon, color, bg }) {
+function ScKpiCard({ label, value, unit, sublabel, delta, up, Icon, color, bg, onClick }) {
   return (
-    <div style={{ background: CARD, border: `1px solid ${BORD}`, borderRadius: 12, padding: 12, display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0, overflow: 'hidden', boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)' }}>
+    <div
+      onClick={onClick}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={onClick ? (e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); } }) : undefined}
+      style={{ background: CARD, border: `1px solid ${BORD}`, borderRadius: 12, padding: 12, display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0, overflow: 'hidden', boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)', cursor: onClick ? 'pointer' : 'default', transition: 'background 0.15s' }}
+      onMouseEnter={e => { if (onClick) e.currentTarget.style.background = '#F4F6F9'; }}
+      onMouseLeave={e => { if (onClick) e.currentTarget.style.background = CARD; }}
+    >
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 4 }}>
         <div style={{ width: 30, height: 30, borderRadius: 8, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
           <Icon size={13} style={{ color }} />
@@ -165,11 +173,21 @@ const PO_TABS = ['All','Open','Confirmed','In Transit','At Warehouse','Delivered
 // ─── Demand Planning quarterly forecast colors ────────────────────────────────
 const Q_COLORS = { itHardware:'#0077C8', networking:'#7C3AED', powerCooling:'#F59E0B', others:'#6B7280' };
 
+// Flow-stage key → PO status (drives "click stage → filter Purchase Orders")
+const STAGE_TO_STATUS = {
+  ordered:   'Open',
+  confirmed: 'Confirmed',
+  intransit: 'In Transit',
+  warehouse: 'At Warehouse',
+  delivered: 'Delivered',
+};
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function SupplyChainPage() {
   const [activeSection, setActiveSection] = useState(null);
   const [activeTab,     setActiveTab]     = useState('All');
   const [poPage,        setPoPage]        = useState(1);
+  const [highlightKey,  setHighlightKey]  = useState(null);
 
   // Filter POs by tab
   const filteredPOs = useMemo(() =>
@@ -180,6 +198,26 @@ export default function SupplyChainPage() {
   const poPageData = filteredPOs.slice((poPage - 1) * PER_PAGE, poPage * PER_PAGE);
 
   const handleTab = tab => { setActiveTab(tab); setPoPage(1); };
+
+  // Refs for "click card/stage → jump to the underlying list" navigation
+  const poSectionRef  = useRef(null);
+  const leadTimeRef   = useRef(null);
+  const inventoryRef  = useRef(null);
+  const vendorsRef    = useRef(null);
+
+  const scrollToSection = (ref, key) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setHighlightKey(key);
+    window.clearTimeout(scrollToSection._t);
+    scrollToSection._t = window.setTimeout(() => setHighlightKey(null), 1800);
+  };
+
+  // Jump to the Purchase Orders table filtered to a given status
+  const goToPOStatus = status => {
+    setActiveTab(status);
+    setPoPage(1);
+    scrollToSection(poSectionRef, 'po');
+  };
 
   // Budget allocation data for donut
   const budgetPct  = Math.round((DEMAND_PLANNING.budgetUsedM / DEMAND_PLANNING.budgetTotalM) * 100);
@@ -213,14 +251,14 @@ export default function SupplyChainPage() {
 
           {/* ── 8 KPI cards ─────────────────────────────────────────────── */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 8, flexShrink: 0 }}>
-            <ScKpiCard label="Total PO Value"        value={`$${poStats.totalValueM}M`} delta="18.4% vs last 30 days" up Icon={ShoppingCart} color="#0077C8" bg="rgba(0,119,200,0.18)" />
-            <ScKpiCard label="Open POs"              value={poStats.openCount} sublabel={`$${poStats.openValueM}M`} delta="12 vs last month" up Icon={FileText} color="#7C3AED" bg="rgba(124,58,237,0.18)" />
-            <ScKpiCard label="In Transit"            value={poStats.inTransitCount} sublabel={`$${poStats.inTransitValueM}M`} delta="5 vs last month" up Icon={Truck} color="#06B6D4" bg="rgba(6,182,212,0.18)" />
-            <ScKpiCard label="Received (This Month)" value={poStats.receivedCount} sublabel={`$${poStats.receivedValueM}M`} delta="16 vs last month" up Icon={Package} color="#F59E0B" bg="rgba(245,158,11,0.18)" />
-            <ScKpiCard label="Inventory Value"       value={`$${invTotal.totalM}M`} delta="6.7% vs last month" up Icon={Warehouse} color="#10B981" bg="rgba(16,185,129,0.18)" />
-            <ScKpiCard label="Avg Lead Time"         value="18.6" unit="Days" delta="2.1 days vs last month" up={false} Icon={TrendingUp} color="#0077C8" bg="rgba(0,119,200,0.18)" />
-            <ScKpiCard label="On-Time Delivery"      value={`${vndKPIs.onTimeDeliveryPct}%`} delta="3.6% vs last month" up Icon={CheckCircle} color="#00A36C" bg="rgba(0,163,108,0.18)" />
-            <ScKpiCard label="Supplier Score (Avg)"  value={vndKPIs.avgQualityScore} unit="/100" delta="4.2 vs last month" up Icon={Star} color="#F59E0B" bg="rgba(245,158,11,0.18)" />
+            <ScKpiCard label="Total PO Value"        value={`$${poStats.totalValueM}M`} delta="18.4% vs last 30 days" up Icon={ShoppingCart} color="#0077C8" bg="rgba(0,119,200,0.18)" onClick={() => goToPOStatus('All')} />
+            <ScKpiCard label="Open POs"              value={poStats.openCount} sublabel={`$${poStats.openValueM}M`} delta="12 vs last month" up Icon={FileText} color="#7C3AED" bg="rgba(124,58,237,0.18)" onClick={() => goToPOStatus('Open')} />
+            <ScKpiCard label="In Transit"            value={poStats.inTransitCount} sublabel={`$${poStats.inTransitValueM}M`} delta="5 vs last month" up Icon={Truck} color="#06B6D4" bg="rgba(6,182,212,0.18)" onClick={() => goToPOStatus('In Transit')} />
+            <ScKpiCard label="Received (This Month)" value={poStats.receivedCount} sublabel={`$${poStats.receivedValueM}M`} delta="16 vs last month" up Icon={Package} color="#F59E0B" bg="rgba(245,158,11,0.18)" onClick={() => goToPOStatus('Delivered')} />
+            <ScKpiCard label="Inventory Value"       value={`$${invTotal.totalM}M`} delta="6.7% vs last month" up Icon={Warehouse} color="#10B981" bg="rgba(16,185,129,0.18)" onClick={() => scrollToSection(inventoryRef, 'inventory')} />
+            <ScKpiCard label="Avg Lead Time"         value="18.6" unit="Days" delta="2.1 days vs last month" up={false} Icon={TrendingUp} color="#0077C8" bg="rgba(0,119,200,0.18)" onClick={() => scrollToSection(leadTimeRef, 'leadtime')} />
+            <ScKpiCard label="On-Time Delivery"      value={`${vndKPIs.onTimeDeliveryPct}%`} delta="3.6% vs last month" up Icon={CheckCircle} color="#00A36C" bg="rgba(0,163,108,0.18)" onClick={() => scrollToSection(vendorsRef, 'vendors')} />
+            <ScKpiCard label="Supplier Score (Avg)"  value={vndKPIs.avgQualityScore} unit="/100" delta="4.2 vs last month" up Icon={Star} color="#F59E0B" bg="rgba(245,158,11,0.18)" onClick={() => scrollToSection(vendorsRef, 'vendors')} />
           </div>
 
           {/* ── Row: Flow | Donut | TrendChart ──────────────────────────── */}
@@ -229,7 +267,10 @@ export default function SupplyChainPage() {
             {/* Supply Chain Flow */}
             <Card title="Supply Chain Flow">
               <div style={{ height: '100%', display: 'flex', alignItems: 'center' }}>
-                <FlowPipeline stages={FLOW_STAGES} />
+                <FlowPipeline
+                  stages={FLOW_STAGES}
+                  onStageClick={stage => goToPOStatus(STAGE_TO_STATUS[stage.key] ?? 'All')}
+                />
               </div>
             </Card>
 
@@ -247,38 +288,41 @@ export default function SupplyChainPage() {
             </Card>
 
             {/* Lead Time Trend (dual-line) */}
-            <Card
-              title="Lead Time Trend (Days)"
-              action={<DropBtn>Last 6 Months <ChevronDown size={9} /></DropBtn>}
-            >
-              <div style={{ width: '100%', overflow: 'hidden' }}>
-                <ResponsiveContainer width="100%" height={140}>
-                  <LineChart data={LEAD_TIME_TREND} margin={{ top: 4, right: 6, bottom: 0, left: -28 }}>
-                    <XAxis dataKey="month" tick={{ fontSize: 7, fill: '#6B7280' }} axisLine={false} tickLine={false} />
-                    <YAxis tick={{ fontSize: 7, fill: '#6B7280' }} axisLine={false} tickLine={false} />
-                    <RTooltip contentStyle={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: 8, fontSize: 10, boxShadow: '0 2px 8px rgba(16,24,40,0.08)' }} itemStyle={{ color: '#1A1F36' }} labelStyle={{ color: '#6B7280', fontSize: 9 }} />
-                    <Line type="monotone" dataKey="average" stroke="#0077C8" strokeWidth={2} dot={{ r: 3, fill: '#0077C8', strokeWidth: 0 }} name="Average Lead Time (Days)" />
-                    <Line type="monotone" dataKey="target"  stroke="#00A36C" strokeWidth={2} dot={{ r: 3, fill: '#00A36C', strokeWidth: 0 }} name="Target Lead Time (Days)" strokeDasharray="5 3" />
-                  </LineChart>
-                </ResponsiveContainer>
-                {/* Legend */}
-                <div style={{ display: 'flex', gap: 14, marginTop: 4, justifyContent: 'center' }}>
-                  {[{c:'#0077C8', l:'Average Lead Time (Days)'},{c:'#00A36C', l:'Target Lead Time (Days)'}].map(e => (
-                    <div key={e.l} style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 8, color: DIM }}>
-                      <span style={{ width: 16, height: 2, background: e.c, display: 'inline-block' }} />
-                      {e.l}
-                    </div>
-                  ))}
+            <div ref={leadTimeRef} className={highlightKey === 'leadtime' ? 'sc-highlight' : ''} style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+              <Card
+                title="Lead Time Trend (Days)"
+                action={<DropBtn>Last 6 Months <ChevronDown size={9} /></DropBtn>}
+                style={{ flex: 1 }}
+              >
+                <div style={{ width: '100%', overflow: 'hidden' }}>
+                  <ResponsiveContainer width="100%" height={140}>
+                    <LineChart data={LEAD_TIME_TREND} margin={{ top: 4, right: 6, bottom: 0, left: -28 }}>
+                      <XAxis dataKey="month" tick={{ fontSize: 7, fill: '#6B7280' }} axisLine={false} tickLine={false} />
+                      <YAxis tick={{ fontSize: 7, fill: '#6B7280' }} axisLine={false} tickLine={false} />
+                      <RTooltip contentStyle={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: 8, fontSize: 10, boxShadow: '0 2px 8px rgba(16,24,40,0.08)' }} itemStyle={{ color: '#1A1F36' }} labelStyle={{ color: '#6B7280', fontSize: 9 }} />
+                      <Line type="monotone" dataKey="average" stroke="#0077C8" strokeWidth={2} dot={{ r: 3, fill: '#0077C8', strokeWidth: 0 }} name="Average Lead Time (Days)" />
+                      <Line type="monotone" dataKey="target"  stroke="#00A36C" strokeWidth={2} dot={{ r: 3, fill: '#00A36C', strokeWidth: 0 }} name="Target Lead Time (Days)" strokeDasharray="5 3" />
+                    </LineChart>
+                  </ResponsiveContainer>
+                  {/* Legend */}
+                  <div style={{ display: 'flex', gap: 14, marginTop: 4, justifyContent: 'center' }}>
+                    {[{c:'#0077C8', l:'Average Lead Time (Days)'},{c:'#00A36C', l:'Target Lead Time (Days)'}].map(e => (
+                      <div key={e.l} style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 8, color: DIM }}>
+                        <span style={{ width: 16, height: 2, background: e.c, display: 'inline-block' }} />
+                        {e.l}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </div>
           </div>
 
           {/* ── Purchase Orders table + Right column ──────────────────────── */}
           <div style={{ display: 'flex', gap: 10, alignItems: 'stretch' }}>
 
             {/* PO DataTable */}
-            <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+            <div ref={poSectionRef} className={highlightKey === 'po' ? 'sc-highlight' : ''} style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
               <DataTable
                 title="Purchase Orders"
                 tabs={PO_TABS}
@@ -318,7 +362,7 @@ export default function SupplyChainPage() {
           <div style={{ display: 'flex', gap: 10, alignItems: 'stretch' }}>
 
             {/* Inventory by Location */}
-            <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+            <div ref={inventoryRef} className={highlightKey === 'inventory' ? 'sc-highlight' : ''} style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
               <DataTable
                 title="Inventory by Location"
                 viewAllHref="#"
@@ -336,7 +380,7 @@ export default function SupplyChainPage() {
             </div>
 
             {/* Top Vendors by Spend */}
-            <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+            <div ref={vendorsRef} className={highlightKey === 'vendors' ? 'sc-highlight' : ''} style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
               <DataTable
                 title="Top Vendors by Spend"
                 viewAllHref="#"
