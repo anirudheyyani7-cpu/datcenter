@@ -2,8 +2,9 @@
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Calendar, Filter, Download, ChevronRight, ChevronDown, ChevronUp, ArrowRight, Leaf, Droplets, Recycle,
+  Calendar, Filter, Download, ChevronRight, ChevronDown, ChevronUp, ArrowRight, ArrowLeft, Leaf, Droplets, Recycle,
   X, Building2, Layers, Zap, Timer, Activity, ShieldAlert, Globe2, MapPin, Wrench, Newspaper,
   Search, FileText, FileSpreadsheet, FileDown,
 } from 'lucide-react';
@@ -18,6 +19,10 @@ import DetailDrawer, { DrawerTable, DrawerStatRow, DrawerPill } from '@/componen
 import FilterPopover    from '@/components/eai/widgets/FilterPopover';
 import DateRangePopover from '@/components/eai/widgets/DateRangePopover';
 import { useToast }     from '@/components/eai/widgets/Toast';
+import DatacenterDetailPanel from '@/components/pages/DatacenterDetailPanel';
+import AIChatPanel            from '@/components/ai-chat/AIChatPanel';
+import { formatDatacenterForAI } from '@/lib/datacenter-data';
+import { resolveEaiFacilityToDatacenter } from '@/lib/eaiFacilityResolver';
 
 import {
   eaiKpis, eaiCapacityByRegion, eaiAiBriefing,
@@ -33,6 +38,25 @@ const GlobeViewer = dynamic(() => import('@/components/globe/GlobeViewer'), { ss
 const ESG_ICONS = { leaf: Leaf, droplets: Droplets, recycle: Recycle };
 const KPI_ICONS = { building: Building2, layers: Layers, zap: Zap, timer: Timer, activity: Activity, droplets: Droplets, leaf: Leaf, shieldAlert: ShieldAlert };
 const STATUS_COLOR = { optimal: '#00A36C', good: '#0077C8', warning: '#D4A017', critical: '#DC2626', maintenance: '#6B7280' };
+
+// Facility-scoped system prompt for the "AI Facility Analysis" chatbot opened
+// from a globe marker — keeps the assistant grounded to the single datacenter
+// under discussion rather than the whole portfolio.
+const KPMG_ENGINE_SYSTEM_PROMPT = `You are the KPMG Datacenter Intelligence Engine, a specialist AI analyst for enterprise datacenter operations. You are scoped to a single facility for this conversation — answer only using the facility context provided, be precise with numbers, and flag when information isn't available rather than guessing. Keep responses concise and operationally focused (capacity, utilization, health, risk, sustainability, connectivity).`;
+
+// EAI-authoritative operational metrics, rendered as extra cells in
+// DatacenterDetailPanel's metrics grid so the globe's rich panel still shows
+// the numbers the rest of the EAI platform reports for this facility.
+function buildExtraMetrics(f) {
+  if (!f) return [];
+  const utilColor = f.utilizationPct >= 85 ? '#EF4444' : f.utilizationPct >= 70 ? '#D4A017' : '#00A36C';
+  const healthColor = f.healthScore >= 85 ? '#00A36C' : f.healthScore >= 70 ? '#D4A017' : '#EF4444';
+  return [
+    { label: 'Utilization',  value: `${f.utilizationPct}%`, color: utilColor },
+    { label: 'Health Score', value: f.healthScore,           color: healthColor },
+    { label: 'Region',       value: f.region,                color: '#6B7280' },
+  ];
+}
 
 // ── Capacity-by-Region metric switcher ────────────────────────────────────────
 const METRIC_OPTIONS = [
@@ -124,7 +148,6 @@ function drawerToParam(d) {
   switch (d.kind) {
     case 'kpi':         return `kpi:${d.kpi.key}`;
     case 'cluster':      return `cluster:${d.cluster.id}`;
-    case 'facility':     return `facility:${d.facility.id}`;
     case 'alert':        return `alert:${d.item.id}`;
     case 'news':         return `news:${d.item.id}`;
     case 'news-all':     return 'news-all';
@@ -145,7 +168,6 @@ function paramToDrawer(param) {
   switch (kind) {
     case 'kpi':        { const kpi = eaiKpis.find(k => k.key === id); return kpi ? { kind: 'kpi', kpi } : null; }
     case 'cluster':    { const cluster = eaiMapClusters.find(c => c.id === id); return cluster ? { kind: 'cluster', cluster } : null; }
-    case 'facility':   { const facility = eaiFacilities.find(f => f.id === id); return facility ? { kind: 'facility', facility } : null; }
     case 'alert':      { const item = eaiCriticalAlerts.find(a => a.id === id); return item ? { kind: 'alert', item } : null; }
     case 'news':       { const item = eaiRecentNews.find(n => n.id === id); return item ? { kind: 'news', item } : null; }
     case 'maintenance':{ const item = eaiUpcomingMaintenance.find(m => m.id === id); return item ? { kind: 'maintenance', item } : null; }
@@ -228,8 +250,92 @@ function DropBtn({ children, options, value, onChange, menuWidth = 180 }) {
   );
 }
 
+// Skeleton shell shown while a clicked facility is being resolved against the
+// master datacenter dataset — same w-96 dark slide-in shape as the real panel.
+function DatacenterDetailSkeleton({ onClose }) {
+  return (
+    <motion.div
+      key="skeleton"
+      initial={{ x: '100%', opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: '100%', opacity: 0 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      className="absolute top-0 right-0 h-full w-96 bg-[#111827] border-l border-white/10 z-[900] flex flex-col shadow-2xl overflow-hidden"
+    >
+      <div className="p-5 flex-shrink-0 border-b border-white/10 flex items-center justify-between">
+        <div className="h-4 w-32 bg-white/10 rounded animate-pulse" />
+        <button onClick={onClose} className="text-white/50 hover:text-white transition-colors p-0.5">
+          <X size={18} />
+        </button>
+      </div>
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        <div className="grid grid-cols-2 gap-2">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="bg-white/[0.05] rounded-xl p-3 border border-white/[0.06] h-16 animate-pulse" />
+          ))}
+        </div>
+        <div className="h-24 bg-white/[0.04] rounded-xl border border-white/[0.08] animate-pulse" />
+        <div className="h-32 bg-white/[0.04] rounded-xl border border-white/[0.08] animate-pulse" />
+      </div>
+    </motion.div>
+  );
+}
+
 // ── 3D globe modal — expand target for the map card's hover-revealed icon ────
-function GlobeModal({ open, onClose, facilities, focusClusterId, onMarkerClick }) {
+// Clicking any datacenter marker resolves it into the rich dc shape (see
+// lib/eaiFacilityResolver.js) and shows the same DatacenterDetailPanel +
+// AI Facility Analysis chatbot used on the Global Dashboard, scoped to that
+// facility. `autoSelectFacilityId` lets callers outside the 3D view (e.g. the
+// main-body facility table) open straight into a specific facility's panel.
+function GlobeModal({ open, onClose, facilities, focusClusterId, autoSelectFacilityId, onFacilitySelected }) {
+  const [eaiFacility, setEaiFacility] = useState(null);
+  const [selectedDc, setSelectedDc] = useState(null);
+  const [resolving, setResolving] = useState(false);
+  const [showAI, setShowAI] = useState(false);
+
+  const selectFacility = useCallback(async (facility) => {
+    if (!facility) return;
+    setEaiFacility(facility);
+    setSelectedDc(null);
+    setShowAI(false);
+    setResolving(true);
+    onFacilitySelected?.(facility.id);
+    try {
+      const resolved = await resolveEaiFacilityToDatacenter(facility);
+      setSelectedDc(resolved);
+    } finally {
+      setResolving(false);
+    }
+  }, [onFacilitySelected]);
+
+  const clearSelection = useCallback(() => {
+    setEaiFacility(null);
+    setSelectedDc(null);
+    setShowAI(false);
+    onFacilitySelected?.(null);
+  }, [onFacilitySelected]);
+
+  useEffect(() => {
+    if (!open) { clearSelection(); return; }
+    if (autoSelectFacilityId) {
+      const f = facilities.find(x => x.id === autoSelectFacilityId);
+      if (f) selectFacility(f);
+    }
+    // Only re-run when the modal opens or the target facility changes — not
+    // on every selectFacility/clearSelection identity change.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, autoSelectFacilityId]);
+
+  useEffect(() => {
+    if (!open) return;
+    function onKey(e) {
+      if (e.key !== 'Escape') return;
+      if (showAI) setShowAI(false);
+      else if (eaiFacility) clearSelection();
+      else onClose?.();
+    }
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open, showAI, eaiFacility, onClose, clearSelection]);
+
   if (!open) return null;
 
   const datacenters = facilities.map(f => ({
@@ -244,6 +350,11 @@ function GlobeModal({ open, onClose, facilities, focusClusterId, onMarkerClick }
   const focusFacility = focusClusterId
     ? facilities.find(f => f.mapClusterId === focusClusterId)
     : null;
+
+  function handleMarkerClick(dc) {
+    const facility = facilities.find(f => f.id === dc.id);
+    if (facility) selectFacility(facility);
+  }
 
   return (
     <>
@@ -273,19 +384,73 @@ function GlobeModal({ open, onClose, facilities, focusClusterId, onMarkerClick }
           </button>
         </div>
 
-        {/* Globe canvas — kept on a dark backdrop, same as the reference cockpit globe, since the
-            starfield/globe render needs contrast a white page background can't give it. */}
+        {/* Globe canvas + rich facility overlay — kept on a dark backdrop, same as the
+            reference cockpit globe, since the starfield/globe render needs contrast a
+            white page background can't give it. The detail panel + AI chat are dark by
+            design and sit over this same backdrop, so they stay dark too. */}
         <div style={{
-          flex: 1, position: 'relative', minHeight: 0,
+          flex: 1, position: 'relative', minHeight: 0, overflow: 'hidden',
           background: 'linear-gradient(135deg, #0a1628 0%, #0d2040 40%, #060e1a 100%)',
         }}>
           <GlobeViewer
             datacenters={datacenters}
-            selectedId={focusFacility?.id ?? null}
+            selectedId={eaiFacility?.id ?? focusFacility?.id ?? null}
             getMarkerColor={dc => STATUS_COLOR[dc.status] ?? '#6B7280'}
-            onMarkerClick={onMarkerClick}
+            onMarkerClick={handleMarkerClick}
             showLink={false}
           />
+
+          <AnimatePresence>
+            {showAI && (selectedDc || resolving) && (
+              <motion.div
+                key="ai-panel"
+                initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                className="absolute top-0 right-0 h-full w-96 bg-[#111827] border-l border-white/10 z-[900] flex flex-col"
+              >
+                <div className="flex items-center gap-3 p-4 border-b border-white/10 flex-shrink-0">
+                  <button onClick={() => setShowAI(false)} className="text-white/50 hover:text-white/80 transition-colors">
+                    <ArrowLeft size={16} />
+                  </button>
+                  <div>
+                    <div className="text-white font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                      AI Facility Analysis
+                    </div>
+                    <div className="text-white/40 text-xs">{selectedDc?.name ?? eaiFacility?.name}</div>
+                  </div>
+                </div>
+                <div className="flex-1 overflow-hidden p-4">
+                  {selectedDc && eaiFacility && (
+                    <AIChatPanel
+                      title={selectedDc.name}
+                      context={`You are analyzing this specific datacenter:\n\n${formatDatacenterForAI(selectedDc)}\n\nEAI operational data: utilization ${eaiFacility.utilizationPct}%, health score ${eaiFacility.healthScore}, status ${eaiFacility.status}, region ${eaiFacility.region}.`}
+                      systemContext={KPMG_ENGINE_SYSTEM_PROMPT}
+                      defaultExpanded
+                      suggestionChips={[
+                        `Why is the health score ${eaiFacility.healthScore}?`,
+                        `What's driving ${eaiFacility.utilizationPct}% utilization?`,
+                        'Top operational risks for this facility',
+                        'How does it compare to regional peers?',
+                      ]}
+                      className="h-full"
+                    />
+                  )}
+                </div>
+              </motion.div>
+            )}
+            {!showAI && resolving && (
+              <DatacenterDetailSkeleton onClose={clearSelection} />
+            )}
+            {!showAI && !resolving && selectedDc && (
+              <DatacenterDetailPanel
+                key={`detail-${selectedDc.id}`}
+                dc={selectedDc}
+                extraMetrics={buildExtraMetrics(eaiFacility)}
+                onClose={clearSelection}
+                onAskAI={() => setShowAI(true)}
+              />
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Legend */}
@@ -338,7 +503,16 @@ function GlobalPortfolioInner() {
     return null;
   });
 
-  const [globeOpen, setGlobeOpen] = useState(false);
+  // The 3D globe modal also opens directly to a specific facility's rich panel
+  // when arriving via `?drawer=facility:<id>` (e.g. from the main-body table).
+  const [globeOpen, setGlobeOpen] = useState(() => {
+    const param = searchParams.get('drawer');
+    return !!(param && param.startsWith('facility:'));
+  });
+  const [globeAutoSelectId, setGlobeAutoSelectId] = useState(() => {
+    const param = searchParams.get('drawer');
+    return (param && param.startsWith('facility:')) ? decodeURIComponent(param.slice('facility:'.length)) : null;
+  });
 
   const [range, setRange] = useState(() => {
     const key = searchParams.get('range');
@@ -402,9 +576,14 @@ function GlobalPortfolioInner() {
     setGlobeOpen(true);
   }
 
-  function handleGlobeMarkerClick(dc) {
-    const facility = eaiFacilities.find(f => f.id === dc.id);
-    if (facility) setDrawer({ kind: 'facility', facility });
+  // Opens the 3D globe modal already focused on one facility's rich detail
+  // panel — the single "facility experience" entry point used by every click
+  // target that isn't a marker inside the globe itself (marker clicks are
+  // handled internally by GlobeModal).
+  function openGlobeToFacility(facilityId) {
+    setGlobeAutoSelectId(facilityId);
+    setGlobeOpen(true);
+    updateURL({ drawer: `facility:${facilityId}` });
   }
 
   // ── Filters ────────────────────────────────────────────────────────────────
@@ -965,7 +1144,7 @@ function GlobalPortfolioInner() {
                     <tr
                       key={f.id}
                       onClick={() => handleFacilityRowClick(f)}
-                      onDoubleClick={() => setDrawer({ kind: 'facility', facility: f })}
+                      onDoubleClick={() => openGlobeToFacility(f.id)}
                       style={{
                         background: isSel ? 'rgba(0,119,200,0.08)' : i % 2 === 0 ? 'transparent' : '#F8FAFC',
                         cursor: 'pointer', transition: 'background 0.12s',
@@ -999,10 +1178,11 @@ function GlobalPortfolioInner() {
       {/* ── 3D Globe expand modal ─────────────────────────────────────────── */}
       <GlobeModal
         open={globeOpen}
-        onClose={() => setGlobeOpen(false)}
+        onClose={() => { setGlobeOpen(false); setGlobeAutoSelectId(null); updateURL({ drawer: undefined }); }}
         facilities={eaiFacilities}
         focusClusterId={highlightedClusterIds[0] ?? null}
-        onMarkerClick={handleGlobeMarkerClick}
+        autoSelectFacilityId={globeAutoSelectId}
+        onFacilitySelected={id => updateURL({ drawer: id ? `facility:${id}` : undefined })}
       />
       <ToastHost />
     </div>
@@ -1053,22 +1233,6 @@ function DrawerRouter({ drawer, onClose, onOpen }) {
       return (
         <DetailDrawer open title={cluster.label} subtitle={`${facilities.length} facilities in this region`} icon={<MapPin size={16} color={color} />} accentColor={color} onClose={onClose}>
           <FacilityTable facilities={facilities} />
-        </DetailDrawer>
-      );
-    }
-
-    case 'facility': {
-      const f = drawer.facility;
-      const color = STATUS_COLOR[f.status] ?? '#6B7280';
-      return (
-        <DetailDrawer open title={f.name} subtitle={`${f.city}, ${f.country}`} icon={<Building2 size={16} color={color} />} accentColor={color} onClose={onClose}>
-          <DrawerStatRow items={[
-            { label: 'Region', value: f.region },
-            { label: 'Capacity', value: `${f.capacityMW} MW` },
-            { label: 'Utilization', value: `${f.utilizationPct}%` },
-            { label: 'Health Score', value: f.healthScore, color },
-          ]} />
-          <DrawerPill label={f.status} color={color} />
         </DetailDrawer>
       );
     }

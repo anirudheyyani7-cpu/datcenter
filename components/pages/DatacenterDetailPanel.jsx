@@ -19,7 +19,7 @@ function LiveBadge() {
 const IX_BENCHMARK = 8;
 const NET_BENCHMARK = 150;
 
-export default function DatacenterDetailPanel({ dc, onClose, onAskAI }) {
+export default function DatacenterDetailPanel({ dc, onClose, onAskAI, extraMetrics = [] }) {
   const [liveData, setLiveData] = useState(null);
   const [liveSummary, setLiveSummary] = useState('');
   const [liveLoading, setLiveLoading] = useState(true);
@@ -86,6 +86,7 @@ export default function DatacenterDetailPanel({ dc, onClose, onAskAI }) {
             { label: 'Area (sqft)',  value: dc.total_area_sqft ? `${Math.round(dc.total_area_sqft / 1000)}k` : '—', color: '#6B7280' },
             { label: 'Commissioned', value: dc.year_commissioned ?? '—',                                   color: '#D4A017' },
             { label: 'Cooling',      value: dc.cooling_type ? dc.cooling_type.split(' ')[0] : '—',         color: '#0077C8' },
+            ...extraMetrics,
           ].map((m, i) => (
             <div key={i} className="bg-white/[0.05] rounded-xl p-3 border border-white/[0.06]">
               <div className="text-[10px] text-white/35 mb-1 uppercase tracking-wide">{m.label}</div>
