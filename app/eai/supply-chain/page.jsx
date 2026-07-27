@@ -66,14 +66,14 @@ function ScKpiCard({ label, value, unit, sublabel, delta, up, Icon, color, bg })
         <div style={{ width: 30, height: 30, borderRadius: 8, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
           <Icon size={13} style={{ color }} />
         </div>
-        <p style={{ fontSize: 8, color: DIM, textTransform: 'uppercase', letterSpacing: '0.07em', textAlign: 'right', lineHeight: 1.3, overflow: 'hidden' }}>{label}</p>
+        <p style={{ fontSize: 8, color: DIM, textTransform: 'uppercase', letterSpacing: '0.07em', textAlign: 'right', lineHeight: 1.3, height: '20.8px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{label}</p>
       </div>
       <p style={{ fontSize: 20, fontWeight: 700, color: '#1A1F36', fontFamily: 'ui-monospace,monospace', lineHeight: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
         {value}{unit && <span style={{ fontSize: 11, color: DIM, marginLeft: 2 }}>{unit}</span>}
       </p>
       {sublabel && <p style={{ fontSize: 9, color: DIMMER, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{sublabel}</p>}
       {delta && (
-        <p style={{ fontSize: 8, fontWeight: 600, color: up ? '#00A36C' : '#DC2626', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
+        <p style={{ fontSize: 8, fontWeight: 600, color: up ? '#00A36C' : '#DC2626', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', marginTop: 'auto' }}>
           {up ? '↑' : '↓'} {delta}
         </p>
       )}
@@ -224,11 +224,13 @@ export default function SupplyChainPage() {
           </div>
 
           {/* ── Row: Flow | Donut | TrendChart ──────────────────────────── */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 280px 300px', gap: 10, flexShrink: 0, alignItems: 'start' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 280px 300px', gap: 10, flexShrink: 0, alignItems: 'stretch' }}>
 
             {/* Supply Chain Flow */}
             <Card title="Supply Chain Flow">
-              <FlowPipeline stages={FLOW_STAGES} />
+              <div style={{ height: '100%', display: 'flex', alignItems: 'center' }}>
+                <FlowPipeline stages={FLOW_STAGES} />
+              </div>
             </Card>
 
             {/* Spend by Category */}
@@ -273,10 +275,10 @@ export default function SupplyChainPage() {
           </div>
 
           {/* ── Purchase Orders table + Right column ──────────────────────── */}
-          <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+          <div style={{ display: 'flex', gap: 10, alignItems: 'stretch' }}>
 
             {/* PO DataTable */}
-            <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
               <DataTable
                 title="Purchase Orders"
                 tabs={PO_TABS}
@@ -286,6 +288,7 @@ export default function SupplyChainPage() {
                 data={poPageData}
                 keyField="poNumber"
                 pagination={{ page: poPage, perPage: PER_PAGE, total: poTotal, onChange: setPoPage }}
+                style={{ flex: 1 }}
               />
             </div>
 
@@ -307,16 +310,15 @@ export default function SupplyChainPage() {
                 shipments={SHIPMENTS}
                 height={260}
                 title="Deliveries Map"
-                viewAllHref="#"
               />
             </div>
           </div>
 
           {/* ── Bottom row ───────────────────────────────────────────────── */}
-          <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+          <div style={{ display: 'flex', gap: 10, alignItems: 'stretch' }}>
 
             {/* Inventory by Location */}
-            <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
               <DataTable
                 title="Inventory by Location"
                 viewAllHref="#"
@@ -329,11 +331,12 @@ export default function SupplyChainPage() {
                 data={INVENTORY_BY_LOCATION}
                 keyField="location"
                 compact
+                style={{ flex: 1 }}
               />
             </div>
 
             {/* Top Vendors by Spend */}
-            <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
               <DataTable
                 title="Top Vendors by Spend"
                 viewAllHref="#"
@@ -346,6 +349,7 @@ export default function SupplyChainPage() {
                 data={VENDORS}
                 keyField="name"
                 compact
+                style={{ flex: 1 }}
               />
             </div>
 

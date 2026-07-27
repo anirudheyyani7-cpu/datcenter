@@ -1,5 +1,7 @@
 'use client';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
+import DeliveriesMapModal from './DeliveriesMapModal';
 
 const RouteMapLeaflet = dynamic(() => import('./RouteMapLeaflet'), {
   ssr: false,
@@ -16,7 +18,9 @@ const LEGEND = [
   { label: 'Delivered',  color: '#00A36C' },
 ];
 
-export default function RouteMap({ shipments = [], height = 300, title = 'Deliveries Map', viewAllHref }) {
+export default function RouteMap({ shipments = [], height = 300, title = 'Deliveries Map' }) {
+  const [mapModalOpen, setMapModalOpen] = useState(false);
+
   return (
     <div style={{
       background: '#FFFFFF',
@@ -27,12 +31,11 @@ export default function RouteMap({ shipments = [], height = 300, title = 'Delive
       {/* Card header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderBottom: '1px solid #E2E8F0', flexShrink: 0 }}>
         <span style={{ fontSize: 11, fontWeight: 700, color: '#1A1F36' }}>{title}</span>
-        {viewAllHref && (
-          <a href={viewAllHref} style={{ fontSize: 9, color: '#6B7280', textDecoration: 'none' }}
-            onMouseEnter={e => e.currentTarget.style.color = '#1A1F36'}
-            onMouseLeave={e => e.currentTarget.style.color = '#6B7280'}
-          >View All</a>
-        )}
+        <button onClick={() => setMapModalOpen(true)}
+          style={{ fontSize: 9, color: '#6B7280', background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
+          onMouseEnter={e => e.currentTarget.style.color = '#1A1F36'}
+          onMouseLeave={e => e.currentTarget.style.color = '#6B7280'}
+        >View All</button>
       </div>
 
       {/* Map */}
@@ -49,6 +52,8 @@ export default function RouteMap({ shipments = [], height = 300, title = 'Delive
           </div>
         ))}
       </div>
+
+      <DeliveriesMapModal open={mapModalOpen} onClose={() => setMapModalOpen(false)} shipments={shipments} />
     </div>
   );
 }
