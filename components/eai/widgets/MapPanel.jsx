@@ -16,7 +16,7 @@ const EAIMapLeaflet = dynamic(
   }
 );
 
-export default function MapPanel({ clusters = [], height = 360, onViewFull, onMarkerClick, selectedClusterIds }) {
+export default function MapPanel({ clusters = [], height = 360, fillHeight = false, onViewFull, onMarkerClick, selectedClusterIds }) {
   const [hovered, setHovered] = useState(false);
   return (
     <div
@@ -30,6 +30,10 @@ export default function MapPanel({ clusters = [], height = 360, onViewFull, onMa
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
+        // flex:1 (not a fixed height) lets this grow into whatever space its sibling
+        // (the Capacity by Region card, below it) doesn't need — a fixed height:'100%'
+        // would instead force both to shrink to fit, clipping the sibling's content.
+        ...(fillHeight ? { flex: '1 1 0%', minHeight: 0 } : {}),
       }}>
       {/* Card header */}
       <div style={{
@@ -50,8 +54,12 @@ export default function MapPanel({ clusters = [], height = 360, onViewFull, onMa
         </div>
       </div>
 
-      {/* Map — flexShrink:0 prevents a flex parent squashing the explicit height */}
-      <div style={{ position: 'relative', height, width: '100%', overflow: 'hidden', flexShrink: 0 }}>
+      {/* Map — flexShrink:0 prevents a flex parent squashing the explicit height;
+          fillHeight instead grows the canvas to fill whatever space is left in a stretched parent */}
+      <div style={fillHeight
+        ? { position: 'relative', flex: 1, minHeight: 280, width: '100%', overflow: 'hidden' }
+        : { position: 'relative', height, width: '100%', overflow: 'hidden', flexShrink: 0 }
+      }>
         <EAIMapLeaflet clusters={clusters} onMarkerClick={onMarkerClick} selectedIds={selectedClusterIds} />
 
         {/* Layer icon overlay */}

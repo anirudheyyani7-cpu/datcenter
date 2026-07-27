@@ -708,36 +708,45 @@ function GlobalPortfolioInner() {
           })}
         </div>
 
-        {/* ── Row 2: Map | Capacity Donut | Right Rail ─────────────────── */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 290px 258px', gap: 14, alignItems: 'start' }}>
+        {/* ── Row 2: Map+Capacity stack | Right Rail ────────────────────── */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 258px', gap: 14, alignItems: 'stretch' }}>
 
-          {/* Map */}
-          <MapPanel
-            clusters={eaiMapClusters}
-            height={370}
-            onMarkerClick={handleMarkerClick}
-            selectedClusterIds={finalSelectedClusterIds}
-            onViewFull={handleExpandGlobe}
-          />
+          {/* Map + Capacity by Region, stacked */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14, minWidth: 0 }}>
 
-          {/* Capacity by Region */}
-          <Card title="Capacity by Region" action={
-            <DropBtn options={METRIC_OPTIONS.map(m => ({ key: m.key, label: m.label }))} value={metric} onChange={setMetric}>
-              {metricDef.label} ▾
-            </DropBtn>
-          }>
-            <DonutChart
-              data={donutData}
-              centerLabel={donutCenterLabel}
-              centerUnit={metricDef.unit}
-              centerSublabel={donutCenterSublabel}
-              height={155}
-              innerRadius={50}
-              outerRadius={74}
-              activeName={activeRegionName}
-              onSegmentClick={handleRegionClick}
+            {/* Map */}
+            <MapPanel
+              clusters={eaiMapClusters}
+              fillHeight
+              onMarkerClick={handleMarkerClick}
+              selectedClusterIds={finalSelectedClusterIds}
+              onViewFull={handleExpandGlobe}
             />
-          </Card>
+
+            {/* Capacity by Region */}
+            <Card title="Capacity by Region" action={
+              <DropBtn options={METRIC_OPTIONS.map(m => ({ key: m.key, label: m.label }))} value={metric} onChange={setMetric}>
+                {metricDef.label} ▾
+              </DropBtn>
+            }>
+              {/* Capped width — DonutChart's legend is a single-column list designed for a
+                  narrow card; letting it stretch to this row's new full width spreads each
+                  legend row's label/value apart with a big gap between them. */}
+              <div style={{ maxWidth: 360 }}>
+                <DonutChart
+                  data={donutData}
+                  centerLabel={donutCenterLabel}
+                  centerUnit={metricDef.unit}
+                  centerSublabel={donutCenterSublabel}
+                  height={155}
+                  innerRadius={50}
+                  outerRadius={74}
+                  activeName={activeRegionName}
+                  onSegmentClick={handleRegionClick}
+                />
+              </div>
+            </Card>
+          </div>
 
           {/* Right Rail */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
