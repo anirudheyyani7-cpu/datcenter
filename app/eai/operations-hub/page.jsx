@@ -1066,7 +1066,10 @@ function OperationsHubInner() {
 
           {/* KPI row */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 10 }}>
-            {displayKpis.map(k => <KpiCard key={k.key} {...k} onClick={() => openDrawer('kpi', { kpi: k })} />)}
+            {displayKpis.map(k => {
+              const { key, ...cardProps } = k;
+              return <KpiCard key={key} {...cardProps} onClick={() => openDrawer('kpi', { kpi: k })} />;
+            })}
           </div>
 
           {/* Row 1: Operations Overview | Incidents Trend | Right Rail */}

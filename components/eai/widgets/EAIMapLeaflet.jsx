@@ -68,8 +68,12 @@ export default function EAIMapLeaflet({ clusters = [], onMarkerClick, selectedId
           icon={clusterIcon(c.count, STATUS_COLOR[c.status] ?? '#6B7280', !!selectedIds?.includes(c.id))}
           eventHandlers={onMarkerClick ? { click: () => onMarkerClick(c) } : undefined}
         >
-          <Tooltip direction="top" offset={[0, -16]} opacity={0.95}>
-            <span style={{ fontSize: 11 }}>{c.label} ({c.count} facilities)</span>
+          {/* Always-on region label (English, curated from data) — the basemap tiles
+              are label-free to avoid mixed-language place names, so this is the only
+              text identifying each region on the map. The marker circle itself already
+              shows the facility count, so the label only needs the region name. */}
+          <Tooltip direction="top" offset={[0, -16]} opacity={0.95} permanent interactive={false} className="eai-cluster-label">
+            <span style={{ fontSize: 10, fontWeight: 700 }}>{c.label}</span>
           </Tooltip>
         </Marker>
       ))}
