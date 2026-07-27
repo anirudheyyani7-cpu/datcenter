@@ -46,16 +46,16 @@ export const PURCHASE_ORDERS = [
 
 // ─── Shipments (10 records with coordinates) ─────────────────────────────────
 export const SHIPMENTS = [
-  { shipmentId:'SHP-2505-001', origin:'Shenzhen, CN', destination:'Singapore', originCoords:[22.54,114.06], destinationCoords:[1.35,103.82], eta:'May 22, 2025', status:'In Transit', trackingUrl:'#' },
-  { shipmentId:'SHP-2505-002', origin:'Austin, US',   destination:'Singapore', originCoords:[30.27,-97.74], destinationCoords:[1.35,103.82], eta:'May 24, 2025', status:'In Transit', trackingUrl:'#' },
-  { shipmentId:'SHP-2505-003', origin:'Taipei, TW',   destination:'Singapore', originCoords:[25.03,121.57], destinationCoords:[1.35,103.82], eta:'May 23, 2025', status:'In Transit', trackingUrl:'#' },
-  { shipmentId:'SHP-2505-004', origin:'Frankfurt, DE',destination:'Singapore', originCoords:[50.11,8.68],   destinationCoords:[1.35,103.82], eta:'May 26, 2025', status:'In Transit', trackingUrl:'#' },
-  { shipmentId:'SHP-2505-005', origin:'Tokyo, JP',    destination:'Singapore', originCoords:[35.68,139.65], destinationCoords:[1.35,103.82], eta:'May 25, 2025', status:'In Transit', trackingUrl:'#' },
-  { shipmentId:'SHP-2505-006', origin:'Seoul, KR',    destination:'Tokyo, JP', originCoords:[37.57,126.98], destinationCoords:[35.68,139.65], eta:'May 20, 2025', status:'Delivered', trackingUrl:'#' },
-  { shipmentId:'SHP-2505-007', origin:'Mumbai, IN',   destination:'Singapore', originCoords:[19.08,72.88],  destinationCoords:[1.35,103.82], eta:'May 21, 2025', status:'In Transit', trackingUrl:'#' },
-  { shipmentId:'SHP-2505-008', origin:'Sydney, AU',   destination:'Singapore', originCoords:[-33.87,151.21],destinationCoords:[1.35,103.82], eta:'May 19, 2025', status:'Delivered', trackingUrl:'#' },
-  { shipmentId:'SHP-2505-009', origin:'London, UK',   destination:'Frankfurt, DE', originCoords:[51.51,-0.13], destinationCoords:[50.11,8.68], eta:'May 18, 2025', status:'Delivered', trackingUrl:'#' },
-  { shipmentId:'SHP-2505-010', origin:'Dallas, US',   destination:'Singapore', originCoords:[32.78,-96.80], destinationCoords:[1.35,103.82], eta:'May 27, 2025', status:'In Transit', trackingUrl:'#' },
+  { shipmentId:'SHP-2505-001', origin:'Shenzhen, CN', destination:'Singapore', originCoords:[22.54,114.06], destinationCoords:[1.35,103.82], eta:'May 22, 2025', status:'In Transit', trackingUrl:'#', carrier:'Maersk Line',            distanceKm:2960, progressPct:62, avgSpeedKmh:34 },
+  { shipmentId:'SHP-2505-002', origin:'Austin, US',   destination:'Singapore', originCoords:[30.27,-97.74], destinationCoords:[1.35,103.82], eta:'May 24, 2025', status:'In Transit', trackingUrl:'#', carrier:'FedEx Trade Networks',     distanceKm:16650, progressPct:38, avgSpeedKmh:780 },
+  { shipmentId:'SHP-2505-003', origin:'Taipei, TW',   destination:'Singapore', originCoords:[25.03,121.57], destinationCoords:[1.35,103.82], eta:'May 23, 2025', status:'In Transit', trackingUrl:'#', carrier:'Evergreen Marine',         distanceKm:3300, progressPct:71, avgSpeedKmh:32 },
+  { shipmentId:'SHP-2505-004', origin:'Frankfurt, DE',destination:'Singapore', originCoords:[50.11,8.68],   destinationCoords:[1.35,103.82], eta:'May 26, 2025', status:'In Transit', trackingUrl:'#', carrier:'DHL Air Freight',          distanceKm:10270, progressPct:29, avgSpeedKmh:760 },
+  { shipmentId:'SHP-2505-005', origin:'Tokyo, JP',    destination:'Singapore', originCoords:[35.68,139.65], destinationCoords:[1.35,103.82], eta:'May 25, 2025', status:'In Transit', trackingUrl:'#', carrier:'ONE (Ocean Network Express)', distanceKm:5300, progressPct:47, avgSpeedKmh:33 },
+  { shipmentId:'SHP-2505-006', origin:'Seoul, KR',    destination:'Tokyo, JP', originCoords:[37.57,126.98], destinationCoords:[35.68,139.65], eta:'May 20, 2025', status:'Delivered', trackingUrl:'#', carrier:'Korean Air Cargo',         distanceKm:1160, progressPct:100, avgSpeedKmh:720 },
+  { shipmentId:'SHP-2505-007', origin:'Mumbai, IN',   destination:'Singapore', originCoords:[19.08,72.88],  destinationCoords:[1.35,103.82], eta:'May 21, 2025', status:'In Transit', trackingUrl:'#', carrier:'CMA CGM',                  distanceKm:3900, progressPct:81, avgSpeedKmh:35 },
+  { shipmentId:'SHP-2505-008', origin:'Sydney, AU',   destination:'Singapore', originCoords:[-33.87,151.21],destinationCoords:[1.35,103.82], eta:'May 19, 2025', status:'Delivered', trackingUrl:'#', carrier:'ANL Container Line',       distanceKm:6300, progressPct:100, avgSpeedKmh:31 },
+  { shipmentId:'SHP-2505-009', origin:'London, UK',   destination:'Frankfurt, DE', originCoords:[51.51,-0.13], destinationCoords:[50.11,8.68], eta:'May 18, 2025', status:'Delivered', trackingUrl:'#', carrier:'DB Schenker',             distanceKm:640,  progressPct:100, avgSpeedKmh:88 },
+  { shipmentId:'SHP-2505-010', origin:'Dallas, US',   destination:'Singapore', originCoords:[32.78,-96.80], destinationCoords:[1.35,103.82], eta:'May 27, 2025', status:'In Transit', trackingUrl:'#', carrier:'UPS Worldwide',            distanceKm:16400, progressPct:22, avgSpeedKmh:790 },
 ];
 
 // ─── Vendors (8 records) ─────────────────────────────────────────────────────

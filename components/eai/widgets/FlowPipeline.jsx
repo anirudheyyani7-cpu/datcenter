@@ -11,10 +11,9 @@ const STAGE_ICONS = {
 
 export default function FlowPipeline({ stages = [] }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 0, width: '100%' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 0, width: '100%', height: '100%' }}>
       {stages.map((stage, i) => {
         const Icon = STAGE_ICONS[stage.key] ?? ShoppingCart;
-        const isLast = i === stages.length - 1;
         return (
           <div key={stage.key} style={{ display: 'flex', alignItems: 'center', flex: 1, minWidth: 0 }}>
 
@@ -55,26 +54,6 @@ export default function FlowPipeline({ stages = [] }) {
                 <span style={{ fontSize: 9, fontWeight: 700, color: '#00A36C' }}>↑ {stage.deltaPct}%</span>
               </div>
             </div>
-
-            {/* Connector (dotted arrow) */}
-            {!isLast && (
-              <div style={{ width: 28, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{
-                  width: '100%', height: 2,
-                  background: 'transparent',
-                  borderTop: '2px dashed #E2E8F0',
-                  position: 'relative',
-                }}>
-                  <div style={{
-                    position: 'absolute', right: -3, top: '50%', transform: 'translateY(-50%)',
-                    width: 0, height: 0,
-                    borderTop: '4px solid transparent',
-                    borderBottom: '4px solid transparent',
-                    borderLeft: '6px solid #E2E8F0',
-                  }} />
-                </div>
-              </div>
-            )}
           </div>
         );
       })}

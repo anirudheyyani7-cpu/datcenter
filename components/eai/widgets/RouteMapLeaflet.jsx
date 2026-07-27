@@ -1,6 +1,6 @@
 'use client';
 import { Fragment, useEffect } from 'react';
-import { MapContainer, TileLayer, Polyline, CircleMarker, ZoomControl } from 'react-leaflet';
+import { MapContainer, TileLayer, Polyline, CircleMarker, ZoomControl, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -27,7 +27,7 @@ const STATUS_LINE_COLOR = {
   'Delivered':  '#00A36C',
 };
 
-export default function RouteMapLeaflet({ shipments = [] }) {
+export default function RouteMapLeaflet({ shipments = [], animated = false, showTooltips = false, interactive = false }) {
   useEffect(() => {
     // Prevent the default Leaflet icon path errors in Next.js
     delete L.Icon.Default.prototype._getIconUrl;
@@ -44,14 +44,15 @@ export default function RouteMapLeaflet({ shipments = [] }) {
       style={{ height: '100%', width: '100%' }}
       zoomControl={false}
       attributionControl={false}
-      scrollWheelZoom={false}
+      scrollWheelZoom={interactive}
+      dragging={interactive}
     >
       <TileLayer
         url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"
         subdomains="abcd"
         maxZoom={19}
       />
-      <ZoomControl position="topleft" />
+      {interactive && <ZoomControl position="topleft" />}
 
       {shipments.map(s => {
         const [oLat, oLng] = s.originCoords;
@@ -63,9 +64,30 @@ export default function RouteMapLeaflet({ shipments = [] }) {
         renderedDests.add(destKey);
         return (
           <Fragment key={s.shipmentId}>
-            <Polyline positions={curve} pathOptions={{ color, weight: 2, opacity: 0.80, dashArray: '6 4' }} />
-            <CircleMarker center={[oLat, oLng]} radius={5} pathOptions={{ color: '#F59E0B', fillColor: '#F59E0B', fillOpacity: 1, weight: 1 }} />
-            {showDest && <CircleMarker center={[dLat, dLng]} radius={6} pathOptions={{ color: '#fff', fillColor: '#00A36C', fillOpacity: 0.9, weight: 2 }} />}
+            <Polyline
+              positions={curve}
+              pathOptions={{ color, weight: 2, opacity: 0.80, dashArray: '6 4', className: animated ? 'route-line-flow' : undefined }}
+            >
+              {showTooltips && (
+                <Tooltip sticky direction="top" opacity={0.95}>
+                  <div style={{ fontSize: 11, lineHeight: 1.5 }}>
+                    <strong>{s.origin} → {s.destination}</strong><br />
+                    Status: {s.status}{s.status === 'In Transit' ? ` (${s.progressPct}% complete)` : ''}<br />
+                    Carrier: {s.carrier}<br />
+                    Distance: {s.distanceKm?.toLocaleString()} km · Avg speed: {s.avgSpeedKmh} km/h<br />
+                    ETA: {s.eta}
+                  </div>
+                </Tooltip>
+              )}
+            </Polyline>
+            <CircleMarker center={[oLat, oLng]} radius={5} pathOptions={{ color: '#F59E0B', fillColor: '#F59E0B', fillOpacity: 1, weight: 1 }}>
+              {showTooltips && <Tooltip direction="top" opacity={0.95}>{s.origin}</Tooltip>}
+            </CircleMarker>
+            {showDest && (
+              <CircleMarker center={[dLat, dLng]} radius={6} pathOptions={{ color: '#fff', fillColor: '#00A36C', fillOpacity: 0.9, weight: 2 }}>
+                {showTooltips && <Tooltip direction="top" opacity={0.95}>{s.destination}</Tooltip>}
+              </CircleMarker>
+            )}
           </Fragment>
         );
       })}
