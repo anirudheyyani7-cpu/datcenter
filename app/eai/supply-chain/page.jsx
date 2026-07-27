@@ -73,7 +73,7 @@ function ScKpiCard({ label, value, unit, sublabel, delta, up, Icon, color, bg })
       </p>
       {sublabel && <p style={{ fontSize: 9, color: DIMMER, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{sublabel}</p>}
       {delta && (
-        <p style={{ fontSize: 8, fontWeight: 600, color: up ? '#00A36C' : '#DC2626', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
+        <p style={{ fontSize: 8, fontWeight: 600, color: up ? '#00A36C' : '#DC2626', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', marginTop: 'auto' }}>
           {up ? '↑' : '↓'} {delta}
         </p>
       )}
