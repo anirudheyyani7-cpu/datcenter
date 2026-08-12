@@ -243,24 +243,24 @@ export default function IntelligenceCenterPage() {
               </div>
               <div style={{ padding: '0 14px 12px', flex: 1, overflowY: 'auto' }}>
                 {/* Column headers */}
-                <div style={{ display: 'grid', gridTemplateColumns: '72px 80px 1fr 120px 60px', padding: '5px 0 3px', borderBottom: '1px solid #E2E8F0' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '64px 68px minmax(0,1fr) 100px 52px', gap: 8, padding: '5px 0 3px', borderBottom: '1px solid #E2E8F0' }}>
                   {['Asset', 'Type', 'Location', 'Failure Prob.', 'Impact'].map(h => (
-                    <span key={h} style={{ fontSize: 8, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.07em' }}>{h}</span>
+                    <span key={h} style={{ fontSize: 8, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.07em', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{h}</span>
                   ))}
                 </div>
                 {PREDICTIVE_FAILURES.map((pf, i) => (
-                  <div key={i} style={{ display: 'grid', gridTemplateColumns: '72px 80px 1fr 120px 60px', padding: '7px 0', borderBottom: i < PREDICTIVE_FAILURES.length - 1 ? '1px solid #E2E8F0' : 'none', alignItems: 'center' }}>
+                  <div key={i} style={{ display: 'grid', gridTemplateColumns: '64px 68px minmax(0,1fr) 100px 52px', gap: 8, padding: '7px 0', borderBottom: i < PREDICTIVE_FAILURES.length - 1 ? '1px solid #E2E8F0' : 'none', alignItems: 'center' }}>
                     <span style={{ fontSize: 10, fontWeight: 700, color: '#1A1F36', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{pf.asset}</span>
                     <span style={{ fontSize: 9, color: '#6B7280', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{pf.type}</span>
-                    <span style={{ fontSize: 9, color: '#6B7280', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: 8 }}>{pf.location}</span>
+                    <span style={{ fontSize: 9, color: '#6B7280', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{pf.location}</span>
                     {/* Probability bar */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, minWidth: 0 }}>
                       <div style={{ flex: 1, height: 5, borderRadius: 3, background: '#E2E8F0', overflow: 'hidden' }}>
                         <div style={{ width: `${pf.failurePct}%`, height: '100%', borderRadius: 3, background: pf.failurePct >= 70 ? '#EF4444' : pf.failurePct >= 50 ? '#F59E0B' : '#10B981' }} />
                       </div>
                       <span style={{ fontSize: 9, fontWeight: 700, color: '#1A1F36', width: 28, textAlign: 'right', fontFamily: 'ui-monospace,monospace', flexShrink: 0 }}>{pf.failurePct}%</span>
                     </div>
-                    <span style={{ fontSize: 9, fontWeight: 700, color: IMPACT_COLOR[pf.impact] ?? '#6B7280' }}>{pf.impact}</span>
+                    <span style={{ fontSize: 9, fontWeight: 700, color: IMPACT_COLOR[pf.impact] ?? '#6B7280', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{pf.impact}</span>
                   </div>
                 ))}
               </div>

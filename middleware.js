@@ -1,16 +1,10 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse } from 'next/server';
 
-const PUBLIC_PATHS = [
-  '/login', '/api', '/dashboard',
-  '/global-infrastructure',
-  '/command-center',
-  '/eai',
-];
-
+// No forced login gate — the app is open access. This middleware only
+// refreshes the Supabase session cookie so components like Navbar can
+// still reflect a signed-in user if one exists.
 export async function middleware(request) {
-  // If Supabase env vars aren't configured (local dev without .env.local),
-  // skip auth entirely and allow all routes through.
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
     return NextResponse.next({ request });
   }
@@ -38,18 +32,7 @@ export async function middleware(request) {
     }
   );
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const { pathname } = request.nextUrl;
-  const isPublic = PUBLIC_PATHS.some((p) => pathname.startsWith(p));
-
-  if (!user && !isPublic) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/login';
-    return NextResponse.redirect(url);
-  }
+  await supabase.auth.getUser();
 
   return supabaseResponse;
 }
