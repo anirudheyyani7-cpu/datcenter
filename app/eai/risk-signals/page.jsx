@@ -266,7 +266,7 @@ function RiskSignalsInner() {
   // ── KPI strip ────────────────────────────────────────────────────────────
   const displayKpis = useMemo(() => {
     if (!filtersActive) return RISK_KPIS;
-    const sitesAtRisk = filteredSites.filter(s => s.band !== 'low').length;
+    const sitesAtRisk = filteredSites.filter(s => s.band === 'high' || s.band === 'critical').length;
     const avgRisk = filteredSites.length ? Math.round(filteredSites.reduce((s, x) => s + x.riskScore, 0) / filteredSites.length) : 0;
     const highSev = filteredSignals.filter(s => s.severity === 'critical' || s.severity === 'warning').length;
     return RISK_KPIS.map(k => {
@@ -775,8 +775,8 @@ Pending regulatory changes: ${REGULATORY_WATCH.filter(r => r.status === 'Pending
                 projectedExceedDate={RISK_FORECAST_EXCEED_WEEK ?? 'Not projected within 4 weeks'}
                 height={120}
                 yDomain={[0, 100]}
-                thresholdLabel="Critical Threshold"
-                annotationLabel="Projected to enter Critical band by"
+                thresholdLabel="High-Risk Threshold"
+                annotationLabel="Projected to enter High band by"
                 valueUnit=""
               />
             </div>

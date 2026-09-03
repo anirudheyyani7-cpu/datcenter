@@ -77,10 +77,17 @@ const COMPOSITE_WEIGHTS = {
   weather: 0.15, seismic: 0.12, flood: 0.15, wildfire: 0.10,
   gridReliability: 0.18, waterStress: 0.10, regulatory: 0.10, geopolitical: 0.10,
 };
+const PEAK_WEIGHT = 0.40;
 function compositeScore(sub) {
-  let sum = 0, wsum = 0;
-  for (const k in COMPOSITE_WEIGHTS) { sum += (sub[k] ?? 0) * COMPOSITE_WEIGHTS[k]; wsum += COMPOSITE_WEIGHTS[k]; }
-  return clamp100(sum / wsum);
+  let sum = 0, wsum = 0, peak = 0;
+  for (const k in COMPOSITE_WEIGHTS) {
+    const v = sub[k] ?? 0;
+    sum += v * COMPOSITE_WEIGHTS[k];
+    wsum += COMPOSITE_WEIGHTS[k];
+    if (v > peak) peak = v;
+  }
+  const mean = sum / wsum;
+  return clamp100(mean * (1 - PEAK_WEIGHT) + peak * PEAK_WEIGHT);
 }
 function bandFor(score) {
   if (score >= 75) return 'critical';
@@ -88,12 +95,17 @@ function bandFor(score) {
   if (score >= 35) return 'elevated';
   return 'low';
 }
+// Risk climbs toward the current score across the window rather than hovering
+// flat around it, so the portfolio trend line and the forecast extrapolated from
+// it both have a direction to show. Previously this produced 28,29,29,28,29,28
+// — a dead line with an unexplained jump on the final point.
 function trendFor(seedStr, current, weeks = 8) {
   const rng = mulberry32(seedFromString(`${seedStr}-trend`));
   const pts = Array.from({ length: weeks }, (_, i) => {
-    const wobble = (rng() - 0.5) * 14;
     const t = i / (weeks - 1);
-    return { week: `W${i + 1}`, value: clamp100(current - 6 + wobble * (1 - t * 0.4)) };
+    const ramp = current - 13 * (1 - t);   // starts ~13 below, climbs to current
+    const wobble = (rng() - 0.5) * 5;      // small week-to-week noise
+    return { week: `W${i + 1}`, value: clamp100(ramp + wobble) };
   });
   pts[pts.length - 1] = { week: pts[pts.length - 1].week, value: current };
   return pts;
@@ -223,9 +235,15 @@ export const RISK_FORECAST = (() => {
   }
   return rows;
 })();
-export const RISK_FORECAST_THRESHOLD = 75; // "critical" band floor
+// The High-band floor (55), not the Critical floor (75). A portfolio average
+// cannot reach 75 without every site simultaneously in crisis, which left the
+// projection annotation permanently reading "not projected".
+export const RISK_FORECAST_THRESHOLD = 55;
+// First projected week that crosses the threshold. This also tested
+// `month.startsWith('W9')`, which pinned the annotation to week 9 alone — a
+// crossing in W10-W12 was silently reported as "not projected within 4 weeks".
 export const RISK_FORECAST_EXCEED_WEEK = (() => {
-  const hit = RISK_FORECAST.find(r => (r.forecast ?? r.actual ?? 0) >= RISK_FORECAST_THRESHOLD && r.month.startsWith('W9'));
+  const hit = RISK_FORECAST.find(r => r.actual === null && (r.forecast ?? 0) >= RISK_FORECAST_THRESHOLD);
   return hit ? hit.month : null;
 })();
 
@@ -275,7 +293,7 @@ export const MITIGATIONS = TOP_AT_RISK_SITES.flatMap(s => {
 
 // ── RISK_KPIS ────────────────────────────────────────────────────────────────
 export const RISK_KPIS = [
-  { key: 'sitesAtRisk',       label: 'Sites at Risk',              value: SITE_RISK.filter(s => s.band !== 'low').length, unit: '',    sublabel: `of ${SITE_RISK.length} facilities`,        delta: '▲2 vs last week',    up: false, iconKey: 'building',    color: '#EF4444', bg: 'rgba(239,68,68,0.14)',  seed: 11 },
+  { key: 'sitesAtRisk',       label: 'Sites at Risk',              value: SITE_RISK.filter(s => s.band === 'high' || s.band === 'critical').length, unit: '',    sublabel: `of ${SITE_RISK.length} facilities`,        delta: '▲2 vs last week',    up: false, iconKey: 'building',    color: '#EF4444', bg: 'rgba(239,68,68,0.14)',  seed: 11 },
   { key: 'activeSignals24h',  label: 'Active Signals (24h)',       value: SIGNAL_FEED.length,                              unit: '',    sublabel: 'Across all hazard types',                   delta: '▲6 vs yesterday',    up: false, iconKey: 'activity',    color: '#0077C8', bg: 'rgba(0,119,200,0.14)',  seed: 22 },
   { key: 'highSeveritySignals', label: 'High-Severity Signals',    value: SIGNAL_FEED.filter(s => s.severity === 'critical' || s.severity === 'warning').length, unit: '', sublabel: 'Critical + Warning', delta: '▲3 vs yesterday', up: false, iconKey: 'shieldAlert', color: '#F59E0B', bg: 'rgba(245,158,11,0.14)', seed: 33 },
   { key: 'avgSiteRisk',       label: 'Avg Site Risk Score',        value: Math.round(SITE_RISK.reduce((s, x) => s + x.riskScore, 0) / SITE_RISK.length), unit: '/100', sublabel: 'Composite, all sites', delta: '▼1.4 vs last week', up: true, iconKey: 'zap', color: '#7C3AED', bg: 'rgba(124,58,237,0.14)', seed: 44 },
