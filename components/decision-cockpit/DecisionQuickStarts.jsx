@@ -30,11 +30,9 @@ export default function DecisionQuickStarts() {
 
   const goToCockpit = (chosenMode) => {
     const params = new URLSearchParams({ decision_type: active, mode: chosenMode });
-    if (chosenMode === 'client_specific') {
-      if (clientName) params.set('client_name', clientName);
-      if (location) params.set('location', location);
-      if (capacity) params.set('capacity', capacity);
-    }
+    if (chosenMode === 'client_specific' && clientName) params.set('client_name', clientName);
+    if (location) params.set('location', location);
+    if (capacity) params.set('capacity', capacity);
     router.push(`/decision-cockpit?${params.toString()}`);
   };
 
@@ -97,7 +95,7 @@ export default function DecisionQuickStarts() {
                 <Users size={13} /> Specific client
               </button>
               <button
-                onClick={() => { setMode('exploratory'); goToCockpit('exploratory'); }}
+                onClick={() => setMode('exploratory')}
                 className="flex items-center gap-2 px-3 py-2.5 bg-white border border-[#00338D]/20 text-[#00338D] text-[11px] font-bold rounded-xl hover:bg-[#00338D]/5 transition-colors"
               >
                 <Globe size={13} /> Explore generally
@@ -141,6 +139,44 @@ export default function DecisionQuickStarts() {
             <button
               disabled={!clientName.trim() || !location.trim()}
               onClick={() => goToCockpit('client_specific')}
+              className="w-full mt-3 flex items-center justify-center gap-1.5 px-3 py-2.5 text-white text-[10px] font-bold rounded-xl transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              style={{ background: 'linear-gradient(135deg, #00338D 0%, #0077C8 100%)' }}
+            >
+              Run Decision Engine <ArrowRight size={11} />
+            </button>
+            <button onClick={() => setMode(null)} className="text-[9px] text-[#9CA3AF] hover:text-[#6B7280] mt-2">
+              ← Back
+            </button>
+          </motion.div>
+        )}
+
+        {active && mode === 'exploratory' && (
+          <motion.div
+            key="exploratory-form"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="bg-[#F0F4FF] border border-[#00338D]/15 rounded-2xl p-3.5"
+          >
+            <p className="text-xs font-semibold text-[#1A1F36] mb-1">Explore a region</p>
+            <p className="text-[10px] text-[#6B7280] mb-3">A location is required — the engine's output is specific to whatever you enter here, not a generic average.</p>
+            <div className="flex flex-col gap-2">
+              <input
+                value={location}
+                onChange={e => setLocation(e.target.value)}
+                placeholder="Location (e.g. Chennai)"
+                className="w-full px-3 py-2 rounded-lg border border-[#00338D]/15 bg-white text-xs text-[#1A1F36] placeholder-[#9CA3AF] outline-none focus:border-[#00338D]/40"
+              />
+              <input
+                value={capacity}
+                onChange={e => setCapacity(e.target.value.replace(/[^0-9]/g, ''))}
+                placeholder="Capacity in MW (optional)"
+                className="w-full px-3 py-2 rounded-lg border border-[#00338D]/15 bg-white text-xs text-[#1A1F36] placeholder-[#9CA3AF] outline-none focus:border-[#00338D]/40"
+              />
+            </div>
+            <button
+              disabled={!location.trim()}
+              onClick={() => goToCockpit('exploratory')}
               className="w-full mt-3 flex items-center justify-center gap-1.5 px-3 py-2.5 text-white text-[10px] font-bold rounded-xl transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               style={{ background: 'linear-gradient(135deg, #00338D 0%, #0077C8 100%)' }}
             >

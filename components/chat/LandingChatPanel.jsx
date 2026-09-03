@@ -389,9 +389,10 @@ export default function LandingChatPanel() {
           if (stageData.isComplex) { setBotPhase('assessment-offer'); runPersonaDetection(trimmed, researchResult); }
         }
       }
-    } catch {
+    } catch (err) {
+      console.error('[K-Nexus Guide] chat request failed:', err);
       shouldScrollRef.current = true;
-      setMessages(prev => [...prev, { role: 'assistant', text: 'Sorry, I hit an error. Please try again.' }]);
+      setMessages(prev => [...prev, { role: 'assistant', text: `Sorry, I hit an error: ${err.message}` }]);
     } finally { setLoading(false); }
   };
 

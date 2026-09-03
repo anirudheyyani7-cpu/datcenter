@@ -1979,8 +1979,9 @@ ${cockpitSummary}`;
 
       const reply = await callClaude({ prompt: userMsg, systemOverride: systemPrompt, maxTokens: 400 });
       setMessages(prev => [...prev, { role: 'assistant', content: reply }]);
-    } catch {
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, I hit an error. Please try again.' }]);
+    } catch (err) {
+      console.error('[ClientCockpit] chat request failed:', err);
+      setMessages(prev => [...prev, { role: 'assistant', content: `Sorry, I hit an error: ${err.message}` }]);
     } finally {
       setThinking(false);
     }

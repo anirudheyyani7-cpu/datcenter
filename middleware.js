@@ -32,7 +32,14 @@ export async function middleware(request) {
     }
   );
 
-  await supabase.auth.getUser();
+  // A Supabase outage or network blip must not turn every request — including
+  // /api/* — into a 500 HTML page. Degrade to an unrefreshed session instead.
+  try {
+    await supabase.auth.getUser();
+  } catch (err) {
+    console.error('[middleware] Supabase session refresh failed:', err);
+    return NextResponse.next({ request });
+  }
 
   return supabaseResponse;
 }

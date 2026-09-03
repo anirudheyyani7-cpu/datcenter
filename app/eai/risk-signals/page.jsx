@@ -6,7 +6,7 @@ import {
   Filter, Download, ChevronDown, ChevronUp, Plus, FileText, FileSpreadsheet, FileDown,
   ShieldAlert, CloudRain, Waves, Flame, Zap, Scale, Globe2, Building2, Layers, Activity,
   ExternalLink, X, Wrench, RefreshCw, BellRing, ClipboardList, CheckCircle2, Circle,
-  ChevronRight, Radio, Satellite, Map as MapIcon,
+  ChevronRight, Radio, Satellite, Map as MapIcon, Droplets, Sun, PlugZap,
 } from 'lucide-react';
 
 import KpiCard            from '@/components/eai/widgets/KpiCard';
@@ -18,10 +18,13 @@ import ForecastChart      from '@/components/eai/widgets/ForecastChart';
 import ScoreRing          from '@/components/eai/widgets/ScoreRing';
 import StatusListCard     from '@/components/eai/widgets/StatusListCard';
 import RiskHeatmapGrid    from '@/components/eai/widgets/RiskHeatmapGrid';
+import HorizontalBarList  from '@/components/eai/widgets/HorizontalBarList';
 import QuickActionsMenu   from '@/components/eai/widgets/QuickActionsMenu';
 import FilterPopover      from '@/components/eai/widgets/FilterPopover';
 import { useToast }       from '@/components/eai/widgets/Toast';
 import AIChatPanel        from '@/components/ai-chat/AIChatPanel';
+import { eaiRenewableByRegion } from '@/data/eaiMockData';
+import { RENEWABLE_ENERGY, ENERGY_WATER } from '@/data/eaiFinOpsEsgMock';
 
 const RiskSignalMap = dynamic(() => import('@/components/eai/widgets/RiskSignalMap'), {
   ssr: false,
@@ -314,6 +317,22 @@ function RiskSignalsInner() {
   function handleSiteSort(key) {
     setSiteSort(prev => (prev && prev.key === key) ? (prev.dir === 'asc' ? { key, dir: 'desc' } : null) : { key, dir: 'asc' });
   }
+
+  // ── Energy Intelligence: grid/water risk by region, supply mix, energy regs ─
+  function regionRiskColor(v) { return v >= 40 ? '#EF4444' : v >= 25 ? '#F59E0B' : '#10B981'; }
+  function avgByRegion(subKey) {
+    const byRegion = {};
+    SITE_RISK.forEach(s => { (byRegion[s.region] ??= []).push(s.sub[subKey]); });
+    return Object.entries(byRegion)
+      .map(([region, vals]) => ({ label: region, value: Math.round(vals.reduce((a, b) => a + b, 0) / vals.length) }))
+      .sort((a, b) => b.value - a.value)
+      .map(r => ({ ...r, color: regionRiskColor(r.value) }));
+  }
+  const gridRiskByRegion = useMemo(() => avgByRegion('gridReliability'), []);
+  const waterStressByRegion = useMemo(() => avgByRegion('waterStress'), []);
+  const energyRegulatoryWatch = useMemo(() => (
+    REGULATORY_WATCH.filter(r => /energy|grid|water/i.test(r.title))
+  ), []);
 
   // ── Acknowledge / scan ────────────────────────────────────────────────────
   function handleAcknowledgeSignal(id) {
@@ -804,6 +823,67 @@ Pending regulatory changes: ${REGULATORY_WATCH.filter(r => r.status === 'Pending
               onSort={handleSiteSort}
               compact
               style={{ border: 'none', boxShadow: 'none', flex: 1 }}
+            />
+          </div>
+        </div>
+
+        {/* Row 4: Energy Intelligence */}
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginTop: 4 }}>
+          <PlugZap size={13} color="#0077C8" />
+          <h2 style={{ fontSize: 12, fontWeight: 800, color: '#1A1F36', margin: 0 }}>Energy Intelligence</h2>
+          <span style={{ fontSize: 9, color: '#9CA3AF' }}>Grid, water &amp; regulatory exposure relevant to power strategy — demand side only, see note below</span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1.1fr 1.1fr', gap: 12, minHeight: 220 }}>
+
+          {/* Grid reliability risk by region */}
+          <div style={CARD}>
+            <div style={CARD_HDR}><span style={CARD_TITLE}>Grid Reliability Risk</span></div>
+            <div style={{ padding: '12px 14px', flex: 1 }}>
+              <p style={{ fontSize: 9, color: '#9CA3AF', marginBottom: 10 }}>By region · 0 (stable) – 100 (unreliable)</p>
+              <HorizontalBarList items={gridRiskByRegion} maxValue={100} labelWidth={92} />
+            </div>
+          </div>
+
+          {/* Water stress by region */}
+          <div style={CARD}>
+            <div style={CARD_HDR}><span style={CARD_TITLE}>Water Stress</span></div>
+            <div style={{ padding: '12px 14px', flex: 1 }}>
+              <p style={{ fontSize: 9, color: '#9CA3AF', marginBottom: 10 }}>By region · cooling-water availability risk</p>
+              <HorizontalBarList items={waterStressByRegion} maxValue={100} labelWidth={92} />
+            </div>
+          </div>
+
+          {/* Power supply composition */}
+          <div style={CARD}>
+            <div style={CARD_HDR}><span style={CARD_TITLE}>Power Supply Composition</span></div>
+            <div style={{ padding: '12px 14px', flex: 1, display: 'flex', flexDirection: 'column', gap: 9, overflowY: 'auto' }}>
+              {eaiRenewableByRegion.map(r => (
+                <div key={r.name}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 3 }}>
+                    <span style={{ fontSize: 9.5, color: '#374151', fontWeight: 600 }}>{r.name}</span>
+                    <span style={{ fontSize: 9, color: '#9CA3AF' }}>{r.value}% renewable / {100 - r.value}% grid</span>
+                  </div>
+                  <div style={{ display: 'flex', height: 6, borderRadius: 3, overflow: 'hidden', background: '#E2E8F0' }}>
+                    <div style={{ width: `${r.value}%`, background: '#00A36C' }} />
+                    <div style={{ width: `${100 - r.value}%`, background: '#94A3B8' }} />
+                  </div>
+                </div>
+              ))}
+              <div style={{ marginTop: 'auto', paddingTop: 8, borderTop: '1px dashed #E2E8F0', display: 'flex', gap: 6, alignItems: 'flex-start' }}>
+                <Sun size={11} style={{ color: '#CBD5E1', flexShrink: 0, marginTop: 1 }} />
+                <p style={{ fontSize: 9, color: '#9CA3AF', lineHeight: 1.5 }}>
+                  Grid vs. renewable-PPA split shown. On-site / dedicated generation (gas, LNG-fired, or other behind-the-meter supply) isn't modeled yet — this is the layer a power-and-energy partner would fill in.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Energy-relevant regulatory watch */}
+          <div style={{ maxHeight: 220, overflowY: 'auto' }}>
+            <StatusListCard
+              title="Energy & Grid Regulation"
+              items={energyRegulatoryWatch.map(r => ({ label: r.title, status: r.status, ...r }))}
+              onItemClick={item => openDrawer('regulatory', { item })}
             />
           </div>
         </div>
