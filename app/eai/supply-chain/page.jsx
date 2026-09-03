@@ -21,6 +21,21 @@ import FlowPipeline  from '@/components/eai/widgets/FlowPipeline';
 import DataTable     from '@/components/eai/widgets/DataTable';
 import RouteMap      from '@/components/eai/widgets/RouteMap';
 import QuickActionsMenu from '@/components/eai/widgets/QuickActionsMenu';
+import DetailDrawer, { DrawerTable, DrawerStatRow, DrawerPill } from '@/components/eai/widgets/DetailDrawer';
+import { useToast } from '@/components/eai/widgets/Toast';
+
+// ── export helper (same pattern used across the EAI platform) ───────────────
+async function exportCsv(rows, filename) {
+  const XLSX = await import('xlsx');
+  const ws = XLSX.utils.json_to_sheet(rows);
+  const csv = XLSX.utils.sheet_to_csv(ws);
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 
 // ─── Tokens ───────────────────────────────────────────────────────────────────
 const BG   = '#F4F6F9';
@@ -188,6 +203,19 @@ export default function SupplyChainPage() {
   const [activeTab,     setActiveTab]     = useState('All');
   const [poPage,        setPoPage]        = useState(1);
   const [highlightKey,  setHighlightKey]  = useState(null);
+  const [drawer,        setDrawer]        = useState(null); // { kind: 'po'|'shipment'|'vendor'|'inventory', data }
+  const closeDrawer = () => setDrawer(null);
+  const { showToast, ToastHost } = useToast();
+
+  async function handleExportInventory() {
+    try {
+      const rows = INVENTORY_BY_LOCATION.map(l => ({ Location: l.location, 'On Hand Value ($M)': l.onHandValue, 'On Hand Qty': l.onHandQty, 'Utilization (%)': l.utilizationPct }));
+      await exportCsv(rows, `supply-chain-inventory-${new Date().toISOString().slice(0, 10)}.csv`);
+      showToast(`Exported inventory for ${rows.length} locations`, 'success');
+    } catch {
+      showToast('Export failed — please try again', 'error');
+    }
+  }
 
   // Filter POs by tab
   const filteredPOs = useMemo(() =>
@@ -226,6 +254,73 @@ export default function SupplyChainPage() {
     { name: 'Remaining', value: 100 - budgetPct, color: '#E2E8F0' },
   ];
 
+  // ── Drawer content, by kind ────────────────────────────────────────────────
+  function renderDrawer() {
+    if (!drawer) return <DetailDrawer open={false} onClose={closeDrawer} />;
+    const { kind, data } = drawer;
+
+    if (kind === 'po') {
+      return (
+        <DetailDrawer open title={data.poNumber} subtitle={data.vendor} icon={<FileText size={16} color="#0077C8" />} accentColor="#0077C8" onClose={closeDrawer}>
+          <DrawerStatRow items={[
+            { label: 'Value', value: data.valueFmt },
+            { label: 'Progress', value: `${data.progressPct}%` },
+            { label: 'Category', value: data.category },
+          ]} />
+          <DrawerTable
+            columns={[{ key: 'label', label: 'Field' }, { key: 'value', label: 'Detail' }]}
+            rows={[
+              { id: 'status',   label: 'Status',        value: <DrawerPill label={data.status} color={STATUS_COLORS[data.status]?.color ?? '#6B7280'} /> },
+              { id: 'ordered',  label: 'Order Date',     value: data.orderDate },
+              { id: 'expected', label: 'Expected Date',  value: data.expectedDate },
+              { id: 'vendor',   label: 'Vendor',         value: data.vendor },
+            ]}
+            keyField="id"
+          />
+        </DetailDrawer>
+      );
+    }
+
+    if (kind === 'shipment') {
+      return (
+        <DetailDrawer open title={data.shipmentId} subtitle={`${data.origin} → ${data.destination}`} icon={<Truck size={16} color="#06B6D4" />} accentColor="#06B6D4" onClose={closeDrawer}>
+          <DrawerStatRow items={[
+            { label: 'ETA', value: data.eta },
+            { label: 'Status', value: data.status },
+          ]} />
+          <p style={{ fontSize: 10, color: DIM }}>Origin <b style={{ color: '#1A1F36' }}>{data.origin}</b> → Destination <b style={{ color: '#1A1F36' }}>{data.destination}</b></p>
+        </DetailDrawer>
+      );
+    }
+
+    if (kind === 'vendor') {
+      return (
+        <DetailDrawer open title={data.name} subtitle="Supplier scorecard" icon={<Star size={16} color="#F59E0B" />} accentColor="#F59E0B" onClose={closeDrawer}>
+          <DrawerStatRow items={[
+            { label: 'Spend (YTD)', value: `$${data.spendYtd}M` },
+            { label: 'On-Time Delivery', value: `${data.onTimeDeliveryPct}%`, color: '#00A36C' },
+            { label: 'Quality Score', value: `${data.qualityScore}/100` },
+          ]} />
+          <p style={{ fontSize: 10, color: DIM }}>All active purchase orders with {data.name} are visible in the Purchase Orders table above — filter by vendor there for the full history.</p>
+        </DetailDrawer>
+      );
+    }
+
+    if (kind === 'inventory') {
+      return (
+        <DetailDrawer open title={data.location} subtitle="Spares & inventory" icon={<Warehouse size={16} color="#10B981" />} accentColor="#10B981" onClose={closeDrawer}>
+          <DrawerStatRow items={[
+            { label: 'On Hand Value', value: `$${data.onHandValue}M` },
+            { label: 'On Hand Qty', value: data.onHandQty.toLocaleString() },
+            { label: 'Utilization', value: `${data.utilizationPct}%` },
+          ]} />
+        </DetailDrawer>
+      );
+    }
+
+    return <DetailDrawer open={false} onClose={closeDrawer} />;
+  }
+
   return (
     <div style={{ height: 'calc(100vh - 56px)', display: 'flex', flexDirection: 'column', overflow: 'hidden', background: BG }}>
 
@@ -245,7 +340,7 @@ export default function SupplyChainPage() {
               { iconKey: 'Search',      label: 'Track Shipment'        },
               { iconKey: 'FileCheck',   label: 'GRN (Goods Receipt)'   },
               { iconKey: 'Truck',       label: 'Create Supplier'       },
-              { iconKey: 'Download',    label: 'Export Inventory'      },
+              { iconKey: 'Download',    label: 'Export Inventory', onClick: handleExportInventory },
             ]} />
           </div>
 
@@ -331,6 +426,7 @@ export default function SupplyChainPage() {
                 columns={PO_COLS}
                 data={poPageData}
                 keyField="poNumber"
+                onRowDoubleClick={po => setDrawer({ kind: 'po', data: po })}
                 pagination={{ page: poPage, perPage: PER_PAGE, total: poTotal, onChange: setPoPage }}
                 style={{ flex: 1 }}
               />
@@ -346,6 +442,7 @@ export default function SupplyChainPage() {
                 columns={SHIP_COLS}
                 data={SHIPMENTS.filter(s => s.status === 'In Transit')}
                 keyField="shipmentId"
+                onRowDoubleClick={s => setDrawer({ kind: 'shipment', data: s })}
                 compact
               />
 
@@ -374,6 +471,7 @@ export default function SupplyChainPage() {
                 ]}
                 data={INVENTORY_BY_LOCATION}
                 keyField="location"
+                onRowDoubleClick={loc => setDrawer({ kind: 'inventory', data: loc })}
                 compact
                 style={{ flex: 1 }}
               />
@@ -392,6 +490,7 @@ export default function SupplyChainPage() {
                 ]}
                 data={VENDORS}
                 keyField="name"
+                onRowDoubleClick={v => setDrawer({ kind: 'vendor', data: v })}
                 compact
                 style={{ flex: 1 }}
               />
@@ -466,6 +565,9 @@ export default function SupplyChainPage() {
           <div style={{ height: 8, flexShrink: 0 }} />
         </div>
       </div>
+
+      {renderDrawer()}
+      <ToastHost />
     </div>
   );
 }

@@ -9,6 +9,8 @@ import ForecastChart       from '@/components/eai/widgets/ForecastChart';
 import AnomalyStatCard     from '@/components/eai/widgets/AnomalyStatCard';
 import QuickActionsMenu from '@/components/eai/widgets/QuickActionsMenu';
 import AIChatPanel         from '@/components/ai-chat/AIChatPanel';
+import { useToast }        from '@/components/eai/widgets/Toast';
+import { FileSpreadsheet, FileDown } from 'lucide-react';
 
 import {
   IC_KPIS, INSIGHTS, INSIGHT_CATEGORIES, RISK_HEATMAP, PREDICTIVE_FAILURES,
@@ -23,6 +25,28 @@ const KGPreview = dynamic(() => import('@/components/wiki/DCKnowledgeGraph'), {
     </div>
   ),
 });
+
+// ── export helpers (same pattern as Risk Signals / Global Portfolio) ────────
+async function exportWorkbook(sheets, filename) {
+  const XLSX = await import('xlsx');
+  const wb = XLSX.utils.book_new();
+  sheets.forEach(({ name, rows }) => {
+    const ws = XLSX.utils.json_to_sheet(rows);
+    XLSX.utils.book_append_sheet(wb, ws, name.slice(0, 31));
+  });
+  XLSX.writeFile(wb, filename);
+}
+async function exportCsv(rows, filename) {
+  const XLSX = await import('xlsx');
+  const ws = XLSX.utils.json_to_sheet(rows);
+  const csv = XLSX.utils.sheet_to_csv(ws);
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 
 // ─── shared styles ──────────────────────────────────────────────────────────────
 const CARD = {
@@ -83,6 +107,26 @@ export default function IntelligenceCenterPage() {
   const [activeSection, setActiveSection] = useState('overview');
   const [insightTab,    setInsightTab]    = useState('All Insights');
   const [forecastMetric] = useState('IT Power (MW)');
+  const [exportOpen, setExportOpen] = useState(false);
+  const { showToast, ToastHost } = useToast();
+
+  async function handleExport(kind) {
+    setExportOpen(false);
+    const dateStr = new Date().toISOString().slice(0, 10);
+    try {
+      if (kind === 'insights') {
+        const rows = INSIGHTS.map(i => ({ Severity: i.severity, Category: i.category, Title: i.title, Impact: i.impact, 'Affected Assets': i.affectedAssets ?? '', Date: i.date }));
+        await exportWorkbook([{ name: 'AI Insights', rows }], `intelligence-center-insights-${dateStr}.xlsx`);
+        showToast(`Exported ${rows.length} insights`, 'success');
+      } else if (kind === 'cost') {
+        const rows = COST_OPTIMIZATIONS.map(c => ({ Opportunity: c.opportunity, 'Potential Savings ($M)': c.potentialM }));
+        await exportCsv(rows, `intelligence-center-cost-optimizations-${dateStr}.csv`);
+        showToast(`Exported ${rows.length} cost-optimization opportunities`, 'success');
+      }
+    } catch {
+      showToast('Export failed — please try again', 'error');
+    }
+  }
 
   const filteredInsights = insightTab === 'All Insights'
     ? INSIGHTS
@@ -110,14 +154,30 @@ export default function IntelligenceCenterPage() {
               <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 12px', borderRadius: 8, background: '#F8FAFC', border: '1px solid #E2E8F0', cursor: 'pointer', color: '#6B7280', fontSize: 10 }}>
                 <Filter size={11} /> Filters
               </button>
-              <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 14px', borderRadius: 8, background: '#0077C8', border: 'none', cursor: 'pointer', color: '#fff', fontSize: 10, fontWeight: 600 }}>
-                <Download size={11} /> Export
-              </button>
+              <div style={{ position: 'relative' }}>
+                <button onClick={() => setExportOpen(o => !o)} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 14px', borderRadius: 8, background: '#0077C8', border: 'none', cursor: 'pointer', color: '#fff', fontSize: 10, fontWeight: 600 }}>
+                  <Download size={11} /> Export
+                </button>
+                {exportOpen && (
+                  <div style={{ position: 'absolute', top: 'calc(100% + 6px)', right: 0, zIndex: 400, width: 230, background: '#fff', border: '1px solid #E2E8F0', borderRadius: 10, boxShadow: '0 8px 24px rgba(16,24,40,0.12)', overflow: 'hidden' }}>
+                    {[
+                      { key: 'insights', label: 'AI Insights (XLSX)',           Icon: FileSpreadsheet },
+                      { key: 'cost',     label: 'Cost Optimizations (CSV)',     Icon: FileDown },
+                    ].map(({ key, label, Icon }) => (
+                      <button key={key} type="button" onClick={() => handleExport(key)}
+                        style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%', padding: '9px 12px', border: 'none', background: 'transparent', cursor: 'pointer', color: '#374151', fontSize: 11 }}
+                        onMouseEnter={e => e.currentTarget.style.background = '#F8FAFC'} onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
+                        <Icon size={12} style={{ color: '#0077C8' }} /> {label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
               <QuickActionsMenu items={[
                 { iconKey: 'MessageSquare',label: 'Ask AI Assistant'         },
                 { iconKey: 'GitFork',      label: 'Create What-if Scenario'  },
                 { iconKey: 'Eye',          label: 'View Active Alerts'       },
-                { iconKey: 'Download',     label: 'Export Report'            },
+                { iconKey: 'Download',     label: 'Export Report', onClick: () => handleExport('insights') },
                 { iconKey: 'Bell',         label: 'Schedule Alert'           },
               ]} />
             </div>
@@ -361,6 +421,7 @@ export default function IntelligenceCenterPage() {
 
         </div>{/* end scrollable */}
       </div>
+      <ToastHost />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { ChevronDown, Plus } from 'lucide-react';
+import { ChevronDown, Plus, User, Clock } from 'lucide-react';
 import {
   LineChart, Line, XAxis, YAxis,
   CartesianGrid, Tooltip, ResponsiveContainer,
@@ -13,6 +13,7 @@ import ListCard           from '@/components/eai/widgets/ListCard';
 import HorizontalBarList  from '@/components/eai/widgets/HorizontalBarList';
 import StatRowList        from '@/components/eai/widgets/StatRowList';
 import QuickActionsMenu from '@/components/eai/widgets/QuickActionsMenu';
+import DetailDrawer, { DrawerStatRow, DrawerPill } from '@/components/eai/widgets/DetailDrawer';
 
 import {
   KPIS, USER_ACTIVITY, USERS_BY_ROLE,
@@ -116,6 +117,8 @@ const TICKET_ICON_MAP = {
 // ─── Page ──────────────────────────────────────────────────────────────────────
 export default function AdministrationPage() {
   const [activeSection, setActiveSection] = useState('overview');
+  const [drawer, setDrawer] = useState(null); // { kind: 'user'|'audit', data }
+  const closeDrawer = () => setDrawer(null);
 
   // StatRowList item arrays built from mock data
   const healthItems = SYSTEM_HEALTH.map(h => ({
@@ -145,6 +148,39 @@ export default function AdministrationPage() {
     { label: 'License Expiry',     value: LICENSES_USAGE.licenseExpiry, valueColor: '#EF4444'                                 },
     { label: 'Auto Renewal',       toggle: true, toggleInitial: LICENSES_USAGE.autoRenewal                                   },
   ];
+
+  // ── Drawer content, by kind ────────────────────────────────────────────────
+  function renderDrawer() {
+    if (!drawer) return <DetailDrawer open={false} onClose={closeDrawer} />;
+    const { kind, data } = drawer;
+
+    if (kind === 'user') {
+      const s = USER_STATUS[data.status] ?? USER_STATUS.Active;
+      return (
+        <DetailDrawer open title={data.name} subtitle={data.email} icon={<User size={16} color="#0077C8" />} accentColor="#0077C8" onClose={closeDrawer}>
+          <DrawerStatRow items={[
+            { label: 'Role', value: data.role },
+            { label: 'Status', value: <DrawerPill label={data.status} color={s.color} /> },
+          ]} />
+          <p style={{ fontSize: 10, color: '#6B7280' }}>Last login <b style={{ color: '#1A1F36' }}>{data.lastLogin}</b></p>
+        </DetailDrawer>
+      );
+    }
+
+    if (kind === 'audit') {
+      return (
+        <DetailDrawer open title={data.action} subtitle={data.time} icon={<Clock size={16} color="#7C3AED" />} accentColor="#7C3AED" onClose={closeDrawer}>
+          <DrawerStatRow items={[
+            { label: 'User', value: data.user },
+            { label: 'IP Address', value: data.ipAddress },
+          ]} />
+          <p style={{ fontSize: 10, color: '#6B7280' }}>Resource affected: <b style={{ color: '#1A1F36' }}>{data.resource}</b></p>
+        </DetailDrawer>
+      );
+    }
+
+    return <DetailDrawer open={false} onClose={closeDrawer} />;
+  }
 
   return (
     <div style={{ display: 'flex', height: 'calc(100vh - 56px)', overflow: 'hidden' }}>
@@ -285,6 +321,7 @@ export default function AdministrationPage() {
                 columns={USER_COLS}
                 data={RECENT_USERS}
                 keyField="id"
+                onRowDoubleClick={u => setDrawer({ kind: 'user', data: u })}
                 compact
               />
               <a href="#" style={{ ...LINK_STYLE, paddingLeft: 2 }}>Manage users →</a>
@@ -330,6 +367,7 @@ export default function AdministrationPage() {
                 columns={AUDIT_COLS}
                 data={AUDIT_LOGS}
                 keyField="id"
+                onRowDoubleClick={a => setDrawer({ kind: 'audit', data: a })}
                 compact
               />
               <a href="#" style={{ ...LINK_STYLE, paddingLeft: 2 }}>View all audit logs →</a>
@@ -379,6 +417,8 @@ export default function AdministrationPage() {
           </div>
         </div>
       </div>
+
+      {renderDrawer()}
     </div>
   );
 }
